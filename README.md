@@ -1,4 +1,4 @@
-# x-flowchart
+# X-Flowchart
 
 > A flowchart editor plugin based on vue.
 
