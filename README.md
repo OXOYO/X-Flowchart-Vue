@@ -1,36 +1,24 @@
 # x-flowchart
 
-> X-Flowchart
+> A flowchart editor plugin based on vue.
 
-## Build Setup
+## Version
+
+[v2.0.0](https://github.com/OXOYO/X-Flowchart-Vue/tree/master)【开发中...】
+
+[v1.0.0](https://github.com/OXOYO/X-Flowchart-Vue/tree/v1.0.0)
+
+## Example
 
 ``` bash
+# git clone https://github.com/OXOYO/X-Flowchart-Vue.git
+
 # install dependencies
 npm install
 
 # serve with hot reload at localhost:8080
 npm run dev
-
-# build for production with minification
-npm run build
-
-# build for production and view the bundle analyzer report
-npm run build --report
-
-# run unit tests
-npm run unit
-
-# run e2e tests
-npm run e2e
-
-# run all tests
-npm test
 ```
-
-For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
-
-## Preview
-![Flowchart](docs/images/img_001.png "Flowchart")
 
 ## TODO
   v2.0.0
