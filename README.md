@@ -4,9 +4,11 @@
 
 ## Version
 
-[v2.0.0](https://github.com/OXOYO/X-Flowchart-Vue/tree/master)【开发中...】
 
-[v1.0.0](https://github.com/OXOYO/X-Flowchart-Vue/tree/v1.0.0)
+| XFC |
+| :-------- |
+| [v2.0.0](https://github.com/OXOYO/X-Flowchart-Vue/tree/master) |
+| [v1.0.0](https://github.com/OXOYO/X-Flowchart-Vue/tree/v1.0.0) |
 
 ## Example
 
@@ -22,10 +24,10 @@ npm run dev
 
 ## TODO
   v2.0.0
-- [ ] `***` **重构**：基于 `Vue plugin` 重构。
-- [ ] `***` **自定义**：基于 `props` 实现较高自由度的 `config` 配置。
-- [ ] `**`  **优化 界面**：交互效果提升。
-- [ ] `**`  **优化 组件**：颗粒度更细。
+- [x] `***` **重构**：基于 `Vue plugin` 重构。
+- [x] `***` **自定义**：基于 `props` 实现较高自由度的 `config` 配置。
+- [x] `**`  **优化 界面**：交互效果提升。
+- [x] `**`  **优化 组件**：颗粒度更细。
 - [ ] `**`  **优化 路径规划逻辑**：通过路径规划算法等方法实现较好的路径表现效果。
 - [ ] `**`  **优化 数据结构**。
 - [ ] `**`  **优化 导出**：支持导出为图片、`JSON`。

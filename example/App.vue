@@ -5,7 +5,10 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #2c3e50;
-    margin-top: 60px;
+  }
+  .x-flowchart-example {
+    width: 100%;
+    height: 800px;
   }
 </style>
 
@@ -18,19 +21,16 @@
         alt="Fork me on GitHub"
       >
     </a>
-    <img src="./assets/logo.png">
-    <!--<HelloWorld/>-->
-    <XFlowchart></XFlowchart>
+    <div class="x-flowchart-example">
+      <!-- XFlowchart -->
+      <XFlowchart></XFlowchart>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld'
 
 export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
+  name: 'App'
 }
 </script>
