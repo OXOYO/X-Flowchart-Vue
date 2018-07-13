@@ -56,7 +56,7 @@
 import '@/global/icon/iconfont.css'
 
 import XFCHeader from './Header'
-import XFCList from './List.vue'
+import XFCList from './List'
 import XFCBoard from './Board'
 import XFCOptions from './Options.vue'
 import XFCFooter from './Footer.vue'

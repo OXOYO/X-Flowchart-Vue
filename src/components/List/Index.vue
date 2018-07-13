@@ -74,22 +74,16 @@
       </div>
     </div>
     <div class="block_body">
-      <!--
-      <div
-        class="list_item"
-        v-for="(value, key) in config.data"
-        :key="key"
-      >
-        {{ key }}
-      </div>
-      -->
-      <slot></slot>
+      <slot>
+        <XFCListItem></XFCListItem>
+      </slot>
     </div>
     <XFCHandler class="handler" mode="vertical" position="right" :expand="isExpand" :callback="toggleHandler"></XFCHandler>
   </div>
 </template>
 
 <script>
+import XFCListItem from './components/ListItem.vue'
 import XFCHandler from '@/global/components/Handler.vue'
 
 import defConfig from '@/config'
@@ -98,6 +92,7 @@ import utils from '@/global/utils'
 export default {
   name: 'XFCList',
   components: {
+    XFCListItem,
     XFCHandler
   },
   props: {

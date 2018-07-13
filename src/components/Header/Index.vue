@@ -16,7 +16,7 @@
     margin-top: -49px;
     border-bottom: 1px solid #dddddd;
     display: inline-block;
-    z-index: 2500;
+    z-index: 3000;
     background: #ffffff;
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.1);
     transition: all .5s ease-in .1s;

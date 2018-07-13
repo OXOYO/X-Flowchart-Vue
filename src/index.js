@@ -23,9 +23,11 @@ import 'iview/dist/styles/iview.css'
 import XFlowchart from './components/Index.vue'
 import XFCIcon from './ui/Icon.vue'
 import './styles/main.less'
-
+// 导入物料
+import materials from './materials/index.js'
 const XFC = {}
-const prefix = 'XUI'
+const uiPrefix = 'XUI'
+const materialPrefix = 'XM'
 
 XFC.installed = false
 XFC.install = function (Vue) {
@@ -34,20 +36,24 @@ XFC.install = function (Vue) {
   }
 
   // 注册UI组件
-  Vue.component(prefix + 'Button', Button)
-  Vue.component(prefix + 'Icon', Icon)
-  Vue.component(prefix + 'Form', Form)
-  Vue.component(prefix + 'FormItem', FormItem)
-  Vue.component(prefix + 'Modal', Modal)
-  Vue.component(prefix + 'Input', Input)
-  Vue.component(prefix + 'InputNumber', InputNumber)
-  Vue.component(prefix + 'RadioGroup', RadioGroup)
-  Vue.component(prefix + 'Radio', Radio)
-  Vue.component(prefix + 'Switch', Switch)
-  Vue.component(prefix + 'Collapse', Collapse)
-  Vue.component(prefix + 'Panel', Panel)
-  Vue.component(prefix + 'Spin', Spin)
-  Vue.component(prefix + 'Tooltip', Tooltip)
+  Vue.component(uiPrefix + 'Button', Button)
+  Vue.component(uiPrefix + 'Icon', Icon)
+  Vue.component(uiPrefix + 'Form', Form)
+  Vue.component(uiPrefix + 'FormItem', FormItem)
+  Vue.component(uiPrefix + 'Modal', Modal)
+  Vue.component(uiPrefix + 'Input', Input)
+  Vue.component(uiPrefix + 'InputNumber', InputNumber)
+  Vue.component(uiPrefix + 'RadioGroup', RadioGroup)
+  Vue.component(uiPrefix + 'Radio', Radio)
+  Vue.component(uiPrefix + 'Switch', Switch)
+  Vue.component(uiPrefix + 'Collapse', Collapse)
+  Vue.component(uiPrefix + 'Panel', Panel)
+  Vue.component(uiPrefix + 'Spin', Spin)
+  Vue.component(uiPrefix + 'Tooltip', Tooltip)
+  // 注册物料
+  Object.keys(materials).map(key => {
+    Vue.component(materialPrefix + key, materials[key])
+  })
   // 注册XFlowchart
   Vue.component('XFlowchart', XFlowchart)
   Vue.component('XFCIcon', XFCIcon)
