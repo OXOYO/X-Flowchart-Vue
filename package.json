@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "iview": "^2.14.3",
+    "p5": "^0.7.2",
     "vue": "^2.5.2"
   },
   "devDependencies": {

@@ -20,7 +20,7 @@
 
 <script>
 export default {
-  name: 'XMRectangle',
+  name: 'XMText',
   methods: {
     sketch: function (sketch) {
       console.log('sketch', sketch)
@@ -28,9 +28,10 @@ export default {
         sketch.createCanvas(30, 30)
       }
       sketch.draw = function () {
-        sketch.fill(255)
-        sketch.strokeWeight(2)
-        sketch.rect(1, 1, 28, 28)
+        sketch.textSize(30)
+        sketch.fill('#000000')
+        sketch.textAlign(sketch.LEFT, sketch.TOP)
+        sketch.text('T', 7, -5)
       }
     }
   }

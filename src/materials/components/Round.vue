@@ -20,17 +20,18 @@
 
 <script>
 export default {
-  name: 'XMRectangle',
+  name: 'XMRound',
   methods: {
     sketch: function (sketch) {
       console.log('sketch', sketch)
       sketch.setup = function () {
         sketch.createCanvas(30, 30)
+        sketch.background('red')
       }
       sketch.draw = function () {
-        sketch.fill(255)
+        // sketch.fill('red')
         sketch.strokeWeight(2)
-        sketch.rect(1, 1, 28, 28)
+        sketch.ellipse(15, 15, 26, 26)
       }
     }
   }

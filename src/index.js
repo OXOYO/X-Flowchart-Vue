@@ -23,11 +23,14 @@ import 'iview/dist/styles/iview.css'
 import XFlowchart from './components/Index.vue'
 import XFCIcon from './ui/Icon.vue'
 import './styles/main.less'
+
+import P5 from './global/components/P5.vue'
+import Config from './config.js'
 // 导入物料
 import materials from './materials/index.js'
 const XFC = {}
-const uiPrefix = 'XUI'
-const materialPrefix = 'XM'
+const uiPrefix = Config.prefix.ui
+const materialPrefix = Config.prefix.material
 
 XFC.installed = false
 XFC.install = function (Vue) {
@@ -57,6 +60,7 @@ XFC.install = function (Vue) {
   // 注册XFlowchart
   Vue.component('XFlowchart', XFlowchart)
   Vue.component('XFCIcon', XFCIcon)
+  Vue.component('P5', P5)
   XFC.installed = true
 }
 

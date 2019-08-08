@@ -35,10 +35,12 @@
         .menu-group-body {
 
           .menu-item {
+            display: inline-block;
+            margin: 2px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
-            padding: 14px 24px 14px 34px;
+            /*padding: 14px 24px 14px 34px;*/
             position: relative;
             cursor: pointer;
             transition: all .2s ease-in-out;
@@ -64,7 +66,7 @@
       >
         <div class="menu-group-header">{{ category.title }}</div>
         <div class="menu-group-body">
-          <div
+          <!--<div
             class="menu-item"
             v-for="component in category.children"
             :key="component.name"
@@ -74,7 +76,20 @@
           >
             <XFCIcon :type="component.icon"></XFCIcon>
             {{ component.title }}
-          </div>
+          </div>-->
+          <component
+            class="menu-item"
+            v-for="(component, index) in category.children"
+            :key="index"
+            :name="component.name"
+            :is="component.name"
+            :title="component.title || component.name"
+            draggable="true"
+            @dragstart.native="handleDragStart(component, $event)"
+          >
+            <XFCIcon :type="component.icon"></XFCIcon>
+            {{ component.title }}
+          </component>
         </div>
       </div>
     </div>
@@ -82,12 +97,14 @@
 </template>
 
 <script>
+import Config from '@/config.js'
 import navigate from '../config/navigate'
 
 export default {
   name: 'XFCListItem',
   data () {
     return {
+      Config,
       navigate,
       lang: this.$lang
     }

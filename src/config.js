@@ -7,6 +7,11 @@
 export default {
   // 命名空间
   namespace: 'XFC',
+  // 前缀
+  prefix: {
+    ui: 'XUI',
+    material: 'XM'
+  },
   // 自定义编辑器内相关UI
   UI: {
     // 编辑器功能：头部组件
