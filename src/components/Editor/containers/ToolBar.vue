@@ -145,7 +145,8 @@
             @click.native="handleToolClick(item, type)"
           >
             <template v-slot:label>
-              <XIcon :type="item.icon" :title="$t(item.lang)"></XIcon>
+              <XIcon v-if="item.icon" :type="item.icon" :title="$t(item.lang)"></XIcon>
+              <span v-else>{{ $t(item.lang) }}</span>
             </template>
           </ToolItem>
           <Divider :key="'tool_' + type + '_divider_' + index" v-if="item.divider" type="vertical" style="height: 100%;" />
@@ -189,10 +190,10 @@
         return {
           left: [
             {
-              name: 'add',
-              label: 'Add',
+              name: 'logo',
+              label: 'logo',
               lang: '',
-              icon: 'add',
+              icon: 'logo',
               enable: true,
               divider: false
             }
@@ -692,19 +693,12 @@
           ],
           right: [
             {
-              name: 'back',
-              label: 'Back',
+              name: 'github',
+              label: 'github',
               lang: '',
-              icon: 'back',
-              enable: true,
-              divider: false
-            },
-            {
-              name: 'close',
-              label: 'Close',
-              lang: '',
-              icon: 'close',
-              enable: true,
+              icon: 'github',
+              link: '',
+              enable: false,
               divider: false
             }
           ]

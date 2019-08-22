@@ -46,7 +46,6 @@
     },
     data () {
       return {
-        isShow: false,
         editorInfo: {},
         defInfo: {
           // 编辑器状态：add || edit || preview
@@ -63,7 +62,10 @@
         let navigator = el.querySelector('#navigator')
         console.log('sketchpad', sketchpad, sketchpad.clientWidth, sketchpad.clientHeight)
         console.log('navigator', navigator, navigator.clientWidth, navigator.clientHeight)
-        let size = [navigator.clientWidth, parseInt(navigator.clientWidth * sketchpad.clientHeight / sketchpad.clientWidth)]
+        let size = [
+          navigator.clientWidth,
+          parseInt(navigator.clientWidth * sketchpad.clientHeight / sketchpad.clientWidth)
+        ]
         console.log('size', size)
         const minimap = new Minimap({
           container: navigator,
@@ -418,28 +420,14 @@
           ..._t.defInfo,
           ...data
         }
-      },
-      doShow () {
-        let _t = this
-        _t.isShow = true
-      },
-      doHide () {
-        let _t = this
-        _t.isShow = false
       }
     },
     created () {
       let _t = this
-      // 监听事件
-      _t.$X.utils.bus.$on('board/materials/editor/show', function (data) {
-        _t.doShow()
-        // 处理操作类型，初始化编辑器
-        _t.initInfo(data)
-      })
-      _t.$X.utils.bus.$on('board/materials/editor/create', function () {
-        // FIXME 设置500ms延时，用于等待transition结束
-        setTimeout(_t.init, 600)
-      })
+      // 处理操作类型，初始化编辑器
+      _t.initInfo()
+      _t.$nextTick(_t.init)
+
       _t.$X.utils.bus.$on('board/materials/editor/add/node', _t.doAddNode)
       _t.$X.utils.bus.$on('board/materials/editor/tool/trigger', _t.handleToolTrigger)
       _t.$X.utils.bus.$on('board/materials/editor/currentItem/update', function (data) {

@@ -8,6 +8,7 @@ import './registerServiceWorker'
 import utils from './global/utils'
 import components from './global/components'
 import config from './config'
+import './assets/styles/main.less'
 
 // Vue 全局配置
 let isDev = process && process.env.NODE_ENV !== 'production'
