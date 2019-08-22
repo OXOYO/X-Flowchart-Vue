@@ -17,10 +17,10 @@
 # git clone https://github.com/OXOYO/X-Flowchart-Vue.git
 
 # install dependencies
-npm install
+yarn install
 
-# serve with hot reload at localhost:8080
-npm run dev
+### Compiles and hot-reloads for development
+yarn run serve
 ```
 
 ## TODO

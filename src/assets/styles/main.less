@@ -1,0 +1,44 @@
+@import '~iview/src/styles/index.less';
+@import url('../iconfont/iconfont.css');
+
+// Here are the variables to cover, such as:
+@border-radius-base     : 0;
+@border-radius-small    : 0;
+@btn-border-radius      : 0;
+@btn-border-radius-small: 0;
+
+.ivu-radio-inner {
+  &:after {
+    border-radius: 6px;
+  }
+}
+
+html {
+  height: 100%;
+  width: 100%;
+}
+body {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.clear {
+  clear: both;
+}
+
+.x-fade-enter-active {
+  transition: all .2s ease;
+}
+.x-fade-leave-active {
+  transition: all .2s ease;
+}
+
+.view {
+  display: inline-block;
+}
