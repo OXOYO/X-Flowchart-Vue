@@ -5,14 +5,14 @@
  */
 
 export default {
-  version: '1.0.0',
-  name: 'XBoard',
-  title: 'XBoard',
-  subtitle: 'XBoard',
-  minTitle: 'XBoard',
+  version: '3.0.0',
+  name: 'XFC',
+  title: 'XFC',
+  subtitle: 'XFC',
+  minTitle: 'XFC',
   logo: require('../assets/images/logo.png'),
-  github: 'https://github.com/OXOYO/XBoard',
-  githubPages: 'https://oxoyo.github.io/XBoard/',
-  feedback: 'https://github.com/OXOYO/XBoard/issues/new',
+  github: 'https://github.com/OXOYO/X-Flowchart-Vue',
+  githubPages: 'http://oxoyo.co/X-Flowchart-Vue/',
+  feedback: 'https://github.com/OXOYO/X-Flowchart-Vue/issues/new',
   copyright: '© 2019 OXOYO All Rights Reserved.'
 }

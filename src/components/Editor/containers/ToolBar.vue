@@ -49,9 +49,22 @@
     <template v-for="(type, typeIndex) in Object.keys(toolMap)">
       <ToolBox :key="typeIndex" :class="type">
         <template v-for="(item, index) in toolMap[type].filter(target => target.enable)">
-          <!-- 颜色 -->
+          <!-- 文本 -->
           <ToolItem
-            v-if="['fill', 'lineColor'].includes(item.name)"
+            v-if="item.type === 'text'"
+            :key="'tool_' + type + '_item_' + index"
+            :active="item.active"
+            :disabled="item.disabled"
+            @click.native="handleToolClick(item, type)"
+          >
+            <template v-slot:label>
+              <XIcon v-if="item.icon" :type="item.icon" :title="$t(item.lang)"></XIcon>
+              <span v-else>{{ $t(item.lang) }}</span>
+            </template>
+          </ToolItem>
+          <!-- 下拉颜色 -->
+          <ToolItem
+            v-if="item.type === 'dorpdown-color-picker'"
             :key="'tool_' + type + '_item_' + index"
             :active="item.active"
             :disabled="item.disabled"
@@ -84,9 +97,9 @@
               </template>
             </template>
           </ToolItem>
-          <!-- 下拉 -->
+          <!-- 下拉列表 -->
           <ToolItem
-            v-else-if="item.children"
+            v-if="item.type === 'dorpdown-list'"
             :key="'tool_' + type + '_item_' + index"
             :active="item.active"
             :disabled="item.disabled"
@@ -137,8 +150,24 @@
               </template>
             </template>
           </ToolItem>
+          <!-- link -->
           <ToolItem
-            v-else
+            v-if="item.type === 'link'"
+            :key="'tool_' + type + '_item_' + index"
+            :active="item.active"
+            :disabled="item.disabled"
+            @click.native="handleToolClick(item, type)"
+          >
+            <template v-slot:label>
+              <a :href="item.link" target="_blank" style="color: #333333;">
+                <XIcon v-if="item.icon" :type="item.icon" :title="$t(item.lang)"></XIcon>
+                <span v-else>{{ $t(item.lang) }}</span>
+              </a>
+            </template>
+          </ToolItem>
+          <!-- 常规 -->
+          <ToolItem
+            v-if="item.type === 'normal'"
             :key="'tool_' + type + '_item_' + index"
             :active="item.active"
             :disabled="item.disabled"
@@ -192,8 +221,9 @@
             {
               name: 'logo',
               label: 'logo',
-              lang: '',
-              icon: 'logo',
+              lang: 'L10000',
+              type: 'text',
+              icon: '',
               enable: true,
               divider: false
             }
@@ -202,7 +232,8 @@
             {
               name: 'undo',
               label: 'Undo',
-              lang: 'L10007',
+              lang: 'L10001',
+              type: 'normal',
               icon: 'undo',
               enable: true,
               disabled: _t.mode === 'preview',
@@ -211,7 +242,8 @@
             {
               name: 'redo',
               label: 'Redo',
-              lang: 'L10008',
+              lang: 'L10002',
+              type: 'normal',
               icon: 'redo',
               enable: true,
               disabled: _t.mode === 'preview',
@@ -220,7 +252,8 @@
             {
               name: 'copy',
               label: 'Copy',
-              lang: '',
+              lang: 'L10003',
+              type: 'normal',
               icon: 'copy',
               enable: true,
               disabled: _t.mode === 'preview',
@@ -229,7 +262,8 @@
             {
               name: 'paste',
               label: 'Paste',
-              lang: '',
+              lang: 'L10004',
+              type: 'normal',
               icon: 'paste',
               enable: true,
               disabled: _t.mode === 'preview',
@@ -238,7 +272,8 @@
             {
               name: 'clear',
               label: 'Clear',
-              lang: '',
+              lang: 'L10005',
+              type: 'normal',
               icon: 'clear',
               enable: true,
               disabled: _t.mode === 'preview',
@@ -247,7 +282,8 @@
             {
               name: 'zoomIn',
               label: 'Zoom In',
-              lang: '',
+              lang: 'L10006',
+              type: 'normal',
               icon: 'zoom-in',
               enable: true,
               disabled: false,
@@ -256,7 +292,8 @@
             {
               name: 'zoomOut',
               label: 'Zoom Out',
-              lang: '',
+              lang: 'L10007',
+              type: 'normal',
               icon: 'zoom-out',
               enable: true,
               disabled: false,
@@ -265,7 +302,8 @@
             {
               name: 'fit',
               label: 'Fit',
-              lang: '',
+              lang: 'L10008',
+              type: 'normal',
               icon: 'fit',
               enable: true,
               disabled: false,
@@ -274,7 +312,8 @@
             {
               name: 'actualSize',
               label: 'Actual Size',
-              lang: '',
+              lang: 'L10009',
+              type: 'normal',
               icon: 'actual-size',
               enable: true,
               disabled: false,
@@ -283,7 +322,8 @@
             {
               name: 'fill',
               label: 'fill',
-              lang: '',
+              lang: 'L10011',
+              type: 'dropdown-color-picker',
               icon: 'fill',
               enable: true,
               disabled: _t.mode === 'preview',
@@ -292,7 +332,8 @@
             {
               name: 'lineColor',
               label: 'line color',
-              lang: '',
+              lang: 'L10012',
+              type: 'dropdown-color-picker',
               icon: 'line-color',
               enable: true,
               disabled: _t.mode === 'preview',
@@ -301,7 +342,8 @@
             {
               name: 'lineWidth',
               label: 'line width',
-              lang: '',
+              lang: 'L10013',
+              type: 'dropdown-list',
               icon: 'line-width',
               enable: true,
               disabled: _t.mode === 'preview',
@@ -405,7 +447,8 @@
             {
               name: 'lineStyle',
               label: 'line style',
-              lang: '',
+              lang: 'L10014',
+              type: 'dropdown-list',
               icon: 'line-style',
               enable: true,
               disabled: _t.mode === 'preview',
@@ -446,11 +489,12 @@
             {
               name: 'lineType',
               label: 'line type',
-              lang: '',
+              lang: 'L10015',
+              type: 'dropdown-list',
               icon: '',
               enable: true,
               disabled: _t.mode === 'preview',
-              divider: true,
+              divider: false,
               // 默认选中项index
               selected: _t.selected.lineType,
               // 子节点
@@ -487,11 +531,12 @@
             {
               name: 'startArrow',
               label: 'start arrow',
-              lang: '',
+              lang: 'L10016',
+              type: 'dropdown-list',
               icon: '',
               enable: true,
               disabled: _t.mode === 'preview',
-              divider: true,
+              divider: false,
               // 默认选中项index
               selected: _t.selected.startArrow,
               // 子节点
@@ -554,7 +599,8 @@
             {
               name: 'endArrow',
               label: 'end arrow',
-              lang: '',
+              lang: 'L10017',
+              type: 'dropdown-list',
               icon: '',
               enable: true,
               disabled: _t.mode === 'preview',
@@ -628,19 +674,21 @@
               ]
             },
             {
-              name: 'toBack',
-              label: 'To Back',
-              lang: '',
-              icon: 'to-back',
+              name: 'toFront',
+              label: 'To Front',
+              lang: 'L10018',
+              type: 'normal',
+              icon: 'to-front',
               enable: true,
               disabled: _t.mode === 'preview',
               divider: false
             },
             {
-              name: 'toFront',
-              label: 'To Front',
-              lang: '',
-              icon: 'to-front',
+              name: 'toBack',
+              label: 'To Back',
+              lang: 'L10019',
+              type: 'normal',
+              icon: 'to-back',
               enable: true,
               disabled: _t.mode === 'preview',
               divider: true
@@ -648,7 +696,8 @@
             {
               name: 'marquee',
               label: 'Marquee',
-              lang: 'L10002',
+              lang: 'L10020',
+              type: 'normal',
               icon: 'marquee',
               enable: true,
               disabled: _t.mode === 'preview',
@@ -657,7 +706,8 @@
             {
               name: 'group',
               label: 'Group',
-              lang: '',
+              lang: 'L10021',
+              type: 'normal',
               icon: 'group',
               enable: true,
               disabled: _t.mode === 'preview',
@@ -666,7 +716,8 @@
             {
               name: 'ungroup',
               label: 'Ungroup',
-              lang: '',
+              lang: 'L10022',
+              type: 'normal',
               icon: 'ungroup',
               enable: true,
               disabled: _t.mode === 'preview',
@@ -675,7 +726,8 @@
             {
               name: 'edit',
               label: 'edit',
-              lang: '',
+              lang: 'L10023',
+              type: 'normal',
               icon: 'edit',
               enable: _t.mode === 'preview',
               disabled: false,
@@ -684,9 +736,30 @@
             {
               name: 'preview',
               label: 'preview',
-              lang: '',
+              lang: 'L10024',
+              type: 'normal',
               icon: 'preview',
               enable: _t.mode === 'edit',
+              disabled: false,
+              divider: false
+            },
+            {
+              name: 'fullscreen',
+              label: 'fullscreen',
+              lang: 'L10025',
+              type: 'normal',
+              icon: 'full-screen',
+              enable: true,
+              disabled: false,
+              divider: false
+            },
+            {
+              name: 'language',
+              label: 'language',
+              lang: 'L10026',
+              type: 'dropdown-list',
+              icon: 'language',
+              enable: true,
               disabled: false,
               divider: false
             }
@@ -695,10 +768,21 @@
             {
               name: 'github',
               label: 'github',
-              lang: '',
+              lang: 'L10027',
+              type: 'link',
               icon: 'github',
-              link: '',
-              enable: false,
+              link: _t.$X.config.system.github,
+              enable: true,
+              divider: false
+            },
+            {
+              name: 'feedback',
+              label: 'feedback',
+              lang: 'L10028',
+              type: 'link',
+              icon: 'feedback',
+              link: _t.$X.config.system.feedback,
+              enable: true,
               divider: false
             }
           ]
