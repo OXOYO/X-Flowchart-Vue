@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     editor: {
       currentItem: {
+        id: null,
         type: null,
         model: null
       },
@@ -25,6 +26,6 @@ export default new Vuex.Store({
 
   },
   getters: {
-    urrentItem: state => state.editor.currentItem
+    currentItem: state => state.editor.currentItem
   }
 })

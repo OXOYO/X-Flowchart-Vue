@@ -274,8 +274,8 @@
         }
         // 广播事件
         _t.$X.utils.bus.$emit('board/materials/editor/currentItem/update', {
-          type: _t.currentItem.type,
           id: _t.currentItem.model.id,
+          type: _t.currentItem.type,
           model: model
         })
       }

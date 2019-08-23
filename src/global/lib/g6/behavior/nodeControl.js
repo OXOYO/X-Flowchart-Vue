@@ -54,9 +54,11 @@ export default {
     },
     onNodeMousedown (event) {
       let _t = this
+      let model = event.item.getModel()
       _t.graph.emit('editor:getItem', {
         type: 'node',
-        model: event.item.getModel()
+        id: model.id,
+        model: model
       })
       // 初始化数据
       _t.info = {

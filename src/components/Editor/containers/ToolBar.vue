@@ -64,7 +64,7 @@
           </ToolItem>
           <!-- 下拉颜色 -->
           <ToolItem
-            v-if="item.type === 'dorpdown-color-picker'"
+            v-if="item.type === 'dropdown-color-picker'"
             :key="'tool_' + type + '_item_' + index"
             :active="item.active"
             :disabled="item.disabled"
@@ -186,6 +186,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   import ToolBox from '../../ToolBox/Index'
   import ToolItem from '../../ToolBox/ToolItem'
   import config from '../config/index'
@@ -214,6 +216,9 @@
       }
     },
     computed: {
+      ...mapGetters([
+        'currentItem'
+      ]),
       toolMap () {
         let _t = this
         return {
@@ -838,6 +843,10 @@
               let color = val.hex8
               _t.formData[item.name] = color
               data = color
+              break
+            case 'toFront':
+            case 'toBack':
+              data = _t.currentItem
               break
           }
           _t.$X.utils.bus.$emit('board/materials/editor/tool/trigger', {
