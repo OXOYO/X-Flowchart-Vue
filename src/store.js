@@ -18,7 +18,7 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    'board/materials/editor/currentItem/update': (state, data) => {
+    'editor/currentItem/update': (state, data) => {
       state.editor.currentItem = data
     }
   },

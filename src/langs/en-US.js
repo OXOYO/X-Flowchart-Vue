@@ -29,6 +29,7 @@ export default {
   L10021: 'Add group',
   L10022: 'Ungroup',
   L10023: 'Edit',
+  L10024: 'Preview',
   L10025: 'Full screen',
   L10026: 'Language',
   L10027: 'Github',

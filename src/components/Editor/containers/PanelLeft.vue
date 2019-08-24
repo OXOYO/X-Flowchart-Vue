@@ -16,7 +16,7 @@
 </style>
 
 <template>
-  <CardBox class="panel-left" placement="left" :width="250">
+  <CardBox class="panel-left" placement="left" position="right" :width="250">
     <CardItem>
       <NodeElement
         v-for="(item, index) in materials.filter(target => target.enable)"

@@ -13,15 +13,15 @@ import en from './en-US'
 
 export default {
   label: {
-    'zh-cn': '简体中文',
-    'en-us': 'English'
+    'zh-CN': '简体中文',
+    'en-US': 'English'
   },
   icon: {
-    'zh-cn': require('../assets/images/langs/zh-cn.png'),
-    'en-us': require('../assets/images/langs/en-us.png')
+    'zh-CN': require('../assets/images/langs/zh-CN.png'),
+    'en-US': require('../assets/images/langs/en-US.png')
   },
   data: {
-    'zh-cn': { ..._zh, ...zh },
-    'en-us': { ..._en, ...en }
+    'zh-CN': { ..._zh, ...zh },
+    'en-US': { ..._en, ...en }
   }
 }

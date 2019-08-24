@@ -7,7 +7,7 @@
 <style scoped lang="less" rel="stylesheet/less"></style>
 
 <template>
-  <CardBox placement="right" :width="300">
+  <CardBox placement="right" position="left" :width="300">
     <!-- FIXME 暂时注掉Options配置面板，该功能与ToolBar存在高度耦合 -->
     <!--
     <CardItem title="配置" :enableFold="true">

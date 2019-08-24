@@ -10,13 +10,15 @@
     width: 100%;
     height: 100%;
     user-select: none;
+    overflow: hidden;
+    background: #D4D5D9;
   }
 </style>
 
 <template>
   <div class="materials-editor">
     <ToolBar></ToolBar>
-    <Sketchpad></Sketchpad>
+    <Sketchpad @dblclick.native="ondblclickPad"></Sketchpad>
     <PanelLeft></PanelLeft>
     <PanelRight></PanelRight>
     <!--<ContextMenu></ContextMenu>-->
@@ -147,7 +149,7 @@
         _t.editor.on('edge:mousedown', _t._edgeMousedown)
         _t.editor.on('editor:getItem', function (data) {
           console.log('editor:getItem', JSON.stringify(data))
-          _t.$store.commit('board/materials/editor/currentItem/update', data)
+          _t.$store.commit('editor/currentItem/update', data)
         })
         _t.editor.on('editor:setItem', function (data) {
           console.log('editor:setItem', JSON.stringify(data))
@@ -431,6 +433,10 @@
           ..._t.defInfo,
           ...data
         }
+      },
+      ondblclickPad () {
+        let _t = this
+        _t.$X.utils.bus.$emit('editor/pad/dblclick')
       }
     },
     created () {
@@ -439,9 +445,9 @@
       _t.initInfo()
       _t.$nextTick(_t.init)
 
-      _t.$X.utils.bus.$on('board/materials/editor/add/node', _t.doAddNode)
-      _t.$X.utils.bus.$on('board/materials/editor/tool/trigger', _t.handleToolTrigger)
-      _t.$X.utils.bus.$on('board/materials/editor/currentItem/update', function (data) {
+      _t.$X.utils.bus.$on('editor/add/node', _t.doAddNode)
+      _t.$X.utils.bus.$on('editor/tool/trigger', _t.handleToolTrigger)
+      _t.$X.utils.bus.$on('editor/currentItem/update', function (data) {
         _t.editor.emit('editor:setItem', data)
       })
     }

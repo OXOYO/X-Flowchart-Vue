@@ -273,7 +273,7 @@
           size: [ _t.formData.width, _t.formData.height ]
         }
         // 广播事件
-        _t.$X.utils.bus.$emit('board/materials/editor/currentItem/update', {
+        _t.$X.utils.bus.$emit('editor/currentItem/update', {
           id: _t.currentItem.model.id,
           type: _t.currentItem.type,
           model: model

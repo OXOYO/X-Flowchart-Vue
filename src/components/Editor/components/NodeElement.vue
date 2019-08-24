@@ -81,7 +81,7 @@
     methods: {
       handleMouseDown (event) {
         let _t = this
-        _t.$X.utils.bus.$emit('board/materials/editor/add/node', _t.info)
+        _t.$X.utils.bus.$emit('editor/add/node', _t.info)
       }
     }
   }

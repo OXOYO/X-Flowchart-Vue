@@ -14,32 +14,47 @@
     box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1);
     background: #ffffff;
     z-index: 200;
-    overflow-y: auto;
-    overflow-x: hidden;
     transition: all .5s ease-in-out;
 
-    .handler {
-      display: inline-block;
-      width: 100%;
-      height: 25px;
-      line-height: 25px;
+    .card-body {
+      position: absolute;
+      top: 40px;
+      right: 0;
+      left: 0;
+      bottom: 0;
+      padding: 0;
+      z-index: 2000;
+      background: #fff;
+      text-align: left;
+      overflow-y: auto;
     }
   }
 </style>
 
 <template>
   <div class="card-box" :style="boxStyle">
-    <div class="handler">
-      <!-- 折叠 -->
-      <XIcon :type="foldIcon" style="margin: 0 10px" @click.native="handleFoldClick"></XIcon>
+    <Handler
+      class="handler"
+      :mode="mode"
+      :position="position"
+      :expand="isExpand"
+      :callback="toggleHandler"
+    >
+    </Handler>
+    <div class="card-body">
+      <slot></slot>
     </div>
-    <slot></slot>
   </div>
 </template>
 
 <script>
+  import Handler from './Handler'
+
   export default {
     name: 'CardBox',
+    components: {
+      Handler
+    },
     props: {
       width: {
         type: Number,
@@ -49,12 +64,28 @@
       placement: {
         type: String,
         default: 'right'
+      },
+      // handler 模式
+      mode: {
+        type: String,
+        validator (value) {
+          return ['horizontal', 'vertical'].includes(value)
+        },
+        default: 'vertical'
+      },
+      // handler 相对目标元素位置关系
+      position: {
+        type: String,
+        validator (value) {
+          return ['top', 'right', 'bottom', 'left'].includes(value)
+        },
+        default: 'right'
       }
     },
     data () {
       return {
-        // 是否折叠
-        isFold: false
+        // 是否展开
+        isExpand: true
       }
     },
     computed: {
@@ -67,36 +98,24 @@
         if (_t.width) {
           style.width = _t.width + 'px'
         }
-        // 处理折叠
-        if (_t.isFold) {
-          style.width = '36px'
+        // 处理展开
+        if (_t.isExpand) {
+          style[_t.placement] = 0
+        } else {
+          style[_t.placement] = (-_t.width) + 'px'
         }
         return style
-      },
-      foldIcon () {
-        let _t = this
-        let icon = ''
-        if (_t.placement === 'right') {
-          if (_t.isFold) {
-            icon = 'rewind'
-          } else {
-            icon = 'fast-forward'
-          }
-        } else if (_t.placement === 'left') {
-          if (_t.isFold) {
-            icon = 'fast-forward'
-          } else {
-            icon = 'rewind'
-          }
-        }
-        return icon
       }
     },
     methods: {
-      handleFoldClick () {
+      toggleHandler (val) {
         let _t = this
-        _t.isFold = !_t.isFold
+        _t.isExpand = val !== undefined ? val : !_t.isExpand
       }
+    },
+    created () {
+      let _t = this
+      _t.$X.utils.bus.$on('editor/pad/dblclick', _t.toggleHandler)
     }
   }
 </script>
