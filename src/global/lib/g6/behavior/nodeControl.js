@@ -229,8 +229,8 @@ export default {
         _t.shapeControl.isMoving = true
         if (_t.config.tooltip.shapeControl) {
           _t.toolTip.create.call(_t, {
-            left: model.x,
-            top: model.y + model.height / 2
+            left: model.clientX,
+            top: model.clientY + model.height / 2
           }, `X: ${model.x.toFixed(2)} Y: ${model.y.toFixed(2)}<br>W: ${model.size[0].toFixed(2)} H: ${model.size[1].toFixed(2)}`)
         }
       },
@@ -340,8 +340,8 @@ export default {
           }
           if (_t.config.tooltip.shapeControl) {
             _t.toolTip.update.call(_t, {
-              left: attrs.x,
-              top: attrs.y + attrs.size[1] / 2
+              left: attrs.clientX,
+              top: attrs.clientY + attrs.size[1] / 2
             }, `X: ${attrs.x.toFixed(2)} Y: ${attrs.y.toFixed(2)}<br>W: ${attrs.size[0].toFixed(2)} H: ${attrs.size[1].toFixed(2)}`)
           }
           // 当前节点容器
@@ -419,8 +419,8 @@ export default {
           _t.graph.paint()
           if (_t.config.tooltip.dragNode) {
             _t.toolTip.create.call(_t, {
-              left: event.x,
-              top: event.y
+              left: event.clientX,
+              top: event.clientX
             }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}<br>W: ${width.toFixed(2)} H: ${height.toFixed(2)}`)
           }
         }
@@ -455,9 +455,10 @@ export default {
         // _t.dragNode.createDottedNode.call(_t, event)
         if (_t.config.tooltip.dragNode) {
           let { width, height } = _t.info.node.getModel()
+          console.log('tooltip event', event)
           _t.toolTip.create.call(_t, {
-            left: event.x,
-            top: event.y + height / 2
+            left: event.clientX,
+            top: event.clientY + height / 2
           }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}<br>W: ${width.toFixed(2)} H: ${height.toFixed(2)}`)
         }
         _t.dragNode.status = 'dragNode'
@@ -474,8 +475,8 @@ export default {
             _t.graph.paint()
             if (_t.config.tooltip.dragNode) {
               _t.toolTip.update.call(_t, {
-                left: event.x,
-                top: event.y + height / 2
+                left: event.clientX,
+                top: event.clientY + height / 2
               }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}<br>W: ${width.toFixed(2)} H: ${height.toFixed(2)}`)
             }
           }
@@ -502,8 +503,8 @@ export default {
             if (_t.config.tooltip.dragNode) {
               let { width, height } = _t.info.node.getModel()
               _t.toolTip.update.call(_t, {
-                left: event.x,
-                top: event.y + height / 2
+                left: event.clientX,
+                top: event.clientY + height / 2
               }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}<br>W: ${width.toFixed(2)} H: ${height.toFixed(2)}`)
             }
           }
@@ -533,7 +534,14 @@ export default {
         let _t = this
         let canvas = _t.graph.get('canvas')
         let node = event.item
-        let { id, label, x, y, width, height } = node.getModel()
+        let {
+          id,
+          label,
+          // x,
+          // y,
+          width,
+          height
+        } = node.getModel()
         const el = canvas.get('el')
         const html = G6.Util.createDom(`<input id="${id}" class="node-label" autofocus value="${label}"></input>`)
         if (html) {
@@ -546,8 +554,8 @@ export default {
           G6.Util.modifyCSS(html, {
             display: 'inline-block',
             position: 'absolute',
-            left: x - width / 2 + 'px',
-            top: y - height / 2 + 'px',
+            left: event.clientX - width / 2 + 'px',
+            top: event.clientY - height / 2 + 'px',
             width: width + 'px',
             height: height + 'px',
             lineHeight: height + 'px',
