@@ -1,6 +1,6 @@
-# X-Flowchart
+# X-Flowchart-Vue
 
-> A flowchart editor plugin based on vue.
+> A visual graph editor based on G6 and Vue.
 
 ## Version
 
@@ -22,6 +22,15 @@ yarn install
 ### Compiles and hot-reloads for development
 yarn run serve
 ```
+
+## 资料
+[@antvis/g6](https://github.com/antvis/g6)
+[@alibaba/GGEditor](https://github.com/alibaba/GGEditor)
+
+## 鸣谢
+特别感谢[@guozhaolong](https://github.com/guozhaolong)大佬的开源项目[@guozhaolong/wfd](https://github.com/guozhaolong/wfd)
+
+本项目参考、引用了[@guozhaolong/wfd](https://github.com/guozhaolong/wfd)项目的部分实现，在此特别说明，以示感谢！
 
 ## TODO
   v3.0.0

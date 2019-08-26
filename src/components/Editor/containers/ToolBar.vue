@@ -858,11 +858,16 @@
           case 'lineWidth':
           case 'lineType':
           case 'lineStyle':
+            payload = {
+              name: item.name,
+              data: child.name
+            }
+            break
           case 'startArrow':
           case 'endArrow':
             payload = {
               name: item.name,
-              data: child.name
+              data: child.data
             }
             break
           case 'language':

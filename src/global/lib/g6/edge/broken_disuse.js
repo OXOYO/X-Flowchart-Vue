@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/7/11.
  *
- * 折线
+ * 折线【废弃】
  */
 
 import base from './base'

@@ -1,9 +1,11 @@
 /**
  * Created by OXOYO on 2019/8/7.
  *
- * TODO 折线寻径
+ * 折线寻径
  *
  * 文档：https://www.yuque.com/antv/blog/eyi70n
+ * 鸣谢：@guozhaolong https://github.com/guozhaolong/wfd
+ * 参考：https://github.com/guozhaolong/wfd/blob/master/src/item/edge.js
  */
 
 // 折线寻径
@@ -14,8 +16,8 @@ export const polylineFinding = function (sNode, tNode, sPort, tPort, offset = 10
   const sBBox = getExpandedBBox(sourceBBox, offset)
   const tBBox = getExpandedBBox(targetBBox, offset)
   // 获取扩展区域上的起始和终止连接点
-  const sPoint = getExpandedPort(sBBox, sPort, offset)
-  const tPoint = getExpandedPort(tBBox, tPort, offset)
+  const sPoint = getExpandedPort(sBBox, sPort)
+  const tPoint = getExpandedPort(tBBox, tPort)
   // 获取合法折点集
   let points = getConnectablePoints(sBBox, tBBox, sPoint, tPoint)
   // 过滤合法点集，预处理、剪枝等
@@ -28,12 +30,24 @@ export const polylineFinding = function (sNode, tNode, sPort, tPort, offset = 10
 }
 
 const getPointBBox = function (t) {
-  return { centerX: t.x, centerY: t.y, minX: t.x, minY: t.y, maxX: t.x, maxY: t.y, height: 0, width: 0 }
+  return {
+    centerX: t.x,
+    centerY: t.y,
+    minX: t.x,
+    minY: t.y,
+    maxX: t.x,
+    maxY: t.y,
+    height: 0,
+    width: 0
+  }
 }
 
 // 获取扩展区域
 const getExpandedBBox = function (bbox, offset) {
-  return bbox.width === 0 && bbox.height === 0 ? bbox : {
+  if (bbox.width === 0 && bbox.height === 0) {
+    return bbox
+  }
+  return {
     centerX: bbox.centerX,
     centerY: bbox.centerY,
     minX: bbox.minX - offset,
@@ -53,11 +67,10 @@ const getExpandedPort = function (bbox, point) {
       x: point.x > bbox.centerX ? bbox.maxX : bbox.minX,
       y: point.y
     }
-  } else {
-    return {
-      x: point.x,
-      y: point.y > bbox.centerY ? bbox.maxY : bbox.minY
-    }
+  }
+  return {
+    x: point.x,
+    y: point.y > bbox.centerY ? bbox.maxY : bbox.minY
   }
 }
 
@@ -65,16 +78,24 @@ const getExpandedPort = function (bbox, point) {
 const getConnectablePoints = function (sBBox, tBBox, sPoint, tPoint) {
   let lineBBox = getBBoxFromVertexes(sPoint, tPoint)
   let outerBBox = combineBBoxes(sBBox, tBBox)
-  let points = []
-  points.push(vertexOfBBox(sBBox))
-  points.push(vertexOfBBox(tBBox))
-  points.push(vertexOfBBox(lineBBox))
+  let sLineBBox = combineBBoxes(sBBox, lineBBox)
+  let tLineBBox = combineBBoxes(tBBox, lineBBox)
+  let points = [
+    ...vertexOfBBox(sLineBBox),
+    ...vertexOfBBox(tLineBBox),
+    ...vertexOfBBox(outerBBox)
+  ]
   const centerPoint = { x: outerBBox.centerX, y: outerBBox.centerY }
-  let bboxes = [ outerBBox, sBBox, tBBox, lineBBox ]
-  for (let bbox in bboxes) {
+  let bboxes = [ outerBBox, sLineBBox, tLineBBox, lineBBox ]
+  bboxes.forEach(bbox => {
     // 包含 bbox 延长线和线段的相交线
-    points.push(crossPointsByLineAndBBox(bbox, centerPoint))
-  }
+    points = [
+      ...points,
+      ...crossPointsByLineAndBBox(bbox, centerPoint)
+    ]
+  })
+  points.push({ x: sPoint.x, y: tPoint.y })
+  points.push({ x: tPoint.x, y: sPoint.y })
   return points
 }
 
@@ -154,11 +175,11 @@ const crossBBox = function (bboxes, p1, p2) {
   for (let i = 0; i < bboxes.length; i++) {
     const bbox = bboxes[i]
     if (p1.x === p2.x && bbox.minX < p1.x && bbox.maxX > p1.x) {
-      if ((p1.y < bbox.maxY && p2.y >= bbox.maxY) || (p2.y < bbox.maxY && p1.y >= bbox.maxY)) {
+      if (p1.y < bbox.maxY && p2.y >= bbox.maxY || p2.y < bbox.maxY && p1.y >= bbox.maxY) {
         return true
       }
     } else if (p1.y === p2.y && bbox.minY < p1.y && bbox.maxY > p1.y) {
-      if ((p1.x < bbox.maxX && p2.x >= bbox.maxX) || (p2.x < bbox.maxX && p1.x >= bbox.maxX)) {
+      if (p1.x < bbox.maxX && p2.x >= bbox.maxX || p2.x < bbox.maxX && p1.x >= bbox.maxX) {
         return true
       }
     }
@@ -170,12 +191,28 @@ const getCost = function (p1, p2) {
   return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y)
 }
 
+const fillId = function (points) {
+  points.forEach(p => {
+    p.id = p.x + '-' + p.y
+  })
+  return points
+}
+
 // aStar 寻径
 const AStar = function (points, sPoint, tPoint, sBBox, tBBox) {
   const openList = [sPoint]
   const closeList = []
-  // points = _.uniqBy(this.fillId(points),'id')
-  points.push(tPoint)
+  points.map(item => item.id = item.x + '-' + item.y)
+  let tmpArr = []
+  points.forEach(item => {
+    if (!tmpArr.includes(target => target.id === item.id)) {
+      tmpArr.push(item)
+    }
+  })
+  points = [
+    ...tmpArr,
+    tPoint
+  ]
   let endPoint
   while (openList.length > 0) {
     let minCostPoint
@@ -205,23 +242,25 @@ const AStar = function (points, sPoint, tPoint, sBBox, tBBox) {
     neighbor.forEach(p => {
       const inOpen = openList.find(o => o.x === p.x && o.y === p.y)
       const currentG = getCost(p, minCostPoint)
-      if (inOpen) {
-        if (p.g > currentG) {
+      if (!closeList.find(o => o.x === p.x && o.y === p.y)) {
+        if (inOpen) {
+          if (p.g > currentG) {
+            p.parent = minCostPoint
+            p.g = currentG
+            p.f = p.g + p.h
+          }
+        } else {
           p.parent = minCostPoint
           p.g = currentG
+          let h = getCost(p, tPoint)
+          if (crossBBox([tBBox], p, tPoint)) {
+            // 如果穿过bbox则增加该点的预估代价为bbox周长的一半
+            h += (tBBox.width / 2 + tBBox.height / 2)
+          }
+          p.h = h
           p.f = p.g + p.h
+          openList.push(p)
         }
-      } else {
-        p.parent = minCostPoint
-        p.g = currentG
-        let h = getCost(p, tPoint)
-        if (crossBBox([tBBox], p, tPoint)) {
-          // 如果穿过bbox则增加该点的预估代价为bbox周长的一半
-          h += (tBBox.width / 2 + tBBox.height / 2)
-        }
-        p.h = h
-        p.f = p.g + p.h
-        openList.push(p)
       }
     })
   }

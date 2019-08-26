@@ -137,19 +137,19 @@ export default {
       currentLine: null,
       start: function (event) {
         let _t = this
-        let target
+        let sourceAnchor
+        let startModel = _t.info.node.getModel()
         // 锚点数据
         let anchorPoints = _t.info.node.getAnchorPoints()
         // 处理线条目标点
         if (anchorPoints && anchorPoints.length) {
           // 获取距离指定坐标最近的一个锚点
-          target = _t.info.node.getLinkPoint({ x: event.x, y: event.y })
-        } else {
-          target = _t.info.node
+          sourceAnchor = _t.info.node.getLinkPoint({ x: event.x, y: event.y })
         }
         _t.drawLine.currentLine = _t.graph.addItem('edge', {
           // 起始节点
-          source: target,
+          source: startModel.id,
+          sourceAnchor: sourceAnchor ? sourceAnchor.anchorIndex : '',
           // 终止节点/位置
           target: {
             x: event.x,
@@ -191,18 +191,17 @@ export default {
             let endNode = event.item
             let startModel = _t.info.node.getModel()
             let endModel = endNode.getModel()
-            let target
+            let targetAnchor
             // 锚点数据
             let anchorPoints = endNode.getAnchorPoints()
             // 处理线条目标点
             if (anchorPoints && anchorPoints.length) {
               // 获取距离指定坐标最近的一个锚点
-              target = endNode.getLinkPoint({ x: event.x, y: event.y })
-            } else {
-              target = endNode
+              targetAnchor = endNode.getLinkPoint({ x: event.x, y: event.y })
             }
             _t.graph.updateItem(_t.drawLine.currentLine, {
-              target: target,
+              target: endModel.id,
+              targetAnchor: targetAnchor ? targetAnchor.anchorIndex : '',
               // 存储起始点ID，用于拖拽节点时更新线条
               attrs: {
                 start: startModel.id,

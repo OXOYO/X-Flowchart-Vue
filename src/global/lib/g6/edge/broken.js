@@ -1,27 +1,25 @@
 /**
  * Created by OXOYO on 2019/8/14.
  *
- *
+ * 折线
  */
-// import base from './base'
-import { polylineFinding } from './brokenLine'
+import base from './base'
+import { polylineFinding } from './polylineFinding'
 
 export default {
   name: 'x-broken',
   extendName: 'polyline',
   options: {
-    // ...base,
+    ...base,
     draw (cfg, group) {
       const { startPoint, endPoint } = cfg
       const controlPoints = this.getControlPoints(cfg)
       let points = [startPoint]
       if (controlPoints) {
-        console.log('controlPoints', controlPoints)
         points.push(controlPoints)
       }
       points.push(endPoint)
       let path = this.getPath(points)
-      console.log('path', path)
       const keyShape = group.addShape('path', {
         className: 'edge-shape',
         attrs: {
@@ -30,33 +28,6 @@ export default {
         }
       })
       return keyShape
-    },
-    getShapeStyle (cfg) {
-      const startPoint = cfg.startPoint
-      const endPoint = cfg.endPoint
-      const controlPoints = this.getControlPoints(cfg)
-      let points = [ startPoint ]
-      if (controlPoints) {
-        points = points.concat(controlPoints)
-      }
-      points.push(endPoint)
-      const path = this.getPath(points)
-      // let style = editorStyle.edgeStyle
-      let style = { stroke: '#A3B1BF', strokeOpacity: 0.92, lineWidth: 1, lineAppendWidth: 8, endArrow: true }
-      if (cfg.reverse) {
-        style = { ...style, lineDash: [1, 3] }
-      } else {
-        style = { ...style, lineDash: null }
-      }
-
-      return {
-        path,
-        ...style
-        // ,
-        // endArrow: {
-        //   path: 'M 0,0 L -10,-4 S -8 0,-10 4 Z'
-        // }
-      }
     },
     getPath (points) {
       const path = []
@@ -94,10 +65,10 @@ export default {
       return path
     },
     getControlPoints (cfg) {
-      // if (!cfg.sourceNode) {
-      //   return cfg.controlPoints
-      // }
-      return polylineFinding(cfg.sourceNode, cfg.targetNode, cfg.startPoint, cfg.endPoint, 15)
+      if (!cfg.sourceNode) {
+        return cfg.controlPoints
+      }
+      return polylineFinding(cfg.sourceNode, cfg.targetNode, cfg.startPoint, cfg.endPoint, 25)
     }
   }
 }
