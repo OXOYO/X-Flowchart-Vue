@@ -25,6 +25,7 @@ yarn run serve
 
 ## 资料
 [@antvis/g6](https://github.com/antvis/g6)
+
 [@alibaba/GGEditor](https://github.com/alibaba/GGEditor)
 
 ## 鸣谢
