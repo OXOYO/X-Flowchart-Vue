@@ -18,7 +18,7 @@
 <template>
   <div class="materials-editor">
     <ToolBar></ToolBar>
-    <Sketchpad @dblclick.native="ondblclickPad"></Sketchpad>
+    <Sketchpad></Sketchpad>
     <PanelLeft></PanelLeft>
     <PanelRight></PanelRight>
     <!--<ContextMenu></ContextMenu>-->
