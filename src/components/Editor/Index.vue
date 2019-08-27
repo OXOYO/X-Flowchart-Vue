@@ -227,6 +227,7 @@
       },
       doZoom (toolName, position) {
         let _t = this
+        // 缩放率
         let ratio = 1
         let center
         if (position) {
@@ -240,8 +241,12 @@
           }
         }
         if (['zoomIn', 'zoomOut'].includes(toolName)) {
-          ratio = toolName === 'zoomOut' ? 0.9 : 1.1
-          _t.editor.zoom(ratio, center)
+          let currentRatio = _t.editor.getZoom()
+          let step = 0.1
+          ratio = toolName === 'zoomOut' ? currentRatio - step : currentRatio + step
+          ratio = ratio.toFixed(1)
+          // 缩放视窗窗口到一个固定比例
+          _t.editor.zoomTo(ratio, center)
         } else if (toolName === 'actualSize') {
           ratio = 1
           _t.editor.zoomTo(ratio, center)
