@@ -8,13 +8,10 @@
 
 <template>
   <CardBox placement="right" position="left" :width="300">
-    <!-- FIXME 暂时注掉Options配置面板，该功能与ToolBar存在高度耦合 -->
-    <!--
-    <CardItem title="配置" :enableFold="true">
+    <CardItem :title="$t('L10101')" :enableFold="true" :bold="true">
       <Options></Options>
     </CardItem>
-    -->
-    <CardItem title="导航栏" :enableFold="true">
+    <CardItem :title="$t('L10102')" :enableFold="true" :bold="true">
       <Navigator></Navigator>
     </CardItem>
   </CardBox>
@@ -23,7 +20,7 @@
 <script>
   import CardBox from '../components/CardBox'
   import CardItem from '../components/CardItem'
-  // import Options from '../components/Options'
+  import Options from '../components/Options'
   import Navigator from '../components/Navigator'
 
   export default {
@@ -31,7 +28,7 @@
     components: {
       CardBox,
       CardItem,
-      // Options,
+      Options,
       Navigator
     }
   }

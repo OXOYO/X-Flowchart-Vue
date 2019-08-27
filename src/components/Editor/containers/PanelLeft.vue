@@ -17,7 +17,7 @@
 
 <template>
   <CardBox class="panel-left" placement="left" position="right" :width="250">
-    <CardItem>
+    <CardItem :title="$t('L10100')" :enableFold="true" :bold="true">
       <NodeElement
         v-for="(item, index) in materials.filter(target => target.enable)"
         :key="index"

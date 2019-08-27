@@ -24,6 +24,11 @@
         line-height: 25px;
         border-bottom: 1px solid rgba(0, 0, 0, .1);
         text-indent: 10px;
+        color: #000;
+
+        &.bold {
+          font-weight: 800;
+        }
       }
 
       .handler {
@@ -43,7 +48,7 @@
 <template>
   <div class="card-item">
     <div class="header" @click="handleToggle">
-      <div class="title" v-if="title">{{ title }}</div>
+      <div :class="{ 'title': true, 'bold': bold }" v-if="title">{{ title }}</div>
       <div class="handler">
         <Icon type="ios-arrow-up" v-show="enableFold && !isFolded"></Icon>
         <Icon type="ios-arrow-down" v-show="enableFold && isFolded"></Icon>
@@ -60,11 +65,18 @@
     name: 'CardItem',
     props: {
       title: String,
+      // 支持折叠
       enableFold: {
         type: Boolean,
         default: false
       },
+      // 默认是否折叠
       fold: {
+        type: Boolean,
+        default: false
+      },
+      // 标题加粗
+      bold: {
         type: Boolean,
         default: false
       }

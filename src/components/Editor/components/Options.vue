@@ -19,7 +19,8 @@
 <template>
   <div class="options">
     <Form v-if="Object.keys(formData).length" :model="formData" label-position="top">
-      <CardItem title="属性" :enableFold="true">
+      <!-- 属性 -->
+      <CardItem :title="$t('L10103')" :enableFold="true">
         <div class="form-item-block">
           <FormItem label="x">
             <InputNumber v-model="formData.x" size="small" @on-change="handleChange"></InputNumber>
@@ -36,7 +37,7 @@
         </div>
       </CardItem>
       <!-- 节点样式 -->
-      <CardItem title="节点样式" :enableFold="true">
+      <CardItem :title="$t('L10104')" :enableFold="true">
         <div class="form-item-block">
           <FormItem label="fill">
             <ColorPicker v-model="formData.style.fill" hue recommend @on-change="handleChange"></ColorPicker>
@@ -82,7 +83,7 @@
         </div>
       </CardItem>
       <!-- 文本样式 -->
-      <CardItem title="文本配置" :enableFold="true">
+      <CardItem :title="$t('L10105')" :enableFold="true">
         <div class="form-item-block">
           <FormItem label="label">
             <Input v-model="formData.label" size="small" @on-change="handleChange"></Input>
