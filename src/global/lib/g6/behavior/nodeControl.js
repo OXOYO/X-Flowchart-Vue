@@ -36,6 +36,7 @@ export default {
         'node:dblclick': 'onNodeDblclick',
         'canvas:mouseenter': 'onCanvasMouseenter',
         'canvas:mouseleave': 'onCanvasMouseleave',
+        'edge:mousedown': 'onEdgeMousedown',
         'edge:mouseup': 'onEdgeMouseup',
         'edge:dblclick': 'onEdgeDblclick',
         'mousemove': 'onMousemove',
@@ -106,6 +107,15 @@ export default {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
+    onEdgeMousedown (event) {
+      let _t = this
+      let model = event.item.getModel()
+      _t.graph.emit('editor:getItem', {
+        type: 'edge',
+        id: model.id,
+        model: model
+      })
+    },
     onEdgeMouseup (event) {
       let _t = this
       if (_t.info && _t.info.type === 'drawLine') {
@@ -147,6 +157,7 @@ export default {
           sourceAnchor = _t.info.node.getLinkPoint({ x: event.x, y: event.y })
         }
         _t.drawLine.currentLine = _t.graph.addItem('edge', {
+          id: G6.Util.uniqueId(),
           // 起始节点
           source: startModel.id,
           sourceAnchor: sourceAnchor ? sourceAnchor.anchorIndex : '',
@@ -156,7 +167,7 @@ export default {
             y: event.y
           },
           // FIXME label 需支持双击编辑
-          label: '',
+          // label: '',
           attrs: {},
           style: {
             stroke: _t.graph.$X.lineColor,

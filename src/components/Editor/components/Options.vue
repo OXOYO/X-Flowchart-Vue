@@ -88,7 +88,7 @@
           <FormItem label="label">
             <Input v-model="formData.label" size="small" @on-change="handleChange"></Input>
           </FormItem>
-          <FormItem label="position">
+          <FormItem label="position" v-if="formData.labelCfg">
             <Select v-model="formData.labelCfg.position" size="small" @on-change="handleChange">
               <Option value="center">center</Option>
               <Option value="top">top</Option>
@@ -97,7 +97,7 @@
               <Option value="bottom">bottom</Option>
             </Select>
           </FormItem>
-          <FormItem label="offset">
+          <FormItem label="offset" v-if="formData.labelCfg">
             <InputNumber v-model="formData.labelCfg.offset" size="small" @on-change="handleChange"></InputNumber>
           </FormItem>
         </div>
