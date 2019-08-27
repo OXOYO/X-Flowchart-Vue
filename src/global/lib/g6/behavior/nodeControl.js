@@ -455,7 +455,6 @@ export default {
         // _t.dragNode.createDottedNode.call(_t, event)
         if (_t.config.tooltip.dragNode) {
           let { width, height } = _t.info.node.getModel()
-          console.log('tooltip event', event)
           _t.toolTip.create.call(_t, {
             left: event.clientX,
             top: event.clientY + height / 2
@@ -586,14 +585,24 @@ export default {
         let _t = this
         let canvas = _t.graph.get('canvas')
         let edge = event.item
-        let { id, label, source, target } = edge.getModel()
+        let model = edge.getModel()
+        let { id, label, source, sourceAnchor, target, targetAnchor } = model
+        // 查找节点
+        let sourceNode = _t.graph.findById(source)
+        let targetNode = _t.graph.findById(target)
+        // 查找锚点
+        let sourceAnchors = sourceNode.getAnchorPoints()
+        let targetAnchors = targetNode.getAnchorPoints()
+        // 查找锚点信息
+        let sourceAnchorPoint = sourceAnchors[sourceAnchor]
+        let targetAnchorPoint = targetAnchors[targetAnchor]
         let left
         let top
         let minWidth = 40
         let maxWidth = 100
         let width = 40
         let height = 20
-        let distance = Math.abs(target.x - source.x)
+        let distance = Math.abs(targetAnchorPoint.x - sourceAnchorPoint.x)
         if (distance < minWidth) {
           width = minWidth
         }
@@ -601,15 +610,15 @@ export default {
           width = maxWidth
         }
         // 计算输入框位置
-        if (source.x < target.x) {
-          left = source.x + distance / 2 - width / 2 + 'px'
+        if (sourceAnchorPoint.x < targetAnchorPoint.x) {
+          left = sourceAnchorPoint.x + distance / 2 - width / 2 + 'px'
         } else {
-          left = target.x + distance / 2 - width / 2 + 'px'
+          left = targetAnchorPoint.x + distance / 2 - width / 2 + 'px'
         }
-        if (source.y < target.y) {
-          top = source.y + Math.abs(target.y - source.y) / 2 - height / 2 + 'px'
+        if (sourceAnchorPoint.y < targetAnchorPoint.y) {
+          top = sourceAnchorPoint.y + Math.abs(targetAnchorPoint.y - sourceAnchorPoint.y) / 2 - height / 2 + 'px'
         } else {
-          top = target.y + Math.abs(target.y - source.y) / 2 - height / 2 + 'px'
+          top = targetAnchorPoint.y + Math.abs(targetAnchorPoint.y - sourceAnchorPoint.y) / 2 - height / 2 + 'px'
         }
         const el = canvas.get('el')
         const html = G6.Util.createDom(`<input id="${id}" class="edge-label" autofocus value="${label}"></input>`)
