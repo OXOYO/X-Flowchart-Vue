@@ -33,5 +33,11 @@ export default {
   L10025: 'Full screen',
   L10026: 'Language',
   L10027: 'Github',
-  L10028: 'Feedback'
+  L10028: 'Feedback',
+  L10100: 'Basic graphics',
+  L10101: 'Configuration',
+  L10102: 'Navigator',
+  L10103: 'Properties',
+  L10104: 'Item configuration',
+  L10105: 'Label configuration'
 }
