@@ -240,8 +240,8 @@ export default {
         _t.shapeControl.isMoving = true
         if (_t.config.tooltip.shapeControl) {
           _t.toolTip.create.call(_t, {
-            left: model.clientX,
-            top: model.clientY + model.height / 2
+            left: model.x,
+            top: model.y + model.height / 2
           }, `X: ${model.x.toFixed(2)} Y: ${model.y.toFixed(2)}<br>W: ${model.size[0].toFixed(2)} H: ${model.size[1].toFixed(2)}`)
         }
       },
@@ -351,8 +351,8 @@ export default {
           }
           if (_t.config.tooltip.shapeControl) {
             _t.toolTip.update.call(_t, {
-              left: attrs.clientX,
-              top: attrs.clientY + attrs.size[1] / 2
+              left: attrs.x,
+              top: attrs.y + attrs.size[1] / 2
             }, `X: ${attrs.x.toFixed(2)} Y: ${attrs.y.toFixed(2)}<br>W: ${attrs.size[0].toFixed(2)} H: ${attrs.size[1].toFixed(2)}`)
           }
           // 当前节点容器

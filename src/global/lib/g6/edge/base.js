@@ -21,8 +21,8 @@ export default {
     })
     return keyShape
   },
-  setState (name, value, item) {
-    // 设置线条激活
-    utils.setLineActive(name, value, item)
-  }
+  // setState (name, value, item) {
+  //   // 设置线条激活
+  //   utils.setLineActive(name, value, item)
+  // }
 }
