@@ -38,6 +38,8 @@ export default {
   L10101: 'Configuration',
   L10102: 'Navigator',
   L10103: 'Properties',
-  L10104: 'Item configuration',
-  L10105: 'Label configuration'
+  L10104: 'Style',
+  L10105: 'Text',
+  L10200: 'Hint',
+  L10201: 'Are you sure to empty the canvas? '
 }

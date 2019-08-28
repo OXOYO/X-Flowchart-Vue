@@ -211,6 +211,7 @@
         mode: 'edit',
         // 选中的值
         selected: {
+          zoom: 0,
           lineWidth: 0,
           lineType: 0,
           lineStyle: 0,
@@ -304,6 +305,111 @@
               enable: true,
               disabled: _t.mode === 'preview',
               divider: true
+            },
+            {
+              name: 'zoom',
+              label: 'Zoom',
+              lang: 'L10029',
+              type: 'dropdown-list',
+              icon: 'zoom',
+              enable: true,
+              disabled: false,
+              divider: false,
+              // 默认选中项index
+              selected: _t.selected.zoom,
+              // 子节点
+              children: [
+                {
+                  name: '25%',
+                  label: '25%',
+                  lang: '',
+                  icon: '',
+                  data: 0.25,
+                  enable: true,
+                  disabled: false,
+                  divider: false
+                },
+                {
+                  name: '50%',
+                  label: '50%',
+                  lang: '',
+                  icon: '',
+                  data: 0.5,
+                  enable: true,
+                  disabled: false,
+                  divider: false
+                },
+                {
+                  name: '75%',
+                  label: '75%',
+                  lang: '',
+                  icon: '',
+                  data: 0.75,
+                  enable: true,
+                  disabled: false,
+                  divider: false
+                },
+                {
+                  name: '100%',
+                  label: '100%',
+                  lang: '',
+                  icon: '',
+                  data: 1,
+                  enable: true,
+                  disabled: false,
+                  divider: false
+                },
+                {
+                  name: '125%',
+                  label: '125%',
+                  lang: '',
+                  icon: '',
+                  data: 1.25,
+                  enable: true,
+                  disabled: false,
+                  divider: false
+                },
+                {
+                  name: '150%',
+                  label: '150%',
+                  lang: '',
+                  icon: '',
+                  data: 1.5,
+                  enable: true,
+                  disabled: false,
+                  divider: false
+                },
+                {
+                  name: '200%',
+                  label: '200%',
+                  lang: '',
+                  icon: '',
+                  data: 2,
+                  enable: true,
+                  disabled: false,
+                  divider: false
+                },
+                {
+                  name: '300%',
+                  label: '300%',
+                  lang: '',
+                  icon: '',
+                  data: 3,
+                  enable: true,
+                  disabled: false,
+                  divider: false
+                },
+                {
+                  name: '400%',
+                  label: '400%',
+                  lang: '',
+                  icon: '',
+                  data: 4,
+                  enable: true,
+                  disabled: false,
+                  divider: false
+                }
+              ]
             },
             {
               name: 'zoomIn',
@@ -863,6 +969,7 @@
               data: child.name
             }
             break
+          case 'zoom':
           case 'startArrow':
           case 'endArrow':
             payload = {

@@ -28,5 +28,6 @@ export default function (Vue, defLang) {
   })
   // FIXME 覆写iview i18n方法，修复$Modal弹窗报错BUG，【Issues】https://github.com/iview/iview/issues/4769#issuecomment-449851416
   locale.i18n((path, options) => i18nInstance.t(path, options))
+  Vue.prototype._i18n = i18nInstance
   return i18nInstance
 }

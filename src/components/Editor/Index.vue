@@ -26,6 +26,8 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   import ToolBar from './containers/ToolBar'
   import Sketchpad from './containers/Sketchpad'
   import PanelLeft from './containers/PanelLeft'
@@ -34,6 +36,7 @@
   import G6 from '@/global/lib/g6/index'
   import Minimap from '@antv/g6/build/minimap'
   import Grid from '@antv/g6/build/grid'
+  import screenfull from 'screenfull'
   import config from './config/index'
 
   export default {
@@ -53,8 +56,19 @@
           // 编辑器状态：add || edit || preview
           status: 'add'
         },
-        editor: null
+        editor: null,
+        isFullScreen: false,
+        clipboard: {
+          data: null,
+          // 粘贴计数器
+          count: 0
+        }
       }
+    },
+    computed: {
+      ...mapGetters([
+        'currentItem'
+      ])
     },
     methods: {
       init () {
@@ -225,7 +239,35 @@
         _t.editor.paint()
         _t.editor.setAutoPaint(true)
       },
-      doZoom (toolName, position) {
+      doCopy () {
+        let _t = this
+        // 目前只支持节点的复制，不支持边的复制，边只能通过拖拽生成
+        if (_t.currentItem && _t.currentItem.type === 'node') {
+          _t.clipboard = {
+            data: _t.currentItem,
+            count: 0
+          }
+        }
+      },
+      doPaste () {
+        let _t = this
+        let item = _t.clipboard.data
+        _t.clipboard.count++
+        console.log('item', item)
+        if (item) {
+          if (item.type === 'node') {
+            let node = {
+              ...item.model,
+              id: G6.Util.uniqueId(),
+              // 更新坐标，添加一定偏移量，防止重叠
+              x: item.model.x + 10 * _t.clipboard.count,
+              y: item.model.y + 10 * _t.clipboard.count
+            }
+            _t.editor.addItem('node', node)
+          }
+        }
+      },
+      doZoom (info, position) {
         let _t = this
         // 缩放率
         let ratio = 1
@@ -240,14 +282,16 @@
             y: sketchpad.clientHeight / 2
           }
         }
-        if (['zoomIn', 'zoomOut'].includes(toolName)) {
+        if (info.name === 'zoom') {
+          _t.editor.zoomTo(info.data, center)
+        } else if (['zoomIn', 'zoomOut'].includes(info.name)) {
           let currentRatio = _t.editor.getZoom()
           let step = 0.1
-          ratio = toolName === 'zoomOut' ? currentRatio - step : currentRatio + step
+          ratio = info.name === 'zoomOut' ? currentRatio - step : currentRatio + step
           ratio = ratio.toFixed(1)
           // 缩放视窗窗口到一个固定比例
           _t.editor.zoomTo(ratio, center)
-        } else if (toolName === 'actualSize') {
+        } else if (info.name === 'actualSize') {
           ratio = 1
           _t.editor.zoomTo(ratio, center)
         }
@@ -278,10 +322,17 @@
       handleToolTrigger (info) {
         let _t = this
         switch (info.name) {
+          case 'copy':
+            _t.doCopy()
+            break
+          case 'paste':
+            _t.doPaste()
+            break
+          case 'zoom':
           case 'zoomIn':
           case 'zoomOut':
           case 'actualSize':
-            _t.doZoom(info.name)
+            _t.doZoom(info)
             break
           case 'fit':
             _t.editor.fitView()
@@ -409,9 +460,11 @@
             })
             break
           case 'clear':
+            console.log('_t.$Modal', _t.$Modal)
             _t.$Modal.confirm({
-              title: '提示',
-              content: '确认清空画布？',
+              title: _t.$t('L10200'),
+              // 确认清空画布？
+              content: _t.$t('L10201'),
               onOk: function () {
                 _t.editor.clear()
                 _t.editor.paint()
@@ -427,6 +480,11 @@
                 item[info.name]()
                 _t.editor.paint()
               }
+            }
+            break
+          case 'fullscreen':
+            if (screenfull.enabled) {
+              screenfull.toggle()
             }
             break
         }
