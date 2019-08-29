@@ -12,20 +12,20 @@ self.__precacheManifest = [
     "url": "/X-Flowchart-Vue/fonts/iconfont.7d8562f0.eot"
   },
   {
-    "revision": "8aaafc32d576fceacba0",
+    "revision": "4b25ce2220e69d36c577",
     "url": "/X-Flowchart-Vue/css/app.7c199d49.css"
-  },
-  {
-    "revision": "d535a25a79fb1365ae814b61e88fae71",
-    "url": "/X-Flowchart-Vue/fonts/ionicons.d535a25a.ttf"
   },
   {
     "revision": "99ac3308dd8ee14f749f51538d0d5b9e",
     "url": "/X-Flowchart-Vue/fonts/ionicons.99ac3308.woff"
   },
   {
-    "revision": "8aaafc32d576fceacba0",
-    "url": "/X-Flowchart-Vue/js/app.4294c1ac.js"
+    "revision": "d535a25a79fb1365ae814b61e88fae71",
+    "url": "/X-Flowchart-Vue/fonts/ionicons.d535a25a.ttf"
+  },
+  {
+    "revision": "4b25ce2220e69d36c577",
+    "url": "/X-Flowchart-Vue/js/app.1f46c6a7.js"
   },
   {
     "revision": "143146fa24554ae2c5ac0a3982abb952",
@@ -44,7 +44,7 @@ self.__precacheManifest = [
     "url": "/X-Flowchart-Vue/img/ionicons.a2c4a261.svg"
   },
   {
-    "revision": "22c23feea4d64db7bcfec58f76f6a6ac",
+    "revision": "8be774da3037e0210c377b73dc4057a1",
     "url": "/X-Flowchart-Vue/index.html"
   },
   {
