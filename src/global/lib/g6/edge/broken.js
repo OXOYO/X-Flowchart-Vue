@@ -8,7 +8,7 @@ import { polylineFinding } from './polylineFinding'
 
 export default {
   name: 'x-broken',
-  extendName: 'polyline',
+  extendName: 'single-line',
   options: {
     ...base,
     draw (cfg, group) {

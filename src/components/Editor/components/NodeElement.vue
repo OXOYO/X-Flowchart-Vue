@@ -18,6 +18,16 @@
       display: inline-block;
       width: 100%;
       height: 100%;
+
+      .icon {
+        left: 1px;
+        top: 1px;
+        width: 32px;
+        height: 30px;
+        display: block;
+        position: relative;
+        overflow: hidden;
+      }
     }
   }
 </style>
@@ -28,8 +38,9 @@
     :style="elementStyle"
     @mousedown="handleMouseDown"
   >
-    <div class="content">
-      {{ title }}
+    <div class="content" :title="title">
+      <svg class="icon" v-html="info.icon">
+      </svg>
     </div>
   </div>
 </template>
@@ -52,7 +63,8 @@
             enable: true,
             width: 40,
             height: 40,
-            anchorPoints: [ [0, 0], [0, 1], [1, 0], [1, 1] ]
+            anchorPoints: [ [0, 0], [0, 1], [1, 0], [1, 1] ],
+            svg: ``
           }
         }
       },

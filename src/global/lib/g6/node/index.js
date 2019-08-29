@@ -4,12 +4,16 @@
  * 注册节点
  */
 
-import rect from './rect'
+import rectangle from './rectangle'
+import square from './square'
 import circle from './circle'
+import ellipse from './ellipse'
 
 const obj = {
-  rect,
-  circle
+  rectangle,
+  square,
+  circle,
+  ellipse
 }
 
 export default function (G6) {
