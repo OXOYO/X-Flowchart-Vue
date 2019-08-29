@@ -12,20 +12,20 @@ self.__precacheManifest = [
     "url": "/X-Flowchart-Vue/fonts/iconfont.7d8562f0.eot"
   },
   {
-    "revision": "daa224b89c8c25dabb83",
-    "url": "/X-Flowchart-Vue/css/app.7a486642.css"
-  },
-  {
-    "revision": "99ac3308dd8ee14f749f51538d0d5b9e",
-    "url": "/X-Flowchart-Vue/fonts/ionicons.99ac3308.woff"
+    "revision": "8aaafc32d576fceacba0",
+    "url": "/X-Flowchart-Vue/css/app.7c199d49.css"
   },
   {
     "revision": "d535a25a79fb1365ae814b61e88fae71",
     "url": "/X-Flowchart-Vue/fonts/ionicons.d535a25a.ttf"
   },
   {
-    "revision": "daa224b89c8c25dabb83",
-    "url": "/X-Flowchart-Vue/js/app.c04451df.js"
+    "revision": "99ac3308dd8ee14f749f51538d0d5b9e",
+    "url": "/X-Flowchart-Vue/fonts/ionicons.99ac3308.woff"
+  },
+  {
+    "revision": "8aaafc32d576fceacba0",
+    "url": "/X-Flowchart-Vue/js/app.4294c1ac.js"
   },
   {
     "revision": "143146fa24554ae2c5ac0a3982abb952",
@@ -44,10 +44,10 @@ self.__precacheManifest = [
     "url": "/X-Flowchart-Vue/img/ionicons.a2c4a261.svg"
   },
   {
-    "revision": "0491bf8243a857da6bd24fab24536ad6",
+    "revision": "22c23feea4d64db7bcfec58f76f6a6ac",
     "url": "/X-Flowchart-Vue/index.html"
   },
   {
-    "url": "/X-Flowchart-Vue/chunk-vendors.fd94d798725228f84b71.js"
+    "url": "/X-Flowchart-Vue/chunk-vendors.68885d95ec6fceee6d3b.js"
   }
 ];
