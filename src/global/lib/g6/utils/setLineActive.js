@@ -5,8 +5,8 @@
  */
 
 import config from '../config/index'
-import drawLineAnimate from './drawLineAnimate'
-import destroyLineAnimate from './destroyLineAnimate'
+// import drawLineAnimate from './drawLineAnimate'
+// import destroyLineAnimate from './destroyLineAnimate'
 
 export default function (name, value, item) {
   if (name === 'active') {
@@ -18,11 +18,11 @@ export default function (name, value, item) {
       if (value) {
         line.attr(config.line.style.active)
         // 绘制线条动画
-        drawLineAnimate(item.getModel(), item.getContainer())
+        // drawLineAnimate(item.getModel(), item.getContainer())
       } else {
         line.attr(config.line.style.inactive)
         // 销毁线条动画
-        destroyLineAnimate(item.getModel(), item.getContainer())
+        // destroyLineAnimate(item.getModel(), item.getContainer())
       }
     }
   }
