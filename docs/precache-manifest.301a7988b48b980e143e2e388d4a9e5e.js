@@ -12,8 +12,8 @@ self.__precacheManifest = [
     "url": "/X-Flowchart-Vue/fonts/iconfont.7d8562f0.eot"
   },
   {
-    "revision": "b4d64e4f739bbe788399",
-    "url": "/X-Flowchart-Vue/css/app.7c199d49.css"
+    "revision": "5f50625c480d2d0079b1",
+    "url": "/X-Flowchart-Vue/css/app.5701212f.css"
   },
   {
     "revision": "99ac3308dd8ee14f749f51538d0d5b9e",
@@ -24,8 +24,8 @@ self.__precacheManifest = [
     "url": "/X-Flowchart-Vue/fonts/ionicons.d535a25a.ttf"
   },
   {
-    "revision": "b4d64e4f739bbe788399",
-    "url": "/X-Flowchart-Vue/js/app.564f5ea2.js"
+    "revision": "5f50625c480d2d0079b1",
+    "url": "/X-Flowchart-Vue/js/app.b9d571a3.js"
   },
   {
     "revision": "143146fa24554ae2c5ac0a3982abb952",
@@ -44,7 +44,7 @@ self.__precacheManifest = [
     "url": "/X-Flowchart-Vue/img/ionicons.a2c4a261.svg"
   },
   {
-    "revision": "9b68c8b9bbcbf51ecf4b91a39db2bb00",
+    "revision": "15bea849ee9df37d1b67b76b3ed7788b",
     "url": "/X-Flowchart-Vue/index.html"
   },
   {
