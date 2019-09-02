@@ -442,6 +442,7 @@
                 _t.editor.updateItem(edge, {
                   shape: info.data
                 })
+                _t.editor.refreshItem(edge)
               }
             })
             break

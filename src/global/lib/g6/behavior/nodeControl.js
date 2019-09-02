@@ -167,7 +167,7 @@ export default {
             y: event.y
           },
           // FIXME label 需支持双击编辑
-          // label: '',
+          label: '',
           attrs: {},
           style: {
             stroke: _t.graph.$X.lineColor,

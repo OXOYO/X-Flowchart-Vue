@@ -68,7 +68,7 @@ export default {
       if (!cfg.sourceNode) {
         return cfg.controlPoints
       }
-      return polylineFinding(cfg.sourceNode, cfg.targetNode, cfg.startPoint, cfg.endPoint, 25)
+      return polylineFinding(cfg.sourceNode, cfg.targetNode, cfg.startPoint, cfg.endPoint, 40)
     }
   }
 }
