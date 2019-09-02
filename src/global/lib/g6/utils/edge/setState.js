@@ -1,12 +1,12 @@
 /**
  * Created by OXOYO on 2019/7/16.
  *
- * 设置锚点激活
+ * 设置边状态
  */
 
-import config from '../config/index'
-// import drawLineAnimate from './drawLineAnimate'
-// import destroyLineAnimate from './destroyLineAnimate'
+import config from '../../config'
+// import drawEdgeAnimate from './drawEdgeAnimate'
+// import destroyEdgeAnimate from './destroyEdgeAnimate'
 
 export default function (name, value, item) {
   if (name === 'active') {
@@ -17,12 +17,12 @@ export default function (name, value, item) {
     if (line) {
       if (value) {
         line.attr(config.line.style.active)
-        // 绘制线条动画
-        // drawLineAnimate(item.getModel(), item.getContainer())
+        // 绘制边动画
+        // drawEdgeAnimate(item.getModel(), item.getContainer())
       } else {
         line.attr(config.line.style.inactive)
-        // 销毁线条动画
-        // destroyLineAnimate(item.getModel(), item.getContainer())
+        // 销毁边动画
+        // destroyEdgeAnimate(item.getModel(), item.getContainer())
       }
     }
   }

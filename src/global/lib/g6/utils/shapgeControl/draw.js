@@ -4,7 +4,7 @@
  * 绘制图形控制
  */
 
-import config from '../config/index'
+import config from '../../config'
 
 export default function (cfg, group) {
   let { shapeControl, width, height, id } = cfg

@@ -1,10 +1,10 @@
 /**
  * Created by OXOYO on 2019/7/11.
  *
- * 绘制线条动画
+ * 绘制边动画
  */
 
-import config from '../config/index'
+import config from '../../config'
 
 export default function (cfg, group) {
   let node = group.getFirst()

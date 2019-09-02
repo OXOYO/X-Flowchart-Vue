@@ -1,11 +1,11 @@
 /**
  * Created by OXOYO on 2019/7/4.
  *
- * 拖拽节点到编辑器
+ * 单独拖拽节点到编辑器交互
  */
 
 import G6 from '@antv/g6'
-import config from '../config/index'
+import config from '../config'
 
 export default {
   name: 'drag-node-to-editor',

@@ -1,10 +1,10 @@
 /**
  * Created by OXOYO on 2019/7/8.
  *
- * 设置锚点激活
+ * 设置锚点状态
  */
 
-import config from '../config/index'
+import config from '../../config'
 
 export default function (name, value, item) {
   if (name === 'hover') {

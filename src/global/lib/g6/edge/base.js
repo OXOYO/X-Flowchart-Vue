@@ -4,7 +4,7 @@
  * 线条公共方法
  */
 
-import utils from '../utils/index'
+import utils from '../utils'
 
 export default {
   draw (cfg, group) {
@@ -22,7 +22,7 @@ export default {
     return keyShape
   },
   setState (name, value, item) {
-    // 设置线条激活
-    utils.setLineActive(name, value, item)
+    // 设置边状态
+    utils.edge.setState(name, value, item)
   }
 }

@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/7/19.
  *
- * 更新线条
+ * 更新边
  */
 
 export default function (node, graph) {

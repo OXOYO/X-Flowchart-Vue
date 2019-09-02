@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/7/4.
  *
- * 连线
+ * 单独画线交互
  */
 
 export default {

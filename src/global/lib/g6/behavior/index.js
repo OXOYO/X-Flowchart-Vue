@@ -6,7 +6,7 @@
 
 // 单独画线交互
 // import drawLine from './drawLine'
-// 单独拖拽交互
+// 单独拖拽节点到编辑器交互
 // import dragNodeToEditor from './dragNodeToEditor'
 // 单独图形控制交互
 // import shapeControl from './shapeControl'

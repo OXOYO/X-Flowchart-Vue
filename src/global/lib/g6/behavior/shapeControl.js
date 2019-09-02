@@ -1,10 +1,10 @@
 /**
  * Created by OXOYO on 2019/7/12.
  *
- *
+ * 单独图形控制交互
  */
 
-import utils from '../utils/index'
+import utils from '../utils'
 
 export default {
   name: 'shape-control',

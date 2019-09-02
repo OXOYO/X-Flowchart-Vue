@@ -1,12 +1,12 @@
 /**
  * Created by OXOYO on 2019/7/17.
  *
- * 节点控制
+ * 综合节点控制交互
  */
 
 import G6 from '@antv/g6'
-import config from '../config/index'
-import utils from '../utils/index'
+import config from '../config'
+import utils from '../utils'
 
 export default {
   name: 'node-control',
@@ -358,13 +358,13 @@ export default {
           // 当前节点容器
           let group = _t.info.node.getContainer()
           // 更新锚点
-          utils.updateAnchor({
+          utils.anchor.update({
             ..._t.info.node.getModel(),
             width: attrs.size[0],
             height: attrs.size[1]
           }, group)
           // 更新shapeControl
-          utils.updateShapeControl({
+          utils.shapeControl.update({
             ..._t.info.node.getModel(),
             width: attrs.size[0],
             height: attrs.size[1]
@@ -372,8 +372,8 @@ export default {
           // 更新节点
           _t.graph.updateItem(_t.info.node, attrs)
           if (_t.config.updateEdge) {
-            // 更新线条
-            utils.updateLine(_t.info.node, _t.graph)
+            // 更新边
+            utils.edge.update(_t.info.node, _t.graph)
           }
         }
       },
@@ -384,13 +384,13 @@ export default {
           // 当前节点容器
           let group = _t.info.node.getContainer()
           // 更新锚点
-          utils.updateAnchor({
+          utils.anchor.update({
             ..._t.info.node.getModel(),
             width: attrs.size[0],
             height: attrs.size[1]
           }, group)
           // 更新shapeControl
-          utils.updateShapeControl({
+          utils.shapeControl.update({
             ..._t.info.node.getModel(),
             width: attrs.size[0],
             height: attrs.size[1]
@@ -507,8 +507,8 @@ export default {
             // 更新节点
             _t.graph.updateItem(_t.info.node, attrs)
             if (_t.config.updateEdge) {
-              // 更新线条
-              utils.updateLine(_t.info.node, _t.graph)
+              // 更新边
+              utils.edge.update(_t.info.node, _t.graph)
             }
             if (_t.config.tooltip.dragNode) {
               let { width, height } = _t.info.node.getModel()
@@ -544,14 +544,7 @@ export default {
         let _t = this
         let canvas = _t.graph.get('canvas')
         let node = event.item
-        let {
-          id,
-          label,
-          // x,
-          // y,
-          width,
-          height
-        } = node.getModel()
+        let { id, label, x, y, width, height } = node.getModel()
         const el = canvas.get('el')
         const html = G6.Util.createDom(`<input id="${id}" class="node-label" autofocus value="${label}"></input>`)
         if (html) {
@@ -564,8 +557,8 @@ export default {
           G6.Util.modifyCSS(html, {
             display: 'inline-block',
             position: 'absolute',
-            left: event.clientX - width / 2 + 'px',
-            top: event.clientY - height / 2 + 'px',
+            left: x - width / 2 + 'px',
+            top: y - height / 2 + 'px',
             width: width + 'px',
             height: height + 'px',
             lineHeight: height + 'px',
