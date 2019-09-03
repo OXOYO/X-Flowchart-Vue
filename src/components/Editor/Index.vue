@@ -162,7 +162,7 @@
         // _t.editor.on('node:contextmenu', _t._nodeContextmenu)
         _t.editor.on('edge:mousedown', _t._edgeMousedown)
         _t.editor.on('editor:getItem', function (data) {
-          console.log('editor:getItem', JSON.stringify(data))
+          // console.log('editor:getItem', JSON.stringify(data))
           _t.$store.commit('editor/currentItem/update', data)
         })
         _t.editor.on('editor:setItem', function (data) {

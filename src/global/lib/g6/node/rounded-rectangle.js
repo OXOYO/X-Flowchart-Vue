@@ -1,7 +1,7 @@
 /**
- * Created by OXOYO on 2019/7/8.
+ * Created by OXOYO on 2019/9/3.
  *
- * 矩形
+ * 圆角矩形
  */
 
 import Global from '@antv/g6/src/global'
@@ -9,7 +9,7 @@ import Util from '@antv/g6/src/util'
 import base from './base'
 
 export default {
-  name: 'rectangle',
+  name: 'rounded-rectangle',
   extendName: 'single-shape',
   options: {
     ...base,
@@ -26,6 +26,8 @@ export default {
         y: 0 - height / 2,
         width,
         height,
+        // 圆角半径，分别对应左上、右上、右下、左下角的半径
+        radius: [5, 5, 5, 5],
         stroke: color
       }, cfg.style)
       return style

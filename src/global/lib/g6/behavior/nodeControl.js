@@ -228,6 +228,8 @@ export default {
     },
     shapeControl: {
       isMoving: false,
+      // 是否等比缩放
+      isProportional: false,
       startPoint: null,
       start (event) {
         let _t = this
@@ -238,6 +240,8 @@ export default {
           size: model.size || []
         }
         _t.shapeControl.isMoving = true
+        // 是否等比缩放
+        _t.shapeControl.isProportional = ['square', 'circle'].includes(model.shape)
         if (_t.config.tooltip.shapeControl) {
           _t.toolTip.create.call(_t, {
             left: model.x,
@@ -268,12 +272,17 @@ export default {
                   x: _t.shapeControl.startPoint.x + width / 2,
                   y: _t.shapeControl.startPoint.y + height / 2
                 }
-                // 计算宽、高
-                attrs.size[0] = Math.abs(referencePoint.x - event.x)
-                attrs.size[1] = Math.abs(referencePoint.y - event.y)
+                if (_t.shapeControl.isProportional) {
+                  // 计算宽、高
+                  attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
+                } else {
+                  // 计算宽、高
+                  attrs.size[0] = Math.abs(referencePoint.x - event.x)
+                  attrs.size[1] = Math.abs(referencePoint.y - event.y)
+                }
                 // 计算中心点坐标
-                attrs.x = event.x + attrs.size[0] / 2
-                attrs.y = event.y + attrs.size[1] / 2
+                attrs.x = referencePoint.x - attrs.size[0] / 2
+                attrs.y = referencePoint.y - attrs.size[1] / 2
                 if (
                   event.x > _t.shapeControl.startPoint.x ||
                   event.y > _t.shapeControl.startPoint.y ||
@@ -287,12 +296,17 @@ export default {
                   x: _t.shapeControl.startPoint.x + width / 2,
                   y: _t.shapeControl.startPoint.y - height / 2
                 }
-                // 计算宽、高
-                attrs.size[0] = Math.abs(referencePoint.x - event.x)
-                attrs.size[1] = Math.abs(referencePoint.y - event.y)
+                if (_t.shapeControl.isProportional) {
+                  // 计算宽、高
+                  attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
+                } else {
+                  // 计算宽、高
+                  attrs.size[0] = Math.abs(referencePoint.x - event.x)
+                  attrs.size[1] = Math.abs(referencePoint.y - event.y)
+                }
                 // 计算中心点坐标
-                attrs.x = event.x + attrs.size[0] / 2
-                attrs.y = event.y - attrs.size[1] / 2
+                attrs.x = referencePoint.x - attrs.size[0] / 2
+                attrs.y = referencePoint.y + attrs.size[1] / 2
                 if (
                   event.x > _t.shapeControl.startPoint.x ||
                   event.y < _t.shapeControl.startPoint.y ||
@@ -308,12 +322,17 @@ export default {
                   x: _t.shapeControl.startPoint.x - width / 2,
                   y: _t.shapeControl.startPoint.y + height / 2
                 }
-                // 计算宽、高
-                attrs.size[0] = Math.abs(referencePoint.x - event.x)
-                attrs.size[1] = Math.abs(referencePoint.y - event.y)
+                if (_t.shapeControl.isProportional) {
+                  // 计算宽、高
+                  attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
+                } else {
+                  // 计算宽、高
+                  attrs.size[0] = Math.abs(referencePoint.x - event.x)
+                  attrs.size[1] = Math.abs(referencePoint.y - event.y)
+                }
                 // 计算中心点坐标
-                attrs.x = event.x - attrs.size[0] / 2
-                attrs.y = event.y + attrs.size[1] / 2
+                attrs.x = referencePoint.x + attrs.size[0] / 2
+                attrs.y = referencePoint.y - attrs.size[1] / 2
                 if (
                   event.x < _t.shapeControl.startPoint.x ||
                   event.y > _t.shapeControl.startPoint.y ||
@@ -327,12 +346,17 @@ export default {
                   x: _t.shapeControl.startPoint.x - width / 2,
                   y: _t.shapeControl.startPoint.y - height / 2
                 }
-                // 计算宽、高
-                attrs.size[0] = Math.abs(referencePoint.x - event.x)
-                attrs.size[1] = Math.abs(referencePoint.y - event.y)
+                if (_t.shapeControl.isProportional) {
+                  // 计算宽、高
+                  attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
+                } else {
+                  // 计算宽、高
+                  attrs.size[0] = Math.abs(referencePoint.x - event.x)
+                  attrs.size[1] = Math.abs(referencePoint.y - event.y)
+                }
                 // 计算中心点坐标
-                attrs.x = event.x - attrs.size[0] / 2
-                attrs.y = event.y - attrs.size[1] / 2
+                attrs.x = referencePoint.x + attrs.size[0] / 2
+                attrs.y = referencePoint.y + attrs.size[1] / 2
                 if (
                   event.x < _t.shapeControl.startPoint.x ||
                   event.y < _t.shapeControl.startPoint.y ||

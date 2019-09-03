@@ -14,14 +14,6 @@ export default {
   options: {
     ...base,
     shapeType: 'rect',
-    drawShape (cfg, group) {
-      const shapeType = this.shapeType
-      const style = this.getShapeStyle(cfg)
-      const shape = group.addShape(shapeType, {
-        attrs: style
-      })
-      return shape
-    },
     getShapeStyle (cfg) {
       const size = this.getSize(cfg)
       const width = size[0]

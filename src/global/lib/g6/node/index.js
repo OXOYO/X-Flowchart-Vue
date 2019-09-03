@@ -5,15 +5,25 @@
  */
 
 import rectangle from './rectangle'
+import roundedRectangle from './rounded-rectangle'
+import ellipse from './ellipse'
 import square from './square'
 import circle from './circle'
-import ellipse from './ellipse'
+import diamond from './diamond'
+import parallelogram from './parallelogram'
+import hexagon from './hexagon'
+import triangle from './triangle'
 
 const obj = {
   rectangle,
+  roundedRectangle,
+  ellipse,
   square,
   circle,
-  ellipse
+  diamond,
+  parallelogram,
+  hexagon,
+  triangle
 }
 
 export default function (G6) {

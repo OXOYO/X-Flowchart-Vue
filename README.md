@@ -67,17 +67,17 @@ yarn run serve
 - [x]  **工具栏**：全屏
 - [x]  **工具栏**：语言
 - [x]  **基础图形**：Rectangle
-- [ ]  **基础图形**：Rounded Rectangle
+- [x]  **基础图形**：Rounded Rectangle
 - [ ]  **基础图形**：Text
 - [ ]  **基础图形**：Textbox
 - [x]  **基础图形**：Ellipse
 - [x]  **基础图形**：Square
 - [x]  **基础图形**：Circle
 - [ ]  **基础图形**：Process
-- [ ]  **基础图形**：Diamond
-- [ ]  **基础图形**：Parallelogram
-- [ ]  **基础图形**：Hexagon
-- [ ]  **基础图形**：Triangle
+- [x]  **基础图形**：Diamond
+- [x]  **基础图形**：Parallelogram
+- [x]  **基础图形**：Hexagon
+- [x]  **基础图形**：Triangle
 - [ ]  **基础图形**：Cylinder
 - [ ]  **基础图形**：Cloud
 - [ ]  **基础图形**：Document
