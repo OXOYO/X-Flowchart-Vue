@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/7/17.
  *
- * 综合节点控制交互
+ * 综合节点控制交互【drag方式】
  */
 
 import G6 from '@antv/g6'
@@ -34,6 +34,9 @@ export default {
         'node:mousedown': 'onNodeMousedown',
         'node:mouseup': 'onNodeMouseup',
         'node:dblclick': 'onNodeDblclick',
+        'node:dragstart': 'onNodeDragStart',
+        'node:drag': 'onNodeDrag',
+        'node:dragend': 'onNodeDragEnd',
         'canvas:mouseenter': 'onCanvasMouseenter',
         'canvas:mouseleave': 'onCanvasMouseleave',
         'edge:mousedown': 'onEdgeMousedown',
@@ -76,16 +79,16 @@ export default {
             _t.info.type = 'shapeControl'
             break
         }
+        if (_t.info.type) {
+          _t[_t.info.type].start.call(_t, event)
+        }
       } else {
         _t.info.type = 'dragNode'
-      }
-      if (_t.info && _t.info.type) {
-        _t[_t.info.type].start.call(_t, event)
       }
     },
     onNodeMouseup (event) {
       let _t = this
-      if (_t.info && _t.info.type) {
+      if (_t.info && _t.info.type && _t.info.type !== 'dragNode') {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
@@ -93,6 +96,25 @@ export default {
       let _t = this
       if (_t.config.nodeLabel) {
         _t.nodeLabel.create.call(_t, event)
+      }
+    },
+    onNodeDragStart (event) {
+      let _t = this
+      // 初始化数据
+      if (_t.info && _t.info.type === 'dragNode') {
+        _t[_t.info.type].start.call(_t, event)
+      }
+    },
+    onNodeDrag (event) {
+      let _t = this
+      if (_t.info && _t.info.type === 'dragNode') {
+        _t[_t.info.type].move.call(_t, event)
+      }
+    },
+    onNodeDragEnd (event) {
+      let _t = this
+      if (_t.info && _t.info.type === 'dragNode') {
+        _t[_t.info.type].stop.call(_t, event)
       }
     },
     onCanvasMouseenter (event) {
@@ -131,7 +153,9 @@ export default {
     onMousemove (event) {
       let _t = this
       if (_t.info && _t.info.type) {
-        _t[_t.info.type].move.call(_t, event)
+        if (_t.dragNode.status !== 'dragNode') {
+          _t[_t.info.type].move.call(_t, event)
+        }
       }
     },
     onMouseup (event) {
@@ -505,7 +529,7 @@ export default {
               // }
             }
             // 更新节点
-            // _t.graph.updateItem(_t.info.node, attrs)
+            _t.graph.updateItem(_t.info.node, attrs)
             _t.info.node.updatePosition(attrs)
             if (_t.config.updateEdge) {
               // 更新边
