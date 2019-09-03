@@ -691,7 +691,7 @@
                   icon: 'solid-arrow',
                   style: {},
                   data: {
-                    path: 'M 10,0 L -10,-10 L -10,10 Z',
+                    path: 'M10,0 L-10,-10 L-10,10 Z',
                     d: 10
                   },
                   enable: true,
@@ -705,7 +705,7 @@
                   icon: 'normal-arrow',
                   style: {},
                   data: {
-                    path: 'M 10,0 L -10,-10 L -11,-9 L 9,0 L-11,9 L -10,10 Z',
+                    path: 'M10,0 L-10,10 L-10.707,9.293 L8.568,0 L-10.707,-9.293 L-10,-10 Z',
                     d: 10
                   },
                   enable: true,
@@ -719,7 +719,7 @@
                   icon: 'asynch-arraw',
                   style: {},
                   data: {
-                    path: 'M 10,0 L -10,-10 L -11,-9 L 9,0 Z',
+                    path: 'M10,0 L-10,10 L-10.707,9.293 L8.568,0 Z',
                     d: 10
                   },
                   enable: true,
@@ -762,7 +762,7 @@
                     transform: 'rotate(180deg)'
                   },
                   data: {
-                    path: 'M 10,0 L -10,-10 L -10,10 Z',
+                    path: 'M10,0 L-10,-10 L-10,10 Z',
                     d: 10
                   },
                   enable: true,
@@ -779,7 +779,7 @@
                     transform: 'rotate(180deg)'
                   },
                   data: {
-                    path: 'M 10,0 L -10,-10 L -11,-9 L 9,0 L-11,9 L -10,10 Z',
+                    path: 'M10,0 L-10,10 L-10.707,9.293 L8.568,0 L-10.707,-9.293 L-10,-10 Z',
                     d: 10
                   },
                   enable: true,
@@ -796,7 +796,7 @@
                     transform: 'rotate(180deg)'
                   },
                   data: {
-                    path: 'M 10,0 L -10,-10 L -11,-9 L 9,0 Z',
+                    path: 'M10,0 L-10,10 L-10.707,9.293 L8.568,0 Z',
                     d: 10
                   },
                   enable: true,
