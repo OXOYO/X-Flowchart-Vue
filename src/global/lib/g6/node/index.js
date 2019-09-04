@@ -13,6 +13,9 @@ import diamond from './diamond'
 import parallelogram from './parallelogram'
 import hexagon from './hexagon'
 import triangle from './triangle'
+import cylinder from './cylinder'
+import cloud from './cloud'
+import document from './document'
 
 const obj = {
   rectangle,
@@ -23,7 +26,10 @@ const obj = {
   diamond,
   parallelogram,
   hexagon,
-  triangle
+  triangle,
+  cylinder,
+  cloud,
+  document
 }
 
 export default function (G6) {

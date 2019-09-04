@@ -78,9 +78,9 @@ yarn run serve
 - [x]  **基础图形**：Parallelogram
 - [x]  **基础图形**：Hexagon
 - [x]  **基础图形**：Triangle
-- [ ]  **基础图形**：Cylinder
-- [ ]  **基础图形**：Cloud
-- [ ]  **基础图形**：Document
+- [x]  **基础图形**：Cylinder
+- [x]  **基础图形**：Cloud
+- [x]  **基础图形**：Document
 - [ ]  **基础图形**：Internal Sotrage
 - [ ]  **基础图形**：Cube
 - [ ]  **基础图形**：Step
