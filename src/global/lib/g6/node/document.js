@@ -24,9 +24,9 @@ export default {
         // 左上
         [ 'M', -width / 2, -height / 2 ],
         // 右上
-        [ 'L', width / 2, -height / 2],
+        [ 'L', width / 2, -height / 2 ],
         // 右下
-        [ 'L', width / 2, height / 4],
+        [ 'L', width / 2, height / 4 ],
         // 弧
         [ 'C', width / 4, -height / 8, -width / 4, height * 5 / 8, -width / 2, height / 4 ],
         [ 'Z' ]
