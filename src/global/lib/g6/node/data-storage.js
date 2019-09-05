@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/9/3.
  *
- * 圆筒
+ * 数据存储
  */
 
 import Global from '@antv/g6/src/global'
@@ -9,7 +9,7 @@ import Util from '@antv/g6/src/util'
 import base from './base'
 
 export default {
-  name: 'cylinder',
+  name: 'data-storage',
   extendName: 'single-shape',
   options: {
     ...base,
@@ -22,19 +22,15 @@ export default {
       const y = 0 - height / 2
       const path = [
         // 左上
-        [ 'M', -width / 2, -height / 4 ],
-        // 上弧 左->右
-        [ 'C', -width / 2, -height * 5 / 12, width / 2, -height * 5 / 12, width / 2, -height / 4 ],
-        // 右下
-        [ 'L', width / 2, height / 4 ],
-        // 下弧 右->左
-        [ 'C', width / 2, height * 5 / 12, -width / 2, height * 5 / 12, -width / 2, height / 4 ],
-        // 左上
-        [ 'L', -width / 2, -height / 4 ],
-        // 上弧 左->右
-        [ 'C', -width / 2, -height * 5 / 12, width / 2, -height * 5 / 12, width / 2, -height / 4 ],
-        // 中弧 右->左
-        [ 'C', width / 2, -height * 1 / 12, -width / 2, -height * 1 / 12, -width / 2, -height / 4 ]
+        [ 'M', -width / 4, -height / 2 ],
+        // 右上
+        [ 'L', width / 2, -height / 2 ],
+        // 右弧
+        [ 'C', width * 0.3, 0, width * 0.3, 0, width / 2, height / 2 ],
+        // 左下
+        [ 'L', -width / 4, height / 2 ],
+        // 左弧
+        [ 'C', -width * 0.45, 0, -width * 0.45, 0, -width / 4, -height / 2 ]
       ]
       const color = cfg.color || Global.defaultNode.color
       const style = Util.mix({}, Global.defaultNode.style, {

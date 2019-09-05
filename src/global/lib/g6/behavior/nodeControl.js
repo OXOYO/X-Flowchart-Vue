@@ -529,8 +529,7 @@ export default {
               // }
             }
             // 更新节点
-            // _t.graph.updateItem(_t.info.node, attrs)
-            _t.info.node.updatePosition(attrs)
+            _t.graph.updateItem(_t.info.node, attrs)
             if (_t.config.updateEdge) {
               // 更新边
               utils.edge.update(_t.info.node, _t.graph)

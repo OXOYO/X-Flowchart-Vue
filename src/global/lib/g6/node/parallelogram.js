@@ -26,9 +26,9 @@ export default {
         // 左上
         [ 'L', -width / 4, -height / 2 ],
         // 右上
-        [ 'L', width * 3 / 4, -height / 2 ],
+        [ 'L', width / 2, -height / 2 ],
         // 右下
-        [ 'L', width / 2, height / 2 ],
+        [ 'L', width / 4, height / 2 ],
         [ 'Z' ]
       ]
       const color = cfg.color || Global.defaultNode.color

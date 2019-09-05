@@ -22,19 +22,19 @@ export default {
       const y = 0 - height / 2
       const path = [
         // 左
-        [ 'M', -width * 6 / 10, height * 2 / 10 ],
+        [ 'M', -width * 6 / 20, height * 2 / 20 ],
         // 弧1 左->右
-        [ 'C', -width * 10 / 10, height * 1 / 10, -width * 7 / 10, -height * 3 / 10, -width * 4 / 10, -height * 3 / 10 ],
+        [ 'C', -width * 10 / 20, height * 1 / 20, -width * 7 / 20, -height * 3 / 20, -width * 4 / 20, -height * 3 / 20 ],
         // 弧2 左->右
-        [ 'C', -width * 4 / 10, -height * 6 / 10, width * 2 / 10, -height * 6 / 10, width * 4 / 10, -height * 4 / 10 ],
+        [ 'C', -width * 4 / 20, -height * 6 / 20, width * 2 / 20, -height * 6 / 20, width * 4 / 20, -height * 4 / 20 ],
         // 弧3 左->右
-        [ 'C', width * 6 / 10, -height * 5 / 10, width * 9 / 10, -height * 4 / 10, width * 7 / 10, -height * 2 / 10 ],
+        [ 'C', width * 6 / 20, -height * 5 / 20, width * 9 / 20, -height * 4 / 20, width * 7 / 20, -height * 2 / 20 ],
         // 弧4 左->右
-        [ 'C', width * 10 / 10, height * 1 / 10, width * 8 / 10, height * 2 / 10, width * 5 / 10, height * 3 / 10 ],
+        [ 'C', width * 10 / 20, height * 1 / 20, width * 8 / 20, height * 2 / 20, width * 5 / 20, height * 3 / 20 ],
         // 弧5 左->右
-        [ 'C', width * 3 / 10, height * 6 / 10, -width * 4 / 10, height * 5 / 10, -width * 3 / 10, height * 3 / 10 ],
+        [ 'C', width * 3 / 20, height * 6 / 20, -width * 4 / 20, height * 5 / 20, -width * 3 / 20, height * 3 / 20 ],
         // 弧6 左->右
-        [ 'C', -width * 3 / 10, height * 4 / 10, -width * 8 / 10, height * 5 / 10, -width * 6 / 10, height * 2 / 10 ]
+        [ 'C', -width * 3 / 20, height * 4 / 20, -width * 8 / 20, height * 5 / 20, -width * 6 / 20, height * 2 / 20 ]
       ]
       const color = cfg.color || Global.defaultNode.color
       const style = Util.mix({}, Global.defaultNode.style, {

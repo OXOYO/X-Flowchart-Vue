@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/9/3.
  *
- * 圆筒
+ * 卡片
  */
 
 import Global from '@antv/g6/src/global'
@@ -9,7 +9,7 @@ import Util from '@antv/g6/src/util'
 import base from './base'
 
 export default {
-  name: 'cylinder',
+  name: 'card',
   extendName: 'single-shape',
   options: {
     ...base,
@@ -23,18 +23,15 @@ export default {
       const path = [
         // 左上
         [ 'M', -width / 2, -height / 4 ],
-        // 上弧 左->右
-        [ 'C', -width / 2, -height * 5 / 12, width / 2, -height * 5 / 12, width / 2, -height / 4 ],
+        // 左上拐
+        [ 'L', -width / 4, -height / 2 ],
+        // 右上
+        [ 'L', width / 2, -height / 2 ],
         // 右下
-        [ 'L', width / 2, height / 4 ],
-        // 下弧 右->左
-        [ 'C', width / 2, height * 5 / 12, -width / 2, height * 5 / 12, -width / 2, height / 4 ],
-        // 左上
-        [ 'L', -width / 2, -height / 4 ],
-        // 上弧 左->右
-        [ 'C', -width / 2, -height * 5 / 12, width / 2, -height * 5 / 12, width / 2, -height / 4 ],
-        // 中弧 右->左
-        [ 'C', width / 2, -height * 1 / 12, -width / 2, -height * 1 / 12, -width / 2, -height / 4 ]
+        [ 'L', width / 2, height / 2 ],
+        // 左下
+        [ 'L', -width / 2, height / 2 ],
+        [ 'Z' ]
       ]
       const color = cfg.color || Global.defaultNode.color
       const style = Util.mix({}, Global.defaultNode.style, {

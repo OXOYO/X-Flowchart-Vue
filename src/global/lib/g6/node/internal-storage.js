@@ -32,8 +32,8 @@ export default {
         // 左上
         [ 'L', -width / 2, -height / 2 ],
         // 竖线
-        [ 'L', -width / 8, -height / 2 ],
-        [ 'L', -width / 8, height / 2 ],
+        [ 'L', -width / 4, -height / 2 ],
+        [ 'L', -width / 4, height / 2 ],
         // 左下
         [ 'L', -width / 2, height / 2 ],
         // 左上
@@ -41,8 +41,8 @@ export default {
         // 右上
         [ 'L', width / 2, -height / 2 ],
         // 横线
-        [ 'L', width / 2, -height * 1 / 8 ],
-        [ 'L', -width / 2, -height * 1 / 8 ]
+        [ 'L', width / 2, -height / 4 ],
+        [ 'L', -width / 2, -height / 4 ]
       ]
       const color = cfg.color || Global.defaultNode.color
       const style = Util.mix({}, Global.defaultNode.style, {

@@ -73,7 +73,7 @@ yarn run serve
 - [x]  **基础图形**：Ellipse
 - [x]  **基础图形**：Square
 - [x]  **基础图形**：Circle
-- [ ]  **基础图形**：Process
+- [x]  **基础图形**：Process
 - [x]  **基础图形**：Diamond
 - [x]  **基础图形**：Parallelogram
 - [x]  **基础图形**：Hexagon
@@ -81,15 +81,15 @@ yarn run serve
 - [x]  **基础图形**：Cylinder
 - [x]  **基础图形**：Cloud
 - [x]  **基础图形**：Document
-- [ ]  **基础图形**：Internal Sotrage
-- [ ]  **基础图形**：Cube
-- [ ]  **基础图形**：Step
-- [ ]  **基础图形**：Trapezoid
-- [ ]  **基础图形**：Tape
-- [ ]  **基础图形**：Note
-- [ ]  **基础图形**：Card
-- [ ]  **基础图形**：Callout
-- [ ]  **基础图形**：Actor
-- [ ]  **基础图形**：Or
-- [ ]  **基础图形**：And
-- [ ]  **基础图形**：Data Storage
+- [x]  **基础图形**：Internal Sotrage
+- [x]  **基础图形**：Cube
+- [x]  **基础图形**：Step
+- [x]  **基础图形**：Trapezoid
+- [x]  **基础图形**：Tape
+- [x]  **基础图形**：Note
+- [x]  **基础图形**：Card
+- [x]  **基础图形**：Callout
+- [x]  **基础图形**：Actor
+- [x]  **基础图形**：Or
+- [x]  **基础图形**：And
+- [x]  **基础图形**：Data Storage

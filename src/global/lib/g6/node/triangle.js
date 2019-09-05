@@ -22,11 +22,11 @@ export default {
       const y = 0 - height / 2
       const path = [
         // 左上
-        [ 'M', -width / 4, -height / 2 ],
+        [ 'M', -width / 2, -height / 2 ],
         // 右顶点
-        [ 'L', width / 4, 0 ],
+        [ 'L', width / 2, 0 ],
         // 右下
-        [ 'L', -width / 4, height / 2 ],
+        [ 'L', -width / 2, height / 2 ],
         [ 'Z' ]
       ]
       const color = cfg.color || Global.defaultNode.color
