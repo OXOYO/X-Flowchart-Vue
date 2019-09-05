@@ -26,13 +26,13 @@ export default {
         // 右上
         [ 'L', width * 3 / 8, -height / 2 ],
         // 右顶点
-        [ 'L', width / 2, 0],
+        [ 'L', width / 2, 0 ],
         // 右下
         [ 'L', width * 3 / 8, height / 2 ],
         // 左下
         [ 'L', -width / 2, height / 2 ],
         // 左顶点
-        [ 'L', -width * 3 / 8, 0],
+        [ 'L', -width * 3 / 8, 0 ],
         [ 'Z' ]
       ]
       const color = cfg.color || Global.defaultNode.color

@@ -27,21 +27,21 @@ export default {
         [ 'L', 0, -height / 5 ],
         [ 'L', 0, -height / 4 ],
         // 左圆
-        [ 'C', -width / 5, -height / 4, -width / 5, -height / 2, 0, -height / 2],
+        [ 'C', -width / 5, -height / 4, -width / 5, -height / 2, 0, -height / 2 ],
         // 右圆
-        [ 'C', width / 5, -height / 2, width / 5, -height / 4, 0, -height / 4],
+        [ 'C', width / 5, -height / 2, width / 5, -height / 4, 0, -height / 4 ],
         // 右上
         [ 'L', 0, -height / 5 ],
         [ 'L', width / 2, -height / 5 ],
         [ 'L', 0, -height / 5 ],
         // 竖线
-        [ 'L', 0, height / 4],
+        [ 'L', 0, height / 4 ],
         // 左斜线
-        [ 'L', -width / 2, height / 2],
-        [ 'L', 0, height / 4],
+        [ 'L', -width / 2, height / 2 ],
+        [ 'L', 0, height / 4 ],
         // 右斜线
-        [ 'L', width / 2, height / 2],
-        [ 'L', 0, height / 4],
+        [ 'L', width / 2, height / 2 ],
+        [ 'L', 0, height / 4 ],
         // 竖线
         [ 'L', 0, -height / 5 ]
       ]
