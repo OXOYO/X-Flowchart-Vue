@@ -16,6 +16,8 @@ import triangle from './triangle'
 import cylinder from './cylinder'
 import cloud from './cloud'
 import document from './document'
+import internalStorage from './internal-storage'
+import cube from './cube'
 
 const obj = {
   rectangle,
@@ -29,7 +31,9 @@ const obj = {
   triangle,
   cylinder,
   cloud,
-  document
+  document,
+  internalStorage,
+  cube
 }
 
 export default function (G6) {

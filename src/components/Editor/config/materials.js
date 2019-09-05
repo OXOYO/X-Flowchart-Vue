@@ -172,8 +172,8 @@ export default [
     icon: `<g><g></g><g><g transform="translate(0.5,0.5)" style="visibility: visible;"><path d="M 1.44 5.28 L 30.24 5.28 L 30.24 21.6 Q 23.04 16.42 15.84 21.6 Q 8.64 26.78 1.44 21.6 L 1.44 8.16 Z" fill="#ffffff" stroke="#000000" stroke-width="1.3" stroke-miterlimit="10" pointer-events="all"></path></g></g><g></g><g></g></g>`
   },
   {
-    shape: 'internal-sotrage',
-    label: 'Internal Sotrage',
+    shape: 'internal-storage',
+    label: 'Internal Storage',
     enable: true,
     width: 40,
     height: 40,
