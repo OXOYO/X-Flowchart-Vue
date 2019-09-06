@@ -866,6 +866,16 @@
               divider: false
             },
             {
+              name: 'download',
+              label: 'download',
+              lang: 'L10030',
+              type: 'normal',
+              icon: 'download',
+              enable: true,
+              disabled: false,
+              divider: false
+            },
+            {
               name: 'preview',
               label: 'preview',
               lang: 'L10024',

@@ -11,7 +11,7 @@
     height: 100%;
     user-select: none;
     overflow: hidden;
-    background: #D4D5D9;
+    background: #f8f9fa;
   }
 </style>
 
@@ -82,10 +82,9 @@
           navigator.clientWidth,
           parseInt(navigator.clientWidth * sketchpad.clientHeight / sketchpad.clientWidth)
         ]
-        console.log('size', size)
         const minimap = new Minimap({
           container: navigator,
-          type: 'delegate',
+          type: 'keyShape',
           size: size
         })
         const grid = new Grid()
@@ -489,6 +488,10 @@
             if (screenfull.enabled) {
               screenfull.toggle()
             }
+            break
+          case 'download':
+            let fileName = _t.$X.config.system.name + '_' + _t.$X.utils.filters.formatDate(new Date(), 'YYYYMMDDhhmmss')
+            _t.editor.downloadImage(fileName)
             break
         }
       },

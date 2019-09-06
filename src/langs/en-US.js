@@ -5,6 +5,7 @@
  */
 
 export default {
+  // toolbar
   L10000: 'XFC',
   L10001: 'Undo (Ctrl + Z)',
   L10002: 'Redo (Ctrl + Shift + Z)',
@@ -34,12 +35,16 @@ export default {
   L10026: 'Language',
   L10027: 'Github',
   L10028: 'Feedback',
+  L10029: 'Zoom',
+  L10030: 'Download',
+  // left and right panels
   L10100: 'Basic graphics',
   L10101: 'Configuration',
   L10102: 'Navigator',
   L10103: 'Properties',
   L10104: 'Style',
   L10105: 'Text',
+  // other
   L10200: 'Hint',
   L10201: 'Are you sure to empty the canvas? '
 }
