@@ -33,9 +33,10 @@
 
       .handler {
         position: absolute;
-        right: 0;
-        top: 0;
+        right: 10px;
+        top: 3px;
         z-index: 10;
+        cursor: pointer;
       }
     }
     .body {
@@ -49,9 +50,9 @@
   <div class="card-item">
     <div class="header" @click="handleToggle">
       <div :class="{ 'title': true, 'bold': bold }" v-if="title">{{ title }}</div>
-      <div class="handler">
-        <Icon type="ios-arrow-up" v-show="enableFold && !isFolded"></Icon>
-        <Icon type="ios-arrow-down" v-show="enableFold && isFolded"></Icon>
+      <div class="handler" v-if="enableFold">
+        <Icon type="ios-arrow-up" v-show="!isFolded"></Icon>
+        <Icon type="ios-arrow-down" v-show="isFolded"></Icon>
       </div>
     </div>
     <div class="body" v-show="!isFolded">

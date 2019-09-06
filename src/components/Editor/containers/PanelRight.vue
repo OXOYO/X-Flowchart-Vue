@@ -7,7 +7,7 @@
 <style scoped lang="less" rel="stylesheet/less"></style>
 
 <template>
-  <CardBox placement="right" position="left" :width="300">
+  <CardBox placement="right" position="left" :width="300" @expand="toggleHandler">
     <CardItem :title="$t('L10101')" :enableFold="true" :bold="true">
       <Options></Options>
     </CardItem>
@@ -30,6 +30,12 @@
       CardItem,
       Options,
       Navigator
+    },
+    methods: {
+      toggleHandler (data) {
+        let _t = this
+        _t.$X.utils.bus.$emit('editor/panel/toggle', data)
+      }
     }
   }
 </script>

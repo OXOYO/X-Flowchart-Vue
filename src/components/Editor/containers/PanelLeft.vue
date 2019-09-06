@@ -16,7 +16,7 @@
 </style>
 
 <template>
-  <CardBox class="panel-left" placement="left" position="right" :width="250">
+  <CardBox class="panel-left" placement="left" position="right" :width="250" @expand="toggleHandler">
     <CardItem :title="$t('L10100')" :enableFold="true" :bold="true">
       <NodeElement
         v-for="(item, index) in materials.filter(target => target.enable)"
@@ -46,6 +46,12 @@
     data () {
       return {
         materials: config.materials || []
+      }
+    },
+    methods: {
+      toggleHandler (data) {
+        let _t = this
+        _t.$X.utils.bus.$emit('editor/panel/toggle', data)
       }
     }
   }

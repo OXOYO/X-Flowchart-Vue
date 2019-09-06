@@ -12,6 +12,7 @@
     border: 1px solid #dddddd;
     overflow: hidden;
     transition: all .2s ease-in .1s;
+    cursor: pointer;
 
     &:hover {
       background: #dddddd;

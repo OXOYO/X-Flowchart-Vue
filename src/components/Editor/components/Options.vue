@@ -39,21 +39,23 @@
       <!-- 节点样式 -->
       <CardItem :title="$t('L10104')" :enableFold="true">
         <div class="form-item-block">
-          <FormItem label="fill">
-            <ColorPicker v-model="formData.style.fill" hue recommend @on-change="handleChange"></ColorPicker>
-          </FormItem>
-          <FormItem label="fillOpacity">
-            <Slider
-              v-model="formData.style.fillOpacity"
-              :min="0"
-              :max="1"
-              :step="0.1"
-              :show-input="true"
-              input-size="small"
-              @on-change="handleChange"
-            >
-            </Slider>
-          </FormItem>
+          <template v-if="currentItem.type === 'node'">
+            <FormItem label="fill">
+              <ColorPicker v-model="formData.style.fill" hue recommend @on-change="handleChange"></ColorPicker>
+            </FormItem>
+            <FormItem label="fillOpacity">
+              <Slider
+                v-model="formData.style.fillOpacity"
+                :min="0"
+                :max="1"
+                :step="0.1"
+                :show-input="true"
+                input-size="small"
+                @on-change="handleChange"
+              >
+              </Slider>
+            </FormItem>
+          </template>
           <FormItem label="stroke">
             <ColorPicker v-model="formData.style.stroke" hue recommend @on-change="handleChange"></ColorPicker>
           </FormItem>

@@ -104,6 +104,11 @@
         } else {
           style[_t.placement] = (-_t.width) + 'px'
         }
+        _t.$emit('expand', {
+          name: _t.placement,
+          isExpand: _t.isExpand,
+          style: style
+        })
         return style
       }
     },

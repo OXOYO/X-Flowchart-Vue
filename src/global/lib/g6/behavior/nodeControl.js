@@ -454,8 +454,8 @@ export default {
           _t.graph.paint()
           if (_t.config.tooltip.dragNode) {
             _t.toolTip.create.call(_t, {
-              left: event.clientX,
-              top: event.clientX
+              left: event.canvasX,
+              top: event.canvasY + height / 2
             }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}<br>W: ${width.toFixed(2)} H: ${height.toFixed(2)}`)
           }
         }
@@ -491,8 +491,8 @@ export default {
         if (_t.config.tooltip.dragNode) {
           let { width, height } = _t.info.node.getModel()
           _t.toolTip.create.call(_t, {
-            left: event.clientX,
-            top: event.clientY + height / 2
+            left: event.canvasX,
+            top: event.canvasY + height / 2
           }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}<br>W: ${width.toFixed(2)} H: ${height.toFixed(2)}`)
         }
         _t.dragNode.status = 'dragNode'
@@ -509,8 +509,8 @@ export default {
             _t.graph.paint()
             if (_t.config.tooltip.dragNode) {
               _t.toolTip.update.call(_t, {
-                left: event.clientX,
-                top: event.clientY + height / 2
+                left: event.canvasX,
+                top: event.canvasY + height / 2
               }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}<br>W: ${width.toFixed(2)} H: ${height.toFixed(2)}`)
             }
           }
@@ -537,8 +537,8 @@ export default {
             if (_t.config.tooltip.dragNode) {
               let { width, height } = _t.info.node.getModel()
               _t.toolTip.update.call(_t, {
-                left: event.clientX,
-                top: event.clientY + height / 2
+                left: event.canvasX,
+                top: event.canvasY + height / 2
               }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}<br>W: ${width.toFixed(2)} H: ${height.toFixed(2)}`)
             }
           }

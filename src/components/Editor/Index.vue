@@ -74,7 +74,9 @@
       init () {
         let _t = this
         let el = _t.$el
+        // 画板
         let sketchpad = el.querySelector('#sketchpad')
+        // 导航器
         let navigator = el.querySelector('#navigator')
         console.log('sketchpad', sketchpad, sketchpad.clientWidth, sketchpad.clientHeight)
         console.log('navigator', navigator, navigator.clientWidth, navigator.clientHeight)
