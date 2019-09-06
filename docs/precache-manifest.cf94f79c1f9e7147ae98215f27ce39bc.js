@@ -8,12 +8,12 @@ self.__precacheManifest = [
     "url": "/X-Flowchart-Vue/robots.txt"
   },
   {
-    "revision": "7d8562f0812b625a505d8bc2a7b79c4d",
-    "url": "/X-Flowchart-Vue/fonts/iconfont.7d8562f0.eot"
+    "revision": "d7e1afa1ef2da125380e94f9370f91b1",
+    "url": "/X-Flowchart-Vue/fonts/iconfont.d7e1afa1.ttf"
   },
   {
-    "revision": "082d83da60f4d6d99e34",
-    "url": "/X-Flowchart-Vue/css/app.1f93e764.css"
+    "revision": "96698908223e3a29319a",
+    "url": "/X-Flowchart-Vue/css/app.d10f258e.css"
   },
   {
     "revision": "99ac3308dd8ee14f749f51538d0d5b9e",
@@ -24,16 +24,16 @@ self.__precacheManifest = [
     "url": "/X-Flowchart-Vue/fonts/ionicons.d535a25a.ttf"
   },
   {
-    "revision": "082d83da60f4d6d99e34",
-    "url": "/X-Flowchart-Vue/js/app.e177ac97.js"
+    "revision": "96698908223e3a29319a",
+    "url": "/X-Flowchart-Vue/js/app.7fd06af6.js"
   },
   {
     "revision": "143146fa24554ae2c5ac0a3982abb952",
     "url": "/X-Flowchart-Vue/fonts/ionicons.143146fa.woff2"
   },
   {
-    "revision": "d7e1afa1ef2da125380e94f9370f91b1",
-    "url": "/X-Flowchart-Vue/fonts/iconfont.d7e1afa1.ttf"
+    "revision": "7d8562f0812b625a505d8bc2a7b79c4d",
+    "url": "/X-Flowchart-Vue/fonts/iconfont.7d8562f0.eot"
   },
   {
     "revision": "1f52262a4c8bfb5a87ba40387f5d0363",
@@ -44,7 +44,7 @@ self.__precacheManifest = [
     "url": "/X-Flowchart-Vue/img/ionicons.a2c4a261.svg"
   },
   {
-    "revision": "1a23dc2c8f203f423ff7d55a9426710a",
+    "revision": "e002769ea3e0b8ae5afeb2c9d31819ba",
     "url": "/X-Flowchart-Vue/index.html"
   },
   {
