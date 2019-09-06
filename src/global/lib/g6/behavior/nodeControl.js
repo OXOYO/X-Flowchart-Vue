@@ -77,15 +77,15 @@ export default {
             break
         }
       } else {
-        _t.info.type = 'dragNode'
+        _t.info.type = 'activeNode'
       }
-      if (_t.info && _t.info.type) {
+      if (_t.info && _t.info.type && _t[_t.info.type].start) {
         _t[_t.info.type].start.call(_t, event)
       }
     },
     onNodeMouseup (event) {
       let _t = this
-      if (_t.info && _t.info.type) {
+      if (_t.info && _t.info.type && _t[_t.info.type].stop) {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
@@ -130,7 +130,7 @@ export default {
     },
     onMousemove (event) {
       let _t = this
-      if (_t.info && _t.info.type) {
+      if (_t.info && _t.info.type && _t[_t.info.type].move) {
         _t[_t.info.type].move.call(_t, event)
       }
     },
@@ -142,10 +142,82 @@ export default {
         }
       }
     },
+    activeNode: {
+      shapeControl: null,
+      start (event) {
+        let _t = this
+        // TODO 创建shapeControl
+        let node = event.item
+        let { id, x, y, width, height, shapeControl } = node.getModel()
+        console.log('shapeControl', shapeControl)
+        let shapeControlHtml = `<div id="${id}" class="shape-control"></div>`
+        _t.activeNode.shapeControl = G6.Util.createDom(shapeControlHtml)
+        if (shapeControl && shapeControl.hasOwnProperty('controllers') && shapeControl.controllers.length) {
+          for (let i = 0, len = shapeControl.controllers.length; i < len; i++) {
+            let [x, y, cursor] = shapeControl.controllers[i]
+            // 计算Marker中心点坐标
+            let originX = -width / 2
+            let originY = -height / 2
+            let anchorW = 10
+            let anchorH = 10
+            let anchorX = x * (width - anchorW)
+            let anchorY = y * (height - anchorH)
+            // 创建模板
+            let html = G6.Util.createDom(
+              `<div
+                id="${id + '_shape_control_point' + i}"
+                name="shapeControlPoint"
+                class="shape-control-point"
+                x="${x}"
+                y="${y}"
+              ></div>`
+            )
+            G6.Util.modifyCSS(html, {
+              display: 'inline-block',
+              cursor: cursor || 'pointer',
+              position: 'absolute',
+              left: anchorX + 'px',
+              top: anchorY + 'px',
+              marginLeft: (x - 1 ) * anchorW / 2 + 'px',
+              marginTop: (y - 1) * anchorH / 2 + 'px',
+              width: anchorW + 'px',
+              height: anchorH + 'px',
+              backgroundColor: '#29B6F2',
+              borderRadius: '50%',
+              lineHeight: 1
+            })
+            _t.activeNode.shapeControl.appendChild(html)
+          }
+        }
+        let canvas = _t.graph.get('canvas')
+        const el = canvas.get('el')
+        if (_t.activeNode.shapeControl) {
+          // 插入输入框dom
+          el.parentNode.appendChild(_t.activeNode.shapeControl)
+          // 更新输入框样式
+          G6.Util.modifyCSS(_t.activeNode.shapeControl, {
+            display: 'inline-block',
+            position: 'absolute',
+            left: x - width / 2 + 'px',
+            top: y - height / 2 + 'px',
+            width: width + 'px',
+            height: height + 'px',
+            lineHeight: height + 'px',
+            textAlign: 'center',
+            fontSize: '14px',
+            border: 'dashed 2px #29B6F2'
+          })
+        }
+      },
+      stop (event) {
+        let _t = this
+        _t.info = null
+      }
+    },
     drawLine: {
       isMoving: false,
       currentLine: null,
-      start: function (event) {
+      start (event) {
         let _t = this
         let sourceAnchor
         let startModel = _t.info.node.getModel()
