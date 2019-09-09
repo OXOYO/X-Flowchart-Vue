@@ -7,7 +7,29 @@
 import config from '../../config'
 
 export default function (cfg, group) {
-  let { shapeControl, width, height, id } = cfg
+  let { id, width, height, shapeControl } = cfg
+  // 处理边框
+  group.addShape('path', {
+    id: id + '_shape_control_edge',
+    attrs: {
+      name: 'shapeControlEdge',
+      x: 0 - width / 2,
+      y: 0 - height / 2,
+      width,
+      height,
+      path: [
+        [ 'M', -width / 2, -height / 2 ],
+        [ 'L', width / 2, -height / 2 ],
+        [ 'L', width / 2, height / 2 ],
+        [ 'L', -width / 2, height / 2 ],
+        [ 'Z' ]
+      ],
+      zIndex: 10,
+      // 默认样式
+      ...config.shapeControl.style.default.edge
+    }
+  })
+  // 处理控制点
   if (shapeControl && shapeControl.hasOwnProperty('controllers') && shapeControl.controllers.length) {
     for (let i = 0, len = shapeControl.controllers.length; i < len; i++) {
       let [x, y, cursor] = shapeControl.controllers[i]
@@ -16,11 +38,11 @@ export default function (cfg, group) {
       let originY = -height / 2
       let anchorX = x * width + originX
       let anchorY = y * height + originY
+      console.log('x y anchorX', x, y, anchorX, anchorY)
       // 添加Marker形状
       group.addShape('marker', {
-        id: id + '_shape_control_point' + i,
+        id: id + '_shape_control_point_' + i,
         index: i,
-        name: 'shapeControlPoint',
         attrs: {
           name: 'shapeControlPoint',
           x: anchorX,
@@ -30,11 +52,32 @@ export default function (cfg, group) {
             x,
             y
           },
+          zIndex: 20,
           cursor: cursor || 'pointer',
-          // 锚点默认样式
+          // 默认样式
           ...config.shapeControl.style.default.point
         }
       })
     }
+  }
+  // 处理旋转
+  if (shapeControl && shapeControl.hasOwnProperty('rotate') && shapeControl.rotate) {
+    let rotateW = 20
+    let rotateH = 20
+    group.addShape('image', {
+      id: id + '_shape_control_rotate',
+      attrs: {
+        name: 'shapeControlRotate',
+        x: -rotateW / 2,
+        y: -height / 2 - 40,
+        width: rotateW,
+        height: rotateH,
+        cursor: 'crosshair',
+        img: require('../../../../../assets/images/rotate.png'),
+        zIndex: 20,
+        // 默认样式
+        ...config.shapeControl.style.default.rotate
+      }
+    })
   }
 }

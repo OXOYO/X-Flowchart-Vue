@@ -5,7 +5,25 @@
  */
 
 export default function (cfg, group) {
-  let { shapeControl, width, height, id } = cfg
+  let { id, width, height, shapeControl } = cfg
+  // 处理边框
+  let shapeControlEdge = group.findById(id + '_shape_control_edge')
+  if (shapeControlEdge) {
+    shapeControlEdge.attr({
+      x: 0 - width / 2,
+      y: 0 - height / 2,
+      width,
+      height,
+      path: [
+        [ 'M', -width / 2, -height / 2 ],
+        [ 'L', width / 2, -height / 2 ],
+        [ 'L', width / 2, height / 2 ],
+        [ 'L', -width / 2, height / 2 ],
+        [ 'Z' ]
+      ]
+    })
+  }
+  // 处理控制点
   if (shapeControl && shapeControl.hasOwnProperty('controllers') && shapeControl.controllers.length) {
     for (let i = 0, len = shapeControl.controllers.length; i < len; i++) {
       let [x, y] = shapeControl.controllers[i]
@@ -14,10 +32,21 @@ export default function (cfg, group) {
       let originY = -height / 2
       let anchorX = x * width + originX
       let anchorY = y * height + originY
-      let marker = group.findById(id + '_shape_control_point' + i)
-      marker.attr({
-        x: anchorX,
-        y: anchorY
+      let shapeControlPoint = group.findById(id + '_shape_control_point_' + i)
+      if (shapeControlPoint) {
+        shapeControlPoint.attr({
+          x: anchorX,
+          y: anchorY
+        })
+      }
+    }
+  }
+  // 处理旋转
+  if (shapeControl && shapeControl.hasOwnProperty('rotate') && shapeControl.rotate) {
+    let shapeControlRotate = group.findById(id + '_shape_control_rotate')
+    if (shapeControlRotate) {
+      shapeControlRotate.attr({
+        y: -height / 2 - 40
       })
     }
   }

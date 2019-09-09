@@ -17,6 +17,6 @@ export default {
     // 绘制锚点
     utils.anchor.draw(cfg, group)
     // 绘制shapeControl
-    // utils.shapeControl.draw(cfg, group)
+    utils.shapeControl.draw(cfg, group)
   }
 }

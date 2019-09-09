@@ -12,14 +12,17 @@ export default {
         symbol: 'square',
         fill: '#FFFFFF',
         fillOpacity: 0,
-        stroke: '#558EF0',
+        stroke: '#29B6F2',
         strokeOpacity: 0
       },
       edge: {
-        fill: '#FFFFFF',
+        lineDash: [ 5, 5 ],
         fillOpacity: 0,
-        stroke: 'red',
+        stroke: '#29B6F2',
         strokeOpacity: 0
+      },
+      rotate: {
+        opacity: 0
       }
     },
     active: {
@@ -28,8 +31,11 @@ export default {
         strokeOpacity: 1
       },
       edge: {
-        fillOpacity: 1,
+        fillOpacity: 0,
         strokeOpacity: 1
+      },
+      rotate: {
+        opacity: 1
       }
     },
     inactive: {
@@ -40,6 +46,9 @@ export default {
       edge: {
         fillOpacity: 0,
         strokeOpacity: 0
+      },
+      rotate: {
+        opacity: 0
       }
     }
   }

@@ -27,6 +27,13 @@ export default function (name, value, item) {
           child.attr(config.shapeControl.style.inactive.edge)
         }
       }
+      if (child._attrs.name === 'shapeControlRotate') {
+        if (value) {
+          child.attr(config.shapeControl.style.active.rotate)
+        } else {
+          child.attr(config.shapeControl.style.inactive.rotate)
+        }
+      }
     }
   }
 }

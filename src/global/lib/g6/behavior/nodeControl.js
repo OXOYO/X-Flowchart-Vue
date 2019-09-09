@@ -67,17 +67,21 @@ export default {
         node: event.item,
         target: event.target
       }
-      if (_t.info.target && _t.info.target._attrs.name) {
-        switch (_t.info.target._attrs.name) {
+      if (_t.info.target && _t.info.target.attr('name')) {
+        console.log('_t.info.target.attr(\'name\')', _t.info.target.attr('name'))
+        switch (_t.info.target.attr('name')) {
           case 'anchor':
             _t.info.type = 'drawLine'
             break
           case 'shapeControlPoint':
-            _t.info.type = 'shapeControl'
+            _t.info.type = 'shapeControlPoint'
+            break
+          case 'shapeControlRotate':
+            _t.info.type = 'shapeControlRotate'
             break
         }
       } else {
-        _t.info.type = 'activeNode'
+        _t.info.type = 'dragNode'
       }
       if (_t.info && _t.info.type && _t[_t.info.type].start) {
         _t[_t.info.type].start.call(_t, event)
@@ -136,82 +140,14 @@ export default {
     },
     onMouseup (event) {
       let _t = this
-      if (_t.info && _t.info.type === 'dragNode') {
-        if (_t.dragNode.status === 'dragNodeToEditor') {
-          _t[_t.info.type].createNode.call(_t, event)
-        }
-      }
-    },
-    activeNode: {
-      shapeControl: null,
-      start (event) {
-        let _t = this
-        // TODO 创建shapeControl
-        let node = event.item
-        let { id, x, y, width, height, shapeControl } = node.getModel()
-        console.log('shapeControl', shapeControl)
-        let shapeControlHtml = `<div id="${id}" class="shape-control"></div>`
-        _t.activeNode.shapeControl = G6.Util.createDom(shapeControlHtml)
-        if (shapeControl && shapeControl.hasOwnProperty('controllers') && shapeControl.controllers.length) {
-          for (let i = 0, len = shapeControl.controllers.length; i < len; i++) {
-            let [x, y, cursor] = shapeControl.controllers[i]
-            // 计算Marker中心点坐标
-            let originX = -width / 2
-            let originY = -height / 2
-            let anchorW = 10
-            let anchorH = 10
-            let anchorX = x * (width - anchorW)
-            let anchorY = y * (height - anchorH)
-            // 创建模板
-            let html = G6.Util.createDom(
-              `<div
-                id="${id + '_shape_control_point' + i}"
-                name="shapeControlPoint"
-                class="shape-control-point"
-                x="${x}"
-                y="${y}"
-              ></div>`
-            )
-            G6.Util.modifyCSS(html, {
-              display: 'inline-block',
-              cursor: cursor || 'pointer',
-              position: 'absolute',
-              left: anchorX + 'px',
-              top: anchorY + 'px',
-              marginLeft: (x - 1 ) * anchorW / 2 + 'px',
-              marginTop: (y - 1) * anchorH / 2 + 'px',
-              width: anchorW + 'px',
-              height: anchorH + 'px',
-              backgroundColor: '#29B6F2',
-              borderRadius: '50%',
-              lineHeight: 1
-            })
-            _t.activeNode.shapeControl.appendChild(html)
+      if (_t.info) {
+        if (_t.info.type === 'dragNode') {
+          if (_t.dragNode.status === 'dragNodeToEditor') {
+            _t[_t.info.type].createNode.call(_t, event)
           }
+        } else if (_t.info.type && _t[_t.info.type].stop) {
+          _t[_t.info.type].stop.call(_t, event)
         }
-        let canvas = _t.graph.get('canvas')
-        const el = canvas.get('el')
-        if (_t.activeNode.shapeControl) {
-          // 插入输入框dom
-          el.parentNode.appendChild(_t.activeNode.shapeControl)
-          // 更新输入框样式
-          G6.Util.modifyCSS(_t.activeNode.shapeControl, {
-            display: 'inline-block',
-            position: 'absolute',
-            left: x - width / 2 + 'px',
-            top: y - height / 2 + 'px',
-            width: width + 'px',
-            height: height + 'px',
-            lineHeight: height + 'px',
-            textAlign: 'center',
-            fontSize: '14px',
-            border: 'dashed 2px #29B6F2'
-          })
-        }
-      },
-      stop (event) {
-        let _t = this
-        _t.info = null
       }
     },
     drawLine: {
@@ -298,7 +234,7 @@ export default {
         _t.info = null
       }
     },
-    shapeControl: {
+    shapeControlPoint: {
       isMoving: false,
       // 是否等比缩放
       isProportional: false,
@@ -306,14 +242,14 @@ export default {
       start (event) {
         let _t = this
         let model = _t.info.node.getModel()
-        _t.shapeControl.startPoint = {
+        _t.shapeControlPoint.startPoint = {
           x: model.x,
           y: model.y,
           size: model.size || []
         }
-        _t.shapeControl.isMoving = true
+        _t.shapeControlPoint.isMoving = true
         // 是否等比缩放
-        _t.shapeControl.isProportional = ['square', 'circle'].includes(model.shape)
+        _t.shapeControlPoint.isProportional = ['square', 'circle'].includes(model.shape)
         if (_t.config.tooltip.shapeControl) {
           _t.toolTip.create.call(_t, {
             left: model.x,
@@ -323,14 +259,13 @@ export default {
       },
       move (event) {
         let _t = this
-        if (_t.info.node && _t.info.target && _t.shapeControl.startPoint && _t.shapeControl.isMoving) {
+        if (_t.info.node && _t.info.target && _t.shapeControlPoint.startPoint && _t.shapeControlPoint.isMoving) {
           let model = _t.info.node.getModel()
           // 判断位置
-          let targetAttrs = _t.info.target._attrs
-          let position = targetAttrs.position
+          let position = _t.info.target.attr('position')
           let attrs = {
-            x: _t.shapeControl.startPoint.x,
-            y: _t.shapeControl.startPoint.y,
+            x: _t.shapeControlPoint.startPoint.x,
+            y: _t.shapeControlPoint.startPoint.y,
             size: [...model.size]
           }
           let width = model.width
@@ -341,10 +276,10 @@ export default {
             if (position.x === 0) {
               if (position.y === 0) {
                 referencePoint = {
-                  x: _t.shapeControl.startPoint.x + width / 2,
-                  y: _t.shapeControl.startPoint.y + height / 2
+                  x: _t.shapeControlPoint.startPoint.x + width / 2,
+                  y: _t.shapeControlPoint.startPoint.y + height / 2
                 }
-                if (_t.shapeControl.isProportional) {
+                if (_t.shapeControlPoint.isProportional) {
                   // 计算宽、高
                   attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
                 } else {
@@ -356,8 +291,8 @@ export default {
                 attrs.x = referencePoint.x - attrs.size[0] / 2
                 attrs.y = referencePoint.y - attrs.size[1] / 2
                 if (
-                  event.x > _t.shapeControl.startPoint.x ||
-                  event.y > _t.shapeControl.startPoint.y ||
+                  event.x > _t.shapeControlPoint.startPoint.x ||
+                  event.y > _t.shapeControlPoint.startPoint.y ||
                   attrs.size[0] < _t.minWidth ||
                   attrs.size[1] < _t.minHeight
                 ) {
@@ -365,10 +300,10 @@ export default {
                 }
               } else if (position.y === 1) {
                 referencePoint = {
-                  x: _t.shapeControl.startPoint.x + width / 2,
-                  y: _t.shapeControl.startPoint.y - height / 2
+                  x: _t.shapeControlPoint.startPoint.x + width / 2,
+                  y: _t.shapeControlPoint.startPoint.y - height / 2
                 }
-                if (_t.shapeControl.isProportional) {
+                if (_t.shapeControlPoint.isProportional) {
                   // 计算宽、高
                   attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
                 } else {
@@ -380,8 +315,8 @@ export default {
                 attrs.x = referencePoint.x - attrs.size[0] / 2
                 attrs.y = referencePoint.y + attrs.size[1] / 2
                 if (
-                  event.x > _t.shapeControl.startPoint.x ||
-                  event.y < _t.shapeControl.startPoint.y ||
+                  event.x > _t.shapeControlPoint.startPoint.x ||
+                  event.y < _t.shapeControlPoint.startPoint.y ||
                   attrs.size[0] < _t.minWidth ||
                   attrs.size[1] < _t.minHeight
                 ) {
@@ -391,10 +326,10 @@ export default {
             } else if (position.x === 1) {
               if (position.y === 0) {
                 referencePoint = {
-                  x: _t.shapeControl.startPoint.x - width / 2,
-                  y: _t.shapeControl.startPoint.y + height / 2
+                  x: _t.shapeControlPoint.startPoint.x - width / 2,
+                  y: _t.shapeControlPoint.startPoint.y + height / 2
                 }
-                if (_t.shapeControl.isProportional) {
+                if (_t.shapeControlPoint.isProportional) {
                   // 计算宽、高
                   attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
                 } else {
@@ -406,8 +341,8 @@ export default {
                 attrs.x = referencePoint.x + attrs.size[0] / 2
                 attrs.y = referencePoint.y - attrs.size[1] / 2
                 if (
-                  event.x < _t.shapeControl.startPoint.x ||
-                  event.y > _t.shapeControl.startPoint.y ||
+                  event.x < _t.shapeControlPoint.startPoint.x ||
+                  event.y > _t.shapeControlPoint.startPoint.y ||
                   attrs.size[0] < _t.minWidth ||
                   attrs.size[1] < _t.minHeight
                 ) {
@@ -415,10 +350,10 @@ export default {
                 }
               } else if (position.y === 1) {
                 referencePoint = {
-                  x: _t.shapeControl.startPoint.x - width / 2,
-                  y: _t.shapeControl.startPoint.y - height / 2
+                  x: _t.shapeControlPoint.startPoint.x - width / 2,
+                  y: _t.shapeControlPoint.startPoint.y - height / 2
                 }
-                if (_t.shapeControl.isProportional) {
+                if (_t.shapeControlPoint.isProportional) {
                   // 计算宽、高
                   attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
                 } else {
@@ -430,8 +365,8 @@ export default {
                 attrs.x = referencePoint.x + attrs.size[0] / 2
                 attrs.y = referencePoint.y + attrs.size[1] / 2
                 if (
-                  event.x < _t.shapeControl.startPoint.x ||
-                  event.y < _t.shapeControl.startPoint.y ||
+                  event.x < _t.shapeControlPoint.startPoint.x ||
+                  event.y < _t.shapeControlPoint.startPoint.y ||
                   attrs.size[0] < _t.minWidth ||
                   attrs.size[1] < _t.minHeight
                 ) {
@@ -475,7 +410,7 @@ export default {
       },
       stop (event) {
         let _t = this
-        if (_t.info.node && _t.info.attrs && _t.shapeControl.startPoint && _t.shapeControl.isMoving) {
+        if (_t.info.node && _t.info.attrs && _t.shapeControlPoint.startPoint && _t.shapeControlPoint.isMoving) {
           let attrs = _t.info.attrs
           // 当前节点容器
           let group = _t.info.node.getContainer()
@@ -497,8 +432,79 @@ export default {
         if (_t.config.tooltip.shapeControl) {
           _t.toolTip.destroy.call(_t)
         }
-        _t.shapeControl.startPoint = null
-        _t.shapeControl.isMoving = false
+        _t.shapeControlPoint.startPoint = null
+        _t.shapeControlPoint.isMoving = false
+        _t.info = null
+      }
+    },
+    shapeControlRotate: {
+      isMoving: false,
+      start (event) {
+        let _t = this
+        console.log('shapeControlRotate start', event)
+        _t.shapeControlRotate.isMoving = true
+        if (_t.config.tooltip.shapeControl) {
+          // FIXME 需计算旋转度数
+          let model = _t.info.node.getModel()
+          let p1 = {
+            x: model.x,
+            y: model.y
+          }
+          let p2 = {
+            x: event.x,
+            y: event.y
+          }
+          // 弧度
+          let radian = Math.atan2(p2.y - p1.y, p2.x - p1.x)
+          // 角度
+          let angle = radian * (180 / Math.PI)
+          _t.toolTip.create.call(_t, {
+            left: model.x,
+            top: model.y + model.height / 2
+          }, `${radian} - ${angle}`)
+          // 更新节点
+          let keyShape = _t.info.node.getKeyShape()
+          keyShape.resetMatrix()
+          keyShape.rotate(radian)
+          // 更新shapeControl
+          utils.shapeControl.rotate(model, _t.graph.get('group'), radian, angle)
+          _t.graph.paint()
+        }
+      },
+      move (event) {
+        let _t = this
+        if (_t.config.tooltip.shapeControl) {
+          // FIXME 需计算旋转度数
+          let model = _t.info.node.getModel()
+          let p1 = {
+            x: model.x,
+            y: model.y
+          }
+          let p2 = {
+            x: event.x,
+            y: event.y
+          }
+          // 弧度
+          let radian = Math.atan2(p2.y - p1.y, p2.x - p1.x)
+          // 角度
+          let angle = radian * (180 / Math.PI)
+          _t.toolTip.update.call(_t, {
+            left: model.x,
+            top: model.y + model.height / 2
+          }, `${radian} - ${angle}`)
+          // 更新节点
+          let keyShape = _t.info.node.getKeyShape()
+          // FIXME g中shape的rotate是角度累加的，所以更新时如果style中有rotate就重置一下变换
+          keyShape.resetMatrix()
+          keyShape.rotate(radian)
+          // 更新shapeControl
+          utils.shapeControl.rotate(model, _t.graph.get('group'), radian, angle)
+          _t.graph.paint()
+        }
+      },
+      stop (event) {
+        let _t = this
+        _t.shapeControlRotate.isMoving = false
         _t.info = null
       }
     },
