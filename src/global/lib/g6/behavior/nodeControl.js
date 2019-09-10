@@ -443,67 +443,76 @@ export default {
         let _t = this
         console.log('shapeControlRotate start', event)
         _t.shapeControlRotate.isMoving = true
+        // 计算旋转度数
+        let model = _t.info.node.getModel()
+        let p1 = {
+          x: model.x,
+          y: model.y
+        }
+        let p2 = {
+          x: event.x,
+          y: event.y
+        }
+        // 弧度，由于旋转把手位于图形正上方，因此需再加 Math.PI / 2
+        let radian = Math.atan2(p2.y - p1.y, p2.x - p1.x) + Math.PI / 2
+        // 角度
+        let angle = radian * (180 / Math.PI)
         if (_t.config.tooltip.shapeControl) {
-          // FIXME 需计算旋转度数
-          let model = _t.info.node.getModel()
-          let p1 = {
-            x: model.x,
-            y: model.y
-          }
-          let p2 = {
-            x: event.x,
-            y: event.y
-          }
-          // 弧度
-          let radian = Math.atan2(p2.y - p1.y, p2.x - p1.x)
-          // 角度
-          let angle = radian * (180 / Math.PI)
           _t.toolTip.create.call(_t, {
             left: model.x,
             top: model.y + model.height / 2
-          }, `${radian} - ${angle}`)
-          // 更新节点
-          let keyShape = _t.info.node.getKeyShape()
-          keyShape.resetMatrix()
-          keyShape.rotate(radian)
-          // 更新shapeControl
-          utils.shapeControl.rotate(model, _t.graph.get('group'), radian, angle)
-          _t.graph.paint()
+          }, `${angle.toFixed(2)}°`)
         }
+        // 更新节点
+        let keyShape = _t.info.node.getKeyShape()
+        keyShape.resetMatrix()
+        keyShape.rotate(radian)
+        let group = _t.graph.get('group')
+        // 更新shapeControl
+        utils.shapeControl.rotate(model, group, radian)
+        // 更新锚点
+        utils.anchor.rotate(model, group, radian)
+        _t.graph.paint()
       },
       move (event) {
         let _t = this
+        // 计算旋转度数
+        let model = _t.info.node.getModel()
+        let p1 = {
+          x: model.x,
+          y: model.y
+        }
+        let p2 = {
+          x: event.x,
+          y: event.y
+        }
+        // 弧度
+        let radian = Math.atan2(p2.y - p1.y, p2.x - p1.x) + Math.PI / 2
+        // 角度
+        let angle = radian * (180 / Math.PI)
         if (_t.config.tooltip.shapeControl) {
-          // FIXME 需计算旋转度数
-          let model = _t.info.node.getModel()
-          let p1 = {
-            x: model.x,
-            y: model.y
-          }
-          let p2 = {
-            x: event.x,
-            y: event.y
-          }
-          // 弧度
-          let radian = Math.atan2(p2.y - p1.y, p2.x - p1.x)
-          // 角度
-          let angle = radian * (180 / Math.PI)
           _t.toolTip.update.call(_t, {
             left: model.x,
             top: model.y + model.height / 2
-          }, `${radian} - ${angle}`)
-          // 更新节点
-          let keyShape = _t.info.node.getKeyShape()
-          // FIXME g中shape的rotate是角度累加的，所以更新时如果style中有rotate就重置一下变换
-          keyShape.resetMatrix()
-          keyShape.rotate(radian)
-          // 更新shapeControl
-          utils.shapeControl.rotate(model, _t.graph.get('group'), radian, angle)
-          _t.graph.paint()
+          }, `${angle.toFixed(2)}°`)
         }
+        // 更新节点
+        let keyShape = _t.info.node.getKeyShape()
+        // FIXME g中shape的rotate是角度累加的，所以更新时如果style中有rotate就重置一下变换
+        keyShape.resetMatrix()
+        keyShape.rotate(radian)
+        let group = _t.graph.get('group')
+        // 更新shapeControl
+        utils.shapeControl.rotate(model, group, radian)
+        // 更新锚点
+        utils.anchor.rotate(model, group, radian)
+        _t.graph.paint()
       },
       stop (event) {
         let _t = this
+        if (_t.config.tooltip.shapeControl) {
+          _t.toolTip.destroy.call(_t)
+        }
         _t.shapeControlRotate.isMoving = false
         _t.info = null
       }

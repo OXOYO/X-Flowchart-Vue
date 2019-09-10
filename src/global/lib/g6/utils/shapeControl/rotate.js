@@ -4,8 +4,7 @@
  * 图形旋转
  */
 
-export default function (cfg, group, radian, angle) {
-  // TODO 处理旋转
+export default function (cfg, group, radian) {
   let { id, shapeControl } = cfg
   // 处理边框
   let shapeControlEdge = group.findById(id + '_shape_control_edge')
