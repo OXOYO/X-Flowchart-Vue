@@ -70,7 +70,7 @@ export default {
       if (_t.info.target && _t.info.target.attr('name')) {
         console.log('_t.info.target.attr(\'name\')', _t.info.target.attr('name'))
         switch (_t.info.target.attr('name')) {
-          case 'anchor':
+          case 'anchorPoint':
             _t.info.type = 'drawLine'
             break
           case 'shapeControlPoint':
@@ -238,13 +238,17 @@ export default {
       isMoving: false,
       // 是否等比缩放
       isProportional: false,
-      startPoint: null,
+      // 原始节点信息
+      originNodeModel: null,
       start (event) {
         let _t = this
         let model = _t.info.node.getModel()
-        _t.shapeControlPoint.startPoint = {
+        console.log('model ddd', model)
+        _t.shapeControlPoint.originNodeModel = {
           x: model.x,
           y: model.y,
+          minWidth: model.minWidth,
+          minHeight: model.minHeight,
           size: model.size || []
         }
         _t.shapeControlPoint.isMoving = true
@@ -259,121 +263,53 @@ export default {
       },
       move (event) {
         let _t = this
-        if (_t.info.node && _t.info.target && _t.shapeControlPoint.startPoint && _t.shapeControlPoint.isMoving) {
+        let originNodeModel = _t.shapeControlPoint.originNodeModel
+        if (_t.info.node && _t.info.target && originNodeModel && _t.shapeControlPoint.isMoving) {
           let model = _t.info.node.getModel()
           // 判断位置
-          let position = _t.info.target.attr('position')
+          let position = _t.info.target._attrs ? _t.info.target.attr('position') : null
           let attrs = {
-            x: _t.shapeControlPoint.startPoint.x,
-            y: _t.shapeControlPoint.startPoint.y,
+            x: originNodeModel.x,
+            y: originNodeModel.y,
             size: [...model.size]
           }
           let width = model.width
           let height = model.height
           if (position) {
+            console.log('position', position)
             // 参照点，及当前controller的对角点
-            let referencePoint = {}
-            if (position.x === 0) {
-              if (position.y === 0) {
-                referencePoint = {
-                  x: _t.shapeControlPoint.startPoint.x + width / 2,
-                  y: _t.shapeControlPoint.startPoint.y + height / 2
-                }
-                if (_t.shapeControlPoint.isProportional) {
-                  // 计算宽、高
-                  attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
-                } else {
-                  // 计算宽、高
-                  attrs.size[0] = Math.abs(referencePoint.x - event.x)
-                  attrs.size[1] = Math.abs(referencePoint.y - event.y)
-                }
-                // 计算中心点坐标
-                attrs.x = referencePoint.x - attrs.size[0] / 2
-                attrs.y = referencePoint.y - attrs.size[1] / 2
-                if (
-                  event.x > _t.shapeControlPoint.startPoint.x ||
-                  event.y > _t.shapeControlPoint.startPoint.y ||
-                  attrs.size[0] < _t.minWidth ||
-                  attrs.size[1] < _t.minHeight
-                ) {
-                  return
-                }
-              } else if (position.y === 1) {
-                referencePoint = {
-                  x: _t.shapeControlPoint.startPoint.x + width / 2,
-                  y: _t.shapeControlPoint.startPoint.y - height / 2
-                }
-                if (_t.shapeControlPoint.isProportional) {
-                  // 计算宽、高
-                  attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
-                } else {
-                  // 计算宽、高
-                  attrs.size[0] = Math.abs(referencePoint.x - event.x)
-                  attrs.size[1] = Math.abs(referencePoint.y - event.y)
-                }
-                // 计算中心点坐标
-                attrs.x = referencePoint.x - attrs.size[0] / 2
-                attrs.y = referencePoint.y + attrs.size[1] / 2
-                if (
-                  event.x > _t.shapeControlPoint.startPoint.x ||
-                  event.y < _t.shapeControlPoint.startPoint.y ||
-                  attrs.size[0] < _t.minWidth ||
-                  attrs.size[1] < _t.minHeight
-                ) {
-                  return
-                }
-              }
-            } else if (position.x === 1) {
-              if (position.y === 0) {
-                referencePoint = {
-                  x: _t.shapeControlPoint.startPoint.x - width / 2,
-                  y: _t.shapeControlPoint.startPoint.y + height / 2
-                }
-                if (_t.shapeControlPoint.isProportional) {
-                  // 计算宽、高
-                  attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
-                } else {
-                  // 计算宽、高
-                  attrs.size[0] = Math.abs(referencePoint.x - event.x)
-                  attrs.size[1] = Math.abs(referencePoint.y - event.y)
-                }
-                // 计算中心点坐标
-                attrs.x = referencePoint.x + attrs.size[0] / 2
-                attrs.y = referencePoint.y - attrs.size[1] / 2
-                if (
-                  event.x < _t.shapeControlPoint.startPoint.x ||
-                  event.y > _t.shapeControlPoint.startPoint.y ||
-                  attrs.size[0] < _t.minWidth ||
-                  attrs.size[1] < _t.minHeight
-                ) {
-                  return
-                }
-              } else if (position.y === 1) {
-                referencePoint = {
-                  x: _t.shapeControlPoint.startPoint.x - width / 2,
-                  y: _t.shapeControlPoint.startPoint.y - height / 2
-                }
-                if (_t.shapeControlPoint.isProportional) {
-                  // 计算宽、高
-                  attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
-                } else {
-                  // 计算宽、高
-                  attrs.size[0] = Math.abs(referencePoint.x - event.x)
-                  attrs.size[1] = Math.abs(referencePoint.y - event.y)
-                }
-                // 计算中心点坐标
-                attrs.x = referencePoint.x + attrs.size[0] / 2
-                attrs.y = referencePoint.y + attrs.size[1] / 2
-                if (
-                  event.x < _t.shapeControlPoint.startPoint.x ||
-                  event.y < _t.shapeControlPoint.startPoint.y ||
-                  attrs.size[0] < _t.minWidth ||
-                  attrs.size[1] < _t.minHeight
-                ) {
-                  return
-                }
-              }
+            // 参照点位置信息
+            let referencePosition = [1 - position.x, 1 - position.y]
+            // 相对图形坐标原点，(0,0)点位于图形左上角，与position的坐标系相同
+            let originX = originNodeModel.x - width / 2
+            let originY = originNodeModel.y - height / 2
+            // 参照点坐标
+            let referencePoint = {
+              x: referencePosition[0] * width + originX,
+              y: referencePosition[1] * height + originY
             }
+            // 计算图形宽高
+            if (_t.shapeControlPoint.isProportional) {
+              attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
+            } else if (position.x > 0 && position.x < 1 && (position.y === 0 || position.y === 1)) {
+              attrs.size[0] = originNodeModel.size[0]
+              attrs.size[1] = Math.abs(referencePoint.y - event.y)
+            } else if (position.y > 0 && position.y < 1 && (position.x === 0 || position.x === 1)) {
+              attrs.size[0] = Math.abs(referencePoint.x - event.x)
+              attrs.size[1] = originNodeModel.size[1]
+            } else {
+              attrs.size[0] = Math.abs(referencePoint.x - event.x)
+              attrs.size[1] = Math.abs(referencePoint.y - event.y)
+            }
+            // 计算中心点坐标
+            attrs.x = referencePoint.x + (event.x - referencePoint.x) / 2
+            attrs.y = referencePoint.y + (event.y - referencePoint.y) / 2
+            // 处理宽高最小值
+            if (attrs.size[0] < originNodeModel.minWidth || attrs.size[1] < originNodeModel.minHeight) {
+              return
+            }
+          } else {
+            return
           }
           _t.info.attrs = {
             ...attrs,
@@ -410,7 +346,7 @@ export default {
       },
       stop (event) {
         let _t = this
-        if (_t.info.node && _t.info.attrs && _t.shapeControlPoint.startPoint && _t.shapeControlPoint.isMoving) {
+        if (_t.info.node && _t.info.attrs && _t.shapeControlPoint.originNodeModel && _t.shapeControlPoint.isMoving) {
           let attrs = _t.info.attrs
           // 当前节点容器
           let group = _t.info.node.getContainer()
@@ -432,7 +368,7 @@ export default {
         if (_t.config.tooltip.shapeControl) {
           _t.toolTip.destroy.call(_t)
         }
-        _t.shapeControlPoint.startPoint = null
+        _t.shapeControlPoint.originNodeModel = null
         _t.shapeControlPoint.isMoving = false
         _t.info = null
       }
@@ -550,13 +486,15 @@ export default {
       createNode (event) {
         let _t = this
         if (_t.dragNode.dottedNode && _t.info.node) {
-          let { width, height } = _t.info.node
+          let { width, height, minWidth, minHeight } = _t.info.node
           let node = {
             ..._t.info.node,
             id: G6.Util.uniqueId(),
             x: event.x,
             y: event.y,
             size: [width, height],
+            minWidth: minWidth,
+            minHeight: minHeight,
             style: {
               fill: _t.graph.$X.fill,
               stroke: _t.graph.$X.lineColor,

@@ -20,6 +20,7 @@ export default function (cfg, group) {
       let anchorBgShape = group.addShape('marker', {
         id: id + '_anchor_bg_' + i,
         attrs: {
+          boxName: 'anchor',
           name: 'anchorBg',
           x: anchorX,
           y: anchorY,
@@ -31,7 +32,8 @@ export default function (cfg, group) {
       let anchorShape = group.addShape('marker', {
         id: id + '_anchor_' + i,
         attrs: {
-          name: 'anchor',
+          boxName: 'anchor',
+          name: 'anchorPoint',
           x: anchorX,
           y: anchorY,
           // 锚点默认样式

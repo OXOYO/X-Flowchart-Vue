@@ -217,7 +217,8 @@
           lineStyle: 0,
           startArrow: 0,
           endArrow: 0,
-          language: 0
+          language: 0,
+          download: 0
         },
         formData: {
           ...config.$X
@@ -869,11 +870,38 @@
               name: 'download',
               label: 'download',
               lang: 'L10030',
-              type: 'normal',
+              type: 'dropdown-list',
               icon: 'download',
               enable: true,
               disabled: false,
-              divider: false
+              divider: false,
+              // 默认选中项index
+              selected: _t.selected.download,
+              // 子节点
+              children: [
+                {
+                  name: 'image',
+                  label: 'Image',
+                  lang: '',
+                  icon: 'image',
+                  style: {},
+                  data: false,
+                  enable: true,
+                  disabled: false,
+                  divider: false
+                },
+                {
+                  name: 'json',
+                  label: 'Json',
+                  lang: '',
+                  icon: 'json',
+                  style: {},
+                  data: false,
+                  enable: true,
+                  disabled: false,
+                  divider: false
+                }
+              ]
             },
             {
               name: 'preview',
@@ -974,6 +1002,7 @@
           case 'lineWidth':
           case 'lineType':
           case 'lineStyle':
+          case 'download':
             payload = {
               name: item.name,
               data: child.name

@@ -13,23 +13,28 @@ export default {
       fillOpacity: 0,
       stroke: '#1890FF',
       strokeOpacity: 0,
-      cursor: 'crosshair'
+      cursor: 'crosshair',
+      zIndex: -1
     },
     hover: {
       fillOpacity: 1,
-      strokeOpacity: 1
+      strokeOpacity: 1,
+      zIndex: 50
     },
     unhover: {
       fillOpacity: 0,
-      strokeOpacity: 0
+      strokeOpacity: 0,
+      zIndex: -1
     },
     active: {
       fillOpacity: 1,
-      strokeOpacity: 1
+      strokeOpacity: 1,
+      zIndex: 50
     },
     inactive: {
       fillOpacity: 0,
-      strokeOpacity: 0
+      strokeOpacity: 0,
+      zIndex: -1
     }
   }
 }

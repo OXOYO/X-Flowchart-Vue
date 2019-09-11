@@ -314,6 +314,8 @@
           },
           width: info.width,
           height: info.height,
+          minWidth: info.minWidth,
+          minHeight: info.minHeight,
           // FIXME 定义锚点坐标
           anchorPoints: info.anchorPoints,
           // 定义shapeControl
@@ -493,7 +495,23 @@
             break
           case 'download':
             let fileName = _t.$X.config.system.name + '_' + _t.$X.utils.filters.formatDate(new Date(), 'YYYYMMDDhhmmss')
-            _t.editor.downloadImage(fileName)
+            if (info.data === 'image') {
+              _t.editor.downloadImage(fileName)
+            } else if (info.data === 'json') {
+              let content = _t.editor.save()
+              content = JSON.stringify(content)
+              let blob = new Blob([content], {
+                type: 'application/json;charset=UTF-8'
+              })
+              let url = URL.createObjectURL(blob)
+              let link = document.createElement('a')
+              link.textContent = 'download json'
+              link.href = url
+              link.download = fileName
+              link.click()
+              // no longer need to read the blob so it's revoked
+              URL.revokeObjectURL(url)
+            }
             break
         }
       },

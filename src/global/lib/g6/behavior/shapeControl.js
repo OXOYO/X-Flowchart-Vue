@@ -46,8 +46,7 @@ export default {
       if (_t.currentNode && _t.currentTarget) {
         let nodeModel = _t.currentNode.getModel()
         // 判断位置
-        let targetAttrs = _t.currentTarget._attrs
-        let position = targetAttrs.position
+        let position = _t.currentTarget.attr('position')
         let attrs = {
           x: _t.startPoint.x,
           y: _t.startPoint.y,

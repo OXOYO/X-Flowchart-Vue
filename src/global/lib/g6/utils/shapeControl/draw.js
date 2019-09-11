@@ -12,6 +12,7 @@ export default function (cfg, group) {
   group.addShape('path', {
     id: id + '_shape_control_edge',
     attrs: {
+      boxName: 'shapeControl',
       name: 'shapeControlEdge',
       x: 0 - width / 2,
       y: 0 - height / 2,
@@ -24,7 +25,6 @@ export default function (cfg, group) {
         [ 'L', -width / 2, height / 2 ],
         [ 'Z' ]
       ],
-      zIndex: 10,
       // 默认样式
       ...config.shapeControl.style.default.edge
     }
@@ -38,12 +38,12 @@ export default function (cfg, group) {
       let originY = -height / 2
       let anchorX = x * width + originX
       let anchorY = y * height + originY
-      console.log('x y anchorX', x, y, anchorX, anchorY)
       // 添加Marker形状
       group.addShape('marker', {
         id: id + '_shape_control_point_' + i,
         index: i,
         attrs: {
+          boxName: 'shapeControl',
           name: 'shapeControlPoint',
           x: anchorX,
           y: anchorY,
@@ -52,7 +52,6 @@ export default function (cfg, group) {
             x,
             y
           },
-          zIndex: 20,
           cursor: cursor || 'pointer',
           // 默认样式
           ...config.shapeControl.style.default.point
@@ -67,6 +66,7 @@ export default function (cfg, group) {
     group.addShape('image', {
       id: id + '_shape_control_rotate',
       attrs: {
+        boxName: 'shapeControl',
         name: 'shapeControlRotate',
         x: -rotateW / 2,
         y: -height / 2 - 40,
@@ -74,7 +74,6 @@ export default function (cfg, group) {
         height: rotateH,
         cursor: 'crosshair',
         img: require('../../../../../assets/images/rotate.png'),
-        zIndex: 20,
         // 默认样式
         ...config.shapeControl.style.default.rotate
       }

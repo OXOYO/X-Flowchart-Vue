@@ -70,9 +70,9 @@ export default {
         node: event.item,
         target: event.target
       }
-      if (_t.info.target && _t.info.target._attrs.name) {
-        switch (_t.info.target._attrs.name) {
-          case 'anchor':
+      if (_t.info.target && _t.info.target.attr('name')) {
+        switch (_t.info.target.attr('name')) {
+          case 'anchorPoint':
             _t.info.type = 'drawLine'
             break
           case 'shapeControlPoint':
@@ -274,8 +274,7 @@ export default {
         if (_t.info.node && _t.info.target && _t.shapeControl.startPoint && _t.shapeControl.isMoving) {
           let model = _t.info.node.getModel()
           // 判断位置
-          let targetAttrs = _t.info.target._attrs
-          let position = targetAttrs.position
+          let position = _t.info.target.attr('position')
           let attrs = {
             x: _t.shapeControl.startPoint.x,
             y: _t.shapeControl.startPoint.y,
