@@ -196,23 +196,18 @@
       _nodeMousedown (event) {
         let _t = this
         _t.doClearAllStates()
-        // console.log('_nodeClick', event)
-        // console.log('hasState1', event.item.hasState('shape-control'))
-        if (!event.item.hasState('active')) {
-          _t.editor.setItemState(event.item, 'active', true)
-        }
+        _t.editor.setItemState(event.item, 'active', true)
       },
       _nodeHover (event) {
         let _t = this
-        // console.log('_nodeHover', event.item)
-        _t.editor.setItemState(event.item, 'hover', true)
+        // FIXME 当节点未激活时才可设置hover true状态
+        if (!event.item.hasState('active')) {
+          _t.editor.setItemState(event.item, 'hover', true)
+        }
       },
       _nodeOut (event) {
         let _t = this
-        // 当节点激活时不设置hover false状态
-        if (!event.item.hasState('active')) {
-          _t.editor.setItemState(event.item, 'hover', false)
-        }
+        _t.editor.setItemState(event.item, 'hover', false)
       },
       _nodeContextmenu (event) {
         console.log('_nodeContextmenu', event)
@@ -234,10 +229,10 @@
         // 批量操作时关闭自动重绘，以提升性能
         _t.editor.setAutoPaint(false)
         _t.editor.getNodes().forEach(function (node) {
-          _t.editor.clearItemStates(node, ['active', 'hover'])
+          _t.editor.clearItemStates(node, ['active', 'hover', 'selected'])
         })
         _t.editor.getEdges().forEach(function (edge) {
-          _t.editor.clearItemStates(edge, ['active', 'hover'])
+          _t.editor.clearItemStates(edge, ['active', 'hover', 'selected'])
         })
         _t.editor.paint()
         _t.editor.setAutoPaint(true)

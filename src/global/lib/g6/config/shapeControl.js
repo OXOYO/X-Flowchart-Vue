@@ -13,51 +13,42 @@ export default {
         fill: '#FFFFFF',
         fillOpacity: 0,
         stroke: '#29B6F2',
-        strokeOpacity: 0,
-        zIndex: -1
+        strokeOpacity: 0
       },
       edge: {
         lineDash: [ 5, 5 ],
         fillOpacity: 0,
         stroke: '#29B6F2',
-        strokeOpacity: 0,
-        zIndex: -1
+        strokeOpacity: 0
       },
       rotate: {
-        opacity: 0,
-        zIndex: -1
+        opacity: 0
       }
     },
     active: {
       point: {
         fillOpacity: 1,
-        strokeOpacity: 1,
-        zIndex: 20
+        strokeOpacity: 1
       },
       edge: {
         fillOpacity: 0,
-        strokeOpacity: 1,
-        zIndex: 10
+        strokeOpacity: 1
       },
       rotate: {
-        opacity: 1,
-        zIndex: 10
+        opacity: 1
       }
     },
     inactive: {
       point: {
         fillOpacity: 0,
-        strokeOpacity: 0,
-        zIndex: -1
+        strokeOpacity: 0
       },
       edge: {
         fillOpacity: 0,
-        strokeOpacity: 0,
-        zIndex: -1
+        strokeOpacity: 0
       },
       rotate: {
-        opacity: 0,
-        zIndex: -1
+        opacity: 0
       }
     }
   }

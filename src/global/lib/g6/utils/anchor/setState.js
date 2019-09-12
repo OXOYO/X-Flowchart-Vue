@@ -12,12 +12,17 @@ export default function (name, value, item) {
     let children = group.get('children')
     for (let i = 0, len = children.length; i < len; i++) {
       let child = children[i]
-      // 处理锚点状态
-      if (child._attrs && child.attr('name') === 'anchorPoint') {
-        if (value) {
-          child.attr(config.anchor.style.hover)
-        } else {
-          child.attr(config.anchor.style.unhover)
+      if (child._attrs && child.attr('name')) {
+        switch (child.attr('name')) {
+          case 'anchorPoint':
+            if (value) {
+              child.show()
+              child.attr(config.anchor.style.hover)
+            } else {
+              child.attr(config.anchor.style.unhover)
+              child.hide()
+            }
+            break
         }
       }
     }

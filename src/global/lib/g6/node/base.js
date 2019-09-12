@@ -7,9 +7,7 @@ import utils from '../utils'
 
 export default {
   setState (name, value, item) {
-    let _t = this
     console.log('state.....', name, value, item)
-    console.log('_t', _t)
     // 设置锚点状态
     utils.anchor.setState(name, value, item)
     // 设置shapeControl状态
@@ -20,6 +18,6 @@ export default {
     // 绘制锚点
     utils.anchor.draw(cfg, group)
     // 绘制shapeControl
-    // utils.shapeControl.draw(cfg, group)
+    utils.shapeControl.draw(cfg, group)
   }
 }

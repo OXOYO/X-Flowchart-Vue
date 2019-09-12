@@ -288,22 +288,24 @@ export default {
               x: referencePosition[0] * width + originX,
               y: referencePosition[1] * height + originY
             }
+            // 计算中心点坐标
+            attrs.x = referencePoint.x + (event.x - referencePoint.x) / 2
+            attrs.y = referencePoint.y + (event.y - referencePoint.y) / 2
             // 计算图形宽高
             if (_t.shapeControlPoint.isProportional) {
               attrs.size[0] = attrs.size[1] = Math.abs(referencePoint.x - event.x)
             } else if (position.x > 0 && position.x < 1 && (position.y === 0 || position.y === 1)) {
+              attrs.x = originNodeModel.x
               attrs.size[0] = originNodeModel.size[0]
               attrs.size[1] = Math.abs(referencePoint.y - event.y)
             } else if (position.y > 0 && position.y < 1 && (position.x === 0 || position.x === 1)) {
+              attrs.y = originNodeModel.y
               attrs.size[0] = Math.abs(referencePoint.x - event.x)
               attrs.size[1] = originNodeModel.size[1]
             } else {
               attrs.size[0] = Math.abs(referencePoint.x - event.x)
               attrs.size[1] = Math.abs(referencePoint.y - event.y)
             }
-            // 计算中心点坐标
-            attrs.x = referencePoint.x + (event.x - referencePoint.x) / 2
-            attrs.y = referencePoint.y + (event.y - referencePoint.y) / 2
             // 处理宽高最小值
             if (attrs.size[0] < originNodeModel.minWidth || attrs.size[1] < originNodeModel.minHeight) {
               return
