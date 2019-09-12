@@ -1,24 +1,24 @@
 /**
- * @fileOverview entry file
- * @author huangtonger@aliyun.com
+ * Created by OXOYO on 2019/7/3.
+ *
+ * 封装G6
  */
-// const Shape = require('./shape/');
-const Global = require('./global');
-const G = require('@antv/g/lib');
-const Shape = require('./shape');
-const Behaviors = require('./behavior');
 
-const G6 = {
-  Graph: require('./graph/graph'),
-  TreeGraph: require('./graph/tree-graph'),
-  Util: require('./util/'),
-  G,
-  Global,
-  Shape,
-  registerNode: Shape.registerNode,
-  registerEdge: Shape.registerEdge,
-  registerBehavior: Behaviors.registerBehavior,
-  version: Global.version
-};
+import G6 from '@antv/g6'
+import registerBehavior from './behavior/index'
+import registerEdge from './edge/index'
+import registerNode from './node/index'
 
-module.exports = G6;
+import config from './config/index'
+
+// 挂载config
+G6.$C = config
+
+// 注册交互
+registerBehavior(G6)
+// 注册边
+registerEdge(G6)
+// 注册节点
+registerNode(G6)
+
+export default G6

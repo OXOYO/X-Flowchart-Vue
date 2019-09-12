@@ -7,7 +7,6 @@ import utils from '../utils'
 
 export default {
   setState (name, value, item) {
-    console.log('state.....', name, value, item)
     // 设置锚点状态
     utils.anchor.setState(name, value, item)
     // 设置shapeControl状态

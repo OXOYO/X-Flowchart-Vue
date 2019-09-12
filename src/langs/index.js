@@ -17,8 +17,8 @@ export default {
     'en-US': 'English'
   },
   icon: {
-    'zh-CN': require('../assets/images/langs/zh-CN.png'),
-    'en-US': require('../assets/images/langs/en-US.png')
+    'zh-CN': require('@/assets/images/langs/zh-CN.png'),
+    'en-US': require('@/assets/images/langs/en-US.png')
   },
   data: {
     'zh-CN': { ..._zh, ...zh },

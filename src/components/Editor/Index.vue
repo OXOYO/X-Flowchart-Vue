@@ -33,7 +33,7 @@
   import PanelLeft from './containers/PanelLeft'
   import PanelRight from './containers/PanelRight'
   // import ContextMenu from './components/ContextMenu'
-  import G6 from '@/global/lib/g6/index'
+  import G6 from '@/global/g6/index'
   import Minimap from '@antv/g6/build/minimap'
   import Grid from '@antv/g6/build/grid'
   import screenfull from 'screenfull'
@@ -78,8 +78,6 @@
         let sketchpad = el.querySelector('#sketchpad')
         // 导航器
         let navigator = el.querySelector('#navigator')
-        console.log('sketchpad', sketchpad, sketchpad.clientWidth, sketchpad.clientHeight)
-        console.log('navigator', navigator, navigator.clientWidth, navigator.clientHeight)
         let size = [
           navigator.clientWidth,
           parseInt(navigator.clientWidth * sketchpad.clientHeight / sketchpad.clientWidth)
@@ -167,7 +165,7 @@
           _t.$store.commit('editor/currentItem/update', data)
         })
         _t.editor.on('editor:setItem', function (data) {
-          console.log('editor:setItem', JSON.stringify(data))
+          // console.log('editor:setItem', JSON.stringify(data))
           let item = _t.editor.findById(data.id)
           if (item) {
             _t.editor.updateItem(item, data.model)
@@ -251,7 +249,6 @@
         let _t = this
         let item = _t.clipboard.data
         _t.clipboard.count++
-        console.log('item', item)
         if (item) {
           if (item.type === 'node') {
             let node = {
@@ -296,7 +293,6 @@
       },
       doAddNode (info) {
         let _t = this
-        console.log('doAddNode', info)
         let node = {
           id: G6.Util.uniqueId(),
           shape: info.shape,
@@ -461,7 +457,6 @@
             })
             break
           case 'clear':
-            console.log('_t.$Modal', _t.$Modal)
             _t.$Modal.confirm({
               title: _t.$t('L10200'),
               // 确认清空画布？

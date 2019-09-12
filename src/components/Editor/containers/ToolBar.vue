@@ -993,7 +993,6 @@
       },
       handleDropdownClick (item, type, val) {
         let _t = this
-        console.log('item', item, type, val)
         _t.selected[item.name] = val
         let child = item.children[val]
         _t.formData[item.name] = child.name

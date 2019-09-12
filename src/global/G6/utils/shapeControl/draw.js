@@ -73,7 +73,7 @@ export default function (cfg, group) {
         width: rotateW,
         height: rotateH,
         cursor: 'crosshair',
-        img: require('../../../../../assets/images/rotate.png'),
+        img: require('@/assets/images/rotate.png'),
         // 默认样式
         ...config.shapeControl.style.default.rotate
       }

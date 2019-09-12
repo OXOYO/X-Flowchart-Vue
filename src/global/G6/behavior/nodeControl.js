@@ -68,7 +68,6 @@ export default {
         target: event.target
       }
       if (_t.info.target && _t.info.target.attr('name')) {
-        console.log('_t.info.target.attr(\'name\')', _t.info.target.attr('name'))
         switch (_t.info.target.attr('name')) {
           case 'anchorPoint':
             _t.info.type = 'drawLine'
@@ -243,7 +242,6 @@ export default {
       start (event) {
         let _t = this
         let model = _t.info.node.getModel()
-        console.log('model ddd', model)
         _t.shapeControlPoint.originNodeModel = {
           x: model.x,
           y: model.y,
@@ -276,7 +274,6 @@ export default {
           let width = model.width
           let height = model.height
           if (position) {
-            console.log('position', position)
             // 参照点，及当前controller的对角点
             // 参照点位置信息
             let referencePosition = [1 - position.x, 1 - position.y]
@@ -379,7 +376,6 @@ export default {
       isMoving: false,
       start (event) {
         let _t = this
-        console.log('shapeControlRotate start', event)
         _t.shapeControlRotate.isMoving = true
         // 计算旋转度数
         let model = _t.info.node.getModel()
@@ -595,15 +591,11 @@ export default {
         let _t = this
         let canvas = _t.graph.get('canvas')
         let node = event.item
-        let { id, label, x, y, width, height } = node.getModel()
+        let { label, x, y, width, height } = node.getModel()
         const el = canvas.get('el')
-        const html = G6.Util.createDom(`<input id="${id}" class="node-label" autofocus value="${label}"></input>`)
+        const html = el.parentNode.querySelector('.inputBox')
         if (html) {
-          // 插入输入框dom
-          el.parentNode.appendChild(html)
-          if (html.focus) {
-            html.focus()
-          }
+          html.value = label
           // 更新输入框样式
           G6.Util.modifyCSS(html, {
             display: 'inline-block',
@@ -617,7 +609,10 @@ export default {
             overflow: 'hidden',
             fontSize: '14px'
           })
-          html.addEventListener('blur', function () {
+          if (html.focus) {
+            html.focus()
+          }
+          const handler = function () {
             // 更新节点
             _t.graph.updateItem(node, {
               label: html.value,
@@ -628,9 +623,13 @@ export default {
                 }
               }
             })
-            // 删除输入框dom
-            el.parentNode.removeChild(html)
-          })
+            html.removeEventListener('blur', handler)
+            // 隐藏输入框dom
+            G6.Util.modifyCSS(html, {
+              display: 'none'
+            })
+          }
+          html.addEventListener('blur', handler)
         }
       }
     },
@@ -641,7 +640,7 @@ export default {
         let canvas = _t.graph.get('canvas')
         let edge = event.item
         let model = edge.getModel()
-        let { id, label, source, sourceAnchor, target, targetAnchor } = model
+        let { label, source, sourceAnchor, target, targetAnchor } = model
         // 查找节点
         let sourceNode = _t.graph.findById(source)
         let targetNode = _t.graph.findById(target)
@@ -676,13 +675,9 @@ export default {
           top = targetAnchorPoint.y + Math.abs(targetAnchorPoint.y - sourceAnchorPoint.y) / 2 - height / 2 + 'px'
         }
         const el = canvas.get('el')
-        const html = G6.Util.createDom(`<input id="${id}" class="edge-label" autofocus value="${label}"></input>`)
+        const html = el.parentNode.querySelector('.inputBox')
         if (html) {
-          // 插入输入框dom
-          el.parentNode.appendChild(html)
-          if (html.focus) {
-            html.focus()
-          }
+          html.value = label
           // 更新输入框样式
           G6.Util.modifyCSS(html, {
             display: 'inline-block',
@@ -696,7 +691,10 @@ export default {
             overflow: 'hidden',
             fontSize: '14px'
           })
-          html.addEventListener('blur', function () {
+          if (html.focus) {
+            html.focus()
+          }
+          const handler = function () {
             // 更新节点
             _t.graph.updateItem(edge, {
               label: html.value,
@@ -708,9 +706,13 @@ export default {
                 }
               }
             })
-            // 删除输入框dom
-            el.parentNode.removeChild(html)
-          })
+            html.removeEventListener('blur', handler)
+            // 隐藏输入框dom
+            G6.Util.modifyCSS(html, {
+              display: 'none'
+            })
+          }
+          html.addEventListener('blur', handler)
         }
       }
     },
