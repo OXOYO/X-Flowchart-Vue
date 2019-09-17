@@ -13,21 +13,43 @@ export default {
   extendName: 'single-shape',
   options: {
     ...base,
-    // FIXME shapeType只能是`@angtv/g`所支持的几种图形：Circle/Ellipse/Fan/Image/Marker/Path/Polygon/Rect/Text
-    shapeType: 'rect',
+    shapeType: 'path',
     getShapeStyle (cfg) {
       const size = this.getSize(cfg)
       const width = size[0]
       const height = size[1]
+      const x = 0 - width / 2
+      const y = 0 - height / 2
+      const r = 5
+      const path = [
+        // 左顶点
+        [ 'M', -width / 2, 0 ],
+        // 左上顶点
+        [ 'L', -width / 2, -height / 2 + r ],
+        // 左上弧
+        [ 'Q', -width / 2, -height / 2, -width / 2 + r, -height / 2 ],
+        // 右上顶点
+        [ 'L', width / 2 - r, -height / 2 ],
+        // 右上弧
+        [ 'Q', width / 2, -height / 2, width / 2, -height / 2 + r ],
+        // 右下顶点
+        [ 'L', width / 2, height / 2 - r ],
+        // 右下弧
+        [ 'Q', width / 2, height / 2, width / 2 - r, height / 2 ],
+        // 左下顶点
+        [ 'L', -width / 2 + r, height / 2 ],
+        // 左下弧
+        [ 'Q', -width / 2, height / 2, -width / 2, height / 2 - r ],
+        [ 'Z' ]
+      ]
       const color = cfg.color || Global.defaultNode.color
       const style = Util.mix({}, Global.defaultNode.style, {
         // 节点的位置在上层确定，所以这里仅使用相对位置即可
-        x: 0 - width / 2,
-        y: 0 - height / 2,
+        x,
+        y,
         width,
         height,
-        // 圆角半径，分别对应左上、右上、右下、左下角的半径
-        radius: [5, 5, 5, 5],
+        path,
         stroke: color
       }, cfg.style)
       return style
