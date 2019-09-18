@@ -83,7 +83,15 @@
             icon: '',
             enable: true,
             divider: false,
-            position: 'left'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'left'
+            },
+            contextmenu: {
+              enable: false,
+              target: []
+            }
           },
           {
             name: 'undo',
@@ -94,7 +102,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: false,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'redo',
@@ -105,7 +121,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: true,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'copy',
@@ -116,7 +140,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: false,
-            position: 'center'
+            shortcuts: 'ctrl+c',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: ['node', 'edge']
+            }
           },
           {
             name: 'paste',
@@ -127,7 +159,34 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: false,
-            position: 'center'
+            shortcuts: 'ctrl+v',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: ['node', 'edge']
+            }
+          },
+          {
+            name: 'delete',
+            label: 'Delete',
+            lang: 'L10031',
+            type: 'normal',
+            icon: 'delete',
+            enable: true,
+            disabled: _t.mode === 'preview',
+            divider: true,
+            shortcuts: 'delete',
+            toolbar: {
+              enable: false,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: ['node', 'edge']
+            }
           },
           {
             name: 'clear',
@@ -138,7 +197,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: true,
-            position: 'center'
+            shortcuts: 'alt+c',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'zoom',
@@ -149,7 +216,15 @@
             enable: true,
             disabled: false,
             divider: false,
-            position: 'center',
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            },
             // 默认选中项index
             selected: 0,
             // 子节点
@@ -255,7 +330,15 @@
             enable: true,
             disabled: false,
             divider: false,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'zoomOut',
@@ -266,7 +349,15 @@
             enable: true,
             disabled: false,
             divider: false,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'fit',
@@ -277,7 +368,15 @@
             enable: true,
             disabled: false,
             divider: false,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'actualSize',
@@ -288,7 +387,15 @@
             enable: true,
             disabled: false,
             divider: true,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'fill',
@@ -299,7 +406,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: false,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: ['node', 'edge']
+            }
           },
           {
             name: 'lineColor',
@@ -310,7 +425,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: false,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: ['node', 'edge']
+            }
           },
           {
             name: 'lineWidth',
@@ -321,7 +444,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: false,
-            position: 'center',
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: ['node', 'edge']
+            },
             // 默认选中项index
             selected: 0,
             // 子节点
@@ -427,7 +558,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: true,
-            position: 'center',
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: ['node', 'edge']
+            },
             // 默认选中项index
             selected: 0,
             // 子节点
@@ -470,7 +609,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: false,
-            position: 'center',
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: ['node', 'edge']
+            },
             // 默认选中项index
             selected: 0,
             // 子节点
@@ -513,7 +660,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: false,
-            position: 'center',
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: ['edge']
+            },
             // 默认选中项index
             selected: 0,
             // 子节点
@@ -582,7 +737,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: true,
-            position: 'center',
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: ['edge']
+            },
             // 默认选中项index
             selected: 0,
             // 子节点
@@ -660,7 +823,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: false,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: ['node', 'edge']
+            }
           },
           {
             name: 'toBack',
@@ -671,7 +842,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: true,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: ['node', 'edge']
+            }
           },
           {
             name: 'marquee',
@@ -682,7 +861,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: false,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'group',
@@ -693,7 +880,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: false,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'ungroup',
@@ -704,7 +899,15 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: true,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'edit',
@@ -715,7 +918,15 @@
             enable: _t.mode === 'preview',
             disabled: false,
             divider: false,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'download',
@@ -726,7 +937,15 @@
             enable: true,
             disabled: false,
             divider: false,
-            position: 'center',
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            },
             // 默认选中项index
             selected: 0,
             // 子节点
@@ -764,7 +983,15 @@
             enable: _t.mode === 'edit',
             disabled: false,
             divider: false,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'fullscreen',
@@ -775,7 +1002,15 @@
             enable: true,
             disabled: false,
             divider: false,
-            position: 'center'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'language',
@@ -786,7 +1021,15 @@
             enable: true,
             disabled: false,
             divider: false,
-            position: 'center',
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            },
             // 默认选中项index
             selected: 0,
             // 子节点
@@ -824,7 +1067,15 @@
             link: _t.$X.config.system.github,
             enable: true,
             divider: false,
-            position: 'right'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'right'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           },
           {
             name: 'feedback',
@@ -835,7 +1086,15 @@
             link: _t.$X.config.system.feedback,
             enable: true,
             divider: false,
-            position: 'right'
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'right'
+            },
+            contextmenu: {
+              enable: true,
+              target: []
+            }
           }
         ]
       }
@@ -942,8 +1201,10 @@
             _t.editor.paint()
           }
         })
+        // 绑定热键
+        _t.bindShortcuts()
         // 绑定unload
-        // _t.bindUnload()
+        _t.bindUnload()
       },
       _canvasMousedown () {
         let _t = this
@@ -1034,6 +1295,9 @@
           }
         }
       },
+      doDelete () {
+        // TODO 删除逻辑
+      },
       doZoom (info, position) {
         let _t = this
         // 缩放率
@@ -1100,6 +1364,9 @@
             break
           case 'paste':
             _t.doPaste()
+            break
+          case 'delete':
+            _t.doDelete()
             break
           case 'zoom':
           case 'zoomIn':
@@ -1293,25 +1560,17 @@
       },
       bindShortcuts () {
         let _t = this
-        let handler = function (item) {
+        _t.toolList.forEach(item => {
           if (item.enable && item.shortcuts) {
             Mousetrap.bind(item.shortcuts, function () {
-              _t.handleToolClick(item)
+              _t.handleToolTrigger({
+                name: item.name,
+                data: {}
+              })
               return false
             })
           }
-        }
-        let keys = Object.keys(_t.tools)
-        for (let i = 0, iLen = keys.length; i < iLen; i++) {
-          let key = keys[i]
-          if (Array.isArray(_t.tools[key])) {
-            for (let j = 0, jLen = _t.tools[key].length; j < jLen; j++) {
-              handler(_t.tools[key][j])
-            }
-          } else {
-            handler(_t.tools[key])
-          }
-        }
+        })
       },
       bindUnload () {
         window.onbeforeunload = function (event) {

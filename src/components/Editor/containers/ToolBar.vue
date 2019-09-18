@@ -252,10 +252,13 @@
         let _t = this
         let toolMap = {}
         _t.toolList.forEach(item => {
-          if (!toolMap.hasOwnProperty(item.position)) {
-            toolMap[item.position] = []
+          if (item.toolbar && item.toolbar.enable) {
+            let position = item.toolbar.position
+            if (!toolMap.hasOwnProperty(position)) {
+              toolMap[position] = []
+            }
+            toolMap[position].push(item)
           }
-          toolMap[item.position].push(item)
         })
         return toolMap
       }
