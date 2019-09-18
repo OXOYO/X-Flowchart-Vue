@@ -66,6 +66,7 @@ yarn run serve
 - [x]  **工具栏**：预览
 - [x]  **工具栏**：全屏
 - [x]  **工具栏**：语言
+- [ ]  **热键**：
 - [x]  **基础图形**：Rectangle
 - [x]  **基础图形**：Rounded Rectangle
 - [ ]  **基础图形**：Text
