@@ -34,11 +34,14 @@ export default {
         'node:mousedown': 'onNodeMousedown',
         'node:mouseup': 'onNodeMouseup',
         'node:dblclick': 'onNodeDblclick',
+        'node:contextmenu': 'onNodeContextmenu',
         'canvas:mouseenter': 'onCanvasMouseenter',
         'canvas:mouseleave': 'onCanvasMouseleave',
+        'canvas:contextmenu': 'onCanvasContextmenu',
         'edge:mousedown': 'onEdgeMousedown',
         'edge:mouseup': 'onEdgeMouseup',
         'edge:dblclick': 'onEdgeDblclick',
+        'edge:contextmenu': 'onEdgeContextmenu',
         'mousemove': 'onMousemove',
         'mouseup': 'onMouseup'
       }
@@ -98,6 +101,14 @@ export default {
         _t.nodeLabel.create.call(_t, event)
       }
     },
+    onNodeContextmenu (event) {
+      let _t = this
+      _t.graph.emit('editor:contextmenu', {
+        type: 'node',
+        x: event.clientX,
+        y: event.clientY
+      })
+    },
     onCanvasMouseenter (event) {
       let _t = this
       if (_t.info && _t.info.type === 'dragNode') {
@@ -109,6 +120,14 @@ export default {
       if (_t.info && _t.info.type === 'dragNode') {
         _t[_t.info.type].stop.call(_t, event)
       }
+    },
+    onCanvasContextmenu (event) {
+      let _t = this
+      _t.graph.emit('editor:contextmenu', {
+        type: 'canvas',
+        x: event.clientX,
+        y: event.clientY
+      })
     },
     onEdgeMousedown (event) {
       let _t = this
@@ -130,6 +149,14 @@ export default {
       if (_t.config.edgeLabel) {
         _t.edgeLabel.create.call(_t, event)
       }
+    },
+    onEdgeContextmenu (event) {
+      let _t = this
+      _t.graph.emit('editor:contextmenu', {
+        type: 'edge',
+        x: event.clientX,
+        y: event.clientY
+      })
     },
     onMousemove (event) {
       let _t = this

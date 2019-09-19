@@ -16,12 +16,12 @@
 </style>
 
 <template>
-  <div class="materials-editor">
+  <div class="materials-editor" @click="handleEditorClick">
     <ToolBar :toolList="toolList"></ToolBar>
     <Sketchpad></Sketchpad>
     <PanelLeft></PanelLeft>
     <PanelRight></PanelRight>
-    <!--<ContextMenu></ContextMenu>-->
+    <ContextMenu :toolList="toolList"></ContextMenu>
   </div>
 </template>
 
@@ -32,7 +32,7 @@
   import Sketchpad from './containers/Sketchpad'
   import PanelLeft from './containers/PanelLeft'
   import PanelRight from './containers/PanelRight'
-  // import ContextMenu from './components/ContextMenu'
+  import ContextMenu from './components/ContextMenu'
   import G6 from '@/global/g6/index'
   import Minimap from '@antv/g6/build/minimap'
   import Grid from '@antv/g6/build/grid'
@@ -47,9 +47,8 @@
       ToolBar,
       Sketchpad,
       PanelLeft,
-      PanelRight
-      // ,
-      // ContextMenu
+      PanelRight,
+      ContextMenu
     },
     data () {
       return {
@@ -140,7 +139,8 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: false,
-            shortcuts: 'ctrl+c',
+            // FIXME 通用mod助手用于设置跨平台快捷方式，用于将command+c在Windows和Linux上映射到ctrl+c
+            shortcuts: 'mod+c',
             toolbar: {
               enable: true,
               position: 'center'
@@ -159,26 +159,26 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: false,
-            shortcuts: 'ctrl+v',
+            shortcuts: 'mod+v',
             toolbar: {
               enable: true,
               position: 'center'
             },
             contextmenu: {
               enable: true,
-              target: ['node', 'edge']
+              target: ['canvas', 'node', 'edge']
             }
           },
           {
             name: 'delete',
             label: 'Delete',
-            lang: 'L10031',
+            lang: 'L10010',
             type: 'normal',
             icon: 'delete',
             enable: true,
             disabled: _t.mode === 'preview',
             divider: true,
-            shortcuts: 'delete',
+            shortcuts: 'del',
             toolbar: {
               enable: false,
               position: 'center'
@@ -197,14 +197,14 @@
             enable: true,
             disabled: _t.mode === 'preview',
             divider: true,
-            shortcuts: 'alt+c',
+            shortcuts: 'ctrl+shift+c',
             toolbar: {
               enable: true,
               position: 'center'
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas']
             }
           },
           {
@@ -330,14 +330,15 @@
             enable: true,
             disabled: false,
             divider: false,
-            shortcuts: '',
+            // FIXME mod+= 用于支持主键盘区的+，mod+plus用于支持数字键盘区的+
+            shortcuts: ['mod+=', 'mod+plus'],
             toolbar: {
               enable: true,
               position: 'center'
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas', 'node', 'edge']
             }
           },
           {
@@ -349,14 +350,14 @@
             enable: true,
             disabled: false,
             divider: false,
-            shortcuts: '',
+            shortcuts: 'mod+-',
             toolbar: {
               enable: true,
               position: 'center'
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas', 'node', 'edge']
             }
           },
           {
@@ -368,14 +369,14 @@
             enable: true,
             disabled: false,
             divider: false,
-            shortcuts: '',
+            shortcuts: 'mod+0',
             toolbar: {
               enable: true,
               position: 'center'
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas', 'node', 'edge']
             }
           },
           {
@@ -387,14 +388,14 @@
             enable: true,
             disabled: false,
             divider: true,
-            shortcuts: '',
+            shortcuts: 'mod+1',
             toolbar: {
               enable: true,
               position: 'center'
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas', 'node', 'edge']
             }
           },
           {
@@ -925,7 +926,7 @@
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas', 'node', 'edge']
             }
           },
           {
@@ -944,7 +945,7 @@
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas', 'node', 'edge']
             },
             // 默认选中项index
             selected: 0,
@@ -990,7 +991,7 @@
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas', 'node', 'edge']
             }
           },
           {
@@ -1009,7 +1010,7 @@
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas', 'node', 'edge']
             }
           },
           {
@@ -1028,7 +1029,7 @@
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas', 'node', 'edge']
             },
             // 默认选中项index
             selected: 0,
@@ -1074,7 +1075,7 @@
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas', 'node', 'edge']
             }
           },
           {
@@ -1093,7 +1094,7 @@
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas', 'node', 'edge']
             }
           }
         ]
@@ -1201,6 +1202,9 @@
             _t.editor.paint()
           }
         })
+        _t.editor.on('editor:contextmenu', function (data) {
+          _t.$X.utils.bus.$emit('editor/contextmenu/open', data)
+        })
         // 绑定热键
         _t.bindShortcuts()
         // 绑定unload
@@ -1296,7 +1300,18 @@
         }
       },
       doDelete () {
+        let _t = this
         // TODO 删除逻辑
+        _t.editor.getNodes().forEach(node => {
+          if (node.hasState('active')) {
+            _t.editor.removeItem(node)
+          }
+        })
+        _t.editor.getEdges().forEach(edge => {
+          if (edge.hasState('active')) {
+            _t.editor.removeItem(edge)
+          }
+        })
       },
       doZoom (info, position) {
         let _t = this
@@ -1562,7 +1577,15 @@
         let _t = this
         _t.toolList.forEach(item => {
           if (item.enable && item.shortcuts) {
-            Mousetrap.bind(item.shortcuts, function () {
+            console.log('shortcuts', item.shortcuts)
+            Mousetrap.bind(item.shortcuts, function (e) {
+              console.log('trigger shortcuts', item.shortcuts)
+              if (e.preventDefault) {
+                e.preventDefault()
+              } else {
+                // internet explorer
+                e.returnValue = false
+              }
               _t.handleToolTrigger({
                 name: item.name,
                 data: {}
@@ -1577,6 +1600,10 @@
           event.returnValue = false
           return false
         }
+      },
+      handleEditorClick () {
+        let _t = this
+        _t.$X.utils.bus.$emit('editor/contextmenu/close')
       }
     },
     created () {
