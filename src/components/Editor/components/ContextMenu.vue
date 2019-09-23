@@ -15,42 +15,163 @@
     padding: 5px 0;
     z-index: 999;
 
-    .menu-item {
-      padding: 5px 20px;
+    .tool-box {
+      padding: 0;
 
-      &:hover {
-        background: rgba(0, 0, 0, .1);
-      }
+      .tool-item {
+        padding: 5px 10px;
 
-      .item-icon {
-        margin-right: 10px;
+        &:hover {
+          color: #000000;
+          background: rgba(0, 0, 0, .1);
+        }
+
+        .tool-box {
+          padding: 5px 0;
+          background: #FFF;
+          box-shadow: 0 0 5px 2px rgba(0, 0, 0, .1);
+        }
+
+        .item-icon {
+          display: inline-block;
+          width: 16px;
+          height: 16px;
+          margin-right: 10px;
+        }
+        .item-label {}
+        .item-more {
+          display: inline-block;
+          float: right;
+          width: 16px;
+          height: 16px;
+        }
       }
-      .item-label {}
+      .divider {
+        width: calc(~"100% - 10px");
+      }
     }
   }
 </style>
 
 <template>
   <div class="context-menu" v-show="isShow" :style="contextMenuStyle">
-    <Menu :active-name="activeMenu" @on-select="handleContextmenuTrigger">
-      <MenuItem
-        v-for="(item, index) in contextMenuList"
-        :key="'menu_item_' + index"
-        :name="item.name"
-        class="menu-item"
-      >
-        <XIcon :type="item.icon" class="item-icon"></XIcon>
-        <span class="item-label">{{ $t(item.lang) }}</span>
-      </MenuItem>
-    </Menu>
+    <ToolBox mode="vertical">
+      <template v-for="(item, index) in contextMenuList">
+        <ToolItem
+          v-if="item.type === 'text'"
+          :key="'contextmenu_item_' + index"
+          :title="$t(item.lang)"
+          :active="item.active"
+          :disabled="item.disabled"
+          @click.native="handleToolClick(item)"
+        >
+          <template v-slot:label>
+            <div class="item-icon">
+              <XIcon :type="item.icon"></XIcon>
+            </div>
+            <span class="item-label">{{ $t(item.lang) }}</span>
+          </template>
+        </ToolItem>
+        <ToolItem
+          v-if="item.type === 'dropdown-list'"
+          :key="'contextmenu_item_' + index"
+          :title="$t(item.lang)"
+          :active="item.active"
+          :disabled="item.disabled"
+          @mouseenter.native="handleItemHover"
+        >
+          <template v-slot:label>
+            <div class="item-icon">
+              <XIcon :type="item.icon"></XIcon>
+            </div>
+            <span class="item-label">{{ $t(item.lang) }}</span>
+            <div class="item-more">
+              <Icon type="ios-arrow-forward"></Icon>
+            </div>
+          </template>
+          <template v-slot:content>
+            <ToolBox mode="vertical">
+              <template v-for="(child, childIndex) in item.children">
+                <ToolItem
+                  v-if="child.type === 'normal'"
+                  :key="'contextmenu_item_' + index + '_child_' + childIndex"
+                  :title="$t(child.lang)"
+                  :active="child.active"
+                  :disabled="child.disabled"
+                  @click.native="handleChildClick(item, child)"
+                >
+                  <template v-slot:label>
+                    <div class="item-icon">
+                      <XIcon :type="child.icon"></XIcon>
+                    </div>
+                    <span class="item-label">{{ child.lang ? $t(child.lang) : child.label }}</span>
+                  </template>
+                </ToolItem>
+                <XDivider
+                  class="divider"
+                  v-if="child.divider"
+                  :key="'contextmenu' + '_divider_' + index + '_child_' + childIndex"
+                  mode="horizontal"
+                />
+              </template>
+            </ToolBox>
+          </template>
+        </ToolItem>
+        <ToolItem
+          v-if="item.type === 'link'"
+          :key="'contextmenu_item_' + index"
+          :title="$t(item.lang)"
+          :active="item.active"
+          :disabled="item.disabled"
+          @click.native="handleToolClick(item)"
+        >
+          <template v-slot:label>
+            <a :href="item.link" target="_blank" style="color: #333333;">
+              <div class="item-icon">
+                <XIcon :type="item.icon"></XIcon>
+              </div>
+              <span class="item-label">{{ $t(item.lang) }}</span>
+            </a>
+          </template>
+        </ToolItem>
+        <ToolItem
+          v-if="item.type === 'normal'"
+          :key="'contextmenu_item_' + index"
+          :title="$t(item.lang)"
+          :active="item.active"
+          :disabled="item.disabled"
+          @click.native="handleToolClick(item)"
+        >
+          <template v-slot:label>
+            <div class="item-icon">
+              <XIcon :type="item.icon"></XIcon>
+            </div>
+            <span class="item-label">{{ $t(item.lang) }}</span>
+          </template>
+        </ToolItem>
+        <XDivider
+          class="divider"
+          v-if="item.divider"
+          :key="'contextmenu' + '_divider_' + index"
+          mode="horizontal"
+        />
+      </template>
+    </ToolBox>
   </div>
 </template>
 
 <script>
   import { mapGetters } from 'vuex'
 
+  import ToolBox from '../../ToolBox/Index'
+  import ToolItem from '../../ToolBox/ToolItem'
+
   export default {
     name: 'ContextMenu',
+    components: {
+      ToolBox,
+      ToolItem
+    },
     props: {
       toolList: {
         type: Array,
@@ -100,7 +221,7 @@
         let _t = this
         let contextMenuList = []
         _t.toolList.forEach(item => {
-          if (item.contextmenu && item.contextmenu.enable) {
+          if (item.enable && item.contextmenu && item.contextmenu.enable) {
             if (!item.contextmenu.hasOwnProperty('target') || (item.contextmenu.hasOwnProperty('target') && (item.contextmenu.target.length && _t.options && _t.options.type && item.contextmenu.target.includes(_t.options.type)))) {
               contextMenuList.push(item)
             }
@@ -120,13 +241,61 @@
         _t.contextMenuList = []
         _t.isShow = false
       },
-      handleContextmenuTrigger (name) {
+      handleChildClick (item, child) {
         let _t = this
+        if (child.disabled) {
+          return
+        }
+        let payload = null
+        switch (item.name) {
+          case 'lineWidth':
+          case 'lineType':
+          case 'lineStyle':
+          case 'download':
+            payload = {
+              name: item.name,
+              data: child.name
+            }
+            break
+          case 'zoom':
+          case 'startArrow':
+          case 'endArrow':
+            payload = {
+              name: item.name,
+              data: child.data
+            }
+            break
+          case 'language':
+            // 更新cookie
+            let cookieKey = _t.$X.config.cookie.getItem('locale')
+            _t.$X.Cookies.set(cookieKey, child.name, {
+              expires: 7,
+              path: _t.$X.config.cookie.path
+            })
+            _t.$i18n.locale = _t.$X.langs.locale = child.name
+            break
+        }
+        if (payload) {
+          _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
+        }
+      },
+      handleToolClick (item) {
+        let _t = this
+        if (item.disabled) {
+          return
+        }
         _t.$X.utils.bus.$emit('editor/tool/trigger', {
-          name: name,
+          name: item.name,
           data: _t.currentItem
         })
         _t.doHide()
+      },
+      handleItemHover (event) {
+        let target = event.target
+        let toolBox = target.querySelector('.tool-box')
+        if (toolBox && target.clientWidth) {
+          toolBox.style.left = target.clientWidth + 'px'
+        }
       }
     },
     created () {

@@ -7,28 +7,17 @@
   .tool-item {
     display: inline-block;
     position: relative;
-    min-width: 25px;
-    height: 30px;
-    line-height: 30px;
-    /*padding: 10px;*/
-    vertical-align: middle;
-    text-align: center;
-    opacity: .3;
-    margin: 0 2px;
-    color: #000000;
+    white-space: nowrap;
 
     &:hover {
-      opacity: 1;
+      .tool-box {
+        visibility: visible;
+      }
     }
-    &.active {
-      opacity: 1;
-    }
-    &.disabled {
-      cursor: not-allowed;
-    }
-
-    .label {
-
+    .tool-box {
+      visibility: hidden;
+      position: absolute;
+      top: 0;
     }
   }
 </style>
@@ -36,6 +25,7 @@
 <template>
   <div :class="{ 'tool-item': true, 'active': active, 'disabled': disabled }">
     <slot name="label" class="label">{{ label }}</slot>
+    <slot name="content"></slot>
   </div>
 </template>
 

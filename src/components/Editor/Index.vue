@@ -222,7 +222,7 @@
               position: 'center'
             },
             contextmenu: {
-              enable: true,
+              enable: false,
               target: []
             },
             // 默认选中项index
@@ -233,6 +233,7 @@
                 name: '25%',
                 label: '25%',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 data: 0.25,
                 enable: true,
@@ -243,6 +244,7 @@
                 name: '50%',
                 label: '50%',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 data: 0.5,
                 enable: true,
@@ -253,6 +255,7 @@
                 name: '75%',
                 label: '75%',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 data: 0.75,
                 enable: true,
@@ -263,6 +266,7 @@
                 name: '100%',
                 label: '100%',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 data: 1,
                 enable: true,
@@ -273,6 +277,7 @@
                 name: '125%',
                 label: '125%',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 data: 1.25,
                 enable: true,
@@ -283,6 +288,7 @@
                 name: '150%',
                 label: '150%',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 data: 1.5,
                 enable: true,
@@ -293,6 +299,7 @@
                 name: '200%',
                 label: '200%',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 data: 2,
                 enable: true,
@@ -303,6 +310,7 @@
                 name: '300%',
                 label: '300%',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 data: 3,
                 enable: true,
@@ -313,6 +321,7 @@
                 name: '400%',
                 label: '400%',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 data: 4,
                 enable: true,
@@ -462,6 +471,7 @@
                 name: 1,
                 label: '1px',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 enable: true,
                 disabled: false,
@@ -471,6 +481,7 @@
                 name: 2,
                 label: '2px',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 enable: true,
                 disabled: false,
@@ -480,6 +491,7 @@
                 name: 3,
                 label: '3px',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 enable: true,
                 disabled: false,
@@ -489,6 +501,7 @@
                 name: 4,
                 label: '4px',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 enable: true,
                 disabled: false,
@@ -498,6 +511,7 @@
                 name: 5,
                 label: '5px',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 enable: true,
                 disabled: false,
@@ -507,6 +521,7 @@
                 name: 6,
                 label: '6px',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 enable: true,
                 disabled: false,
@@ -516,6 +531,7 @@
                 name: 7,
                 label: '7px',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 enable: true,
                 disabled: false,
@@ -525,6 +541,7 @@
                 name: 8,
                 label: '8px',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 enable: true,
                 disabled: false,
@@ -534,6 +551,7 @@
                 name: 9,
                 label: '9px',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 enable: true,
                 disabled: false,
@@ -543,6 +561,7 @@
                 name: 10,
                 label: '10px',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 enable: true,
                 disabled: false,
@@ -576,6 +595,7 @@
                 name: 'solid',
                 label: 'solid',
                 lang: '',
+                type: 'normal',
                 icon: 'solid',
                 enable: true,
                 disabled: false,
@@ -585,6 +605,7 @@
                 name: 'dashed',
                 label: 'dashed',
                 lang: '',
+                type: 'normal',
                 icon: 'dashed',
                 enable: true,
                 disabled: false,
@@ -594,6 +615,7 @@
                 name: 'dot',
                 label: 'dot',
                 lang: '',
+                type: 'normal',
                 icon: 'dot',
                 enable: true,
                 disabled: false,
@@ -617,7 +639,7 @@
             },
             contextmenu: {
               enable: true,
-              target: ['node', 'edge']
+              target: ['edge']
             },
             // 默认选中项index
             selected: 0,
@@ -627,6 +649,7 @@
                 name: 'x-line',
                 label: 'line',
                 lang: '',
+                type: 'normal',
                 icon: 'flow-line',
                 enable: true,
                 disabled: false,
@@ -636,6 +659,7 @@
                 name: 'x-broken',
                 label: 'broken',
                 lang: '',
+                type: 'normal',
                 icon: 'flow-broken',
                 enable: true,
                 disabled: false,
@@ -645,6 +669,7 @@
                 name: 'x-cubic',
                 label: 'cubic',
                 lang: '',
+                type: 'normal',
                 icon: 'flow-curve',
                 enable: true,
                 disabled: false,
@@ -678,6 +703,7 @@
                 name: 'none',
                 label: 'none',
                 lang: '',
+                type: 'normal',
                 icon: 'solid',
                 style: {},
                 data: false,
@@ -689,6 +715,7 @@
                 name: 'solidArrow',
                 label: 'solid arrow',
                 lang: '',
+                type: 'normal',
                 icon: 'solid-arrow',
                 style: {},
                 data: {
@@ -703,6 +730,7 @@
                 name: 'normalArrow',
                 label: 'normal arrow',
                 lang: '',
+                type: 'normal',
                 icon: 'normal-arrow',
                 style: {},
                 data: {
@@ -717,6 +745,7 @@
                 name: 'asynchArrow',
                 label: 'asynch arrow',
                 lang: '',
+                type: 'normal',
                 icon: 'asynch-arraw',
                 style: {},
                 data: {
@@ -755,6 +784,7 @@
                 name: 'none',
                 label: 'none',
                 lang: '',
+                type: 'normal',
                 icon: 'solid',
                 style: {},
                 data: false,
@@ -766,6 +796,7 @@
                 name: 'solidArrow',
                 label: 'solid arrow',
                 lang: '',
+                type: 'normal',
                 icon: 'solid-arrow',
                 style: {
                   display: 'inline-block',
@@ -783,6 +814,7 @@
                 name: 'normalArrow',
                 label: 'normal arrow',
                 lang: '',
+                type: 'normal',
                 icon: 'normal-arrow',
                 style: {
                   display: 'inline-block',
@@ -800,6 +832,7 @@
                 name: 'asynchArrow',
                 label: 'asynch arrow',
                 lang: '',
+                type: 'normal',
                 icon: 'asynch-arraw',
                 style: {
                   display: 'inline-block',
@@ -925,8 +958,8 @@
               position: 'center'
             },
             contextmenu: {
-              enable: true,
-              target: ['canvas', 'node', 'edge']
+              enable: false,
+              target: []
             }
           },
           {
@@ -955,6 +988,7 @@
                 name: 'image',
                 label: 'Image',
                 lang: '',
+                type: 'normal',
                 icon: 'image',
                 style: {},
                 data: false,
@@ -966,6 +1000,7 @@
                 name: 'json',
                 label: 'Json',
                 lang: '',
+                type: 'normal',
                 icon: 'json',
                 style: {},
                 data: false,
@@ -990,8 +1025,8 @@
               position: 'center'
             },
             contextmenu: {
-              enable: true,
-              target: ['canvas', 'node', 'edge']
+              enable: false,
+              target: []
             }
           },
           {
@@ -1039,6 +1074,7 @@
                 name: 'zh-CN',
                 label: '简体中文',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 style: {},
                 data: false,
@@ -1050,6 +1086,7 @@
                 name: 'en-US',
                 label: 'English',
                 lang: '',
+                type: 'normal',
                 icon: '',
                 style: {},
                 data: false,
@@ -1593,6 +1630,10 @@
               return false
             })
           }
+        })
+        // 绑定按键事件
+        document.addEventListener('keyup', function () {
+          _t.$X.utils.bus.$emit('editor/contextmenu/close')
         })
       },
       bindUnload () {

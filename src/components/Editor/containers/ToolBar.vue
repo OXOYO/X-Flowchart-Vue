@@ -41,6 +41,9 @@
       .tool-item {
         display: inline-block;
       }
+      .divider {
+        height: calc(~"100% - 10px");
+      }
     }
   }
 </style>
@@ -56,8 +59,8 @@
     >
     </Handler>
     <template v-for="(type, typeIndex) in Object.keys(toolMap)">
-      <ToolBox :key="typeIndex" :class="type">
-        <template v-for="(item, index) in toolMap[type].filter(target => target.enable)">
+      <ToolBox mode="horizontal" :key="typeIndex" :class="type">
+        <template v-for="(item, index) in toolMap[type]">
           <ToolItem
             v-if="item.type === 'text'"
             :key="'tool_' + type + '_item_' + index"
@@ -183,7 +186,12 @@
               <span v-else>{{ $t(item.lang) }}</span>
             </template>
           </ToolItem>
-          <Divider :key="'tool_' + type + '_divider_' + index" v-if="item.divider" type="vertical" style="height: 100%;" />
+          <XDivider
+            class="divider"
+            v-if="item.divider"
+            :key="'tool_' + type + '_divider_' + index"
+            mode="vertical"
+          />
         </template>
       </ToolBox>
     </template>
@@ -252,7 +260,7 @@
         let _t = this
         let toolMap = {}
         _t.toolList.forEach(item => {
-          if (item.toolbar && item.toolbar.enable) {
+          if (item.enable && item.toolbar && item.toolbar.enable) {
             let position = item.toolbar.position
             if (!toolMap.hasOwnProperty(position)) {
               toolMap[position] = []
@@ -270,6 +278,9 @@
       },
       handleDropdownClick (item, type, index, val) {
         let _t = this
+        if (item.disabled) {
+          return
+        }
         _t.toolMap[type][index].selected = val
         let child = item.children[val]
         _t.formData[item.name] = child.name

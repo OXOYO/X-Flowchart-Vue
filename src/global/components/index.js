@@ -29,6 +29,7 @@ import { Sketch } from 'vue-color'
 
 import XIcon from './Icon/Index'
 import XTooltip from './Tooltip/Index'
+import XDivider from './Divider/Index'
 
 const obj = {
   // ui组件
@@ -54,7 +55,8 @@ const obj = {
   SketchPicker: Sketch,
   // 自定义组件
   XIcon,
-  XTooltip
+  XTooltip,
+  XDivider
 }
 
 const components = {}
