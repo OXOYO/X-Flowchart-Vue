@@ -389,6 +389,13 @@
       "font_class": "lock",
       "unicode": "e9b1",
       "unicode_decimal": 59825
+    },
+    {
+      "icon_id": "11065438",
+      "name": "download",
+      "font_class": "upload",
+      "unicode": "e9b2",
+      "unicode_decimal": 59826
     }
   ]
 }
