@@ -24,9 +24,16 @@
         &:hover {
           color: #000000;
           background: rgba(0, 0, 0, .1);
+
+          .tool-box {
+            visibility: visible;
+          }
         }
 
         .tool-box {
+          visibility: hidden;
+          position: absolute;
+          top: 0;
           padding: 5px 0;
           background: #FFF;
           box-shadow: 0 0 5px 2px rgba(0, 0, 0, .1);
@@ -70,6 +77,31 @@
               <XIcon :type="item.icon"></XIcon>
             </div>
             <span class="item-label">{{ $t(item.lang) }}</span>
+          </template>
+        </ToolItem>
+        <ToolItem
+          v-if="item.type === 'dropdown-color-picker'"
+          :key="'contextmenu_item_' + index"
+          :title="$t(item.lang)"
+          :active="item.active"
+          :disabled="item.disabled"
+          @mouseenter.native="handleItemHover"
+        >
+          <template v-slot:label>
+            <div class="item-icon">
+              <XIcon :type="item.icon"></XIcon>
+            </div>
+            <span class="item-label">{{ $t(item.lang) }}</span>
+            <div class="item-more">
+              <Icon type="ios-arrow-forward"></Icon>
+            </div>
+          </template>
+          <template v-slot:content>
+            <ToolBox mode="vertical" style="padding: 0;">
+              <ToolItem style="padding: 0;">
+                <SketchPicker slot="label" :value="formData[item.name]" @input="(val) => handleToolClick(item, val, null)"></SketchPicker>
+              </ToolItem>
+            </ToolBox>
           </template>
         </ToolItem>
         <ToolItem
@@ -165,6 +197,7 @@
 
   import ToolBox from '../../ToolBox/Index'
   import ToolItem from '../../ToolBox/ToolItem'
+  import config from '../config/index'
 
   export default {
     name: 'ContextMenu',
@@ -172,49 +205,23 @@
       ToolBox,
       ToolItem
     },
-    props: {
-      toolList: {
-        type: Array,
-        rquired: true
-      }
-    },
     data () {
       return {
         isShow: false,
         activeMenu: '',
         options: null,
-        contextMenuList: []
+        contextMenuList: [],
+        formData: {
+          ...config.$X
+        },
+        contextMenuStyle: {}
       }
     },
     computed: {
       ...mapGetters([
-        'currentItem'
-      ]),
-      contextMenuStyle: function () {
-        let _t = this
-        let style = {}
-        if (!_t.options) {
-          return style
-        }
-        let x = _t.options.x !== undefined ? (parseInt(_t.options.x) > 0 ? parseInt(_t.options.x) : 0) : 0
-        let y = _t.options.y !== undefined ? (parseInt(_t.options.y) > 0 ? parseInt(_t.options.y) : 0) : 0
-        // 判断是否超出边界
-        if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
-          let winHeight = document.documentElement.clientHeight
-          let winWidth = document.documentElement.clientWidth
-          if (x + 200 > winWidth) {
-            style['right'] = '10px'
-          } else {
-            style['left'] = x + 'px'
-          }
-          if (y + 100 > winHeight) {
-            style['bottom'] = '42px'
-          } else {
-            style['top'] = y + 'px'
-          }
-        }
-        return style
-      }
+        'currentItem',
+        'toolList'
+      ])
     },
     methods: {
       handleContextMenuList () {
@@ -229,10 +236,41 @@
         })
         _t.contextMenuList = contextMenuList
       },
+      handleContextMenuStyle () {
+        let _t = this
+        let style = {}
+        if (!_t.options) {
+          return style
+        }
+        _t.$nextTick(function () {
+          let x = _t.options.x !== undefined ? (parseInt(_t.options.x) > 0 ? parseInt(_t.options.x) : 0) : 0
+          let y = _t.options.y !== undefined ? (parseInt(_t.options.y) > 0 ? parseInt(_t.options.y) : 0) : 0
+          // 判断是否超出边界
+          if (document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth) {
+            let winHeight = document.documentElement.clientHeight
+            let winWidth = document.documentElement.clientWidth
+            let elHeight = _t.$el.clientHeight
+            let elWidth = _t.$el.clientWidth
+            if (x + elWidth > winWidth) {
+              style['right'] = '10px'
+            } else {
+              style['left'] = x + 'px'
+            }
+            if (y + elHeight > winHeight) {
+              style['bottom'] = '42px'
+            } else {
+              style['top'] = y + 'px'
+            }
+          }
+          _t.contextMenuStyle = style
+        })
+      },
       doShow (data) {
         let _t = this
         _t.options = data
         _t.handleContextMenuList()
+        // 处理样式
+        _t.handleContextMenuStyle()
         _t.isShow = true
       },
       doHide () {
@@ -246,14 +284,17 @@
         if (child.disabled) {
           return
         }
-        let payload = null
+        let payload = {
+          context: 'ContextMenu',
+          name: item.name
+        }
         switch (item.name) {
           case 'lineWidth':
           case 'lineType':
           case 'lineStyle':
           case 'download':
             payload = {
-              name: item.name,
+              ...payload,
               data: child.name
             }
             break
@@ -261,7 +302,7 @@
           case 'startArrow':
           case 'endArrow':
             payload = {
-              name: item.name,
+              ...payload,
               data: child.data
             }
             break
@@ -275,19 +316,42 @@
             _t.$i18n.locale = _t.$X.langs.locale = child.name
             break
         }
-        if (payload) {
-          _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
-        }
+        _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
       },
-      handleToolClick (item) {
+      handleToolClick (item, val) {
         let _t = this
         if (item.disabled) {
           return
         }
-        _t.$X.utils.bus.$emit('editor/tool/trigger', {
-          name: item.name,
-          data: _t.currentItem
-        })
+        let payload = {
+          context: 'ContextMenu',
+          name: item.name
+        }
+        switch (item.name) {
+          case 'paste':
+            payload = {
+              ...payload,
+              data: _t.options
+            }
+            break
+          case 'fill':
+          case 'lineColor':
+            let color = val.hex8
+            _t.formData[item.name] = color
+            payload = {
+              ...payload,
+              data: color
+            }
+            break
+          case 'toFront':
+          case 'toBack':
+            payload = {
+              ...payload,
+              data: _t.currentItem
+            }
+            break
+        }
+        _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
         _t.doHide()
       },
       handleItemHover (event) {

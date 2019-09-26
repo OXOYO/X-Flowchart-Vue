@@ -37,8 +37,6 @@
     <div class="sketchpad" id="sketchpad">
       <!-- 文本输入框 -->
       <input class="inputBox" autofocus value="">
-      <!-- TODO ToolTip -->
-      <!-- TODO ContextMenu-->
     </div>
   </div>
 </template>

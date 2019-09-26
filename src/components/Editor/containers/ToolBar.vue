@@ -67,7 +67,7 @@
             :title="$t(item.lang)"
             :active="item.active"
             :disabled="item.disabled"
-            @click.native="handleToolClick(item, type)"
+            @click.native="handleToolClick(item)"
           >
             <template v-slot:label>
               <XIcon v-if="item.icon" :type="item.icon"></XIcon>
@@ -102,7 +102,7 @@
                     </XIcon>
                     <Icon type="ios-arrow-down"></Icon>
                   </div>
-                  <SketchPicker slot="list" :value="formData[item.name]" @input="(val) => handleToolClick(item, type, val)"></SketchPicker>
+                  <SketchPicker slot="list" :value="formData[item.name]" @input="(val) => handleToolClick(item, val, null)"></SketchPicker>
                 </Dropdown>
               </template>
             </template>
@@ -117,24 +117,46 @@
             <template v-slot:label>
               <template v-if="item.disabled">
                 <div style="margin: 0 3px;">
-                  <XIcon
-                    :type="item.children[item.selected].icon"
-                    style="vertical-align: middle;"
-                    :style="item.children[item.selected].style"
-                  >
-                  </XIcon>
+                  <template v-if="item.lockLabel">
+                    <XIcon
+                      :type="item.icon"
+                      style="vertical-align: middle;"
+                    >
+                    </XIcon>
+                  </template>
+                  <template v-else>
+                    <XIcon
+                      v-if="item.children[item.selected].icon"
+                      :type="item.children[item.selected].icon"
+                      style="vertical-align: middle;"
+                      :style="item.children[item.selected].style"
+                    >
+                    </XIcon>
+                    <span v-else>{{ item.children[item.selected].label }}</span>
+                  </template>
                   <Icon type="ios-arrow-down"></Icon>
                 </div>
               </template>
               <template v-else>
                 <Dropdown trigger="click" @on-click="(val) => handleDropdownClick(item, type, index, val)">
                   <div style="margin: 0 3px;">
-                    <XIcon
-                      :type="item.children[item.selected].icon || item.icon"
-                      style="vertical-align: middle;"
-                      :style="item.children[item.selected].style"
-                    >
-                    </XIcon>
+                    <template v-if="item.lockLabel">
+                      <XIcon
+                        :type="item.icon"
+                        style="vertical-align: middle;"
+                      >
+                      </XIcon>
+                    </template>
+                    <template v-else>
+                      <XIcon
+                        v-if="item.children[item.selected].icon"
+                        :type="item.children[item.selected].icon"
+                        style="vertical-align: middle;"
+                        :style="item.children[item.selected].style"
+                      >
+                      </XIcon>
+                      <span v-else>{{ item.children[item.selected].label }}</span>
+                    </template>
                     <Icon type="ios-arrow-down"></Icon>
                   </div>
                   <DropdownMenu slot="list">
@@ -164,7 +186,7 @@
             :title="$t(item.lang)"
             :active="item.active"
             :disabled="item.disabled"
-            @click.native="handleToolClick(item, type)"
+            @click.native="handleToolClick(item)"
           >
             <template v-slot:label>
               <a :href="item.link" target="_blank" style="color: #333333;">
@@ -179,7 +201,7 @@
             :title="$t(item.lang)"
             :active="item.active"
             :disabled="item.disabled"
-            @click.native="handleToolClick(item, type)"
+            @click.native="handleToolClick(item)"
           >
             <template v-slot:label>
               <XIcon v-if="item.icon" :type="item.icon"></XIcon>
@@ -213,27 +235,8 @@
       ToolBox,
       ToolItem
     },
-    props: {
-      toolList: {
-        type: Array,
-        rquired: true
-      }
-    },
     data () {
       return {
-        // 模式
-        mode: 'edit',
-        // 选中的值
-        selected: {
-          zoom: 0,
-          lineWidth: 0,
-          lineType: 0,
-          lineStyle: 0,
-          startArrow: 0,
-          endArrow: 0,
-          language: 0,
-          download: 0
-        },
         formData: {
           ...config.$X
         },
@@ -243,7 +246,8 @@
     },
     computed: {
       ...mapGetters([
-        'currentItem'
+        'currentItem',
+        'toolList'
       ]),
       toolBarStyle () {
         let _t = this
@@ -281,17 +285,20 @@
         if (item.disabled) {
           return
         }
-        _t.toolMap[type][index].selected = val
         let child = item.children[val]
         _t.formData[item.name] = child.name
-        let payload = null
+        let payload = {
+          context: 'ToolBar',
+          event: event,
+          name: item.name
+        }
         switch (item.name) {
           case 'lineWidth':
           case 'lineType':
           case 'lineStyle':
           case 'download':
             payload = {
-              name: item.name,
+              ...payload,
               data: child.name
             }
             break
@@ -299,7 +306,7 @@
           case 'startArrow':
           case 'endArrow':
             payload = {
-              name: item.name,
+              ...payload,
               data: child.data
             }
             break
@@ -313,41 +320,46 @@
             _t.$i18n.locale = _t.$X.langs.locale = child.name
             break
         }
-        if (payload) {
-          _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
-        }
+        _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
+        // 处理选中，更新toolList
+        let toolList
+        toolList = _t.toolList.map(target => {
+          if (target.name === item.name) {
+            target.selected = val
+          }
+          return target
+        })
+        _t.$store.commit('editor/toolList/update', toolList)
       },
-      handleToolClick (item, type, val) {
+      handleToolClick (item, val) {
         let _t = this
         if (item.disabled) {
           return
         }
-        console.log('MaterialsEditor tool click', item.name, type, val)
-        if (type === 'center') {
-          let data = {}
-          switch (item.name) {
-            case 'edit':
-              _t.mode = 'edit'
-              break
-            case 'preview':
-              _t.mode = 'preview'
-              break
-            case 'fill':
-            case 'lineColor':
-              let color = val.hex8
-              _t.formData[item.name] = color
-              data = color
-              break
-            case 'toFront':
-            case 'toBack':
-              data = _t.currentItem
-              break
-          }
-          _t.$X.utils.bus.$emit('editor/tool/trigger', {
-            name: item.name,
-            data: data
-          })
+        console.log('MaterialsEditor tool click', item.name, val)
+        let payload = {
+          context: 'ToolBar',
+          name: item.name
         }
+        switch (item.name) {
+          case 'fill':
+          case 'lineColor':
+            let color = val.hex8
+            _t.formData[item.name] = color
+            payload = {
+              ...payload,
+              data: color
+            }
+            break
+          case 'toFront':
+          case 'toBack':
+            payload = {
+              ...payload,
+              data: _t.currentItem
+            }
+            break
+        }
+        _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
       }
     },
     created () {

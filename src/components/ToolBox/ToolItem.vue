@@ -7,18 +7,6 @@
   .tool-item {
     display: inline-block;
     position: relative;
-    white-space: nowrap;
-
-    &:hover {
-      .tool-box {
-        visibility: visible;
-      }
-    }
-    .tool-box {
-      visibility: hidden;
-      position: absolute;
-      top: 0;
-    }
   }
 </style>
 

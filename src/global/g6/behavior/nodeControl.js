@@ -103,10 +103,13 @@ export default {
     },
     onNodeContextmenu (event) {
       let _t = this
+      console.log('event', event)
       _t.graph.emit('editor:contextmenu', {
         type: 'node',
         x: event.clientX,
-        y: event.clientY
+        y: event.clientY,
+        canvasX: event.canvasX,
+        canvasY: event.canvasY
       })
     },
     onCanvasMouseenter (event) {
@@ -126,7 +129,9 @@ export default {
       _t.graph.emit('editor:contextmenu', {
         type: 'canvas',
         x: event.clientX,
-        y: event.clientY
+        y: event.clientY,
+        canvasX: event.canvasX,
+        canvasY: event.canvasY
       })
     },
     onEdgeMousedown (event) {
@@ -155,7 +160,9 @@ export default {
       _t.graph.emit('editor:contextmenu', {
         type: 'edge',
         x: event.clientX,
-        y: event.clientY
+        y: event.clientY,
+        canvasX: event.canvasX,
+        canvasY: event.canvasY
       })
     },
     onMousemove (event) {

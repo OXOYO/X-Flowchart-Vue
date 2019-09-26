@@ -9,7 +9,7 @@ import config from '../../config'
 export default function (cfg, group) {
   let { anchorPoints, width, height, id } = cfg
   let shape = group.getFirst()
-  console.log('getAnchorPoints', id, shape)
+  // console.log('getAnchorPoints', id, shape)
   if (anchorPoints && anchorPoints.length) {
     for (let i = 0, len = anchorPoints.length; i < len; i++) {
       let anchorX
@@ -27,7 +27,7 @@ export default function (cfg, group) {
         anchorY = y * height + originY
       }
       let flag = shape.isPointInPath(anchorX, anchorY)
-      console.log('isPointInPath', anchorPoints[i], anchorX, anchorY, flag)
+      // console.log('isPointInPath', anchorPoints[i], anchorX, anchorY, flag)
       // 添加锚点背景
       let anchorBgShape = group.addShape('marker', {
         id: id + '_anchor_bg_' + i,
