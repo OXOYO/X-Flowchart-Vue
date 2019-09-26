@@ -103,7 +103,6 @@ export default {
     },
     onNodeContextmenu (event) {
       let _t = this
-      console.log('event', event)
       _t.graph.emit('editor:contextmenu', {
         type: 'node',
         x: event.clientX,
