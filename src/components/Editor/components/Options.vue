@@ -261,9 +261,7 @@
       currentItem: {
         handler (val) {
           let _t = this
-          _t.formData = {
-            ...val.model
-          }
+          _t.formData = JSON.parse(JSON.stringify(val.model))
         },
         deep: true
       }

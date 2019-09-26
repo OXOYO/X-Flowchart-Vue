@@ -40,7 +40,7 @@ export default {
         // }])
       }
     }
-    console.log('points', points)
+    // console.log('points', points)
     return points
   },
   setState (name, value, item) {

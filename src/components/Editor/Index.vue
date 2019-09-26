@@ -336,7 +336,8 @@
           labelCfg: {
             position: 'center',
             style: {
-              fontSize: 14
+              fontSize: 16,
+              stroke: '#000000'
             }
           },
           width: info.width,
