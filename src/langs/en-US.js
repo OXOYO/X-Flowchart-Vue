@@ -37,8 +37,7 @@ export default {
   L10028: 'Feedback',
   L10029: 'Zoom',
   L10030: 'Download',
-  // left and right panels
-  L10100: 'Basic graphics',
+  // right panel
   L10101: 'Configuration',
   L10102: 'Navigator',
   L10103: 'Properties',
@@ -46,5 +45,15 @@ export default {
   L10105: 'Text',
   // other
   L10200: 'Hint',
-  L10201: 'Are you sure to empty the canvas? '
+  L10201: 'Are you sure to empty the canvas? ',
+  // left panel
+  L10301: 'General',
+  L10302: 'Miscellaneous',
+  L10303: 'Advanced',
+  L10304: 'Basic',
+  L10305: 'Arrow',
+  L10306: 'UML',
+  L10307: 'BPMN General',
+  L10308: 'Flowchart',
+  L10309: 'Clipart'
 }

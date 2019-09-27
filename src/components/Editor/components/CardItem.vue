@@ -10,19 +10,22 @@
     width: 100%;
     /*height: 200px;*/
     position: relative;
-    border-top: 1px solid rgba(0, 0, 0, .1);
-    border-bottom: 1px solid rgba(0, 0, 0, .1);
 
     .header {
       display: inline-block;
       width: 100%;
+      padding: 5px 0;
       position: relative;
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
+
+      &:hover {
+        background: rgba(0, 0, 0, .1);
+      }
 
       .title {
         width: 100%;
         height: 25px;
         line-height: 25px;
-        border-bottom: 1px solid rgba(0, 0, 0, .1);
         text-indent: 10px;
         color: #000;
 
@@ -34,7 +37,8 @@
       .handler {
         position: absolute;
         right: 10px;
-        top: 3px;
+        top: 50%;
+        margin-top: -9px;
         z-index: 10;
         cursor: pointer;
       }
@@ -42,6 +46,7 @@
     .body {
       display: inline-block;
       width: 100%;
+      border-bottom: 1px solid rgba(0, 0, 0, .1);
     }
   }
 </style>
