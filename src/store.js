@@ -26,9 +26,11 @@ export default new Vuex.Store({
             // 多语言code码
             lang: 'L10000',
             // 工具项类型，不同的工具类型在ToolBar、ContextMenu里的表现不一样
-            type: 'text',
+            type: 'link',
             // 工具项图标
             icon: '',
+            // 跳转连接
+            link: config.system.githubPages,
             // 是否启用，用于控制是否在界面上创建该工具项
             enable: true,
             // 启用模式，用于控制在什么模式下启用该工具项
