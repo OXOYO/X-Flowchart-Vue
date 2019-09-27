@@ -95,3 +95,10 @@ yarn run serve
 - [x]  **基础图形**：Or
 - [x]  **基础图形**：And
 - [x]  **基础图形**：Data Storage
+
+## License
+[MIT](http://opensource.org/licenses/MIT)
+
+## Contact
+
+点击链接加入群【Web全栈QQ群】：https://jq.qq.com/?_wv=1027&k=53iWbrr
