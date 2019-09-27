@@ -109,13 +109,28 @@
               'click-select',
               {
                 type: 'node-control',
-                updateEdge: true,
-                enableNodeLabel: true,
-                enableEdgeLabel: true
+                config: {
+                  // 是否在拖拽节点时更新所有与之相连的边
+                  updateEdge: true,
+                  // 是否支持在节点上添加文本
+                  nodeLabel: true,
+                  // 是否支持在边上添加文本
+                  edgeLabel: true,
+                  // tooltip 是否启用
+                  tooltip: {
+                    shapeControl: true,
+                    dragNode: true,
+                    dragEdge: true
+                  }
+                }
               }
             ],
             // 只读，
-            preview: ['drag-canvas', 'zoom-canvas']
+            preview: [
+              'zoom-canvas',
+              'drag-canvas',
+              'preview-canvas'
+            ]
           },
           // 节点样式
           nodeStyle: {
@@ -354,17 +369,16 @@
       },
       doSetMode (name) {
         let _t = this
-        console.log('mode', name)
         _t.mode = name
         _t.editor.setMode(name)
         // 更新toolList
         let toolList
         toolList = _t.toolList.map(item => {
-          if (item.hasOwnProperty('mode') && Array.isArray(item.mode)) {
-            item.disabled = !item.mode.includes(name)
-            if (['edit', 'preview'].includes(item.name)) {
-              item.enable = item.mode.includes(name)
-            }
+          if (item.hasOwnProperty('enableMode') && Array.isArray(item.enableMode)) {
+            item.enable = item.enableMode.includes(name)
+          }
+          if (item.hasOwnProperty('disabledMode') && Array.isArray(item.disabledMode)) {
+            item.disabled = !item.disabledMode.includes(name)
           }
           return item
         })

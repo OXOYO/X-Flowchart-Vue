@@ -4,21 +4,14 @@
  * 注册交互
  */
 
-// 单独画线交互
-// import drawLine from './drawLine'
-// 单独拖拽节点到编辑器交互
-// import dragNodeToEditor from './dragNodeToEditor'
-// 单独图形控制交互
-// import shapeControl from './shapeControl'
-
 // 综合节点控制交互
 import nodeControl from './nodeControl'
+// 预览画布交互
+import previewCanvas from './previewCanvas'
 
 const obj = {
-  // drawLine,
-  // dragNodeToEditor,
-  // shapeControl,
-  nodeControl
+  nodeControl,
+  previewCanvas
 }
 
 export default function (G6) {

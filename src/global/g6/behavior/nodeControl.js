@@ -23,7 +23,8 @@ export default {
           // tooltip 是否启用
           tooltip: {
             shapeControl: true,
-            dragNode: true
+            dragNode: true,
+            dragEdge: false
           }
         }
       }
@@ -226,6 +227,12 @@ export default {
           startArrow: _t.graph.$X.startArrow || false,
           endArrow: _t.graph.$X.endArrow || false
         })
+        if (_t.config.tooltip.dragEdge) {
+          _t.toolTip.create.call(_t, {
+            left: event.canvasX,
+            top: event.canvasY + 10
+          }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}`)
+        }
         _t.drawLine.isMoving = true
       },
       move (event) {
@@ -237,6 +244,12 @@ export default {
               y: event.y
             }
           })
+          if (_t.config.tooltip.dragEdge) {
+            _t.toolTip.update.call(_t, {
+              left: event.canvasX,
+              top: event.canvasY + 10
+            }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}`)
+          }
         }
       },
       stop (event) {
@@ -267,6 +280,9 @@ export default {
               }
             })
           }
+        }
+        if (_t.config.tooltip.dragEdge) {
+          _t.toolTip.destroy.call(_t)
         }
         _t.drawLine.currentLine = null
         _t.drawLine.isMoving = false

@@ -19,22 +19,40 @@ export default new Vuex.Store({
       // 工具列表
       toolList: [
           {
+            // 工具项名称，保持唯一性，便于区分工具项
             name: 'logo',
+            // 文本，无lang时可取label值显示
             label: 'logo',
+            // 多语言code码
             lang: 'L10000',
+            // 工具项类型，不同的工具类型在ToolBar、ContextMenu里的表现不一样
             type: 'text',
+            // 工具项图标
             icon: '',
+            // 是否启用，用于控制是否在界面上创建该工具项
             enable: true,
+            // 启用模式，用于控制在什么模式下启用该工具项
+            enableMode: ['edit', 'preview'],
+            // 是否禁用，用于控制界面上已创建的工具项是否处于禁用状态
             disabled: false,
-            mode: ['edit', 'preview'],
+            // 禁用模式，用于控制在什么模式下该工具项处于禁用状态，详见Editor/Index.vue 中的doSetMode方法
+            disabledMode: ['edit', 'preview'],
+            // 分割线，是否在该工具项后显示分割线，ToolBar中为竖线，ContextMenu中为横线
             divider: false,
+            // 热键
             shortcuts: '',
+            // 工具栏
             toolbar: {
+              // 是否启用
               enable: true,
+              // 位置
               position: 'left'
             },
+            // 右键菜单
             contextmenu: {
+              // 是否启用
               enable: false,
+              // 目标元素类型，用于控制在什么元素上可以显示该工具项
               target: []
             }
           },
@@ -45,8 +63,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'undo',
             enable: true,
+            enableMode: [],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -65,8 +84,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'redo',
             enable: true,
+            enableMode: [],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: true,
             shortcuts: '',
             toolbar: {
@@ -85,8 +105,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'copy',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: false,
             // FIXME 通用mod助手用于设置跨平台快捷方式，用于将command+c在Windows和Linux上映射到ctrl+c
             shortcuts: 'mod+c',
@@ -106,8 +127,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'paste',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: false,
             shortcuts: 'mod+v',
             toolbar: {
@@ -126,8 +148,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'delete',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: true,
             shortcuts: 'del',
             toolbar: {
@@ -146,8 +169,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'clear',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: true,
             shortcuts: 'ctrl+shift+c',
             toolbar: {
@@ -166,8 +190,9 @@ export default new Vuex.Store({
             type: 'dropdown-list',
             icon: 'zoom',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit', 'preview'],
+            disabledMode: ['edit', 'preview'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -175,8 +200,8 @@ export default new Vuex.Store({
               position: 'center'
             },
             contextmenu: {
-              enable: false,
-              target: []
+              enable: true,
+              target: ['canvas', 'node', 'edge']
             },
             // 默认选中项index
             selected: 0,
@@ -292,8 +317,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'zoom-in',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit', 'preview'],
+            disabledMode: ['edit', 'preview'],
             divider: false,
             // FIXME mod+= 用于支持主键盘区的+，mod+plus用于支持数字键盘区的+
             shortcuts: ['mod+=', 'mod+plus'],
@@ -313,8 +339,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'zoom-out',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit', 'preview'],
+            disabledMode: ['edit', 'preview'],
             divider: false,
             shortcuts: 'mod+-',
             toolbar: {
@@ -333,8 +360,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'fit',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit', 'preview'],
+            disabledMode: ['edit', 'preview'],
             divider: false,
             shortcuts: 'mod+0',
             toolbar: {
@@ -353,8 +381,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'actual-size',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit', 'preview'],
+            disabledMode: ['edit', 'preview'],
             divider: true,
             shortcuts: 'mod+1',
             toolbar: {
@@ -373,8 +402,9 @@ export default new Vuex.Store({
             type: 'dropdown-color-picker',
             icon: 'fill',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -393,8 +423,9 @@ export default new Vuex.Store({
             type: 'dropdown-color-picker',
             icon: 'line-color',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -413,8 +444,9 @@ export default new Vuex.Store({
             type: 'dropdown-list',
             icon: 'line-width',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -539,8 +571,9 @@ export default new Vuex.Store({
             type: 'dropdown-list',
             icon: 'line-style',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: true,
             shortcuts: '',
             toolbar: {
@@ -595,8 +628,9 @@ export default new Vuex.Store({
             type: 'dropdown-list',
             icon: '',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -651,8 +685,9 @@ export default new Vuex.Store({
             type: 'dropdown-list',
             icon: '',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -734,8 +769,9 @@ export default new Vuex.Store({
             type: 'dropdown-list',
             icon: '',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: true,
             shortcuts: '',
             toolbar: {
@@ -826,8 +862,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'to-front',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -846,8 +883,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'to-back',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: true,
             shortcuts: '',
             toolbar: {
@@ -866,8 +904,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'marquee',
             enable: true,
+            enableMode: [],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -886,8 +925,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'group',
             enable: true,
+            enableMode: [],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -906,8 +946,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'ungroup',
             enable: true,
+            enableMode: [],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: true,
             shortcuts: '',
             toolbar: {
@@ -926,8 +967,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'edit',
             enable: true,
+            enableMode: ['preview'],
             disabled: false,
-            mode: ['preview'],
+            disabledMode: ['preview'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -935,8 +977,8 @@ export default new Vuex.Store({
               position: 'center'
             },
             contextmenu: {
-              enable: false,
-              target: []
+              enable: true,
+              target: ['canvas', 'node', 'edge']
             }
           },
           {
@@ -946,8 +988,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'preview',
             enable: true,
+            enableMode: ['edit'],
             disabled: false,
-            mode: ['edit'],
+            disabledMode: ['edit'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -955,8 +998,8 @@ export default new Vuex.Store({
               position: 'center'
             },
             contextmenu: {
-              enable: false,
-              target: []
+              enable: true,
+              target: ['canvas', 'node', 'edge']
             }
           },
           {
@@ -966,8 +1009,9 @@ export default new Vuex.Store({
             type: 'dropdown-list',
             icon: 'download',
             enable: true,
+            enableMode: ['edit', 'preview'],
             disabled: false,
-            mode: ['edit', 'preview'],
+            disabledMode: ['edit', 'preview'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -1016,8 +1060,9 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'full-screen',
             enable: true,
+            enableMode: ['edit', 'preview'],
             disabled: false,
-            mode: ['edit', 'preview'],
+            disabledMode: ['edit', 'preview'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -1036,8 +1081,9 @@ export default new Vuex.Store({
             type: 'dropdown-list',
             icon: 'language',
             enable: true,
+            enableMode: ['edit', 'preview'],
             disabled: false,
-            mode: ['edit', 'preview'],
+            disabledMode: ['edit', 'preview'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -1087,8 +1133,9 @@ export default new Vuex.Store({
             icon: 'github',
             link: config.system.github,
             enable: true,
+            enableMode: ['edit', 'preview'],
             disabled: false,
-            mode: ['edit', 'preview'],
+            disabledMode: ['edit', 'preview'],
             divider: false,
             shortcuts: '',
             toolbar: {
@@ -1108,8 +1155,9 @@ export default new Vuex.Store({
             icon: 'feedback',
             link: config.system.feedback,
             enable: true,
+            enableMode: ['edit', 'preview'],
             disabled: false,
-            mode: ['edit', 'preview'],
+            disabledMode: ['edit', 'preview'],
             divider: false,
             shortcuts: '',
             toolbar: {
