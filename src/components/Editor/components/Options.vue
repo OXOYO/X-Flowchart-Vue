@@ -39,7 +39,7 @@
       <!-- 节点样式 -->
       <CardItem :title="$t('L10104')" :enableFold="true">
         <div class="form-item-block">
-          <template v-if="currentItem.type === 'node'">
+          <template v-if="firstItem && firstItem.type === 'node'">
             <FormItem label="fill">
               <ColorPicker v-model="formData.style.fill" hue recommend @on-change="handleChange"></ColorPicker>
             </FormItem>
@@ -119,6 +119,7 @@
     },
     data () {
       return {
+        firstItem: null,
         formData: {
           // x: 0,
           // y: 0,
@@ -261,7 +262,13 @@
       currentItem: {
         handler (val) {
           let _t = this
-          _t.formData = JSON.parse(JSON.stringify(val.model))
+          // 取第一个节点
+          _t.firstItem = val[0]
+          if (_t.firstItem) {
+            _t.formData = JSON.parse(JSON.stringify(_t.firstItem.model))
+          } else {
+            _t.formData = {}
+          }
         },
         deep: true
       }
@@ -273,12 +280,16 @@
           ..._t.formData,
           size: [ _t.formData.width, _t.formData.height ]
         }
-        // 广播事件
-        _t.$X.utils.bus.$emit('editor/currentItem/update', {
-          id: _t.currentItem.model.id,
-          type: _t.currentItem.type,
+        // 当前节点数组
+        let currentItemArr = _t.currentItem
+        // 更新第一个节点
+        currentItemArr[0] = {
+          id: model.id,
+          type: model.type,
           model: model
-        })
+        }
+        // 广播事件
+        _t.$X.utils.bus.$emit('editor/currentItem/update', currentItemArr)
       }
     }
   }

@@ -7,13 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     editor: {
-      currentItem: {
-        id: null,
-        type: null,
-        model: null
-      },
-      // 剪贴板
-      clipboard: null,
+      currentItem: [],
       // 操作历史
       history: [],
       // 工具列表
@@ -900,12 +894,33 @@ export default new Vuex.Store({
             }
           },
           {
+            name: 'selectAll',
+            label: 'SelectAll',
+            lang: 'L10031',
+            type: 'normal',
+            icon: 'select-all',
+            enable: true,
+            enableMode: ['edit'],
+            disabled: false,
+            disabledMode: ['edit'],
+            divider: false,
+            shortcuts: 'mod+a',
+            toolbar: {
+              enable: true,
+              position: 'center'
+            },
+            contextmenu: {
+              enable: true,
+              target: ['canvas', 'node', 'edge']
+            }
+          },
+          {
             name: 'marquee',
             label: 'Marquee',
             lang: 'L10020',
             type: 'normal',
             icon: 'marquee',
-            enable: true,
+            enable: false,
             enableMode: [],
             disabled: false,
             disabledMode: ['edit'],
@@ -926,7 +941,7 @@ export default new Vuex.Store({
             lang: 'L10021',
             type: 'normal',
             icon: 'group',
-            enable: true,
+            enable: false,
             enableMode: [],
             disabled: false,
             disabledMode: ['edit'],
@@ -947,7 +962,7 @@ export default new Vuex.Store({
             lang: 'L10022',
             type: 'normal',
             icon: 'ungroup',
-            enable: true,
+            enable: false,
             enableMode: [],
             disabled: false,
             disabledMode: ['edit'],

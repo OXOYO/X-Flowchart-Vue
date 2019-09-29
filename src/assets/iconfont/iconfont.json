@@ -384,6 +384,13 @@
       "unicode_decimal": 59095
     },
     {
+      "icon_id": "10148173",
+      "name": "全选",
+      "font_class": "select-all",
+      "unicode": "e71f",
+      "unicode_decimal": 59167
+    },
+    {
       "icon_id": "10533681",
       "name": "pic-unlock",
       "font_class": "lock",

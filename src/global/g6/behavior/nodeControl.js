@@ -36,13 +36,16 @@ export default {
         'node:mouseup': 'onNodeMouseup',
         'node:dblclick': 'onNodeDblclick',
         'node:contextmenu': 'onNodeContextmenu',
-        'canvas:mouseenter': 'onCanvasMouseenter',
-        'canvas:mouseleave': 'onCanvasMouseleave',
-        'canvas:contextmenu': 'onCanvasContextmenu',
         'edge:mousedown': 'onEdgeMousedown',
         'edge:mouseup': 'onEdgeMouseup',
         'edge:dblclick': 'onEdgeDblclick',
         'edge:contextmenu': 'onEdgeContextmenu',
+        'canvas:mousedown': 'onCanvasMousedown',
+        'canvas:mousemouse': 'onCanvasMousemove',
+        'canvas:mouseup': 'onCanvasMouseup',
+        'canvas:mouseenter': 'onCanvasMouseenter',
+        'canvas:mouseleave': 'onCanvasMouseleave',
+        'canvas:contextmenu': 'onCanvasContextmenu',
         'mousemove': 'onMousemove',
         'mouseup': 'onMouseup'
       }
@@ -60,11 +63,13 @@ export default {
     onNodeMousedown (event) {
       let _t = this
       let model = event.item.getModel()
-      _t.graph.emit('editor:getItem', {
-        type: 'node',
-        id: model.id,
-        model: model
-      })
+      _t.graph.emit('editor:getItem', [
+        {
+          type: 'node',
+          id: model.id,
+          model: model
+        }
+      ])
       // 初始化数据
       _t.info = {
         type: null,
@@ -112,36 +117,16 @@ export default {
         canvasY: event.canvasY
       })
     },
-    onCanvasMouseenter (event) {
-      let _t = this
-      if (_t.info && _t.info.type === 'dragNode') {
-        _t[_t.info.type].createDottedNode.call(_t, event)
-      }
-    },
-    onCanvasMouseleave (event) {
-      let _t = this
-      if (_t.info && _t.info.type === 'dragNode') {
-        _t[_t.info.type].stop.call(_t, event)
-      }
-    },
-    onCanvasContextmenu (event) {
-      let _t = this
-      _t.graph.emit('editor:contextmenu', {
-        type: 'canvas',
-        x: event.clientX,
-        y: event.clientY,
-        canvasX: event.canvasX,
-        canvasY: event.canvasY
-      })
-    },
     onEdgeMousedown (event) {
       let _t = this
       let model = event.item.getModel()
-      _t.graph.emit('editor:getItem', {
-        type: 'edge',
-        id: model.id,
-        model: model
-      })
+      _t.graph.emit('editor:getItem', [
+        {
+          type: 'edge',
+          id: model.id,
+          model: model
+        }
+      ])
     },
     onEdgeMouseup (event) {
       let _t = this
@@ -164,6 +149,54 @@ export default {
         canvasX: event.canvasX,
         canvasY: event.canvasY
       })
+    },
+    onCanvasMouseenter (event) {
+      let _t = this
+      if (_t.info && _t.info.type === 'dragNode') {
+        _t[_t.info.type].createDottedNode.call(_t, event)
+      }
+    },
+    onCanvasMouseleave (event) {
+      let _t = this
+      if (_t.info && _t.info.type === 'dragNode') {
+        _t[_t.info.type].stop.call(_t, event)
+      }
+    },
+    onCanvasContextmenu (event) {
+      let _t = this
+      _t.graph.emit('editor:contextmenu', {
+        type: 'canvas',
+        x: event.clientX,
+        y: event.clientY,
+        canvasX: event.canvasX,
+        canvasY: event.canvasY
+      })
+    },
+    onCanvasMousedown (event) {
+      let _t = this
+      // 初始化数据
+      _t.info = {
+        type: 'drawGroup',
+        startPosition: {
+          x: event.x,
+          y: event.y
+        }
+      }
+      if (_t.info && _t.info.type && _t[_t.info.type].start) {
+        _t[_t.info.type].start.call(_t, event)
+      }
+    },
+    onCanvasMousemove (event) {
+      let _t = this
+      if (_t.info && _t.info.type && _t[_t.info.type].move) {
+        _t[_t.info.type].move.call(_t, event)
+      }
+    },
+    onCanvasMouseup (event) {
+      let _t = this
+      if (_t.info && _t.info.type && _t[_t.info.type].stop) {
+        _t[_t.info.type].stop.call(_t, event)
+      }
     },
     onMousemove (event) {
       let _t = this
@@ -595,31 +628,39 @@ export default {
           }
         } else if (_t.dragNode.status === 'dragNode') {
           if (_t.info.node) {
-            // let { style } = _t.info.node.getModel()
-            let attrs = {
-              x: event.x,
-              y: event.y
-              // ,
-              // style: {
-              //   ...style,
-              //   fill: _t.graph.$X.fill,
-              //   stroke: _t.graph.$X.lineColor,
-              //   lineWidth: _t.graph.$X.lineWidth
-              // }
-            }
-            // 更新节点
-            _t.graph.updateItem(_t.info.node, attrs)
-            if (_t.config.updateEdge) {
-              // 更新边
-              utils.edge.update(_t.info.node, _t.graph)
-            }
-            if (_t.config.tooltip.dragNode) {
-              let { width, height } = _t.info.node.getModel()
-              _t.toolTip.update.call(_t, {
-                left: event.canvasX,
-                top: event.canvasY + height / 2
-              }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}<br>W: ${width.toFixed(2)} H: ${height.toFixed(2)}`)
-            }
+            let { id, groupId, x, y } = _t.info.node.getModel()
+            _t.graph.find('node', node => {
+              let model = node.getModel()
+              // 更新当节点
+              if (model.id === id) {
+                let attrs = {
+                  x: event.x,
+                  y: event.y
+                }
+                // 更新节点
+                _t.graph.updateItem(_t.info.node, attrs)
+                if (_t.config.updateEdge) {
+                  // 更新边
+                  utils.edge.update(_t.info.node, _t.graph)
+                }
+                if (_t.config.tooltip.dragNode) {
+                  let { width, height } = _t.info.node.getModel()
+                  _t.toolTip.update.call(_t, {
+                    left: event.canvasX,
+                    top: event.canvasY + height / 2
+                  }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}<br>W: ${width.toFixed(2)} H: ${height.toFixed(2)}`)
+                }
+              } else {
+                if (groupId && model.groupId && model.groupId === groupId) {
+                  let model = node.getModel()
+                  // 更新同组节点
+                  _t.graph.updateItem(node, {
+                    x: model.x + event.x - x,
+                    y: model.y + event.y - y
+                  })
+                }
+              }
+            })
           }
         }
       },
@@ -639,6 +680,101 @@ export default {
         }
         _t.dragNode.status = null
         _t.info = null
+      }
+    },
+    drawGroup: {
+      isMoving: false,
+      // 选框节点
+      marqueeNode: null,
+      start (event) {
+        let _t = this
+        _t.drawGroup.isMoving = true
+        // 清除已有group
+        _t.graph.getNodes().forEach(item => {
+          // 更新节点
+          _t.graph.updateItem(item, {
+            groupId: ''
+          })
+        })
+      },
+      move (event) {
+        let _t = this
+        if (_t.info && _t.drawGroup.isMoving) {
+          // 计算坐标、宽高
+          let { startPosition } = _t.info
+          let x = startPosition.x + (event.x - startPosition.x) / 2
+          let y = startPosition.y + (event.y - startPosition.y) / 2
+          let width = Math.abs(event.x - startPosition.x)
+          let height = Math.abs(event.y - startPosition.y)
+          if (!_t.drawGroup.marqueeNode) {
+            // 绘制虚线框
+            let node = {
+              id: G6.Util.uniqueId(),
+              shape: 'rect',
+              x: x,
+              y: y,
+              size: [width, height],
+              style: {
+                lineWidth: 1,
+                stroke: '#29B6F2',
+                // lineDash: [ 5, 5 ],
+                strokeOpacity: 1,
+                fill: '#29B6F2',
+                fillOpacity: 0.1,
+                opacity: 1,
+                minDis: 20,
+                maxDis: 40,
+                cursor: 'default'
+              }
+            }
+            _t.drawGroup.marqueeNode = _t.graph.addItem('node', node)
+          } else {
+            _t.graph.updateItem(_t.drawGroup.marqueeNode, {
+              x: x,
+              y: y,
+              size: [width, height]
+            })
+          }
+        }
+      },
+      stop (event) {
+        let _t = this
+        if (_t.info && _t.drawGroup.isMoving && _t.drawGroup.marqueeNode) {
+          let { startPosition } = _t.info
+          let endPosition = {
+            x: event.x,
+            y: event.y
+          }
+          // 当前节点数组
+          let currentItemArr = []
+          let groupId = G6.Util.uniqueId()
+          let marqueeNodeId = _t.drawGroup.marqueeNode.get('id')
+          _t.graph.getNodes().forEach(item => {
+            let model = item.getModel()
+            let { id } = model
+            let { minX, maxX, minY, maxY } = item.getBBox()
+            // 判断节点是否在组区域内
+            if (id !== marqueeNodeId && minX > startPosition.x && maxX < endPosition.x && minY > startPosition.y && maxY < endPosition.y) {
+              // 更新节点
+              _t.graph.updateItem(item, {
+                groupId
+              })
+              // 设置激活
+              _t.graph.setItemState(item, 'active', true)
+              currentItemArr.push({
+                type: 'node',
+                id: id,
+                model: item.getModel()
+              })
+            }
+          })
+          // 设置当前节点数组
+          _t.graph.emit('editor:getItem', currentItemArr)
+          // 删除选框节点
+          _t.graph.removeItem(_t.drawGroup.marqueeNode)
+        }
+        _t.drawGroup.isMoving = false
+        _t.drawGroup.marqueeNode = null
       }
     },
     nodeLabel: {

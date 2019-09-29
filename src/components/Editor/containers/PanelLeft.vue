@@ -19,6 +19,7 @@
   <CardBox class="panel-left" placement="left" position="right" :width="250" @expand="toggleHandler">
     <CardItem
       v-for="(item, index) in materials"
+      :key="index"
       :title="$t(item.lang) || item.label"
       :enableFold="true"
       :bold="true"

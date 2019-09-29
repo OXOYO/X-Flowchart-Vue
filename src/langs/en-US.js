@@ -37,6 +37,7 @@ export default {
   L10028: 'Feedback',
   L10029: 'Zoom',
   L10030: 'Download',
+  L10031: 'Select all',
   // right panel
   L10101: 'Configuration',
   L10102: 'Navigator',

@@ -104,9 +104,9 @@
           // 模式
           modes: {
             edit: [
-              'zoom-canvas',
-              'drag-canvas',
-              'click-select',
+              // 'zoom-canvas',
+              // 'drag-canvas',
+              // 'click-select',
               {
                 type: 'node-control',
                 config: {
@@ -149,6 +149,7 @@
             // hover 状态下的样式
             hover: {}
           },
+          // 边样式
           edgeStyle: {
             default: {
               stroke: '#000000',
@@ -156,6 +157,21 @@
               // 扩展响应范围
               lineAppendWidth: 10,
               cursor: 'pointer'
+            }
+          },
+          // 分组样式
+          groupType: 'rect',
+          groupStyle: {
+            default: {
+              lineWidth: 1,
+              stroke: '#29B6F2',
+              // lineDash: [ 5, 5 ],
+              strokeOpacity: 1,
+              fill: '#29B6F2',
+              fillOpacity: 0.1,
+              opacity: 1,
+              minDis: 0,
+              maxDis: 0
             }
           }
         })
@@ -179,16 +195,22 @@
         // _t.editor.on('node:contextmenu', _t._nodeContextmenu)
         _t.editor.on('edge:mousedown', _t._edgeMousedown)
         _t.editor.on('editor:getItem', function (data) {
-          // console.log('editor:getItem', JSON.stringify(data))
           _t.$store.commit('editor/currentItem/update', data)
         })
         _t.editor.on('editor:setItem', function (data) {
-          // console.log('editor:setItem', JSON.stringify(data))
-          let item = _t.editor.findById(data.id)
-          if (item) {
-            _t.editor.updateItem(item, data.model)
-            _t.editor.paint()
-          }
+          data.forEach((item, index) => {
+            let node = _t.editor.findById(item.id)
+            if (!index) {
+              // 更新第一个节点
+              _t.editor.updateItem(node, item.model)
+            } else {
+              // FIXME 更新同组节点，只更新样式部分
+              _t.editor.updateItem(node, {
+                style: data[0].model.style
+              })
+            }
+          })
+          _t.editor.paint()
         })
         _t.editor.on('editor:contextmenu', function (data) {
           _t.$X.utils.bus.$emit('editor/contextmenu/open', data)
@@ -262,41 +284,41 @@
       },
       doCopy () {
         let _t = this
-        // 目前只支持节点的复制，不支持边的复制，边只能通过拖拽生成
-        if (_t.currentItem && _t.currentItem.type === 'node') {
-          _t.clipboard = {
-            data: _t.currentItem,
-            count: 0
-          }
+        // FIXME 目前只支持节点的复制，不支持边的复制，边只能通过拖拽生成
+        let data = _t.currentItem ? _t.currentItem.filter(item => item.type === 'node') : []
+        _t.clipboard = {
+          data,
+          count: 0
         }
       },
       doPaste (info) {
         let _t = this
-        let item = _t.clipboard.data
+        let data = _t.clipboard.data
         _t.clipboard.count++
-        if (item) {
-          if (item.type === 'node') {
+        if (data.length) {
+          data.forEach((item, index) => {
+            let model = item.model
             // 计算坐标，添加一定偏移量，防止重叠
-            let x = item.model.x + 10 * _t.clipboard.count
-            let y = item.model.y + 10 * _t.clipboard.count
+            let x = model.x + 10 * _t.clipboard.count
+            let y = model.y + 10 * _t.clipboard.count
             // 如果通过右键菜单触发的，则获取触发菜单时的canvas坐标
             if (info && info.context === 'ContextMenu' && info.data) {
               if (info.data.hasOwnProperty('canvasX')) {
-                x = info.data.canvasX
+                x = model.x + info.data.canvasX - data[0].model.x
               }
               if (info.data.hasOwnProperty('canvasY')) {
-                y = info.data.canvasY
+                y = model.y + info.data.canvasY - data[0].model.y
               }
             }
-
             let node = {
-              ...item.model,
+              ...model,
               id: G6.Util.uniqueId(),
+              groupId: '',
               x,
               y
             }
             _t.editor.addItem('node', node)
-          }
+          })
         }
       },
       doDelete () {
@@ -573,6 +595,16 @@
               URL.revokeObjectURL(url)
             }
             break
+          case 'selectAll':
+            let groupId = G6.Util.uniqueId()
+            _t.editor.getNodes().forEach(node => {
+              // 更新节点
+              _t.editor.updateItem(node, {
+                groupId
+              })
+              _t.editor.setItemState(node, 'active', true)
+            })
+            break
         }
       },
       initInfo (data = {}) {
@@ -590,9 +622,7 @@
         let _t = this
         _t.toolList.forEach(item => {
           if (item.enable && item.shortcuts) {
-            // console.log('shortcuts', item.shortcuts)
             Mousetrap.bind(item.shortcuts, function (e) {
-              // console.log('trigger shortcuts', item.shortcuts)
               if (e.preventDefault) {
                 e.preventDefault()
               } else {
