@@ -283,10 +283,11 @@
         // 当前节点数组
         let currentItemArr = _t.currentItem
         // 更新第一个节点
-        currentItemArr[0] = {
-          id: model.id,
-          type: model.type,
-          model: model
+        if (_t.firstItem) {
+          currentItemArr[0] = {
+            ..._t.firstItem,
+            model
+          }
         }
         // 广播事件
         _t.$X.utils.bus.$emit('editor/currentItem/update', currentItemArr)
