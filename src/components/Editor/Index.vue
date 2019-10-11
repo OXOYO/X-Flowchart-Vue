@@ -561,13 +561,17 @@
             break
           case 'toFront':
           case 'toBack':
-            if (info.data.hasOwnProperty('id') && info.data.id) {
-              let item = _t.editor.findById(info.data.id)
-              if (item && item[info.name]) {
-                // 执行操作
-                item[info.name]()
-                _t.editor.paint()
-              }
+            if (Array.isArray(info.data)) {
+              info.data.forEach(data => {
+                if (data.hasOwnProperty('id') && data.id) {
+                  let item = _t.editor.findById(data.id)
+                  if (item && item[info.name]) {
+                    // 执行操作
+                    item[info.name]()
+                    _t.editor.paint()
+                  }
+                }
+              })
             }
             break
           case 'fullscreen':
