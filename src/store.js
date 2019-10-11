@@ -8,8 +8,11 @@ export default new Vuex.Store({
   state: {
     editor: {
       currentItem: [],
-      // 操作历史
-      history: [],
+      // 操作日志
+      log: {
+        current: null,
+        list: []
+      },
       // 工具列表
       toolList: [
           {
@@ -33,8 +36,6 @@ export default new Vuex.Store({
             disabled: false,
             // 禁用模式，用于控制在什么模式下该工具项处于禁用状态，详见Editor/Index.vue 中的doSetMode方法
             disabledMode: ['edit', 'preview'],
-            // 分割线，是否在该工具项后显示分割线，ToolBar中为竖线，ContextMenu中为横线
-            divider: false,
             // 热键
             shortcuts: '',
             // 工具栏
@@ -42,14 +43,18 @@ export default new Vuex.Store({
               // 是否启用
               enable: true,
               // 位置
-              position: 'left'
+              position: 'left',
+              // 分割线，是否在该工具项后显示分割线，ToolBar中为竖线，ContextMenu中为横线
+              divider: false
             },
             // 右键菜单
             contextmenu: {
               // 是否启用
               enable: false,
               // 目标元素类型，用于控制在什么元素上可以显示该工具项
-              target: []
+              target: [],
+              // 分割线，是否在该工具项后显示分割线，ToolBar中为竖线，ContextMenu中为横线
+              divider: false
             }
           },
           {
@@ -59,18 +64,41 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'undo',
             enable: true,
-            enableMode: [],
+            enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas'],
+              divider: false
+            }
+          },
+          {
+            name: 'clearLog',
+            label: 'ClearLog',
+            lang: 'L10032',
+            type: 'normal',
+            icon: 'clear-log',
+            enable: true,
+            enableMode: ['edit'],
+            disabled: false,
+            disabledMode: ['edit'],
+            shortcuts: 'ctrl+shift+l',
+            toolbar: {
+              enable: true,
+              position: 'center',
+              divider: false
+            },
+            contextmenu: {
+              enable: true,
+              target: ['canvas'],
+              divider: false
             }
           },
           {
@@ -80,18 +108,19 @@ export default new Vuex.Store({
             type: 'normal',
             icon: 'redo',
             enable: true,
-            enableMode: [],
+            enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: true,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: true
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: ['canvas'],
+              divider: true
             }
           },
           {
@@ -104,16 +133,17 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: false,
             // FIXME 通用mod助手用于设置跨平台快捷方式，用于将command+c在Windows和Linux上映射到ctrl+c
             shortcuts: 'mod+c',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['node', 'edge']
+              target: ['node', 'edge'],
+              divider: false
             }
           },
           {
@@ -126,15 +156,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: false,
             shortcuts: 'mod+v',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: false
             }
           },
           {
@@ -147,15 +178,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: true,
             shortcuts: 'del',
             toolbar: {
               enable: false,
-              position: 'center'
+              position: 'center',
+              divider: true
             },
             contextmenu: {
               enable: true,
-              target: ['node', 'edge']
+              target: ['node', 'edge'],
+              divider: true
             }
           },
           {
@@ -168,15 +200,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: true,
             shortcuts: 'ctrl+shift+c',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: true
             },
             contextmenu: {
               enable: true,
-              target: ['canvas']
+              target: ['canvas'],
+              divider: true
             }
           },
           {
@@ -189,15 +222,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit', 'preview'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: false
             },
             // 默认选中项index
             selected: 0,
@@ -316,16 +350,17 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit', 'preview'],
-            divider: false,
             // FIXME mod+= 用于支持主键盘区的+，mod+plus用于支持数字键盘区的+
             shortcuts: ['mod+=', 'mod+plus'],
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: false
             }
           },
           {
@@ -338,15 +373,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit', 'preview'],
-            divider: false,
             shortcuts: 'mod+-',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: false
             }
           },
           {
@@ -359,15 +395,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit', 'preview'],
-            divider: false,
             shortcuts: 'mod+0',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: false
             }
           },
           {
@@ -380,15 +417,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit', 'preview'],
-            divider: true,
             shortcuts: 'mod+1',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: true
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: true
             }
           },
           {
@@ -401,15 +439,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['node', 'edge']
+              target: ['node', 'edge'],
+              divider: false
             }
           },
           {
@@ -422,15 +461,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['node', 'edge']
+              target: ['node', 'edge'],
+              divider: false
             }
           },
           {
@@ -443,15 +483,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['node', 'edge']
+              target: ['node', 'edge'],
+              divider: false
             },
             // 默认选中项index
             selected: 0,
@@ -570,15 +611,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: true,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: true
             },
             contextmenu: {
               enable: true,
-              target: ['node', 'edge']
+              target: ['node', 'edge'],
+              divider: true
             },
             // 默认选中项index
             selected: 0,
@@ -627,15 +669,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['edge']
+              target: ['edge'],
+              divider: false
             },
             // 默认选中项index
             selected: 0,
@@ -684,15 +727,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['edge']
+              target: ['edge'],
+              divider: false
             },
             // 默认选中项index
             selected: 0,
@@ -768,15 +812,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: true,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: true
             },
             contextmenu: {
               enable: true,
-              target: ['edge']
+              target: ['edge'],
+              divider: true
             },
             // 默认选中项index
             selected: 0,
@@ -861,15 +906,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['node', 'edge']
+              target: ['node', 'edge'],
+              divider: false
             }
           },
           {
@@ -882,15 +928,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: true,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: true
             },
             contextmenu: {
               enable: true,
-              target: ['node', 'edge']
+              target: ['node', 'edge'],
+              divider: true
             }
           },
           {
@@ -903,15 +950,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: false,
             shortcuts: 'mod+a',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: false
             }
           },
           {
@@ -924,15 +972,16 @@ export default new Vuex.Store({
             enableMode: [],
             disabled: false,
             disabledMode: ['edit'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: [],
+              divider: false
             }
           },
           {
@@ -945,15 +994,16 @@ export default new Vuex.Store({
             enableMode: [],
             disabled: false,
             disabledMode: ['edit'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: [],
+              divider: false
             }
           },
           {
@@ -966,15 +1016,16 @@ export default new Vuex.Store({
             enableMode: [],
             disabled: false,
             disabledMode: ['edit'],
-            divider: true,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: true
             },
             contextmenu: {
               enable: true,
-              target: []
+              target: [],
+              divider: true
             }
           },
           {
@@ -987,15 +1038,16 @@ export default new Vuex.Store({
             enableMode: ['preview'],
             disabled: false,
             disabledMode: ['preview'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: false
             }
           },
           {
@@ -1008,15 +1060,16 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: false
             }
           },
           {
@@ -1029,15 +1082,16 @@ export default new Vuex.Store({
             enableMode: ['edit', 'preview'],
             disabled: false,
             disabledMode: ['edit', 'preview'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: false
             },
             // 默认选中项index
             selected: 0,
@@ -1080,15 +1134,16 @@ export default new Vuex.Store({
             enableMode: ['edit', 'preview'],
             disabled: false,
             disabledMode: ['edit', 'preview'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: false
             }
           },
           {
@@ -1101,15 +1156,16 @@ export default new Vuex.Store({
             enableMode: ['edit', 'preview'],
             disabled: false,
             disabledMode: ['edit', 'preview'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center'
+              position: 'center',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: false
             },
             // 默认选中项index
             selected: 0,
@@ -1153,15 +1209,16 @@ export default new Vuex.Store({
             enableMode: ['edit', 'preview'],
             disabled: false,
             disabledMode: ['edit', 'preview'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'right'
+              position: 'right',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: false
             }
           },
           {
@@ -1175,15 +1232,16 @@ export default new Vuex.Store({
             enableMode: ['edit', 'preview'],
             disabled: false,
             disabledMode: ['edit', 'preview'],
-            divider: false,
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'right'
+              position: 'right',
+              divider: false
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge']
+              target: ['canvas', 'node', 'edge'],
+              divider: false
             }
           }
         ]
@@ -1195,6 +1253,52 @@ export default new Vuex.Store({
     },
     'editor/toolList/update': (state, data) => {
       state.editor.toolList = data
+    },
+    'editor/log/update': (state, data) => {
+      if (!data.hasOwnProperty('action') || !data.action) {
+        return
+      }
+      let oldLog = state.editor.log
+      let log = {
+        current: null,
+        list: []
+      }
+      switch (data.action) {
+        // 记录
+        case 'record':
+          log.list = [
+            ...oldLog.list,
+            JSON.parse(JSON.stringify(data.data))
+          ]
+          log.current = log.list.length - 1
+          break
+        // 撤销
+        case 'undo':
+          log.list = [
+            ...oldLog.list
+          ]
+          log.current = oldLog.current - 1 < 0 ? null : oldLog.current - 1
+          break
+        // 重做
+        case 'redo':
+          log.list = [
+            ...oldLog.list
+          ]
+          if (oldLog.current === null) {
+            log.current = oldLog.list.length ? 0 : null
+          } else {
+            log.current = oldLog.current + 1 > oldLog.list.length - 1 ? oldLog.list.length - 1 : oldLog.current + 1
+          }
+          break
+        // 清空
+        case 'clearLog':
+          log = {
+            current: null,
+            list: []
+          }
+          break
+      }
+      state.editor.log = log
     }
   },
   actions: {
@@ -1202,6 +1306,7 @@ export default new Vuex.Store({
   },
   getters: {
     currentItem: state => state.editor.currentItem,
-    toolList: state => state.editor.toolList
+    toolList: state => state.editor.toolList,
+    log: state => state.editor.log
   }
 })

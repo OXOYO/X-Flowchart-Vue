@@ -13,6 +13,13 @@
       "unicode_decimal": 58922
     },
     {
+      "icon_id": "584587",
+      "name": "删除日志",
+      "font_class": "clear-log",
+      "unicode": "e831",
+      "unicode_decimal": 59441
+    },
+    {
       "icon_id": "855104",
       "name": "控件-树图",
       "font_class": "flow-chart",

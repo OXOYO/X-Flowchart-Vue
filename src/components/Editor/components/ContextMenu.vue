@@ -183,7 +183,7 @@
         </ToolItem>
         <XDivider
           class="divider"
-          v-if="item.divider"
+          v-if="item.contextmenu.divider"
           :key="'contextmenu' + '_divider_' + index"
           mode="horizontal"
         />

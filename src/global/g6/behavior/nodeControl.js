@@ -312,6 +312,8 @@ export default {
                 end: endModel.id
               }
             })
+            // 记录操作日志
+            _t.graph.emit('editor:record', 'drawLine stop')
           }
         }
         if (_t.config.tooltip.dragEdge) {
@@ -452,6 +454,8 @@ export default {
           }, group)
           // 更新节点
           _t.graph.updateItem(_t.info.node, attrs)
+          // 记录操作日志
+          _t.graph.emit('editor:record', 'shapeControlPoint stop')
         }
         if (_t.config.tooltip.shapeControl) {
           _t.toolTip.destroy.call(_t)
@@ -595,6 +599,8 @@ export default {
             _t.toolTip.destroy.call(_t)
           }
           _t.graph.paint()
+          // 记录操作日志
+          _t.graph.emit('editor:record', 'dragNode createNode')
         }
       },
       start (event) {
@@ -666,6 +672,8 @@ export default {
       },
       stop (event) {
         let _t = this
+        // 记录操作日志
+        _t.graph.emit('editor:record', 'dragNode stop')
         _t.dragNode.clear.call(_t)
         if (_t.config.tooltip.dragNode) {
           _t.toolTip.destroy.call(_t)

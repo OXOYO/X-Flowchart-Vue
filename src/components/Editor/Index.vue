@@ -70,7 +70,8 @@
     computed: {
       ...mapGetters([
         'currentItem',
-        'toolList'
+        'toolList',
+        'log'
       ])
     },
     methods: {
@@ -215,6 +216,17 @@
         _t.editor.on('editor:contextmenu', function (data) {
           _t.$X.utils.bus.$emit('editor/contextmenu/open', data)
         })
+        _t.editor.on('editor:record', function (from) {
+          console.log('editor:record from', from)
+          // 更新操作日志
+          _t.$store.commit('editor/log/update', {
+            action: 'record',
+            data: {
+              time: new Date(),
+              content: _t.editor.save()
+            }
+          })
+        })
         // 绑定热键
         _t.bindShortcuts()
         // 绑定unload
@@ -281,59 +293,6 @@
         })
         _t.editor.paint()
         _t.editor.setAutoPaint(true)
-      },
-      doCopy () {
-        let _t = this
-        // FIXME 目前只支持节点的复制，不支持边的复制，边只能通过拖拽生成
-        let data = _t.currentItem ? _t.currentItem.filter(item => item.type === 'node') : []
-        _t.clipboard = {
-          data,
-          count: 0
-        }
-      },
-      doPaste (info) {
-        let _t = this
-        let data = _t.clipboard.data
-        _t.clipboard.count++
-        if (data.length) {
-          data.forEach((item, index) => {
-            let model = item.model
-            // 计算坐标，添加一定偏移量，防止重叠
-            let x = model.x + 10 * _t.clipboard.count
-            let y = model.y + 10 * _t.clipboard.count
-            // 如果通过右键菜单触发的，则获取触发菜单时的canvas坐标
-            if (info && info.context === 'ContextMenu' && info.data) {
-              if (info.data.hasOwnProperty('canvasX')) {
-                x = model.x + info.data.canvasX - data[0].model.x
-              }
-              if (info.data.hasOwnProperty('canvasY')) {
-                y = model.y + info.data.canvasY - data[0].model.y
-              }
-            }
-            let node = {
-              ...model,
-              id: G6.Util.uniqueId(),
-              groupId: '',
-              x,
-              y
-            }
-            _t.editor.addItem('node', node)
-          })
-        }
-      },
-      doDelete () {
-        let _t = this
-        // 删除逻辑
-        _t.editor.getNodes().forEach(node => {
-          if (node.hasState('active')) {
-            _t.editor.removeItem(node)
-          }
-        })
-        _t.editor.getEdges().forEach(edge => {
-          if (edge.hasState('active')) {
-            _t.editor.removeItem(edge)
-          }
-        })
       },
       doZoom (info, position) {
         let _t = this
@@ -408,15 +367,88 @@
       },
       handleToolTrigger (info) {
         let _t = this
+        // 是否记录日志标识
+        let isRecord = false
         switch (info.name) {
+          case 'undo':
+          case 'redo':
+          case 'clearLog':
+            // 更新操作日志
+            _t.$store.commit('editor/log/update', {
+              action: info.name
+            })
+            if (['undo', 'redo'].includes(info.name)) {
+              _t.$nextTick(function () {
+                if (_t.log.list.length) {
+                  if (_t.log.current !== null) {
+                    let data = _t.log.list[_t.log.current]
+                    // 渲染
+                    _t.editor.read(data.content)
+                    _t.editor.paint()
+                  } else {
+                    // 清除
+                    _t.editor.clear()
+                    _t.editor.paint()
+                  }
+                }
+              })
+            }
+            break
           case 'copy':
-            _t.doCopy()
+            (() => {
+              // FIXME 目前只支持节点的复制，不支持边的复制，边只能通过拖拽生成
+              let data = _t.currentItem ? _t.currentItem.filter(item => item.type === 'node') : []
+              _t.clipboard = {
+                data,
+                count: 0
+              }
+            })()
             break
           case 'paste':
-            _t.doPaste(info)
+            (() => {
+              let data = _t.clipboard.data
+              _t.clipboard.count++
+              if (data.length) {
+                data.forEach((item, index) => {
+                  let model = item.model
+                  // 计算坐标，添加一定偏移量，防止重叠
+                  let x = model.x + 10 * _t.clipboard.count
+                  let y = model.y + 10 * _t.clipboard.count
+                  // 如果通过右键菜单触发的，则获取触发菜单时的canvas坐标
+                  if (info && info.context === 'ContextMenu' && info.data) {
+                    if (info.data.hasOwnProperty('canvasX')) {
+                      x = model.x + info.data.canvasX - data[0].model.x
+                    }
+                    if (info.data.hasOwnProperty('canvasY')) {
+                      y = model.y + info.data.canvasY - data[0].model.y
+                    }
+                  }
+                  let node = {
+                    ...model,
+                    id: G6.Util.uniqueId(),
+                    groupId: '',
+                    x,
+                    y
+                  }
+                  _t.editor.addItem('node', node)
+                })
+              }
+            })()
             break
           case 'delete':
-            _t.doDelete()
+            // 删除逻辑
+            _t.editor.getNodes().forEach(node => {
+              if (node.hasState('active')) {
+                isRecord = true
+                _t.editor.removeItem(node)
+              }
+            })
+            _t.editor.getEdges().forEach(edge => {
+              if (edge.hasState('active')) {
+                isRecord = true
+                _t.editor.removeItem(edge)
+              }
+            })
             break
           case 'zoom':
           case 'zoomIn':
@@ -435,6 +467,7 @@
             _t.editor.$X.fill = info.data
             _t.editor.getNodes().forEach(node => {
               if (node.hasState('active')) {
+                isRecord = true
                 let { style } = node.getModel()
                 _t.editor.updateItem(node, {
                   style: {
@@ -449,6 +482,7 @@
             _t.editor.$X.lineColor = info.data
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
+                isRecord = true
                 let { style } = edge.getModel()
                 _t.editor.updateItem(edge, {
                   style: {
@@ -460,6 +494,7 @@
             })
             _t.editor.getNodes().forEach(node => {
               if (node.hasState('active')) {
+                isRecord = true
                 let { style } = node.getModel()
                 _t.editor.updateItem(node, {
                   style: {
@@ -474,6 +509,7 @@
             _t.editor.$X.lineWidth = info.data
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
+                isRecord = true
                 let { style } = edge.getModel()
                 _t.editor.updateItem(edge, {
                   style: {
@@ -485,6 +521,7 @@
             })
             _t.editor.getNodes().forEach(node => {
               if (node.hasState('active')) {
+                isRecord = true
                 let { style } = node.getModel()
                 _t.editor.updateItem(node, {
                   style: {
@@ -500,6 +537,7 @@
             _t.editor.$X.lineStyle = info.data
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
+                isRecord = true
                 let { style } = edge.getModel()
                 _t.editor.updateItem(edge, {
                   style: {
@@ -511,6 +549,7 @@
             })
             _t.editor.getNodes().forEach(node => {
               if (node.hasState('active')) {
+                isRecord = true
                 let { style } = node.getModel()
                 _t.editor.updateItem(node, {
                   style: {
@@ -525,6 +564,7 @@
             _t.editor.$X.lineType = info.data
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
+                isRecord = true
                 _t.editor.updateItem(edge, {
                   shape: info.data
                 })
@@ -538,6 +578,7 @@
             // 根据端点类型更新边
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
+                isRecord = true
                 let { style } = edge.getModel()
                 _t.editor.updateItem(edge, {
                   style: {
@@ -554,6 +595,10 @@
               // 确认清空画布？
               content: _t.$t('L10201'),
               onOk: function () {
+                // 更新操作日志
+                _t.$store.commit('editor/log/update', {
+                  action: 'clear'
+                })
                 _t.editor.clear()
                 _t.editor.paint()
               }
@@ -564,6 +609,7 @@
             if (Array.isArray(info.data)) {
               info.data.forEach(data => {
                 if (data.hasOwnProperty('id') && data.id) {
+                  isRecord = true
                   let item = _t.editor.findById(data.id)
                   if (item && item[info.name]) {
                     // 执行操作
@@ -609,6 +655,10 @@
               _t.editor.setItemState(node, 'active', true)
             })
             break
+        }
+        if (isRecord) {
+          // 记录操作日志
+          _t.editor.emit('editor:record', 'handleToolTrigger')
         }
       },
       initInfo (data = {}) {

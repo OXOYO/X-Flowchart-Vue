@@ -210,7 +210,7 @@
           </ToolItem>
           <XDivider
             class="divider"
-            v-if="item.divider"
+            v-if="item.toolbar.divider"
             :key="'tool_' + type + '_divider_' + index"
             mode="vertical"
           />
@@ -282,6 +282,7 @@
       },
       handleDropdownClick (item, type, index, val) {
         let _t = this
+        console.log('handleDropdownClick', item.name)
         if (item.disabled) {
           return
         }
@@ -333,6 +334,7 @@
       },
       handleToolClick (item, val) {
         let _t = this
+        console.log('handleToolClick', item.name)
         if (item.disabled) {
           return
         }

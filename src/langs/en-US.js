@@ -38,6 +38,7 @@ export default {
   L10029: 'Zoom',
   L10030: 'Download',
   L10031: 'Select all',
+  L10032: 'Clear operation log (Ctrl + Shift + L)',
   // right panel
   L10101: 'Configuration',
   L10102: 'Navigator',
