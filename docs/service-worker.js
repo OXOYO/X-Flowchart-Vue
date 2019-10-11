@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/X-Flowchart-Vue/precache-manifest.c3e17244f656fc4e6703d3260fc2c5fc.js"
+  "/X-Flowchart-Vue/precache-manifest.35ac0981c6b427503c17ad7164abd62f.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "x-flowchart-vue"});
