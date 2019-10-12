@@ -122,6 +122,14 @@
                     shapeControl: true,
                     dragNode: true,
                     dragEdge: true
+                  },
+                  // 是否启用对齐线
+                  alignLine: {
+                    enable: false,
+                    style: {
+                      stroke: '#FFA500',
+                      lineWidth: 1
+                    }
                   }
                 }
               }

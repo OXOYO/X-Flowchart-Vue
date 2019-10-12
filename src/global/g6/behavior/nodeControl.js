@@ -25,6 +25,14 @@ export default {
             shapeControl: true,
             dragNode: true,
             dragEdge: false
+          },
+          // 是否启用对齐线
+          alignLine: {
+            enable: true,
+            style: {
+              stroke: '#FA8C16',
+              lineWidth: 1
+            }
           }
         }
       }
@@ -211,11 +219,13 @@ export default {
           if (_t.dragNode.status === 'dragNodeToEditor') {
             _t[_t.info.type].createNode.call(_t, event)
           }
-        } else if (_t.info.type && _t[_t.info.type].stop) {
+        }
+        if (_t.info.type && _t[_t.info.type].stop) {
           _t[_t.info.type].stop.call(_t, event)
         }
       }
     },
+    // 拖拽画线
     drawLine: {
       isMoving: false,
       currentLine: null,
@@ -324,6 +334,7 @@ export default {
         _t.info = null
       }
     },
+    // 图形控制 缩放
     shapeControlPoint: {
       isMoving: false,
       // 是否等比缩放
@@ -465,6 +476,7 @@ export default {
         _t.info = null
       }
     },
+    // 图形控制 旋转
     shapeControlRotate: {
       isMoving: false,
       start (event) {
@@ -544,6 +556,7 @@ export default {
         _t.info = null
       }
     },
+    // 拖拽节点
     dragNode: {
       dottedNode: null,
       status: null,
@@ -594,13 +607,6 @@ export default {
             }
           }
           _t.graph.addItem('node', node)
-          _t.dragNode.clear.call(_t)
-          if (_t.config.tooltip.dragNode) {
-            _t.toolTip.destroy.call(_t)
-          }
-          _t.graph.paint()
-          // 记录操作日志
-          _t.graph.emit('editor:record', 'dragNode createNode')
         }
       },
       start (event) {
@@ -630,6 +636,10 @@ export default {
                 left: event.canvasX,
                 top: event.canvasY + height / 2
               }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}<br>W: ${width.toFixed(2)} H: ${height.toFixed(2)}`)
+            }
+            if (_t.config.alignLine.enable) {
+              // 绘制对齐线
+              _t.alignLine.move.call(_t, _t.dragNode.dottedNode, '111')
             }
           }
         } else if (_t.dragNode.status === 'dragNode') {
@@ -667,6 +677,10 @@ export default {
                 }
               }
             })
+            if (_t.config.alignLine.enable) {
+              // 绘制对齐线
+              _t.alignLine.move.call(_t, _t.info.node.getKeyShape(), '222')
+            }
           }
         }
       },
@@ -677,6 +691,9 @@ export default {
         _t.dragNode.clear.call(_t)
         if (_t.config.tooltip.dragNode) {
           _t.toolTip.destroy.call(_t)
+        }
+        if (_t.config.alignLine.enable) {
+          _t.alignLine.stop.call(_t)
         }
         _t.graph.paint()
       },
@@ -690,6 +707,7 @@ export default {
         _t.info = null
       }
     },
+    // 框选
     drawGroup: {
       isMoving: false,
       // 选框节点
@@ -785,6 +803,7 @@ export default {
         _t.drawGroup.marqueeNode = null
       }
     },
+    // 节点Label
     nodeLabel: {
       // 节点文本创建
       create (event) {
@@ -834,6 +853,7 @@ export default {
         }
       }
     },
+    // 边Label
     edgeLabel: {
       // 节点文本创建
       create (event) {
@@ -917,6 +937,7 @@ export default {
         }
       }
     },
+    // 提示
     toolTip: {
       currentTip: null,
       create (position, content) {
@@ -971,6 +992,201 @@ export default {
           el.parentNode.removeChild(_t.toolTip.currentTip)
           _t.toolTip.currentTip = null
         }
+      }
+    },
+    // 对齐线
+    // 鸣谢：@guozhaolong https://github.com/guozhaolong/wfd
+    // 参考 https://github.com/guozhaolong/wfd/blob/master/src/behavior/itemAlign.js
+    alignLine: {
+      // 对齐线列表
+      lineList: [],
+      tolerance: 5,
+      move (item, from) {
+        console.log('from', from)
+        let _t = this
+        const bbox = item.getBBox()
+        console.log('bbox', bbox)
+        // FIXME bbox 中x、y坐标为图形左上角坐标
+        // 中上
+        const ct = { x: bbox.x + bbox.width / 2, y: bbox.y }
+        // 中心
+        const cc = { x: bbox.x + bbox.width / 2, y: bbox.y + bbox.height / 2 }
+        // 中下
+        const cb = { x: bbox.x + bbox.width / 2, y: bbox.y + bbox.height }
+        // 左中
+        const lc = { x: bbox.x, y: bbox.y + bbox.height / 2 }
+        // 右中
+        const rc = { x: bbox.x + bbox.width, y: bbox.y + bbox.height / 2 }
+        // 计算距离
+        const getDistance = function (line, point) {
+          function normalize (out, a) {
+            let x = a[0]
+            let y = a[1]
+            let len = x * x + y * y
+            if (len > 0) {
+              // TODO: evaluate use of glm_invsqrt here?
+              len = 1 / Math.sqrt(len)
+              out[0] = a[0] * len
+              out[1] = a[1] * len
+            }
+            return out
+          }
+          function dot (a, b) {
+            return a[0] * b[0] + a[1] * b[1]
+          }
+          const pointLineDistance = function (lineX1, lineY1, lineX2, lineY2, pointX, pointY) {
+            const lineLength = [lineX2 - lineX1, lineY2 - lineY1]
+            if (!lineLength[0] && !lineLength[1]) {
+              return NaN
+            }
+            let s = [-lineLength[1], lineLength[0]]
+            normalize(s, s)
+            return Math.abs(dot([pointX - lineX1, pointY - lineY1], s))
+          }
+          return {
+            line,
+            point,
+            dis: pointLineDistance(line[0], line[1], line[2], line[3], point.x, point.y)
+          }
+        }
+        // 遍历节点
+        const nodes = _t.graph.getNodes()
+        nodes.forEach(node => {
+          const horizontalLines = []
+          const verticalLines = []
+          // 对齐线信息
+          let info = {
+            horizontals: [],
+            verticals: []
+          }
+          const bbox1 = node.getBBox()
+          // 水平线
+          let horizontalInfo = [
+            // 左上 右上 tltr
+            [bbox1.minX, bbox1.minY, bbox1.maxX, bbox1.minY],
+            // 左中 右中 lcrc
+            [bbox1.minX, bbox1.centerY, bbox1.maxX, bbox1.centerY],
+            // 左下 右下 blbr
+            [bbox1.minX, bbox1.maxY, bbox1.maxX, bbox1.maxY]
+          ]
+          // 垂直线
+          let verticalInfo = [
+            // 左上 左下 tlbl
+            [bbox1.minX, bbox1.minY, bbox1.minX, bbox1.maxY],
+            // 上中 下中 tcbc
+            [bbox1.centerX, bbox1.minY, bbox1.centerX, bbox1.maxY],
+            // 上右 下右 trbr
+            [bbox1.maxX, bbox1.minY, bbox1.maxX, bbox1.maxY]
+          ]
+          horizontalInfo.forEach(line => {
+            horizontalLines.push(getDistance(line, ct))
+            horizontalLines.push(getDistance(line, cc))
+            horizontalLines.push(getDistance(line, cb))
+          })
+          verticalInfo.forEach(line => {
+            verticalLines.push(getDistance(line, lc))
+            verticalLines.push(getDistance(line, cc))
+            verticalLines.push(getDistance(line, rc))
+          })
+          horizontalLines.sort((a, b) => a.dis - b.dis)
+          verticalLines.sort((a, b) => a.dis - b.dis)
+          if (horizontalLines.length > 0 && horizontalLines[0].dis < _t.alignLine.tolerance) {
+            item.attr({
+              y: horizontalLines[0].line[1] - horizontalLines[0].point.y + bbox.y
+            })
+            info.horizontals = [
+              horizontalLines[0]
+            ]
+            for (let i = 1; i < 3; i++) {
+              if (horizontalLines[0].dis === horizontalLines[i].dis) {
+                info.horizontals.push(horizontalLines[i])
+              }
+            }
+          }
+          if (verticalLines.length > 0 && verticalLines[0].dis < _t.alignLine.tolerance) {
+            item.attr({
+              x: verticalLines[0].line[0] - verticalLines[0].point.x + bbox.x
+            })
+            info.verticals = [
+              verticalLines[0]
+            ]
+            for (let i = 1; i < 3; i++) {
+              if (verticalLines[0].dis === verticalLines[i].dis) {
+                info.verticals.push(verticalLines[i])
+              }
+            }
+          }
+          // 添加对齐线
+          const group = _t.graph.get('group')
+          // 对齐线样式
+          const lineStyle = _t.config.alignLine.style
+          // 处理水平线
+          if (info.horizontals.length) {
+            info.horizontals.forEach(lineObj => {
+              let line = lineObj.line
+              let point = lineObj.point
+              let lineHalf = (line[0] + line[2]) / 2
+              let x1
+              let x2
+              if (point.x < lineHalf) {
+                x1 = point.x - bbox.width / 2
+                x2 = Math.max(line[0], line[2])
+              } else {
+                x1 = point.x + bbox.width / 2
+                x2 = Math.min(line[0], line[2])
+              }
+              let shape = group.addShape('line', {
+                attrs: {
+                  x1,
+                  y1: line[1],
+                  x2,
+                  y2: line[1],
+                  ...lineStyle
+                },
+                // 是否拾取及触发该元素的交互事件
+                capture: false
+              })
+              _t.alignLine.lineList.push(shape)
+            })
+          }
+          // 处理垂直线
+          if (info.verticals.length) {
+            info.verticals.forEach(lineObj => {
+              let line = lineObj.line
+              let point = lineObj.point
+              let lineHalf = (line[1] + line[3]) / 2
+              let y1
+              let y2
+              if (point.y < lineHalf) {
+                y1 = point.y - bbox.height / 2
+                y2 = Math.max(line[1], line[3])
+              } else {
+                y1 = point.y + bbox.height / 2
+                y2 = Math.min(line[1], line[3])
+              }
+              let shape = group.addShape('line', {
+                attrs: {
+                  x1: line[0],
+                  y1,
+                  x2: line[0],
+                  y2,
+                  ...lineStyle
+                },
+                capture: false
+              })
+              _t.alignLine.lineList.push(shape)
+            })
+          }
+        })
+      },
+      stop () {
+        let _t = this
+        console.log('_t.alignLine.lineList', _t.alignLine.lineList)
+        _t.alignLine.lineList.forEach(line => {
+          line.remove()
+        })
+        _t.alignLine.lineList = []
+        _t.graph.paint()
       }
     }
   }
