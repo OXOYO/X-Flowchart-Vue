@@ -620,6 +620,10 @@ export default {
           }, `X: ${event.x.toFixed(2)} Y: ${event.y.toFixed(2)}<br>W: ${width.toFixed(2)} H: ${height.toFixed(2)}`)
         }
         _t.dragNode.status = 'dragNode'
+        if (_t.config.alignLine.enable) {
+          // 绘制对齐线
+          _t.alignLine.start.call(_t)
+        }
       },
       move (event) {
         let _t = this
@@ -639,7 +643,7 @@ export default {
             }
             if (_t.config.alignLine.enable) {
               // 绘制对齐线
-              _t.alignLine.move.call(_t, _t.dragNode.dottedNode, '111')
+              _t.alignLine.move.call(_t, _t.dragNode.dottedNode)
             }
           }
         } else if (_t.dragNode.status === 'dragNode') {
@@ -679,7 +683,7 @@ export default {
             })
             if (_t.config.alignLine.enable) {
               // 绘制对齐线
-              _t.alignLine.move.call(_t, _t.info.node.getKeyShape(), '222')
+              _t.alignLine.move.call(_t, _t.info.node)
             }
           }
         }
@@ -1000,12 +1004,25 @@ export default {
     alignLine: {
       // 对齐线列表
       lineList: [],
-      tolerance: 5,
-      move (item, from) {
-        console.log('from', from)
+      // 最大距离
+      maxDistance: 5,
+      start () {
         let _t = this
+        _t.alignLine._clear.call(_t)
+      },
+      _clear () {
+        let _t = this
+        _t.alignLine.lineList.forEach(line => {
+          line.remove()
+        })
+        _t.alignLine.lineList = []
+        _t.graph.paint()
+      },
+      move (item) {
+        let _t = this
+        // 先清空已有对齐线
+        _t.alignLine._clear.call(_t)
         const bbox = item.getBBox()
-        console.log('bbox', bbox)
         // FIXME bbox 中x、y坐标为图形左上角坐标
         // 中上
         const ct = { x: bbox.x + bbox.width / 2, y: bbox.y }
@@ -1019,6 +1036,7 @@ export default {
         const rc = { x: bbox.x + bbox.width, y: bbox.y + bbox.height / 2 }
         // 计算距离
         const getDistance = function (line, point) {
+          // 归一向量
           function normalize (out, a) {
             let x = a[0]
             let y = a[1]
@@ -1036,7 +1054,7 @@ export default {
           }
           const pointLineDistance = function (lineX1, lineY1, lineX2, lineY2, pointX, pointY) {
             const lineLength = [lineX2 - lineX1, lineY2 - lineY1]
-            if (!lineLength[0] && !lineLength[1]) {
+            if (lineLength[0] === 0 && lineLength[1] === 0) {
               return NaN
             }
             let s = [-lineLength[1], lineLength[0]]
@@ -1052,8 +1070,8 @@ export default {
         // 遍历节点
         const nodes = _t.graph.getNodes()
         nodes.forEach(node => {
-          const horizontalLines = []
-          const verticalLines = []
+          let horizontalLines = []
+          let verticalLines = []
           // 对齐线信息
           let info = {
             horizontals: [],
@@ -1090,27 +1108,21 @@ export default {
           })
           horizontalLines.sort((a, b) => a.dis - b.dis)
           verticalLines.sort((a, b) => a.dis - b.dis)
-          if (horizontalLines.length > 0 && horizontalLines[0].dis < _t.alignLine.tolerance) {
-            item.attr({
-              y: horizontalLines[0].line[1] - horizontalLines[0].point.y + bbox.y
-            })
-            info.horizontals = [
-              horizontalLines[0]
-            ]
-            for (let i = 1; i < 3; i++) {
+          // 过滤掉距离为0的线条
+          horizontalLines = horizontalLines.filter(item => item.dis !== 0)
+          if (horizontalLines.length && horizontalLines[0].dis < _t.alignLine.maxDistance) {
+            // 取前3个距离相等的线条
+            for (let i = 0; i < 3; i++) {
               if (horizontalLines[0].dis === horizontalLines[i].dis) {
                 info.horizontals.push(horizontalLines[i])
               }
             }
           }
-          if (verticalLines.length > 0 && verticalLines[0].dis < _t.alignLine.tolerance) {
-            item.attr({
-              x: verticalLines[0].line[0] - verticalLines[0].point.x + bbox.x
-            })
-            info.verticals = [
-              verticalLines[0]
-            ]
-            for (let i = 1; i < 3; i++) {
+          // 过滤掉距离为0的线条
+          verticalLines = verticalLines.filter(item => item.dis !== 0)
+          if (verticalLines.length && verticalLines[0].dis < _t.alignLine.maxDistance) {
+            // 取前3个距离相等的线条
+            for (let i = 0; i < 3; i++) {
               if (verticalLines[0].dis === verticalLines[i].dis) {
                 info.verticals.push(verticalLines[i])
               }
@@ -1181,12 +1193,7 @@ export default {
       },
       stop () {
         let _t = this
-        console.log('_t.alignLine.lineList', _t.alignLine.lineList)
-        _t.alignLine.lineList.forEach(line => {
-          line.remove()
-        })
-        _t.alignLine.lineList = []
-        _t.graph.paint()
+        _t.alignLine._clear.call(_t)
       }
     }
   }

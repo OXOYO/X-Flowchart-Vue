@@ -125,7 +125,7 @@
                   },
                   // 是否启用对齐线
                   alignLine: {
-                    enable: false,
+                    enable: true,
                     style: {
                       stroke: '#FFA500',
                       lineWidth: 1
