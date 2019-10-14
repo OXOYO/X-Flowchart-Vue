@@ -41,7 +41,7 @@
         <div class="form-item-block">
           <template v-if="firstItem && firstItem.type === 'node'">
             <FormItem label="fill">
-              <ColorPicker v-model="formData.style.fill" hue recommend @on-change="handleChange"></ColorPicker>
+              <ColorPicker placement="top-start" v-model="formData.style.fill" hue recommend @on-change="handleChange"></ColorPicker>
             </FormItem>
             <FormItem label="fillOpacity">
               <Slider
@@ -57,7 +57,7 @@
             </FormItem>
           </template>
           <FormItem label="stroke">
-            <ColorPicker v-model="formData.style.stroke" hue recommend @on-change="handleChange"></ColorPicker>
+            <ColorPicker placement="top-start" v-model="formData.style.stroke" hue recommend @on-change="handleChange"></ColorPicker>
           </FormItem>
           <FormItem label="strokeOpacity">
             <Slider
