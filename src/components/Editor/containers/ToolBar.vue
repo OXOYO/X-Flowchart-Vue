@@ -165,7 +165,7 @@
                       :key="childIndex"
                       :name="childIndex"
                       :disabled="child.disabled"
-                      :divided="child.divided"
+                      :divided="child.divider"
                       :selected="item.selected === childIndex"
                     >
                       <template v-if="child.icon">
