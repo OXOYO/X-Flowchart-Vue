@@ -11,7 +11,7 @@
 </style>
 
 <template>
-  <span v-if="type" class="icon iconfont" :class="[type ? 'icon-' + type : '']"></span>
+  <span v-if="type" class="icon iconfont" :class="[type ? 'xfv-icon-' + type : '']"></span>
 </template>
 
 <script>

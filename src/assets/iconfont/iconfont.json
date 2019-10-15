@@ -2,7 +2,7 @@
   "id": "1367185",
   "name": "X-Flowchart-Vue",
   "font_family": "iconfont",
-  "css_prefix_text": "icon-",
+  "css_prefix_text": "xfv-icon-",
   "description": "",
   "glyphs": [
     {
@@ -247,8 +247,8 @@
       "icon_id": "7538267",
       "name": "长箭头",
       "font_class": "solid-arrow",
-      "unicode": "e602",
-      "unicode_decimal": 58882
+      "unicode": "e902",
+      "unicode_decimal": 59650
     },
     {
       "icon_id": "7562890",
