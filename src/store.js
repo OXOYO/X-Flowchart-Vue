@@ -200,7 +200,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'ctrl+shift+c',
+            shortcuts: 'ctrl+shift+e',
             toolbar: {
               enable: true,
               position: 'center',
@@ -1054,12 +1054,12 @@ export default new Vuex.Store({
             name: 'preview',
             label: 'preview',
             lang: 'L10024',
-            type: 'normal',
+            type: 'dropdown-list',
             icon: 'preview',
             enable: true,
-            enableMode: ['edit'],
+            enableMode: ['edit', 'preview'],
             disabled: false,
-            disabledMode: ['edit'],
+            disabledMode: ['edit', 'preview'],
             shortcuts: '',
             toolbar: {
               enable: true,
@@ -1070,7 +1070,37 @@ export default new Vuex.Store({
               enable: true,
               target: ['canvas', 'node', 'edge'],
               divider: false
-            }
+            },
+            // 默认选中项index
+            selected: 0,
+            lockLabel: true,
+            // 子节点
+            children: [
+              {
+                name: 'image',
+                label: 'Image',
+                lang: '',
+                type: 'normal',
+                icon: 'image',
+                style: {},
+                data: false,
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'json',
+                label: 'Json',
+                lang: '',
+                type: 'normal',
+                icon: 'json',
+                style: {},
+                data: false,
+                enable: true,
+                disabled: false,
+                divider: false
+              }
+            ]
           },
           {
             name: 'download',

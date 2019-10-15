@@ -21,7 +21,9 @@
     <Sketchpad></Sketchpad>
     <PanelLeft></PanelLeft>
     <PanelRight></PanelRight>
+    <PreviewModel></PreviewModel>
     <ContextMenu></ContextMenu>
+
   </div>
 </template>
 
@@ -32,7 +34,8 @@
   import Sketchpad from './containers/Sketchpad'
   import PanelLeft from './containers/PanelLeft'
   import PanelRight from './containers/PanelRight'
-  import ContextMenu from './components/ContextMenu'
+  import PreviewModel from './containers/PreviewModel'
+  import ContextMenu from './containers/ContextMenu'
   import G6 from '@/global/g6/index'
   import Minimap from '@antv/g6/build/minimap'
   import Grid from '@antv/g6/build/grid'
@@ -48,6 +51,7 @@
       Sketchpad,
       PanelLeft,
       PanelRight,
+      PreviewModel,
       ContextMenu
     },
     data () {
@@ -468,6 +472,19 @@
             _t.editor.fitView()
             break
           case 'preview':
+            _t.doSetMode(info.name)
+            let previewData = {
+              type: info.data,
+              content: ''
+            }
+            if (info.data === 'image') {
+              previewData.content = _t.editor.toDataURL()
+            } else if (info.data === 'json') {
+              previewData.content = _t.editor.save()
+            }
+            // 显示预览弹窗
+            _t.$X.utils.bus.$emit('editor/previewModel/open', previewData)
+            break
           case 'edit':
             _t.doSetMode(info.name)
             break

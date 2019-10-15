@@ -22,7 +22,8 @@ import {
   FormItem,
   Slider,
   Select,
-  Option
+  Option,
+  Button
 } from 'iview'
 
 import { Sketch } from 'vue-color'
@@ -51,6 +52,7 @@ const obj = {
   Slider,
   Select,
   Option,
+  Button,
   // 颜色选择器
   SketchPicker: Sketch,
   // 自定义组件

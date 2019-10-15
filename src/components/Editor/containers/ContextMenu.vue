@@ -195,9 +195,9 @@
 <script>
   import { mapGetters } from 'vuex'
 
-  import ToolBox from '../../ToolBox/Index'
-  import ToolItem from '../../ToolBox/ToolItem'
-  import config from '../config/index'
+  import ToolBox from '../components/ToolBox/Index'
+  import ToolItem from '../components/ToolBox/ToolItem'
+  import config from '../config'
 
   export default {
     name: 'ContextMenu',
@@ -292,6 +292,7 @@
           case 'lineWidth':
           case 'lineType':
           case 'lineStyle':
+          case 'preview':
           case 'download':
             payload = {
               ...payload,

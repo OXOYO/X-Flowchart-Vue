@@ -11,7 +11,7 @@ export default {
   L10002: 'Redo (Ctrl + Shift + Z)',
   L10003: 'Copy (Ctrl + C)',
   L10004: 'Paste (Ctrl + V)',
-  L10005: 'Clear (Ctrl + Shift + C)',
+  L10005: 'Empty the canvas(Ctrl + Shift + E)',
   L10006: 'Zoom in (Ctrl + +)',
   L10007: 'Zoom out (Ctrl + -)',
   L10008: 'Adapt to the screen (Ctrl + 0)',
@@ -48,6 +48,9 @@ export default {
   // other
   L10200: 'Hint',
   L10201: 'Are you sure to empty the canvas? ',
+  L10202: 'Preview',
+  L10203: 'Close',
+  L10204: 'Download',
   // left panel
   L10301: 'General',
   L10302: 'Miscellaneous',

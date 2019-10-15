@@ -19,8 +19,10 @@ export default function (Vue, defLang) {
   Vue.use(VueI18n)
   Vue.locale = () => {}
   // 全局挂载语言包key
-  Vue.prototype.$X.langs = langs
-  Vue.prototype.$X.locale = defLang
+  Vue.prototype.$X.langs = {
+    ...langs,
+    locale: defLang
+  }
   // i18n实例
   let i18nInstance = new VueI18n({
     locale: defLang,

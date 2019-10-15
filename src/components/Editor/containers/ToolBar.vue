@@ -224,8 +224,8 @@
   import { mapGetters } from 'vuex'
 
   import Handler from '../components/Handler'
-  import ToolBox from '../../ToolBox/Index'
-  import ToolItem from '../../ToolBox/ToolItem'
+  import ToolBox from '../components/ToolBox/Index'
+  import ToolItem from '../components/ToolBox/ToolItem'
   import config from '../config/index'
 
   export default {
@@ -297,6 +297,7 @@
           case 'lineWidth':
           case 'lineType':
           case 'lineStyle':
+          case 'preview':
           case 'download':
             payload = {
               ...payload,
