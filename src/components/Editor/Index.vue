@@ -36,9 +36,13 @@
   import PanelRight from './containers/PanelRight'
   import PreviewModel from './containers/PreviewModel'
   import ContextMenu from './containers/ContextMenu'
+  // 扩展了节点、边的G6
   import G6 from '@/global/g6/index'
+  // 导航器
   import Minimap from '@antv/g6/build/minimap'
-  import Grid from '@antv/g6/build/grid'
+  // 自定义栅格插件
+  import XGrid from '@/global/g6/plugins/XGrid'
+  // 全屏
   import screenfull from 'screenfull'
   // 热键
   import Mousetrap from 'mousetrap'
@@ -95,7 +99,7 @@
           type: 'keyShape',
           size: size
         })
-        const grid = new Grid()
+        const grid = new XGrid()
         // 生成编辑器实例
         _t.editor = new G6.Graph({
           plugins: [
@@ -105,6 +109,7 @@
           container: sketchpad,
           width: sketchpad.clientWidth,
           height: sketchpad.clientHeight,
+          fitView: true,
           fitViewPadding: 20,
           // 模式
           modes: {
@@ -314,11 +319,11 @@
         if (position) {
           center = position
         } else {
-          let el = _t.$el
-          let sketchpad = el.querySelector('#sketchpad')
+          let width = _t.editor.get('width')
+          let height = _t.editor.get('height')
           center = {
-            x: sketchpad.clientWidth / 2,
-            y: sketchpad.clientHeight / 2
+            x: width / 2,
+            y: height / 2
           }
         }
         if (info.name === 'zoom') {
