@@ -601,7 +601,9 @@ export default {
             minHeight: minHeight,
             style: {
               fill: _t.graph.$X.fill,
+              fillOpacity: _t.graph.$X.fillOpacity,
               stroke: _t.graph.$X.lineColor,
+              strokeOpacity: _t.graph.$X.strokeOpacity,
               lineWidth: _t.graph.$X.lineWidth,
               ...config.line.type[_t.graph.$X.lineStyle]
             }
