@@ -8,12 +8,12 @@ self.__precacheManifest = [
     "url": "/X-Flowchart-Vue/robots.txt"
   },
   {
-    "revision": "9c4d749c2d60176336805f8680b07b03",
-    "url": "/X-Flowchart-Vue/fonts/iconfont.9c4d749c.woff"
+    "revision": "93283ae96052b9c24ab51a07f1f569c1",
+    "url": "/X-Flowchart-Vue/fonts/iconfont.93283ae9.ttf"
   },
   {
-    "revision": "87ab1168553698fdcf80",
-    "url": "/X-Flowchart-Vue/css/chunk-vendors.3516c86c.css"
+    "revision": "8f9569e8b5292ab0d141",
+    "url": "/X-Flowchart-Vue/css/chunk-vendors.1573a0dc.css"
   },
   {
     "revision": "143146fa24554ae2c5ac0a3982abb952",
@@ -28,16 +28,16 @@ self.__precacheManifest = [
     "url": "/X-Flowchart-Vue/fonts/ionicons.99ac3308.woff"
   },
   {
-    "revision": "808d9daa14a01dff8a9a",
-    "url": "/X-Flowchart-Vue/js/app.79725718.js"
+    "revision": "7c7c44e2b7ba4ca0009c",
+    "url": "/X-Flowchart-Vue/js/app.fc8cd996.js"
   },
   {
-    "revision": "952afb3a967fdc718513a5a9898acff9",
+    "revision": "2f61fb929d4303662f40ba3a81fde233",
     "url": "/X-Flowchart-Vue/index.html"
   },
   {
-    "revision": "93283ae96052b9c24ab51a07f1f569c1",
-    "url": "/X-Flowchart-Vue/fonts/iconfont.93283ae9.ttf"
+    "revision": "9c4d749c2d60176336805f8680b07b03",
+    "url": "/X-Flowchart-Vue/fonts/iconfont.9c4d749c.woff"
   },
   {
     "revision": "8f09854aa2ad4c75a1c5df465c010e67",
@@ -48,10 +48,10 @@ self.__precacheManifest = [
     "url": "/X-Flowchart-Vue/img/ionicons.a2c4a261.svg"
   },
   {
-    "revision": "808d9daa14a01dff8a9a",
-    "url": "/X-Flowchart-Vue/css/app.2d00b21c.css"
+    "revision": "7c7c44e2b7ba4ca0009c",
+    "url": "/X-Flowchart-Vue/css/app.708797ff.css"
   },
   {
-    "url": "/X-Flowchart-Vue/chunk-vendors.87ab1168553698fdcf80.js"
+    "url": "/X-Flowchart-Vue/chunk-vendors.8f9569e8b5292ab0d141.js"
   }
 ];
