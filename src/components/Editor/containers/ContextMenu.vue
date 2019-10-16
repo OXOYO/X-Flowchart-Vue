@@ -67,7 +67,6 @@
         <ToolItem
           v-if="item.type === 'text'"
           :key="'contextmenu_item_' + index"
-          :title="$t(item.lang)"
           :active="item.active"
           :disabled="item.disabled"
           @click.native="handleToolClick(item)"
@@ -82,7 +81,6 @@
         <ToolItem
           v-if="item.type === 'dropdown-color-picker'"
           :key="'contextmenu_item_' + index"
-          :title="$t(item.lang)"
           :active="item.active"
           :disabled="item.disabled"
           @mouseenter.native="handleItemHover"
@@ -107,7 +105,6 @@
         <ToolItem
           v-if="item.type === 'dropdown-list'"
           :key="'contextmenu_item_' + index"
-          :title="$t(item.lang)"
           :active="item.active"
           :disabled="item.disabled"
           @mouseenter.native="handleItemHover"
@@ -127,7 +124,6 @@
                 <ToolItem
                   v-if="child.type === 'normal'"
                   :key="'contextmenu_item_' + index + '_child_' + childIndex"
-                  :title="$t(child.lang)"
                   :active="child.active"
                   :disabled="child.disabled"
                   @click.native="handleChildClick(item, child)"
@@ -152,7 +148,6 @@
         <ToolItem
           v-if="item.type === 'link'"
           :key="'contextmenu_item_' + index"
-          :title="$t(item.lang)"
           :active="item.active"
           :disabled="item.disabled"
           @click.native="handleToolClick(item)"
@@ -169,7 +164,6 @@
         <ToolItem
           v-if="item.type === 'normal'"
           :key="'contextmenu_item_' + index"
-          :title="$t(item.lang)"
           :active="item.active"
           :disabled="item.disabled"
           @click.native="handleToolClick(item)"
