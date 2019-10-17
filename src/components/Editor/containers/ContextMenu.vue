@@ -61,7 +61,7 @@
 </style>
 
 <template>
-  <div class="context-menu" v-show="isShow" :style="contextMenuStyle">
+  <div class="context-menu" v-show="isShow" :style="contextMenuStyle" @click.stop.prevent>
     <ToolBox mode="vertical">
       <template v-for="(item, index) in contextMenuList">
         <ToolItem
@@ -97,7 +97,14 @@
           <template v-slot:content>
             <ToolBox mode="vertical" style="padding: 0;">
               <ToolItem style="padding: 0;">
-                <SketchPicker slot="label" :value="formData[item.name]" @input="(val) => handleToolClick(item, val, null)"></SketchPicker>
+                <XColorPicker
+                  slot="label"
+                  v-model="formData[item.name]"
+                  :preview="false"
+                  @on-change="(val) => handleToolClick(item, val, null)"
+                  @on-close="doHide"
+                >
+                </XColorPicker>
               </ToolItem>
             </ToolBox>
           </template>
@@ -312,6 +319,7 @@
             break
         }
         _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
+        _t.doHide()
       },
       handleToolClick (item, val) {
         let _t = this
@@ -331,11 +339,10 @@
             break
           case 'fill':
           case 'lineColor':
-            let color = val.hex8
-            _t.formData[item.name] = color
+            _t.formData[item.name] = val
             payload = {
               ...payload,
-              data: color
+              data: val
             }
             break
           case 'toFront':

@@ -15,6 +15,7 @@
     "mousetrap": "^1.6.3",
     "register-service-worker": "^1.6.2",
     "screenfull": "^4.2.1",
+    "v-click-outside": "^2.1.4",
     "vue": "^2.6.10",
     "vue-color": "^2.7.0",
     "vue-i18n": "^8.14.0",

@@ -51,6 +51,7 @@ export default {
   L10202: 'Preview',
   L10203: 'Close',
   L10204: 'Download',
+  L10205: 'Confirm',
   // left panel
   L10301: 'General',
   L10302: 'Miscellaneous',

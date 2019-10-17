@@ -93,8 +93,8 @@
                 </div>
               </template>
               <template v-else>
-                <Dropdown trigger="click" @on-click="(val) => handleDropdownClick(item, type, index, val)">
-                  <div style="margin: 0 3px;">
+                <XColorPicker v-model="formData[item.name]" @on-change="(val) => handleToolClick(item, val, null)">
+                  <div style="margin: 0 3px;" slot="preview">
                     <XIcon
                       :type="item.icon"
                       style="vertical-align: middle;"
@@ -102,8 +102,7 @@
                     </XIcon>
                     <Icon type="ios-arrow-down"></Icon>
                   </div>
-                  <SketchPicker slot="list" :value="formData[item.name]" @input="(val) => handleToolClick(item, val, null)"></SketchPicker>
-                </Dropdown>
+                </XColorPicker>
               </template>
             </template>
           </ToolItem>
@@ -335,11 +334,10 @@
       },
       handleToolClick (item, val) {
         let _t = this
-        console.log('handleToolClick', item.name)
+        console.log('handleToolClick', item.name, val)
         if (item.disabled) {
           return
         }
-        console.log('MaterialsEditor tool click', item.name, val)
         let payload = {
           context: 'ToolBar',
           name: item.name
@@ -347,11 +345,10 @@
         switch (item.name) {
           case 'fill':
           case 'lineColor':
-            let color = val.hex8
-            _t.formData[item.name] = color
+            _t.formData[item.name] = val
             payload = {
               ...payload,
-              data: color
+              data: val
             }
             break
           case 'toFront':

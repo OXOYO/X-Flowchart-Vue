@@ -12,6 +12,17 @@
 
     .form-item-block {
       padding: 10px 20px;
+
+      .color-picker-box {
+        .color-preview {
+          display: inline-block;
+          width: 20px;
+          height: 20px;
+        }
+        .color-picker {
+
+        }
+      }
     }
   }
 </style>
@@ -41,7 +52,7 @@
         <div class="form-item-block">
           <template v-if="firstItem && firstItem.type === 'node'">
             <FormItem label="fill">
-              <ColorPicker placement="top-start" v-model="formData.style.fill" hue recommend @on-change="handleChange"></ColorPicker>
+              <XColorPicker v-model="formData.style.fill" @on-change="handleChange"></XColorPicker>
             </FormItem>
             <FormItem label="fillOpacity">
               <Slider
@@ -57,7 +68,7 @@
             </FormItem>
           </template>
           <FormItem label="stroke">
-            <ColorPicker placement="top-start" v-model="formData.style.stroke" hue recommend @on-change="handleChange"></ColorPicker>
+            <XColorPicker v-model="formData.style.stroke" @on-change="handleChange"></XColorPicker>
           </FormItem>
           <FormItem label="strokeOpacity">
             <Slider

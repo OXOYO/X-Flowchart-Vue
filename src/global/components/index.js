@@ -9,7 +9,6 @@ import {
   MenuItem,
   Tooltip,
   Divider,
-  ColorPicker,
   InputNumber,
   Dropdown,
   DropdownMenu,
@@ -31,6 +30,7 @@ import { Sketch } from 'vue-color'
 import XIcon from './Icon/Index'
 import XTooltip from './Tooltip/Index'
 import XDivider from './Divider/Index'
+import XColorPicker from './ColorPicker/Index'
 
 const obj = {
   // ui组件
@@ -38,7 +38,6 @@ const obj = {
   MenuItem,
   Tooltip,
   Divider,
-  ColorPicker,
   InputNumber,
   Dropdown,
   DropdownMenu,
@@ -58,7 +57,8 @@ const obj = {
   // 自定义组件
   XIcon,
   XTooltip,
-  XDivider
+  XDivider,
+  XColorPicker
 }
 
 const components = {}
