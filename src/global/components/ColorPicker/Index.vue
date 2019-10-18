@@ -42,7 +42,7 @@
         border-top: 1px solid #eee;
 
         .btn {
-          &~.btn {
+          &+.btn {
             margin-left: 10px;
           }
         }
