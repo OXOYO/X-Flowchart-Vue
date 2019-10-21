@@ -1,10 +1,11 @@
 /**
  * Created by OXOYO on 2019/5/31.
  *
- *
+ * 文件处理
  */
 
 export default {
+  // Base64转Blob
   base642Blob (code) {
     let parts = code.split(';base64,')
     let contentType = parts[0].split(':')[1]
@@ -21,6 +22,7 @@ export default {
       type: contentType
     })
   },
+  // 下载文件
   downloadFile (fileName, content) {
     let blob = this.base642Blob(content)
     let url = URL.createObjectURL(blob)

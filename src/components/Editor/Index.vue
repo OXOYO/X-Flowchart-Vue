@@ -150,8 +150,8 @@
               'preview-canvas'
             ]
           },
-          // 节点样式
-          nodeStyle: {
+          // 节点交互样式
+          nodeStateStyles: {
             // 默认样式
             default: {
               fill: '#FFFFFF',
@@ -167,8 +167,8 @@
             // hover 状态下的样式
             hover: {}
           },
-          // 边样式
-          edgeStyle: {
+          // 边交互样式
+          edgeStateStyles: {
             default: {
               stroke: '#000000',
               strokeOpacity: 1,
@@ -193,7 +193,7 @@
             }
           }
         })
-        // 挂载全局命名空间
+        // 挂载编辑器$X命名空间，用于Vue组件与Graph之间传值
         _t.editor.$X = {
           ...config.$X
         }
@@ -563,7 +563,7 @@
             })
             break
           case 'lineStyle':
-            let lineConfig = _t.editor.$C.line
+            let edgeConfig = _t.editor.$C.edge
             _t.editor.$X.lineStyle = info.data
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
@@ -572,7 +572,7 @@
                 _t.editor.updateItem(edge, {
                   style: {
                     ...style,
-                    ...lineConfig.type[info.data]
+                    ...edgeConfig.type[info.data]
                   }
                 })
               }
@@ -584,7 +584,7 @@
                 _t.editor.updateItem(node, {
                   style: {
                     ...style,
-                    ...lineConfig.type[info.data]
+                    ...edgeConfig.type[info.data]
                   }
                 })
               }

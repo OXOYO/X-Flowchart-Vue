@@ -5,24 +5,24 @@
  */
 
 import config from '../../config'
-// import drawEdgeAnimate from './drawEdgeAnimate'
-// import destroyEdgeAnimate from './destroyEdgeAnimate'
+// import drawAnimate from './drawAnimate'
+// import destroyAnimate from './destroyAnimate'
 
 export default function (name, value, item) {
   if (name === 'active') {
     let group = item.getContainer()
     let children = group.get('children')
-    let line = children[0]
+    let edge = children[0]
     // 处理线条状态
-    if (line) {
+    if (edge) {
       if (value) {
-        line.attr(config.line.style.active)
+        edge.attr(config.edge.style.active)
         // 绘制边动画
-        // drawEdgeAnimate(item.getModel(), item.getContainer())
+        // drawAnimate(item.getModel(), item.getContainer())
       } else {
-        line.attr(config.line.style.inactive)
+        edge.attr(config.edge.style.inactive)
         // 销毁边动画
-        // destroyEdgeAnimate(item.getModel(), item.getContainer())
+        // destroyAnimate(item.getModel(), item.getContainer())
       }
     }
   }

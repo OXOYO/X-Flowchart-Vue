@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/7/16.
  *
- * 线条配置
+ * 边配置
  */
 
 export default {

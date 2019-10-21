@@ -40,6 +40,18 @@
       }
       .tool-item {
         display: inline-block;
+
+        .link {
+          display: inline-block;
+          line-height: 1;
+          vertical-align: middle;
+
+          .icon {}
+          .img {
+            width: 40px;
+            height: auto;
+          }
+        }
       }
       .divider {
         height: calc(~"100% - 10px");
@@ -188,8 +200,9 @@
             @click.native="handleToolClick(item)"
           >
             <template v-slot:label>
-              <a :href="item.link" target="_blank" style="color: #333333;">
+              <a class="link" :href="item.link" target="_blank" style="color: #333333;">
                 <XIcon v-if="item.icon" :type="item.icon"></XIcon>
+                <img class="img" v-else-if="item.img" :src="item.img" alt="">
                 <span v-else>{{ $t(item.lang) }}</span>
               </a>
             </template>

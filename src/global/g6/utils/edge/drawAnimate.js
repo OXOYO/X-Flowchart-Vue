@@ -23,7 +23,7 @@ export default function (cfg, group) {
       attrs: {
         x: startPoint.x,
         y: startPoint.y,
-        ...config.lineAnimate.style.default
+        ...config.edgeAnimate.style.default
       }
     })
   }
@@ -40,5 +40,5 @@ export default function (cfg, group) {
       }
     },
     repeat: true
-  }, config.lineAnimate.delay)
+  }, config.edgeAnimate.delay)
 }

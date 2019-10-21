@@ -26,6 +26,7 @@ export default new Vuex.Store({
             type: 'link',
             // 工具项图标
             icon: '',
+            img: require('./assets/images/logo.png'),
             // 跳转连接
             link: config.system.githubPages,
             // 是否启用，用于控制是否在界面上创建该工具项

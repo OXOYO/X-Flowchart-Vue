@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/7/4.
  *
- * 注册节点
+ * 注册自定义节点
  */
 
 import rectangle from './rectangle'

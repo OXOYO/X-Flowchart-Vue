@@ -263,7 +263,7 @@ export default {
           style: {
             stroke: _t.graph.$X.lineColor,
             lineWidth: _t.graph.$X.lineWidth,
-            ...config.line.type[_t.graph.$X.lineStyle]
+            ...config.edge.type[_t.graph.$X.lineStyle]
           },
           // FIXME 边的形式需要与工具栏联动
           shape: _t.graph.$X.lineType || 'line',
@@ -605,7 +605,7 @@ export default {
               stroke: _t.graph.$X.lineColor,
               strokeOpacity: _t.graph.$X.strokeOpacity,
               lineWidth: _t.graph.$X.lineWidth,
-              ...config.line.type[_t.graph.$X.lineStyle]
+              ...config.edge.type[_t.graph.$X.lineStyle]
             }
           }
           _t.graph.addItem('node', node)

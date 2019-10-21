@@ -14,11 +14,11 @@ import config from './config/index'
 // 挂载config
 G6.$C = config
 
-// 注册交互
+// 注册自定义交互
 registerBehavior(G6)
-// 注册边
+// 注册自定义边
 registerEdge(G6)
-// 注册节点
+// 注册自定义节点
 registerNode(G6)
 
 export default G6
