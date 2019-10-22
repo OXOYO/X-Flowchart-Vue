@@ -23,6 +23,10 @@ export default function (name, value, item) {
               child.hide()
             }
             break
+          case 'shapeControlPoint':
+          case 'shapeControlRotate':
+            child.hide()
+            break
         }
       }
     }
