@@ -412,11 +412,12 @@ export default {
           } else {
             return
           }
-          _t.info.attrs = {
-            ...attrs,
-            width: attrs.size[0],
-            height: attrs.size[1]
-          }
+          // 设置宽高
+          attrs.width = attrs.size[0]
+          attrs.height = attrs.size[1]
+          // 存储attrs
+          _t.info.attrs = attrs
+          // 更新toolTip
           if (_t.config.tooltip.shapeControl) {
             _t.toolTip.update.call(_t, {
               left: attrs.x,
@@ -465,6 +466,10 @@ export default {
           }, group)
           // 更新节点
           _t.graph.updateItem(_t.info.node, attrs)
+          if (_t.config.updateEdge) {
+            // 更新边
+            utils.edge.update(_t.info.node, _t.graph)
+          }
           // 记录操作日志
           _t.graph.emit('editor:record', 'shapeControlPoint stop')
         }
