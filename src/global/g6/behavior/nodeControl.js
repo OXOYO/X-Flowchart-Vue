@@ -69,6 +69,9 @@ export default {
       _t.dragNode.status = 'dragNodeToEditor'
     },
     onNodeMousedown (event) {
+      if (event.event.button !== 0) { // 非左键忽略
+        return
+      }
       let _t = this
       let model = event.item.getModel()
       _t.graph.emit('editor:getItem', [
@@ -181,6 +184,9 @@ export default {
       })
     },
     onCanvasMousedown (event) {
+      if (event.event.button !== 0) { // 非左键忽略
+        return
+      }
       let _t = this
       // 初始化数据
       _t.info = {
