@@ -783,11 +783,7 @@ export default {
       stop (event) {
         let _t = this
         if (_t.info && _t.drawGroup.isMoving && _t.drawGroup.marqueeNode) {
-          let { startPosition } = _t.info
-          let endPosition = {
-            x: event.x,
-            y: event.y
-          }
+          const { minX: marqueeNodeMinX, maxX: marqueeNodeMaxX, minY: marqueeNodeMinY, maxY: marqueeNodeMaxY } = _t.drawGroup.marqueeNode.getBBox()
           // 当前节点数组
           let currentItemArr = []
           let groupId = G6.Util.uniqueId()
@@ -797,7 +793,7 @@ export default {
             let { id } = model
             let { minX, maxX, minY, maxY } = item.getBBox()
             // 判断节点是否在组区域内
-            if (id !== marqueeNodeId && minX > startPosition.x && maxX < endPosition.x && minY > startPosition.y && maxY < endPosition.y) {
+            if (id !== marqueeNodeId && minX > marqueeNodeMinX && maxX < marqueeNodeMaxX && minY > marqueeNodeMinY && maxY < marqueeNodeMaxY) {
               // 更新节点
               _t.graph.updateItem(item, {
                 groupId
