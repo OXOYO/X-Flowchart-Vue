@@ -96,6 +96,14 @@ yarn run serve
 - [x]  **基础图形**：And
 - [x]  **基础图形**：Data Storage
 
+## Contribution
+
+我们目前接受 GitHub Pull Request ，并且所有开发提交的合并均通过 Pull Request 进行，故你可以直接点击该项目的 Fork 按钮得到你自己的 Fork ，在其上进行提交，并在修改完毕后直接通过 GitHub 网页发起 Pull Request 即可。对于 Pull Request 的介绍和使用方式，可以参阅 [GitHub 帮助文档中的 “关于 Pull Request” 部分](https://help.github.com/en/articles/about-pull-requests)。
+
+**感谢所有为此项目做出贡献的人们！**
+
+[curiosity-hyf](https://github.com/curiosity-hyf)
+
 ## License
 [MIT](http://opensource.org/licenses/MIT)
 

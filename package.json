@@ -1,12 +1,29 @@
 {
   "name": "x-flowchart-vue",
   "version": "3.0.0",
-  "private": true,
+  "description": "A visual graph editor based on G6 and Vue.",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OXOYO/X-Flowchart-Vue.git"
+  },
+  "keywords": [
+    "flowchart",
+    "vue-flowchart",
+    "g6",
+    "g6-editor",
+    "mind"
+  ],
+  "author": "OXOYO",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/OXOYO/X-Flowchart-Vue/issues"
+  },
+  "homepage": "https://github.com/OXOYO/X-Flowchart-Vue#readme",
   "dependencies": {
     "@antv/g6": "^3.1.3",
     "core-js": "^2.6.5",
