@@ -655,6 +655,45 @@
               screenfull.toggle()
             }
             break
+          case 'upload':
+            _t.$Modal.confirm({
+              title: _t.$t('L10200'),
+              // 上传JSON数据将覆盖当前画布，确认上传？
+              content: _t.$t('L10206'),
+              onOk: function () {
+                // 打开文件选择窗口
+                let input = document.createElement('input')
+                input.type = 'file'
+                // 限定文件类型
+                input.accept = '.json'
+                input.click()
+                input.onchange = function () {
+                  let file = input.files[0]
+                  // FileReader实例
+                  let reader = new FileReader()
+                  // 读取文件
+                  reader.readAsText(file, 'UTF-8')
+                  // 处理数据
+                  reader.onload = function (event) {
+                    try {
+                      let fileString = event.target.result
+                      let fileJson = JSON.parse(fileString)
+                      // 清空画布
+                      _t.editor.clear()
+                      // 设置数据
+                      _t.editor.data(fileJson)
+                      // 渲染
+                      _t.editor.render()
+                    } catch (e) {
+                      // 提示
+                      _t.$Message.error(_t.$t('L10207'))
+                      console.error('Editor Error:: upload JSON failed!', e)
+                    }
+                  }
+                }
+              }
+            })
+            break
           case 'download':
             let fileName = _t.$X.config.system.name + '_' + _t.$X.utils.filters.formatDate(new Date(), 'YYYYMMDDhhmmss')
             if (info.data === 'image') {

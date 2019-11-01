@@ -1104,6 +1104,28 @@ export default new Vuex.Store({
             ]
           },
           {
+            name: 'upload',
+            label: 'upload',
+            lang: 'L10033',
+            type: 'normal',
+            icon: 'upload',
+            enable: true,
+            enableMode: ['edit'],
+            disabled: false,
+            disabledMode: ['edit'],
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center',
+              divider: false
+            },
+            contextmenu: {
+              enable: true,
+              target: ['canvas', 'node', 'edge'],
+              divider: false
+            }
+          },
+          {
             name: 'download',
             label: 'download',
             lang: 'L10030',

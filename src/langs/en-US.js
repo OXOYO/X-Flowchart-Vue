@@ -39,6 +39,7 @@ export default {
   L10030: 'Download',
   L10031: 'Select all',
   L10032: 'Clear operation log (Ctrl + Shift + L)',
+  L10033: 'Upload',
   // right panel
   L10101: 'Configuration',
   L10102: 'Navigator',
@@ -52,6 +53,8 @@ export default {
   L10203: 'Close',
   L10204: 'Download',
   L10205: 'Confirm',
+  L10206: 'Uploading JSON data will overwrite the current canvas and confirm upload? ',
+  L10207: '上传JSON数据失败！',
   // left panel
   L10301: 'General',
   L10302: 'Miscellaneous',
