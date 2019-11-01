@@ -68,7 +68,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: '',
+            shortcuts: 'mod+z',
             toolbar: {
               enable: true,
               position: 'center',
@@ -90,7 +90,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'ctrl+shift+l',
+            shortcuts: 'mod+shift+l',
             toolbar: {
               enable: true,
               position: 'center',
@@ -112,7 +112,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: '',
+            shortcuts: 'mod+shift+z',
             toolbar: {
               enable: true,
               position: 'center',
@@ -134,7 +134,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            // FIXME 通用mod助手用于设置跨平台快捷方式，用于将command+c在Windows和Linux上映射到ctrl+c
+            // FIXME 通用mod助手用于设置跨平台快捷方式，用于将command+c在Windows和Linux上映射到mod+c
             shortcuts: 'mod+c',
             toolbar: {
               enable: true,
@@ -201,7 +201,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'ctrl+shift+e',
+            shortcuts: 'mod+shift+e',
             toolbar: {
               enable: true,
               position: 'center',

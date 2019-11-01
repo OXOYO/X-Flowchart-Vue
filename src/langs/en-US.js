@@ -16,7 +16,7 @@ export default {
   L10007: 'Zoom out (Ctrl + -)',
   L10008: 'Adapt to the screen (Ctrl + 0)',
   L10009: 'Actual size (Ctrl + 1)',
-  L10010: 'Delete',
+  L10010: 'Delete (Delete)',
   L10011: 'Fill color',
   L10012: 'Line color',
   L10013: 'Line width',
