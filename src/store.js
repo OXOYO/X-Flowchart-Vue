@@ -7,6 +7,8 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     editor: {
+      // 编辑器实例
+      instance: null,
       currentItem: [],
       // 操作日志
       log: {
@@ -603,7 +605,7 @@ export default new Vuex.Store({
             ]
           },
           {
-            name: 'lineStyle',
+            name: 'lineDash',
             label: 'line style',
             lang: 'L10014',
             type: 'dropdown-list',
@@ -1301,6 +1303,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
+    'editor/instance/update': (state, data) => {
+      state.editor.instance = data
+    },
     'editor/currentItem/update': (state, data) => {
       state.editor.currentItem = data
     },
@@ -1358,6 +1363,7 @@ export default new Vuex.Store({
 
   },
   getters: {
+    editor: state => state.editor.instance,
     currentItem: state => state.editor.currentItem,
     toolList: state => state.editor.toolList,
     log: state => state.editor.log

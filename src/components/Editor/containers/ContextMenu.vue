@@ -292,7 +292,7 @@
         switch (item.name) {
           case 'lineWidth':
           case 'lineType':
-          case 'lineStyle':
+          case 'lineDash':
           case 'preview':
           case 'download':
             payload = {

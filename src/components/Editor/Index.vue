@@ -23,7 +23,6 @@
     <PanelRight></PanelRight>
     <PreviewModel></PreviewModel>
     <ContextMenu></ContextMenu>
-
   </div>
 </template>
 
@@ -248,11 +247,15 @@
         _t.bindShortcuts()
         // 绑定unload
         _t.bindUnload()
+        // 更新编辑器实例
+        _t.$store.commit('editor/instance/update', _t.editor)
       },
       _canvasMousedown () {
         let _t = this
         console.log('_canvasMousedown ')
         _t.doClearAllStates()
+        // 更新currentItem
+        _t.$store.commit('editor/currentItem/update', [])
       },
       _canvasMouseup () {
         // let _t = this
@@ -409,6 +412,8 @@
                   }
                 }
               })
+              // 更新currentItem
+              _t.$store.commit('editor/currentItem/update', [])
             }
             break
           case 'copy':
@@ -466,6 +471,8 @@
                 _t.editor.removeItem(edge)
               }
             })
+            // 更新currentItem
+            _t.$store.commit('editor/currentItem/update', [])
             break
           case 'zoom':
           case 'zoomIn':
@@ -562,9 +569,9 @@
               }
             })
             break
-          case 'lineStyle':
+          case 'lineDash':
             let edgeConfig = _t.editor.$C.edge
-            _t.editor.$X.lineStyle = info.data
+            _t.editor.$X.lineDash = info.data
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
                 isRecord = true
@@ -633,6 +640,8 @@
                 _t.editor.paint()
               }
             })
+            // 更新currentItem
+            _t.$store.commit('editor/currentItem/update', [])
             break
           case 'toFront':
           case 'toBack':
@@ -680,6 +689,8 @@
                       let fileJson = JSON.parse(fileString)
                       // 清空画布
                       _t.editor.clear()
+                      // 更新currentItem
+                      _t.$store.commit('editor/currentItem/update', [])
                       // 设置数据
                       _t.editor.data(fileJson)
                       // 渲染

@@ -93,6 +93,24 @@
             >
             </Slider>
           </FormItem>
+          <FormItem label="lineDash">
+            <Select v-model="lineDashName" size="small" @on-change="handleChange">
+              <Option
+                v-for="(item, index) in lineDashList"
+                :key="index"
+                :value="item.name"
+              >
+                <XIcon
+                  v-if="item.icon"
+                  :type="item.icon"
+                  style="vertical-align: middle;"
+                  :style="item.style"
+                >
+                </XIcon>
+                <span v-else>{{ item.label }}</span>
+              </Option>
+            </Select>
+          </FormItem>
         </div>
       </CardItem>
       <!-- 文本样式 -->
@@ -131,6 +149,7 @@
     data () {
       return {
         firstItem: null,
+        lineDashName: '',
         formData: {
           // x: 0,
           // y: 0,
@@ -266,8 +285,31 @@
     },
     computed: {
       ...mapGetters([
-        'currentItem'
-      ])
+        'editor',
+        'currentItem',
+        'toolList'
+      ]),
+      lineDashList () {
+        let _t = this
+        let edgeConfig = _t.editor.$C.edge
+        let lineDash = _t.toolList.find(item => item.name === 'lineDash')
+        let list = []
+        if (lineDash && lineDash.enable && lineDash.children) {
+          lineDash.children.forEach(item => {
+            if (item.enable) {
+              let typeData = edgeConfig.type[item.name]
+              list.push({
+                name: item.name,
+                label: item.label,
+                lang: item.lang,
+                icon: item.icon,
+                lineDash: typeData && typeData.lineDash ? typeData.lineDash : []
+              })
+            }
+          })
+        }
+        return list
+      }
     },
     watch: {
       currentItem: {
@@ -277,6 +319,8 @@
           _t.firstItem = val[0]
           if (_t.firstItem) {
             _t.formData = JSON.parse(JSON.stringify(_t.firstItem.model))
+            let target = _t.lineDashList.find(item => JSON.stringify(item.lineDash) === JSON.stringify(_t.formData.style.lineDash))
+            _t.lineDashName = target ? target.name : ''
           } else {
             _t.formData = {}
           }
@@ -287,9 +331,18 @@
     methods: {
       handleChange () {
         let _t = this
+        // 处理数据
         let model = {
-          ..._t.formData,
-          size: [ _t.formData.width, _t.formData.height ]
+          ..._t.formData
+        }
+        // 处理lineDash
+        if (_t.lineDashName) {
+          let target = _t.lineDashList.find(item => item.name === _t.lineDashName)
+          model.style.lineDash = target ? target.lineDash : []
+        }
+        // node元素需处理size
+        if (_t.firstItem && _t.firstItem.type === 'node') {
+          model.size = [ _t.formData.width, _t.formData.height ]
         }
         // 当前节点数组
         let currentItemArr = _t.currentItem

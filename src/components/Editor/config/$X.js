@@ -12,7 +12,7 @@ export default {
   strokeOpacity: 1,
   lineWidth: 1,
   lineType: 'x-line',
-  lineStyle: 'solid',
+  lineDash: 'solid',
   startArrow: false,
   endArrow: false
 }
