@@ -269,7 +269,8 @@ export default {
           style: {
             stroke: _t.graph.$X.lineColor,
             lineWidth: _t.graph.$X.lineWidth,
-            ...config.edge.type[_t.graph.$X.lineStyle]
+            ...config.edge.style.default,
+            ...config.edge.type[_t.graph.$X.lineDash]
           },
           // FIXME 边的形式需要与工具栏联动
           shape: _t.graph.$X.lineType || 'line',
@@ -616,7 +617,7 @@ export default {
               stroke: _t.graph.$X.lineColor,
               strokeOpacity: _t.graph.$X.strokeOpacity,
               lineWidth: _t.graph.$X.lineWidth,
-              ...config.edge.type[_t.graph.$X.lineStyle]
+              ...config.edge.type[_t.graph.$X.lineDash]
             }
           }
           _t.graph.addItem('node', node)
@@ -1014,7 +1015,7 @@ export default {
       // 对齐线列表
       lineList: [],
       // 最大距离
-      maxDistance: 5,
+      maxDistance: 2,
       start () {
         let _t = this
         _t.alignLine._clear.call(_t)
