@@ -4,12 +4,14 @@
  * 工具
  */
 
-import anchor from './anchor'
+import node from './node'
 import edge from './edge'
+import anchor from './anchor'
 import shapeControl from './shapeControl'
 
 export default {
-  anchor,
+  node,
   edge,
+  anchor,
   shapeControl
 }

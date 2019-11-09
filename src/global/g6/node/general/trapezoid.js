@@ -6,7 +6,7 @@
 
 import Global from '@antv/g6/src/global'
 import Util from '@antv/g6/src/util'
-import base from './base'
+import base from '../base'
 
 export default {
   name: 'trapezoid',

@@ -5,9 +5,11 @@
  */
 
 import general from './general'
+import arrow from './arrow'
 
 const obj = {
-  ...general
+  ...general,
+  ...arrow
 }
 
 export default function (G6) {

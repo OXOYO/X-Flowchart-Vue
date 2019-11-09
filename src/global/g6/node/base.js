@@ -3,7 +3,7 @@
  *
  * 节点基础方法
  */
-import utils from '../../utils'
+import utils from '../utils'
 
 export default {
   shape: null,

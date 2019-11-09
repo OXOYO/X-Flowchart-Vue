@@ -6,7 +6,8 @@
 
 import Global from '@antv/g6/src/global'
 import Util from '@antv/g6/src/util'
-import base from './base'
+import base from '../base'
+import utils from '../../utils'
 
 export default {
   name: 'arrow',
@@ -20,27 +21,16 @@ export default {
       const height = size[1]
       const x = 0 - width / 2
       const y = 0 - height / 2
-      // FIXME 计算图示见： @/document/IMG_20191109_153609.jpg
+      // 计算箭头
+      let { L4, L5, L6, L8, L9 } = utils.node.computed({
+        deg: 80,
+        L1: 30
+      })
       // 左顶点
       let P1 = {
         x: -width / 2,
         y: height / 2
       }
-      // 箭头角度80度
-      let deg = 80
-      // 箭头长度
-      let L1 = 30
-      // 计算相关边
-      let L2 = L1 * Math.tan(deg / 2 * Math.PI / 180)
-      let L3 = Math.sqrt(L1 * L1 + L2 * L2)
-      let L4 = L3 * Math.sin(5 * Math.PI / 180)
-      let L5 = L3 * Math.cos(5 * Math.PI / 180)
-      let L6 = Math.sqrt(L1 * L1 / 2)
-      let L7 = 10
-      let L8 = Math.sqrt(L7 * L7 / 2)
-      // 图形左上顶点与右下顶点所围成的等腰直角三角形的直角边边长
-      let L9 = Math.sqrt((2 * L7) * (2 * L7) / 2)
-
       // 左上
       let P2 = {
         x: P1.x,

@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/11/9.
  *
- * 双向箭头
+ * 下箭头
  */
 
 import Global from '@antv/g6/src/global'
@@ -10,7 +10,7 @@ import base from '../base'
 import utils from '../../utils'
 
 export default {
-  name: 'bidirectional-arrow',
+  name: 'arrow-down',
   extendName: 'single-shape',
   options: {
     ...base,
@@ -22,82 +22,56 @@ export default {
       const x = 0 - width / 2
       const y = 0 - height / 2
       // 计算箭头
-      let { L4, L5, L6, L8 } = utils.node.computed({
-        deg: 80,
-        L1: 30
+      let { L1, L7 } = utils.node.computed({
+        deg: 85,
+        L1: 30,
+        L7: 10
       })
+      // 箭头顶点
+      let P0 = {
+        x: 0,
+        y: height / 2
+      }
+
       // 左顶点
       let P1 = {
         x: -width / 2,
-        y: height / 2
+        y: P0.y - L1
+      }
+      // 左中
+      let P2 = {
+        x: P0.x - L7,
+        y: P1.y
       }
       // 左上
-      let P2 = {
-        x: P1.x + L4,
-        y: P1.y - L5
-      }
-      // 左上中
       let P3 = {
-        x: P1.x + L6 - L8,
-        y: P1.y - L6 - L8
+        x: P2.x,
+        y: -height / 2
+      }
+      // 右上
+      let P4 = {
+        x: P0.x + L7,
+        y: -height / 2
+      }
+      // 右中
+      let P5 = {
+        x: P4.x,
+        y: P2.y
       }
       // 右顶点
       let P6 = {
         x: width / 2,
-        y: -height / 2
-      }
-      // 右上中
-      let P4 = {
-        x: P6.x - L6 - L8,
-        y: P6.y + L6 - L8
-      }
-      // 右上
-      let P5 = {
-        x: P6.x - L5,
-        y: P6.y + L4
-      }
-      // 右下
-      let P7 = {
-        x: P6.x - L4,
-        y: P6.y + L5
-      }
-      // 右下中
-      let P8 = {
-        x: P6.x - L6 + L8,
-        y: P6.y + L6 + L8
-      }
-      // 左下中
-      let P9 = {
-        x: P1.x + L6 + L8,
-        y: P1.y - L6 + L8
-      }
-      // 左下
-      let P10 = {
-        x: P1.x + L5,
-        y: P1.y - L4
+        y: P1.y
       }
 
       const path = [
-        // 左顶点
-        [ 'M', P1.x, P1.y ],
-        // 左上
+        [ 'M', P0.x, P0.y ],
+        [ 'L', P1.x, P1.y ],
         [ 'L', P2.x, P2.y ],
-        // 左上中
         [ 'L', P3.x, P3.y ],
-        // 右上中
         [ 'L', P4.x, P4.y ],
-        // 右上
         [ 'L', P5.x, P5.y ],
-        // 右顶点
         [ 'L', P6.x, P6.y ],
-        // 右下
-        [ 'L', P7.x, P7.y ],
-        // 右下中
-        [ 'L', P8.x, P8.y ],
-        // 左下中
-        [ 'L', P9.x, P9.y ],
-        // 左下
-        [ 'L', P10.x, P10.y ],
         [ 'Z' ]
       ]
       const color = cfg.color || Global.defaultNode.color
