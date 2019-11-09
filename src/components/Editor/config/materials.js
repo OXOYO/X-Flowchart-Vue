@@ -388,10 +388,22 @@ export default [
         width: 80,
         height: 80,
         minWidth: 40,
-        minHeight: 50,
+        minHeight: 40,
         anchorPoints: anchorPoints,
         shapeControl: shapeControl,
         icon: `<g><g></g><g><g transform="translate(0.5,0.5)" style="visibility: visible;"><path d="M 11.73 22.96 L 15.81 27.04 L 2.39 28.41 L 3.76 14.99 L 7.84 19.07 L 20.17 6.74 L 16.09 2.66 L 29.51 1.29 L 28.14 14.71 L 24.06 10.63 Z" fill="none" stroke="white" stroke-width="9.3" stroke-linejoin="round" stroke-miterlimit="10" pointer-events="stroke" visibility="hidden"></path><path d="M 11.73 22.96 L 15.81 27.04 L 2.39 28.41 L 3.76 14.99 L 7.84 19.07 L 20.17 6.74 L 16.09 2.66 L 29.51 1.29 L 28.14 14.71 L 24.06 10.63 Z" fill="none" stroke="#000000" stroke-width="1.3" stroke-linejoin="round" stroke-miterlimit="10" pointer-events="all"></path></g></g><g></g><g></g></g>`
+      },
+      {
+        shape: 'arrow',
+        label: 'Arrow',
+        enable: true,
+        width: 80,
+        height: 80,
+        minWidth: 40,
+        minHeight: 40,
+        anchorPoints: anchorPoints,
+        shapeControl: shapeControl,
+        icon: `<g><g></g><g><g transform="translate(0.5,0.5)" style="visibility: visible;"><path d="M 5.66 28.69 L 1.99 25.02 L 20.63 6.37 L 16.77 2.51 L 29.46 1.22 L 28.17 13.91 L 24.31 10.05 Z" fill="none" stroke="white" stroke-width="9.3" stroke-linejoin="round" stroke-miterlimit="10" pointer-events="stroke" visibility="hidden"></path><path d="M 5.66 28.69 L 1.99 25.02 L 20.63 6.37 L 16.77 2.51 L 29.46 1.22 L 28.17 13.91 L 24.31 10.05 Z" fill="none" stroke="#000000" stroke-width="1.3" stroke-linejoin="round" stroke-miterlimit="10" pointer-events="all"></path></g></g><g></g><g></g></g>`
       }
     ]
   },

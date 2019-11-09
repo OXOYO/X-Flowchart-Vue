@@ -30,6 +30,7 @@ import or from './or'
 import and from './and'
 import dataStorage from './data-storage'
 import bidirectionalArrow from './bidirectional-arrow'
+import arrow from './arrow'
 
 export default {
   rectangle,
@@ -57,5 +58,6 @@ export default {
   or,
   and,
   dataStorage,
-  bidirectionalArrow
+  bidirectionalArrow,
+  arrow
 }

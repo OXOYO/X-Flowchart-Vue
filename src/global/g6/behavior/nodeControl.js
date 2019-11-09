@@ -361,7 +361,7 @@ export default {
         _t.shapeControlPoint.isMoving = true
         // 是否等比缩放
         // FIXME !!! 此处应该通过物料配置控制
-        _t.shapeControlPoint.isProportional = ['square', 'circle', 'bidirectional-arrow'].includes(model.shape)
+        _t.shapeControlPoint.isProportional = ['square', 'circle', 'bidirectional-arrow', 'arrow'].includes(model.shape)
         if (_t.config.tooltip.shapeControl) {
           _t.toolTip.create.call(_t, {
             left: model.x,
