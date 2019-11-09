@@ -69,6 +69,7 @@
           :key="'contextmenu_item_' + index"
           :active="item.active"
           :disabled="item.disabled"
+          :style="item.contextmenu.style"
           @click.native="handleToolClick(item)"
         >
           <template v-slot:label>
@@ -83,6 +84,7 @@
           :key="'contextmenu_item_' + index"
           :active="item.active"
           :disabled="item.disabled"
+          :style="item.contextmenu.style"
           @mouseenter.native="handleItemHover"
         >
           <template v-slot:label>
@@ -114,6 +116,7 @@
           :key="'contextmenu_item_' + index"
           :active="item.active"
           :disabled="item.disabled"
+          :style="item.contextmenu.style"
           @mouseenter.native="handleItemHover"
         >
           <template v-slot:label>
@@ -157,6 +160,7 @@
           :key="'contextmenu_item_' + index"
           :active="item.active"
           :disabled="item.disabled"
+          :style="item.contextmenu.style"
           @click.native="handleToolClick(item)"
         >
           <template v-slot:label>
@@ -173,6 +177,7 @@
           :key="'contextmenu_item_' + index"
           :active="item.active"
           :disabled="item.disabled"
+          :style="item.contextmenu.style"
           @click.native="handleToolClick(item)"
         >
           <template v-slot:label>

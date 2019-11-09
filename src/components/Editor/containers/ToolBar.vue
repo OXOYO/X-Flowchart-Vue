@@ -79,6 +79,7 @@
             :title="$t(item.lang)"
             :active="item.active"
             :disabled="item.disabled"
+            :style="item.toolbar.style"
             @click.native="handleToolClick(item)"
           >
             <template v-slot:label>
@@ -92,6 +93,7 @@
             :title="$t(item.lang)"
             :active="item.active"
             :disabled="item.disabled"
+            :style="item.toolbar.style"
           >
             <template v-slot:label>
               <template v-if="item.disabled">
@@ -124,6 +126,7 @@
             :title="$t(item.lang)"
             :active="item.active"
             :disabled="item.disabled"
+            :style="item.toolbar.style"
           >
             <template v-slot:label>
               <template v-if="item.disabled">
@@ -197,6 +200,7 @@
             :title="$t(item.lang)"
             :active="item.active"
             :disabled="item.disabled"
+            :style="item.toolbar.style"
             @click.native="handleToolClick(item)"
           >
             <template v-slot:label>
@@ -213,6 +217,7 @@
             :title="$t(item.lang)"
             :active="item.active"
             :disabled="item.disabled"
+            :style="item.toolbar.style"
             @click.native="handleToolClick(item)"
           >
             <template v-slot:label>

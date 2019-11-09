@@ -47,6 +47,10 @@ export default new Vuex.Store({
               enable: true,
               // 位置
               position: 'left',
+              // 样式
+              style: {
+                opacity: 1
+              },
               // 分割线，是否在该工具项后显示分割线，ToolBar中为竖线，ContextMenu中为横线
               divider: false
             },
@@ -56,6 +60,7 @@ export default new Vuex.Store({
               enable: false,
               // 目标元素类型，用于控制在什么元素上可以显示该工具项
               target: [],
+              style: {},
               // 分割线，是否在该工具项后显示分割线，ToolBar中为竖线，ContextMenu中为横线
               divider: false
             }
@@ -74,11 +79,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas'],
+              style: {},
               divider: false
             }
           },
@@ -96,11 +103,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas'],
+              style: {},
               divider: false
             }
           },
@@ -118,11 +127,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: true
             },
             contextmenu: {
               enable: true,
               target: ['canvas'],
+              style: {},
               divider: true
             }
           },
@@ -141,11 +152,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['node', 'edge'],
+              style: {},
               divider: false
             }
           },
@@ -163,11 +176,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             }
           },
@@ -185,11 +200,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: false,
               position: 'center',
+              style: {},
               divider: true
             },
             contextmenu: {
               enable: true,
               target: ['node', 'edge'],
+              style: {},
               divider: true
             }
           },
@@ -207,11 +224,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: true
             },
             contextmenu: {
               enable: true,
               target: ['canvas'],
+              style: {},
               divider: true
             }
           },
@@ -229,11 +248,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             },
             // 默认选中项index
@@ -358,11 +379,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             }
           },
@@ -380,11 +403,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             }
           },
@@ -402,11 +427,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             }
           },
@@ -424,11 +451,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: true
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: true
             }
           },
@@ -446,11 +475,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['node', 'edge'],
+              style: {},
               divider: false
             }
           },
@@ -468,11 +499,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['node', 'edge'],
+              style: {},
               divider: false
             }
           },
@@ -490,11 +523,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['node', 'edge'],
+              style: {},
               divider: false
             },
             // 默认选中项index
@@ -618,11 +653,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: true
             },
             contextmenu: {
               enable: true,
               target: ['node', 'edge'],
+              style: {},
               divider: true
             },
             // 默认选中项index
@@ -676,11 +713,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['edge'],
+              style: {},
               divider: false
             },
             // 默认选中项index
@@ -734,11 +773,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['edge'],
+              style: {},
               divider: false
             },
             // 默认选中项index
@@ -819,11 +860,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: true
             },
             contextmenu: {
               enable: true,
               target: ['edge'],
+              style: {},
               divider: true
             },
             // 默认选中项index
@@ -913,11 +956,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['node', 'edge'],
+              style: {},
               divider: false
             }
           },
@@ -935,11 +980,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: true
             },
             contextmenu: {
               enable: true,
               target: ['node', 'edge'],
+              style: {},
               divider: true
             }
           },
@@ -957,11 +1004,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             }
           },
@@ -979,11 +1028,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: [],
+              style: {},
               divider: false
             }
           },
@@ -1001,11 +1052,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: [],
+              style: {},
               divider: false
             }
           },
@@ -1023,11 +1076,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: true
             },
             contextmenu: {
               enable: true,
               target: [],
+              style: {},
               divider: true
             }
           },
@@ -1045,11 +1100,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             }
           },
@@ -1067,11 +1124,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             },
             // 默认选中项index
@@ -1119,11 +1178,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             }
           },
@@ -1141,11 +1202,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             },
             // 默认选中项index
@@ -1193,11 +1256,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             }
           },
@@ -1215,11 +1280,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'center',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             },
             // 默认选中项index
@@ -1268,11 +1335,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'right',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             }
           },
@@ -1291,11 +1360,13 @@ export default new Vuex.Store({
             toolbar: {
               enable: true,
               position: 'right',
+              style: {},
               divider: false
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
+              style: {},
               divider: false
             }
           }
