@@ -69,6 +69,8 @@ yarn run serve
 
 [@alibaba/GGEditor](https://github.com/alibaba/GGEditor)
 
+[grapheditor](http://jgraph.github.io/mxgraph/javascript/examples/grapheditor/www/index.html)
+
 ## Thank
 特别感谢[@guozhaolong](https://github.com/guozhaolong)大佬的开源项目[@guozhaolong/wfd](https://github.com/guozhaolong/wfd)
 
