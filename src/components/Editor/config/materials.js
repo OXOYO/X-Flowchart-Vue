@@ -380,6 +380,18 @@ export default [
         anchorPoints: anchorPoints,
         shapeControl: shapeControl,
         icon: `<g><g></g><g><g transform="translate(0.5,0.5)" style="visibility: visible;"><path d="M 4.35 3.19 L 30.45 3.19 Q 24.65 14.79 30.45 26.39 L 4.35 26.39 Q -1.45 14.79 4.35 3.19 Z" fill="#ffffff" stroke="#000000" stroke-width="1.3" stroke-miterlimit="10" pointer-events="all"></path></g></g><g></g><g></g></g>`
+      },
+      {
+        shape: 'bidirectional-arrow',
+        label: 'Bidirectional Arrow',
+        enable: true,
+        width: 80,
+        height: 80,
+        minWidth: 40,
+        minHeight: 50,
+        anchorPoints: anchorPoints,
+        shapeControl: shapeControl,
+        icon: `<g><g></g><g><g transform="translate(0.5,0.5)" style="visibility: visible;"><path d="M 11.73 22.96 L 15.81 27.04 L 2.39 28.41 L 3.76 14.99 L 7.84 19.07 L 20.17 6.74 L 16.09 2.66 L 29.51 1.29 L 28.14 14.71 L 24.06 10.63 Z" fill="none" stroke="white" stroke-width="9.3" stroke-linejoin="round" stroke-miterlimit="10" pointer-events="stroke" visibility="hidden"></path><path d="M 11.73 22.96 L 15.81 27.04 L 2.39 28.41 L 3.76 14.99 L 7.84 19.07 L 20.17 6.74 L 16.09 2.66 L 29.51 1.29 L 28.14 14.71 L 24.06 10.63 Z" fill="none" stroke="#000000" stroke-width="1.3" stroke-linejoin="round" stroke-miterlimit="10" pointer-events="all"></path></g></g><g></g><g></g></g>`
       }
     ]
   },
@@ -388,7 +400,7 @@ export default [
     label: 'Miscellaneous',
     lang: 'L10302',
     icon: '',
-    enable: false,
+    enable: true,
     children: []
   },
   {
@@ -396,7 +408,7 @@ export default [
     label: 'Advanced',
     lang: 'L10303',
     icon: '',
-    enable: false,
+    enable: true,
     children: []
   },
   {
@@ -404,7 +416,7 @@ export default [
     label: 'Basic',
     lang: 'L10304',
     icon: '',
-    enable: false,
+    enable: true,
     children: []
   },
   {
@@ -412,7 +424,7 @@ export default [
     label: 'Arrow',
     lang: 'L10305',
     icon: '',
-    enable: false,
+    enable: true,
     children: []
   },
   {
@@ -420,7 +432,7 @@ export default [
     label: 'UML',
     lang: 'L10306',
     icon: '',
-    enable: false,
+    enable: true,
     children: []
   },
   {
@@ -428,7 +440,7 @@ export default [
     label: 'BPMN General',
     lang: 'L10307',
     icon: '',
-    enable: false,
+    enable: true,
     children: []
   },
   {
@@ -436,7 +448,7 @@ export default [
     label: 'Flowchart',
     lang: 'L10308',
     icon: '',
-    enable: false,
+    enable: true,
     children: []
   },
   {
@@ -444,7 +456,7 @@ export default [
     label: 'Clipart',
     lang: 'L10309',
     icon: '',
-    enable: false,
+    enable: true,
     children: []
   }
 ]
