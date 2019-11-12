@@ -316,6 +316,7 @@
           case 'lineDash':
           case 'preview':
           case 'download':
+          case 'canvasBackground':
             payload = {
               ...payload,
               data: child.name

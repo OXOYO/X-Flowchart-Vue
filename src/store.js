@@ -1203,13 +1203,13 @@ export default new Vuex.Store({
               enable: true,
               position: 'center',
               style: {},
-              divider: false
+              divider: true
             },
             contextmenu: {
               enable: true,
               target: ['canvas', 'node', 'edge'],
               style: {},
-              divider: false
+              divider: true
             },
             // 默认选中项index
             selected: 0,
@@ -1234,6 +1234,60 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: 'json',
+                style: {},
+                data: false,
+                enable: true,
+                disabled: false,
+                divider: false
+              }
+            ]
+          },
+          {
+            name: 'canvasBackground',
+            label: 'Canvas background',
+            lang: 'L10034',
+            type: 'dropdown-list',
+            icon: 'canvas-background',
+            enable: true,
+            enableMode: ['edit'],
+            disabled: false,
+            disabledMode: ['edit', 'preview'],
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center',
+              style: {},
+              divider: true
+            },
+            contextmenu: {
+              enable: true,
+              target: ['canvas', 'node', 'edge'],
+              style: {},
+              divider: true
+            },
+            // 默认选中项index
+            selected: 0,
+            lockLabel: true,
+            // 子节点
+            children: [
+              {
+                name: 'default',
+                label: 'Default',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: false,
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'image',
+                label: 'Image',
+                lang: '',
+                type: 'normal',
+                icon: '',
                 style: {},
                 data: false,
                 enable: true,

@@ -41,6 +41,8 @@
   import Minimap from '@antv/g6/build/minimap'
   // 自定义栅格插件
   import XGrid from '@/global/g6/plugins/XGrid'
+  // 背景图
+  import XBackground from '@/global/g6/plugins/XBackground'
   // 全屏
   import screenfull from 'screenfull'
   // 热键
@@ -99,11 +101,13 @@
           size: size
         })
         const grid = new XGrid()
+        const background = new XBackground()
         // 生成编辑器实例
         _t.editor = new G6.Graph({
           plugins: [
             minimap,
-            grid
+            grid,
+            background
           ],
           container: sketchpad,
           width: sketchpad.clientWidth,
@@ -734,6 +738,39 @@
               })
               _t.editor.setItemState(node, 'active', true)
             })
+            break
+          case 'canvasBackground':
+            switch (info.data) {
+              case 'default':
+                _t.editor.emit('background:reset')
+                break
+              case 'image':
+                // 打开文件选择窗口
+                let input = document.createElement('input')
+                input.type = 'file'
+                // 限定文件类型
+                input.accept = 'image/png, image/jpeg, image/jpg'
+                input.click()
+                input.onchange = function () {
+                  let file = input.files[0]
+                  // FileReader实例
+                  let reader = new FileReader()
+                  // 读取图片
+                  if (file) {
+                    reader.readAsDataURL(file)
+                    // 处理数据
+                    reader.onload = function (event) {
+                      try {
+                        let imgFile = reader.result
+                        _t.editor.emit('background:update', imgFile)
+                      } catch (e) {
+                        console.error('Editor Error:: update background failed!', e)
+                      }
+                    }
+                  }
+                }
+                break
+            }
             break
         }
         if (isRecord) {

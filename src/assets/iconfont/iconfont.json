@@ -27,6 +27,13 @@
       "unicode_decimal": 59490
     },
     {
+      "icon_id": "1308540",
+      "name": "757编辑器_背景",
+      "font_class": "canvas-background",
+      "unicode": "e653",
+      "unicode_decimal": 58963
+    },
+    {
       "icon_id": "1407784",
       "name": "箭头",
       "font_class": "asynch-arraw",

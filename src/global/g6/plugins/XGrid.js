@@ -7,7 +7,7 @@
  */
 
 import Grid from '@antv/g6/build/grid'
-const modifyCSS = require('@antv/util/lib/dom/modify-css')
+import modifyCSS from '@antv/util/lib/dom/modify-css'
 
 export default class XGrid extends Grid {
   updateGrid (e) {
