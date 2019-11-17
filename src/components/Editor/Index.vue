@@ -404,14 +404,22 @@
             if (['undo', 'redo'].includes(info.name)) {
               _t.$nextTick(function () {
                 if (_t.log.list.length) {
-                  if (_t.log.current !== null) {
+                  if (_t.log.current === 0) {
+                    let data = _t.log.list[0]
+                    if(data === null)  {
+                      // 清除
+                      _t.editor.clear()
+                      _t.editor.paint()
+
+                    } else {
+                      // 渲染
+                      _t.editor.read(data.content)
+                      _t.editor.paint()
+                      }
+                  } else {
                     let data = _t.log.list[_t.log.current]
                     // 渲染
                     _t.editor.read(data.content)
-                    _t.editor.paint()
-                  } else {
-                    // 清除
-                    _t.editor.clear()
                     _t.editor.paint()
                   }
                 }
@@ -699,6 +707,15 @@
                       _t.editor.data(fileJson)
                       // 渲染
                       _t.editor.render()
+                      // 加载数据后保存记录
+                      // 更新操作日志
+                      _t.$store.commit('editor/log/update', {
+                        action: 'loadData',
+                        data: {
+                          time: new Date(),
+                          content: _t.editor.save()
+                        }
+                      })
                     } catch (e) {
                       // 提示
                       _t.$Message.error(_t.$t('L10207'))
