@@ -35,6 +35,7 @@
   import PanelRight from './containers/PanelRight'
   import PreviewModel from './containers/PreviewModel'
   import ContextMenu from './containers/ContextMenu'
+  import utils from '@/global/g6/utils'
   // 扩展了节点、边的G6
   import G6 from '@/global/g6/index'
   // 导航器
@@ -415,7 +416,7 @@
                       // 渲染
                       _t.editor.read(data.content)
                       _t.editor.paint()
-                      }
+                    }
                   } else {
                     let data = _t.log.list[_t.log.current]
                     // 渲染
@@ -707,6 +708,19 @@
                       _t.editor.data(fileJson)
                       // 渲染
                       _t.editor.render()
+                      _t.editor.getNodes().forEach(node => {
+                          let model = node.getModel()
+                          let radian = model.radian
+                          let angle = radian * (180 / Math.PI)
+                          let keyShape = node.getKeyShape()
+                          keyShape.resetMatrix()
+                          keyShape.rotate(radian)
+                          let group = _t.editor.get('group')
+                          // 更新shapeControl
+                          utils.shapeControl.rotate(model, group, radian)
+                          // 更新锚点
+                          utils.anchor.rotate(model, group, radian)
+                        })
                       // 加载数据后保存记录
                       // 更新操作日志
                       _t.$store.commit('editor/log/update', {

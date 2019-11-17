@@ -540,6 +540,7 @@ export default {
         }
         // 弧度
         let radian = Math.atan2(p2.y - p1.y, p2.x - p1.x) + Math.PI / 2
+        model.radian = radian
         // 角度
         let angle = radian * (180 / Math.PI)
         if (_t.config.tooltip.shapeControl) {
