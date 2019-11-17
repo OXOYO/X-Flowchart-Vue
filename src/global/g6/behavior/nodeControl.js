@@ -74,6 +74,8 @@ export default {
       }
       let _t = this
       let model = event.item.getModel()
+      model.offsetX = event.canvasX - model.x
+      model.offsetY = event.canvasY - model.y
       _t.graph.emit('editor:getItem', [
         {
           type: 'node',
@@ -670,8 +672,11 @@ export default {
               // 更新当节点
               if (model.id === id) {
                 let attrs = {
-                  x: event.x,
-                  y: event.y
+                  // 处理点击移动 图形时的抖动
+                  // x: event.x,
+                  // y: event.y
+                  x: event.x - model.offsetX,
+                  y: event.y - model.offsetY
                 }
                 // 更新节点
                 _t.graph.updateItem(_t.info.node, attrs)
