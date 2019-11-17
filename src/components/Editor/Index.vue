@@ -711,7 +711,6 @@
                       _t.editor.getNodes().forEach(node => {
                           let model = node.getModel()
                           let radian = model.radian
-                          let angle = radian * (180 / Math.PI)
                           let keyShape = node.getKeyShape()
                           keyShape.resetMatrix()
                           keyShape.rotate(radian)
