@@ -666,7 +666,7 @@ export default {
           }
         } else if (_t.dragNode.status === 'dragNode') {
           if (_t.info.node) {
-            let { id, groupId, x, y } = _t.info.node.getModel()
+            let { id, groupId, x, y, offsetX, offsetY } = _t.info.node.getModel()
             _t.graph.find('node', node => {
               let model = node.getModel()
               // 更新当节点
@@ -675,8 +675,8 @@ export default {
                   // 处理点击移动 图形时的抖动
                   // x: event.x,
                   // y: event.y
-                  x: event.x - model.offsetX,
-                  y: event.y - model.offsetY
+                  x: event.x - offsetX,
+                  y: event.y - offsetY
                 }
                 // 更新节点
                 _t.graph.updateItem(_t.info.node, attrs)
@@ -696,8 +696,8 @@ export default {
                   let model = node.getModel()
                   // 更新同组节点
                   _t.graph.updateItem(node, {
-                    x: model.x + event.x - x,
-                    y: model.y + event.y - y
+                    x: model.x + event.x - offsetX - x,
+                    y: model.y + event.y - offsetX - y
                   })
                 }
               }
