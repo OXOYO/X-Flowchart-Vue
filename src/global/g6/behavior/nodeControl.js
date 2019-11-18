@@ -693,11 +693,10 @@ export default {
                 }
               } else {
                 if (groupId && model.groupId && model.groupId === groupId) {
-                  let model = node.getModel()
                   // 更新同组节点
                   _t.graph.updateItem(node, {
                     x: model.x + event.x - offsetX - x,
-                    y: model.y + event.y - offsetX - y
+                    y: model.y + event.y - offsetY - y
                   })
                 }
               }
