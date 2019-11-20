@@ -10,6 +10,8 @@ export default new Vuex.Store({
       // 编辑器实例
       instance: null,
       currentItem: [],
+      // 最大操作日志数，null 不限制
+      maxLog: null,
       // 操作日志
       log: {
         current: null,
@@ -1442,6 +1444,7 @@ export default new Vuex.Store({
         return
       }
       let oldLog = state.editor.log
+      let maxLog = state.editor.maxLog
       let log = {
         current: null,
         list: []
@@ -1449,6 +1452,15 @@ export default new Vuex.Store({
       switch (data.action) {
         // 记录
         case 'record':
+          if (oldLog.current === null) {
+            oldLog.list = [null]
+          } else if (oldLog.list.length - 1 > oldLog.current) {
+            let removeCount = oldLog.list.length - 1 - oldLog.current
+            oldLog.list.splice(oldLog.current + 1, removeCount)
+          }
+          if (maxLog !== null && oldLog.list.length > maxLog) {
+            oldLog.list.splice(0, 1)
+          }
           log.list = [
             ...oldLog.list,
             JSON.parse(JSON.stringify(data.data))
@@ -1460,7 +1472,7 @@ export default new Vuex.Store({
           log.list = [
             ...oldLog.list
           ]
-          log.current = oldLog.current - 1 < 0 ? null : oldLog.current - 1
+          log.current = oldLog.current - 1 < 0 ? 0 : oldLog.current - 1
           break
         // 重做
         case 'redo':
@@ -1475,10 +1487,30 @@ export default new Vuex.Store({
           break
         // 清空
         case 'clearLog':
-          log = {
-            current: null,
-            list: []
+          log.list = [
+            oldLog.list[oldLog.current]
+            ]
+          log.current = 0
+          break
+        case 'loadData':
+          if (oldLog.current === null) {
+            log.list = [
+              JSON.parse(JSON.stringify(data.data))
+            ]
+          } else {
+            if (oldLog.list.length - 1 > oldLog.current) {
+              let removeCount = oldLog.list.length - 1 - oldLog.current
+              oldLog.list.splice(oldLog.current + 1, removeCount)
+            }
+            if (maxLog !== null && oldLog.list.length > maxLog) {
+              oldLog.list.splice(0, 1)
+            }
+            log.list = [
+              ...oldLog.list,
+              JSON.parse(JSON.stringify(data.data))
+            ]
           }
+          log.current = log.list.length - 1
           break
       }
       state.editor.log = log
