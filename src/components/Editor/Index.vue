@@ -407,11 +407,10 @@
                 if (_t.log.list.length) {
                   if (_t.log.current === 0) {
                     let data = _t.log.list[0]
-                    if(data === null)  {
+                    if (data === null) {
                       // 清除
                       _t.editor.clear()
                       _t.editor.paint()
-
                     } else {
                       // 渲染
                       _t.editor.read(data.content)
