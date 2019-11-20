@@ -143,7 +143,7 @@ yarn run serve
 
 **感谢所有为此项目做出贡献的人们！**
 
-[curiosity-hyf](https://github.com/curiosity-hyf)
+[curiosity-hyf](https://github.com/curiosity-hyf) [lzygit18](https://github.com/lzygit18)
 
 ## License
 
