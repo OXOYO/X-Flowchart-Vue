@@ -35,6 +35,7 @@
   import PanelRight from './containers/PanelRight'
   import PreviewModel from './containers/PreviewModel'
   import ContextMenu from './containers/ContextMenu'
+  import utils from '@/global/g6/utils'
   // 扩展了节点、边的G6
   import G6 from '@/global/g6/index'
   // 导航器
@@ -404,14 +405,22 @@
             if (['undo', 'redo'].includes(info.name)) {
               _t.$nextTick(function () {
                 if (_t.log.list.length) {
-                  if (_t.log.current !== null) {
+                  if (_t.log.current === 0) {
+                    let data = _t.log.list[0]
+                    if(data === null)  {
+                      // 清除
+                      _t.editor.clear()
+                      _t.editor.paint()
+
+                    } else {
+                      // 渲染
+                      _t.editor.read(data.content)
+                      _t.editor.paint()
+                    }
+                  } else {
                     let data = _t.log.list[_t.log.current]
                     // 渲染
                     _t.editor.read(data.content)
-                    _t.editor.paint()
-                  } else {
-                    // 清除
-                    _t.editor.clear()
                     _t.editor.paint()
                   }
                 }
@@ -699,6 +708,27 @@
                       _t.editor.data(fileJson)
                       // 渲染
                       _t.editor.render()
+                      _t.editor.getNodes().forEach(node => {
+                          let model = node.getModel()
+                          let radian = model.radian
+                          let keyShape = node.getKeyShape()
+                          keyShape.resetMatrix()
+                          keyShape.rotate(radian)
+                          let group = _t.editor.get('group')
+                          // 更新shapeControl
+                          utils.shapeControl.rotate(model, group, radian)
+                          // 更新锚点
+                          utils.anchor.rotate(model, group, radian)
+                        })
+                      // 加载数据后保存记录
+                      // 更新操作日志
+                      _t.$store.commit('editor/log/update', {
+                        action: 'loadData',
+                        data: {
+                          time: new Date(),
+                          content: _t.editor.save()
+                        }
+                      })
                     } catch (e) {
                       // 提示
                       _t.$Message.error(_t.$t('L10207'))

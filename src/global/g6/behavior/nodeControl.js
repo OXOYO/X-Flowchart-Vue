@@ -74,6 +74,8 @@ export default {
       }
       let _t = this
       let model = event.item.getModel()
+      model.offsetX = event.canvasX - model.x
+      model.offsetY = event.canvasY - model.y
       _t.graph.emit('editor:getItem', [
         {
           type: 'node',
@@ -540,6 +542,7 @@ export default {
         }
         // 弧度
         let radian = Math.atan2(p2.y - p1.y, p2.x - p1.x) + Math.PI / 2
+        model.radian = radian
         // 角度
         let angle = radian * (180 / Math.PI)
         if (_t.config.tooltip.shapeControl) {
@@ -663,14 +666,17 @@ export default {
           }
         } else if (_t.dragNode.status === 'dragNode') {
           if (_t.info.node) {
-            let { id, groupId, x, y } = _t.info.node.getModel()
+            let { id, groupId, x, y, offsetX, offsetY } = _t.info.node.getModel()
             _t.graph.find('node', node => {
               let model = node.getModel()
               // 更新当节点
               if (model.id === id) {
                 let attrs = {
-                  x: event.x,
-                  y: event.y
+                  // 处理点击移动 图形时的抖动
+                  // x: event.x,
+                  // y: event.y
+                  x: event.x - offsetX,
+                  y: event.y - offsetY
                 }
                 // 更新节点
                 _t.graph.updateItem(_t.info.node, attrs)
@@ -687,11 +693,10 @@ export default {
                 }
               } else {
                 if (groupId && model.groupId && model.groupId === groupId) {
-                  let model = node.getModel()
                   // 更新同组节点
                   _t.graph.updateItem(node, {
-                    x: model.x + event.x - x,
-                    y: model.y + event.y - y
+                    x: model.x + event.x - offsetX - x,
+                    y: model.y + event.y - offsetY - y
                   })
                 }
               }
