@@ -53,9 +53,7 @@ export default class XBackground extends Grid {
       })
     }
   }
-  updateGrid () {
-    return
-  }
+  updateGrid () {}
   getContainer () {
     return this.get('container')
   }
