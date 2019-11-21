@@ -23,7 +23,6 @@
     <PanelRight></PanelRight>
     <PreviewModel></PreviewModel>
     <ContextMenu></ContextMenu>
-
   </div>
 </template>
 
@@ -36,12 +35,15 @@
   import PanelRight from './containers/PanelRight'
   import PreviewModel from './containers/PreviewModel'
   import ContextMenu from './containers/ContextMenu'
+  import utils from '@/global/g6/utils'
   // 扩展了节点、边的G6
   import G6 from '@/global/g6/index'
   // 导航器
   import Minimap from '@antv/g6/build/minimap'
   // 自定义栅格插件
   import XGrid from '@/global/g6/plugins/XGrid'
+  // 背景图
+  import XBackground from '@/global/g6/plugins/XBackground'
   // 全屏
   import screenfull from 'screenfull'
   // 热键
@@ -100,11 +102,13 @@
           size: size
         })
         const grid = new XGrid()
+        const background = new XBackground()
         // 生成编辑器实例
         _t.editor = new G6.Graph({
           plugins: [
             minimap,
-            grid
+            grid,
+            background
           ],
           container: sketchpad,
           width: sketchpad.clientWidth,
@@ -248,11 +252,15 @@
         _t.bindShortcuts()
         // 绑定unload
         _t.bindUnload()
+        // 更新编辑器实例
+        _t.$store.commit('editor/instance/update', _t.editor)
       },
       _canvasMousedown () {
         let _t = this
         console.log('_canvasMousedown ')
         _t.doClearAllStates()
+        // 更新currentItem
+        _t.$store.commit('editor/currentItem/update', [])
       },
       _canvasMouseup () {
         // let _t = this
@@ -397,18 +405,27 @@
             if (['undo', 'redo'].includes(info.name)) {
               _t.$nextTick(function () {
                 if (_t.log.list.length) {
-                  if (_t.log.current !== null) {
+                  if (_t.log.current === 0) {
+                    let data = _t.log.list[0]
+                    if (data === null) {
+                      // 清除
+                      _t.editor.clear()
+                      _t.editor.paint()
+                    } else {
+                      // 渲染
+                      _t.editor.read(data.content)
+                      _t.editor.paint()
+                    }
+                  } else {
                     let data = _t.log.list[_t.log.current]
                     // 渲染
                     _t.editor.read(data.content)
                     _t.editor.paint()
-                  } else {
-                    // 清除
-                    _t.editor.clear()
-                    _t.editor.paint()
                   }
                 }
               })
+              // 更新currentItem
+              _t.$store.commit('editor/currentItem/update', [])
             }
             break
           case 'copy':
@@ -466,6 +483,8 @@
                 _t.editor.removeItem(edge)
               }
             })
+            // 更新currentItem
+            _t.$store.commit('editor/currentItem/update', [])
             break
           case 'zoom':
           case 'zoomIn':
@@ -562,9 +581,9 @@
               }
             })
             break
-          case 'lineStyle':
+          case 'lineDash':
             let edgeConfig = _t.editor.$C.edge
-            _t.editor.$X.lineStyle = info.data
+            _t.editor.$X.lineDash = info.data
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
                 isRecord = true
@@ -633,6 +652,8 @@
                 _t.editor.paint()
               }
             })
+            // 更新currentItem
+            _t.$store.commit('editor/currentItem/update', [])
             break
           case 'toFront':
           case 'toBack':
@@ -654,6 +675,68 @@
             if (screenfull.enabled) {
               screenfull.toggle()
             }
+            break
+          case 'upload':
+            _t.$Modal.confirm({
+              title: _t.$t('L10200'),
+              // 上传JSON数据将覆盖当前画布，确认上传？
+              content: _t.$t('L10206'),
+              onOk: function () {
+                // 打开文件选择窗口
+                let input = document.createElement('input')
+                input.type = 'file'
+                // 限定文件类型
+                input.accept = '.json'
+                input.click()
+                input.onchange = function () {
+                  let file = input.files[0]
+                  // FileReader实例
+                  let reader = new FileReader()
+                  // 读取文件
+                  reader.readAsText(file, 'UTF-8')
+                  // 处理数据
+                  reader.onload = function (event) {
+                    try {
+                      let fileString = event.target.result
+                      let fileJson = JSON.parse(fileString)
+                      // 清空画布
+                      _t.editor.clear()
+                      // 更新currentItem
+                      _t.$store.commit('editor/currentItem/update', [])
+                      // 设置数据
+                      _t.editor.data(fileJson)
+                      // 渲染
+                      _t.editor.render()
+                      _t.editor.getNodes().forEach(node => {
+                          let model = node.getModel()
+                          let radian = model.radian
+                          let keyShape = node.getKeyShape()
+                          keyShape.resetMatrix()
+                          keyShape.rotate(radian)
+                          let group = _t.editor.get('group')
+                          // 更新shapeControl
+                          utils.shapeControl.rotate(model, group, radian)
+                          // 更新锚点
+                          utils.anchor.rotate(model, group, radian)
+                        })
+                      // 加载数据后保存记录
+                      // 更新操作日志
+                      _t.$store.commit('editor/log/update', {
+                        action: 'loadData',
+                        data: {
+                          time: new Date(),
+                          content: _t.editor.save()
+                        }
+                      })
+                    } catch (e) {
+                      // 提示
+                      _t.$Message.error(_t.$t('L10207'))
+                      console.error('Editor Error:: upload JSON failed!', e)
+                    }
+                  }
+                }
+              }
+            })
             break
           case 'download':
             let fileName = _t.$X.config.system.name + '_' + _t.$X.utils.filters.formatDate(new Date(), 'YYYYMMDDhhmmss')
@@ -684,6 +767,39 @@
               })
               _t.editor.setItemState(node, 'active', true)
             })
+            break
+          case 'canvasBackground':
+            switch (info.data) {
+              case 'default':
+                _t.editor.emit('background:reset')
+                break
+              case 'image':
+                // 打开文件选择窗口
+                let input = document.createElement('input')
+                input.type = 'file'
+                // 限定文件类型
+                input.accept = 'image/png, image/jpeg, image/jpg'
+                input.click()
+                input.onchange = function () {
+                  let file = input.files[0]
+                  // FileReader实例
+                  let reader = new FileReader()
+                  // 读取图片
+                  if (file) {
+                    reader.readAsDataURL(file)
+                    // 处理数据
+                    reader.onload = function (event) {
+                      try {
+                        let imgFile = reader.result
+                        _t.editor.emit('background:update', imgFile)
+                      } catch (e) {
+                        console.error('Editor Error:: update background failed!', e)
+                      }
+                    }
+                  }
+                }
+                break
+            }
             break
         }
         if (isRecord) {

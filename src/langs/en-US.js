@@ -16,7 +16,7 @@ export default {
   L10007: 'Zoom out (Ctrl + -)',
   L10008: 'Adapt to the screen (Ctrl + 0)',
   L10009: 'Actual size (Ctrl + 1)',
-  L10010: 'Delete',
+  L10010: 'Delete (Delete)',
   L10011: 'Fill color',
   L10012: 'Line color',
   L10013: 'Line width',
@@ -39,6 +39,8 @@ export default {
   L10030: 'Download',
   L10031: 'Select all',
   L10032: 'Clear operation log (Ctrl + Shift + L)',
+  L10033: 'Upload',
+  L10034: 'Canvas background',
   // right panel
   L10101: 'Configuration',
   L10102: 'Navigator',
@@ -52,6 +54,8 @@ export default {
   L10203: 'Close',
   L10204: 'Download',
   L10205: 'Confirm',
+  L10206: 'Uploading JSON data will overwrite the current canvas and confirm upload? ',
+  L10207: '上传JSON数据失败！',
   // left panel
   L10301: 'General',
   L10302: 'Miscellaneous',
