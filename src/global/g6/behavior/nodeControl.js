@@ -74,8 +74,6 @@ export default {
       }
       let _t = this
       let model = event.item.getModel()
-      model.offsetX = event.canvasX - model.x
-      model.offsetY = event.canvasY - model.y
       _t.graph.emit('editor:getItem', [
         {
           type: 'node',
@@ -666,17 +664,15 @@ export default {
           }
         } else if (_t.dragNode.status === 'dragNode') {
           if (_t.info.node) {
-            let { id, groupId, x, y, offsetX, offsetY } = _t.info.node.getModel()
+            let { id, groupId, x, y } = _t.info.node.getModel()
             _t.graph.find('node', node => {
               let model = node.getModel()
               // 更新当节点
               if (model.id === id) {
                 let attrs = {
                   // 处理点击移动 图形时的抖动
-                  // x: event.x,
-                  // y: event.y
-                  x: event.x - offsetX,
-                  y: event.y - offsetY
+                  x: x + event.event.movementX,
+                  y: y + event.event.movementY
                 }
                 // 更新节点
                 _t.graph.updateItem(_t.info.node, attrs)
@@ -695,8 +691,8 @@ export default {
                 if (groupId && model.groupId && model.groupId === groupId) {
                   // 更新同组节点
                   _t.graph.updateItem(node, {
-                    x: model.x + event.x - offsetX - x,
-                    y: model.y + event.y - offsetY - y
+                    x: model.x + event.event.movementX,
+                    y: model.y + event.event.movementY
                   })
                 }
               }
