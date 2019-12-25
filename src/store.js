@@ -781,7 +781,9 @@ export default new Vuex.Store({
             contextmenu: {
               enable: true,
               target: ['edge'],
-              style: {},
+              style: {
+                'white-space': 'nowrap'
+              },
               divider: false
             },
             // 默认选中项index
@@ -868,7 +870,9 @@ export default new Vuex.Store({
             contextmenu: {
               enable: true,
               target: ['edge'],
-              style: {},
+              style: {
+                'white-space': 'nowrap'
+              },
               divider: true
             },
             // 默认选中项index
