@@ -255,7 +255,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: false
             },
@@ -386,7 +386,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: false
             }
@@ -410,7 +410,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: false
             }
@@ -434,7 +434,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: false
             }
@@ -458,7 +458,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: true
             }
@@ -1011,7 +1011,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: false
             }
@@ -1107,7 +1107,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: false
             }
@@ -1131,7 +1131,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: false
             },
@@ -1185,7 +1185,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: false
             }
@@ -1209,7 +1209,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: true
             },
@@ -1263,7 +1263,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: true
             },
@@ -1317,7 +1317,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: false
             }
@@ -1341,7 +1341,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: false
             },
@@ -1396,7 +1396,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: false
             }
@@ -1421,7 +1421,7 @@ export default new Vuex.Store({
             },
             contextmenu: {
               enable: true,
-              target: ['canvas', 'node', 'edge'],
+              target: ['canvas'],
               style: {},
               divider: false
             }
