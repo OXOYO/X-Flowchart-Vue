@@ -231,6 +231,19 @@ modes: {
 ### **热键**
 使用 [mousetrap](https://github.com/ccampbell/mousetrap) 处理快捷键绑定。
 
+### 自定义节点
+在 `/src/global/g6/node/` 目录下是自定义节点的实现，通过 `G6.registerNode` 方法注册自定义节点。
+
+### 自定义边
+在 `/src/global/g6/edge/` 目录下是自定义边的实现，通过 `G6.registerEdge` 方法注册自定义边。
+
+### 自定义交互
+在 `/src/global/g6/behavior/` 目录下是自定义交互的实现，通过 `G6.registerBehavior` 方法注册自定义交互。
+
+### 自定义插件
+在 `/src/global/g6/plugins/` 目录下是自定义插件的实现，通过继承扩展插件，在创建实例 `new G6.Graph` 时使用插件。
+
+
 ### 参考
 [@antvis/g6](https://github.com/antvis/g6)
 
