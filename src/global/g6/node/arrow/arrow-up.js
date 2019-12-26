@@ -1,7 +1,7 @@
 /**
- * Created by OXOYO on 2019/11/9.
+ * Created by OXOYO on 2019/12/26.
  *
- * 下箭头
+ * 上箭头
  */
 
 import Global from '@antv/g6/src/global'
@@ -10,7 +10,7 @@ import base from '../base'
 import utils from '../../utils'
 
 export default {
-  name: 'arrow-down',
+  name: 'arrow-up',
   extendName: 'single-shape',
   options: {
     ...base,
@@ -30,37 +30,37 @@ export default {
       // 箭头顶点
       let P0 = {
         x: 0,
-        y: height / 2
+        y: -height / 2
       }
 
-      // 左下顶点
+      // 右上顶点
       let P1 = {
-        x: -width / 2,
-        y: P0.y - L1
+        x: width / 2,
+        y: -height / 2 + L1
       }
-      // 左下中
+      // 右上中
       let P2 = {
-        x: P0.x - L7,
+        x: L7,
         y: P1.y
       }
-      // 左上
+      // 右下
       let P3 = {
-        x: P2.x,
-        y: -height / 2
+        x: L7,
+        y: height / 2
       }
-      // 右上
+      // 左下
       let P4 = {
-        x: P0.x + L7,
-        y: -height / 2
+        x: -L7,
+        y: height / 2
       }
-      // 右下中
+      // 左上中
       let P5 = {
         x: P4.x,
         y: P2.y
       }
-      // 右下顶点
+      // 左顶点
       let P6 = {
-        x: width / 2,
+        x: -width / 2,
         y: P1.y
       }
 
