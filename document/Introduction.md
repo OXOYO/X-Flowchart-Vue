@@ -56,9 +56,8 @@
 | github     | ✔   |                   | ✔     | ✔      | Github |
 | feedback   | ✔   |                   | ✔     | ✔      | 反馈 |
 
-### 功能解析
 
-**undo**、**clearLog**、**redo**
+### **undo**、**clearLog**、**redo**
 ***撤销***、***清空日志***、***重做***，在 `state` 中存储 `log` 数据，通过 `mutation` 来更新 `log` 数据。
 
 ***state***
@@ -98,7 +97,7 @@ _t.$store.commit('editor/log/update', {
 })
 ```
 
-**copy**、**paste**
+### **copy**、**paste**
 ***复制***、***粘贴***，通过 `clipboard` 存储复制的节点数据，通过 `addItem` 方法将节点粘贴到画布上。
 
 ```
@@ -169,30 +168,30 @@ handleToolTrigger (info) {
 }
 ```
 
-**delete**
+### **delete**
 删除元素，通过 `removeItem` 方法删除 `node`、`edge`。
 
-**clear**
+### **clear**
 清空画布，通过 `clear` 方法清空画布。
 
-**zoom**、**zoomIn**、**zoomOut**
+### **zoom**、**zoomIn**、**zoomOut**
 ***缩放***、***放大***、***缩小***，通过 `zoomTo` 方法将画布缩放到某个比例
 
-**fit**、**actualSize**
+### **fit**、**actualSize**
 ***适应屏幕***，通过 `fitView` 方法将画布缩放到适应屏幕；通过。
 **实际大小**，通过 `zoomTo` 方法将画布缩放到 `1` 比例。
 
-**fill**、**lineColor**、**lineWidth**、**lineStyle**、**lineType**、**startArrow**、**endArrow**
+### **fill**、**lineColor**、**lineWidth**、**lineStyle**、**lineType**、**startArrow**、**endArrow**
 ***填充颜色***、***线条颜色***、***线条宽度***、***线条样式***、***线条类型***、***起点***、***终点***，通过 `updateItem` 方法更新节点、边的属性。
 
-**toFront**、**toBack**
+### **toFront**、**toBack**
 ***置顶***，通过 `toFront` 方法将节点、边置顶。
 ***置底***，通过 `toBack` 方法将节点、边置底。
 
-**selectAll**
+### **selectAll**
 ***全选***，通过 `updateItem` 方法设置所有节点为同一个 `groupId`，通过 `setItemState` 方法设置所有节点 `active` 状态。
 
-**edite**、**preview**
+### **edite**、**preview**
 ***编辑***、***预览***，通过 `setMode` 方法设置画布不同的模式，不同模式下会执行不同的 `behavior`。
 
 ```
@@ -220,16 +219,16 @@ modes: {
 })
 ```
 
-**upload**、**download**
+### **upload**、**download**
 ***上传***，通过 `input` 文本选择窗口上传 `json` 数据文件，通过 `FileReader` 解析数据，通过 `data` 设置画布数据，通过 `render` 渲染画布。
 ***下载***，通过 `downloadImage` 下载为图片，通过 `save` 下载为 `json` 数据。
 
-**language**
+### **language**
 ***国际化***，通过 `i18n` 处理多语言。
 
 ---------
 
-**热键**
+### **热键**
 使用 [mousetrap](https://github.com/ccampbell/mousetrap) 处理快捷键绑定。
 
 ### 参考
