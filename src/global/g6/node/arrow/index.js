@@ -12,6 +12,14 @@ import bentLeftArrow from './bent-left-arrow'
 import bentRightArrow from './bent-right-arrow'
 import bentUpArrow from './bent-up-arrow'
 import calloutDoubleArrow from './callout-double-arrow'
+import calloutQuadArrow from './callout-quad-arrow'
+import calloutUpArrow from './callout-up-arrow'
+import chevronArrow from './chevron-arrow'
+import circularArrow from './circular-arrow'
+import jumpInRightArrow from './jump-in-right-arrow'
+import jumpInLeftArrow from './jump-in-left-arrow'
+import leftAdnUpArrow from './left-and-up-arrow'
+import leftSharpEdgedHeadArrow from './left-sharp-edged-head-arrow'
 
 export default {
   arrowDown,
@@ -21,5 +29,13 @@ export default {
   bentLeftArrow,
   bentRightArrow,
   bentUpArrow,
-  calloutDoubleArrow
+  calloutDoubleArrow,
+  calloutQuadArrow,
+  calloutUpArrow,
+  chevronArrow,
+  circularArrow,
+  jumpInRightArrow,
+  jumpInLeftArrow,
+  leftAdnUpArrow,
+  leftSharpEdgedHeadArrow
 }
