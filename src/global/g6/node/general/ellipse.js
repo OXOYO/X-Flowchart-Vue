@@ -9,7 +9,7 @@ import base from '../base'
 
 export default {
   name: 'ellipse',
-  extendName: 'ellipse',
+  extendName: 'single-shape',
   options: {
     ...base,
     shapeType: 'path',
@@ -19,14 +19,14 @@ export default {
       const height = size[1]
       const x = 0 - width / 2
       const y = 0 - height / 2
+
       const path = [
         // 左顶点
         [ 'M', -width / 2, 0 ],
         // 上弧
         [ 'A', width / 2, height / 2, 0, 1, 1, width / 2, 0 ],
         // 下弧
-        [ 'A', width / 2, height / 2, -180, 1, 1, -width / 2, 0 ],
-        [ 'Z' ]
+        [ 'A', width / 2, height / 2, 0, 1, 1, -width / 2, 0 ]
       ]
       const color = cfg.color || Global.defaultNode.color
       const style = Util.mix({}, Global.defaultNode.style, {

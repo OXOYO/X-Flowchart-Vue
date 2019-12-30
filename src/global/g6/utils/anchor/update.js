@@ -12,7 +12,7 @@ export default function (cfg, group) {
       let anchorX
       let anchorY
       if (shape && shape.get('type') === 'path') {
-        let point = shape.getPoint((i + 1) / len)
+        let point = shape.getPoint(i / len)
         anchorX = point.x
         anchorY = point.y
       } else {
@@ -27,11 +27,17 @@ export default function (cfg, group) {
       let anchorBgShape = group.findById(id + '_anchor_bg_' + i)
       // 锚点
       let anchorShape = group.findById(id + '_anchor_' + i)
+      // 文本
+      let anchorText = group.findById(id + '_anchor_text_' + i)
       anchorBgShape.attr({
         x: anchorX,
         y: anchorY
       })
       anchorShape.attr({
+        x: anchorX,
+        y: anchorY
+      })
+      anchorText.attr({
         x: anchorX,
         y: anchorY
       })

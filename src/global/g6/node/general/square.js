@@ -21,16 +21,16 @@ export default {
       const x = 0 - width / 2
       const y = 0 - height / 2
       const path = [
-        // 左顶点
-        [ 'M', -width / 2, 0 ],
         // 左上顶点
-        [ 'L', -width / 2, -height / 2 ],
+        [ 'M', -width / 2, -height / 2 ],
         // 右上顶点
         [ 'L', width / 2, -height / 2 ],
         // 右下顶点
         [ 'L', width / 2, height / 2 ],
         // 左下顶点
         [ 'L', -width / 2, height / 2 ],
+        // 左顶点
+        [ 'L', -width / 2, 0 ],
         [ 'Z' ]
       ]
       const color = cfg.color || Global.defaultNode.color

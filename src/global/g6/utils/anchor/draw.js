@@ -9,13 +9,13 @@ import config from '../../config'
 export default function (cfg, group) {
   let { anchorPoints, width, height, id } = cfg
   let shape = group.getFirst()
-  // console.log('getAnchorPoints', id, shape)
+  console.log('getAnchorPoints', id, shape, anchorPoints.length)
   if (anchorPoints && anchorPoints.length) {
     for (let i = 0, len = anchorPoints.length; i < len; i++) {
       let anchorX
       let anchorY
       if (shape && shape.get('type') === 'path') {
-        let point = shape.getPoint((i + 1) / len)
+        let point = shape.getPoint(i / len)
         anchorX = point.x
         anchorY = point.y
       } else {
@@ -53,7 +53,19 @@ export default function (cfg, group) {
           fill: flag ? 'red' : config.anchor.style.default.fill
         }
       })
-
+      // 添加文本
+      let anchorText = group.addShape('text', {
+        id: id + '_anchor_text_' + i,
+        attrs: {
+          x: anchorX,
+          y: anchorY,
+          fontFamily: 'PingFang SC',
+          fontSize: 12,
+          text: anchorPoints[i].toString(),
+          lineDash: [10, 10],
+          fill: 'red'
+        }
+      })
       anchorShape.on('mouseenter', function () {
         anchorBgShape.attr({
           ...config.anchorBg.style.active
