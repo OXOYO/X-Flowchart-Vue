@@ -14,7 +14,7 @@
 
 [online](http://oxoyo.co/X-Flowchart-Vue/)
 
-![](document/FlowChart/2020-01-01 10 12 20.png)
+![](./document/FlowChart/20200101101220.png)
 
 ## Example
 
