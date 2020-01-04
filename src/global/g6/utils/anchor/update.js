@@ -29,15 +29,15 @@ export default function (cfg, group) {
       let anchorShape = group.findById(id + '_anchor_' + i)
       // 文本
       let anchorText = group.findById(id + '_anchor_text_' + i)
-      anchorBgShape.attr({
+      anchorBgShape && anchorBgShape.attr({
         x: anchorX,
         y: anchorY
       })
-      anchorShape.attr({
+      anchorShape && anchorShape.attr({
         x: anchorX,
         y: anchorY
       })
-      anchorText.attr({
+      anchorText && anchorText.attr({
         x: anchorX,
         y: anchorY
       })

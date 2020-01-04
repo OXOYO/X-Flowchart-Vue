@@ -124,8 +124,14 @@
               {
                 type: 'node-control',
                 config: {
-                  // 是否在拖拽节点时更新所有与之相连的边
-                  updateEdge: true,
+                  shapeControlPoint: {
+                    // 是否在缩放、旋转节点时更新所有与之相连的边
+                    updateEdge: false
+                  },
+                  dragNode: {
+                    // 是否在拖拽节点时更新所有与之相连的边
+                    updateEdge: false
+                  },
                   // 是否支持在节点上添加文本
                   nodeLabel: true,
                   // 是否支持在边上添加文本
@@ -415,12 +421,20 @@
                       // 渲染
                       _t.editor.read(data.content)
                       _t.editor.paint()
+                      // 缩放到实际大小
+                      _t.doZoom({
+                        name: 'actualSize'
+                      })
                     }
                   } else {
                     let data = _t.log.list[_t.log.current]
                     // 渲染
                     _t.editor.read(data.content)
                     _t.editor.paint()
+                    // 缩放到实际大小
+                    _t.doZoom({
+                      name: 'actualSize'
+                    })
                   }
                 }
               })

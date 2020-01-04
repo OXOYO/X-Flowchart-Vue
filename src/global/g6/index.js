@@ -4,7 +4,7 @@
  * 封装G6
  */
 
-import G6 from '@antv/g6/src'
+import G6 from '@antv/g6'
 import registerBehavior from './behavior/index'
 import registerEdge from './edge/index'
 import registerNode from './node/index'

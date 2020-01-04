@@ -53,29 +53,31 @@ export default function (cfg, group) {
           fill: flag ? 'red' : config.anchor.style.default.fill
         }
       })
-      // 添加文本
-      let anchorText = group.addShape('text', {
-        id: id + '_anchor_text_' + i,
-        attrs: {
-          x: anchorX,
-          y: anchorY,
-          fontFamily: 'PingFang SC',
-          fontSize: 12,
-          text: anchorPoints[i].toString(),
-          lineDash: [10, 10],
-          fill: 'red'
-        }
-      })
-      anchorShape.on('mouseenter', function () {
-        anchorBgShape.attr({
-          ...config.anchorBg.style.active
+      // FIXME 【调试用代码】添加锚点文本
+      // group.addShape('text', {
+      //   id: id + '_anchor_text_' + i,
+      //   attrs: {
+      //     x: anchorX,
+      //     y: anchorY,
+      //     fontFamily: 'PingFang SC',
+      //     fontSize: 12,
+      //     text: anchorPoints[i].toString(),
+      //     lineDash: [10, 10],
+      //     fill: 'red'
+      //   }
+      // })
+      if (anchorShape) {
+        anchorShape.on('mouseenter', function () {
+          anchorBgShape.attr({
+            ...config.anchorBg.style.active
+          })
         })
-      })
-      anchorShape.on('mouseleave', function () {
-        anchorBgShape.attr({
-          ...config.anchorBg.style.inactive
+        anchorShape.on('mouseleave', function () {
+          anchorBgShape.attr({
+            ...config.anchorBg.style.inactive
+          })
         })
-      })
+      }
     }
   }
 }

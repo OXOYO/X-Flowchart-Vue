@@ -14,8 +14,14 @@ export default {
     getDefaultCfg () {
       return {
         config: {
-          // 是否在拖拽节点时更新所有与之相连的边
-          updateEdge: true,
+          shapeControlPoint: {
+            // 是否在缩放、旋转节点时更新所有与之相连的边
+            updateEdge: false
+          },
+          dragNode: {
+            // 是否在拖拽节点时更新所有与之相连的边
+            updateEdge: false
+          },
           // 是否支持在节点上添加文本
           nodeLabel: true,
           // 是否支持在边上添加文本
@@ -448,7 +454,7 @@ export default {
           }, group)
           // 更新节点
           _t.graph.updateItem(_t.info.node, attrs)
-          if (_t.config.updateEdge) {
+          if (_t.config.shapeControlPoint.updateEdge) {
             // 更新边
             utils.edge.update(_t.info.node, _t.graph)
           }
@@ -474,7 +480,7 @@ export default {
           }, group)
           // 更新节点
           _t.graph.updateItem(_t.info.node, attrs)
-          if (_t.config.updateEdge) {
+          if (_t.config.shapeControlPoint.updateEdge) {
             // 更新边
             utils.edge.update(_t.info.node, _t.graph)
           }
@@ -676,7 +682,7 @@ export default {
                 }
                 // 更新节点
                 _t.graph.updateItem(_t.info.node, attrs)
-                if (_t.config.updateEdge) {
+                if (_t.config.dragNode.updateEdge) {
                   // 更新边
                   utils.edge.update(_t.info.node, _t.graph)
                 }
