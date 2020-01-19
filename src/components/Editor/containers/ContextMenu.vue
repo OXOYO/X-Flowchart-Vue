@@ -13,7 +13,6 @@
     background: #FFF;
     box-shadow: 0 0 5px 2px rgba(0, 0, 0, .1);
     padding: 5px 0;
-    z-index: 999;
 
     .tool-box {
       padding: 0;
