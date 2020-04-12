@@ -28,7 +28,7 @@ export default {
         L7: height / 4
       })
       // 计算左箭头
-      let { L1: LL1, L7: LL7 } = utils.node.computed({
+      let { L1: LL1 } = utils.node.computed({
         deg: 100,
         L1: width / 6,
         L7: height / 6
