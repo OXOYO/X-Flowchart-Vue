@@ -20,6 +20,14 @@ import jumpInRightArrow from './jump-in-right-arrow'
 import jumpInLeftArrow from './jump-in-left-arrow'
 import leftAdnUpArrow from './left-and-up-arrow'
 import leftSharpEdgedHeadArrow from './left-sharp-edged-head-arrow'
+import notchedSignalInArrow from './notched-signal-in-arrow'
+import quadArrow from './quad-arrow'
+import rightNotchedArrow from './right-notched-arrow'
+import sharpEdgedArrow from './sharp-edged-arrow'
+import signalInArrow from './signal-in-arrow'
+import slenderLeftArrow from './slender-left-arrow'
+import slenderTwoWayArrow from './slender-two-way-arrow'
+import slenderWideTailedArrow from './slender-wide-tailed-arrow'
 
 export default {
   arrowDown,
@@ -37,5 +45,13 @@ export default {
   jumpInRightArrow,
   jumpInLeftArrow,
   leftAdnUpArrow,
-  leftSharpEdgedHeadArrow
+  leftSharpEdgedHeadArrow,
+  notchedSignalInArrow,
+  quadArrow,
+  rightNotchedArrow,
+  sharpEdgedArrow,
+  signalInArrow,
+  slenderLeftArrow,
+  slenderTwoWayArrow,
+  slenderWideTailedArrow
 }

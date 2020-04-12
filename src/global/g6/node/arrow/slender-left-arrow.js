@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/12/26.
  *
- * 右箭头
+ * 细长左箭头
  */
 
 import Global from '@antv/g6/src/global'
@@ -10,7 +10,7 @@ import base from '../base'
 import utils from '../../utils'
 
 export default {
-  name: 'arrow-right',
+  name: 'slender-left-arrow',
   extendName: 'single-shape',
   options: {
     ...base,
@@ -25,42 +25,42 @@ export default {
       let { L1, L7 } = utils.node.computed({
         deg: 85,
         L1: width / 3,
-        L7: height / 4
+        L7: height / 6
       })
       // 箭头顶点
       let P0 = {
-        x: width / 2,
+        x: -width / 2,
         y: 0
       }
 
-      // 右下顶点
+      // 左上顶点
       let P1 = {
-        x: width / 2 - L1,
+        x: -width / 2 + L1,
         y: height / 2
       }
-      // 右下中
+      // 左上中
       let P2 = {
-        x: width / 2 - L1,
+        x: -width / 2 + L1,
         y: L7
       }
-      // 左下
+      // 右上
       let P3 = {
-        x: -width / 2,
+        x: width / 2,
         y: L7
       }
-      // 左上
+      // 右下
       let P4 = {
-        x: -width / 2,
+        x: width / 2,
         y: -L7
       }
-      // 右下中
+      // 左下中
       let P5 = {
-        x: width / 2 - L1,
+        x: -width / 2 + L1,
         y: -L7
       }
-      // 右上顶点
+      // 左下顶点
       let P6 = {
-        x: width / 2 - L1,
+        x: -width / 2 + L1,
         y: -height / 2
       }
 

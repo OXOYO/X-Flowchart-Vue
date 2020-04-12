@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/12/26.
  *
- * 右箭头
+ * 信号箭头
  */
 
 import Global from '@antv/g6/src/global'
@@ -10,7 +10,7 @@ import base from '../base'
 import utils from '../../utils'
 
 export default {
-  name: 'arrow-right',
+  name: 'signal-in-arrow',
   extendName: 'single-shape',
   options: {
     ...base,
@@ -23,9 +23,9 @@ export default {
       const y = 0 - height / 2
       // 计算箭头
       let { L1, L7 } = utils.node.computed({
-        deg: 85,
-        L1: width / 3,
-        L7: height / 4
+        deg: 100,
+        L1: width / 6,
+        L7: height / 2
       })
       // 箭头顶点
       let P0 = {
@@ -36,42 +36,35 @@ export default {
       // 右下顶点
       let P1 = {
         x: width / 2 - L1,
-        y: height / 2
-      }
-      // 右下中
-      let P2 = {
-        x: width / 2 - L1,
         y: L7
       }
-      // 左下
-      let P3 = {
+      // 左下顶点
+      let P2 = {
         x: -width / 2,
         y: L7
       }
-      // 左上
+      // // 左中
+      // let P3 = {
+      //   x: -width / 2 + L1,
+      //   y: 0
+      // }
+      // 左上顶点
       let P4 = {
         x: -width / 2,
         y: -L7
       }
-      // 右下中
+      // 右上顶点
       let P5 = {
         x: width / 2 - L1,
         y: -L7
       }
-      // 右上顶点
-      let P6 = {
-        x: width / 2 - L1,
-        y: -height / 2
-      }
-
       const path = [
         [ 'M', P0.x, P0.y ],
         [ 'L', P1.x, P1.y ],
         [ 'L', P2.x, P2.y ],
-        [ 'L', P3.x, P3.y ],
+        // [ 'L', P3.x, P3.y ],
         [ 'L', P4.x, P4.y ],
         [ 'L', P5.x, P5.y ],
-        [ 'L', P6.x, P6.y ],
         [ 'Z' ]
       ]
       const color = cfg.color || Global.defaultNode.color

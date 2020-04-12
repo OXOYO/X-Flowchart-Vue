@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/12/26.
  *
- * 右箭头
+ * 细长双向箭头
  */
 
 import Global from '@antv/g6/src/global'
@@ -10,7 +10,7 @@ import base from '../base'
 import utils from '../../utils'
 
 export default {
-  name: 'arrow-right',
+  name: 'slender-two-way-arrow',
   extendName: 'single-shape',
   options: {
     ...base,
@@ -25,42 +25,57 @@ export default {
       let { L1, L7 } = utils.node.computed({
         deg: 85,
         L1: width / 3,
-        L7: height / 4
+        L7: height / 6
       })
-      // 箭头顶点
+      // 左箭头顶点
       let P0 = {
-        x: width / 2,
+        x: -width / 2,
         y: 0
       }
 
-      // 右下顶点
+      // 左上顶点
       let P1 = {
+        x: -width / 2 + L1,
+        y: height / 2
+      }
+      // 左上中
+      let P2 = {
+        x: -width / 2 + L1,
+        y: L7
+      }
+      // 右上中
+      let P3 = {
+        x: width / 2 - L1,
+        y: L7
+      }
+      // 右上顶点
+      let P4 = {
         x: width / 2 - L1,
         y: height / 2
       }
-      // 右下中
-      let P2 = {
-        x: width / 2 - L1,
-        y: L7
-      }
-      // 左下
-      let P3 = {
-        x: -width / 2,
-        y: L7
-      }
-      // 左上
-      let P4 = {
-        x: -width / 2,
-        y: -L7
-      }
-      // 右下中
+      // 右箭头顶点
       let P5 = {
-        x: width / 2 - L1,
-        y: -L7
+        x: width / 2,
+        y: 0
       }
-      // 右上顶点
+      // 右下顶点
       let P6 = {
         x: width / 2 - L1,
+        y: -height / 2
+      }
+      // 右下中
+      let P7 = {
+        x: width / 2 - L1,
+        y: -L7
+      }
+      // 左下中
+      let P8 = {
+        x: -width / 2 + L1,
+        y: -L7
+      }
+      // 左下顶点
+      let P9 = {
+        x: -width / 2 + L1,
         y: -height / 2
       }
 
@@ -72,6 +87,9 @@ export default {
         [ 'L', P4.x, P4.y ],
         [ 'L', P5.x, P5.y ],
         [ 'L', P6.x, P6.y ],
+        [ 'L', P7.x, P7.y ],
+        [ 'L', P8.x, P8.y ],
+        [ 'L', P9.x, P9.y ],
         [ 'Z' ]
       ]
       const color = cfg.color || Global.defaultNode.color

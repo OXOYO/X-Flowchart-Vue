@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/12/27.
  *
- * 锋利的左箭头
+ * 锋利的箭头
  */
 
 import Global from '@antv/g6/src/global'
@@ -10,7 +10,7 @@ import base from '../base'
 import utils from '../../utils'
 
 export default {
-  name: 'left-sharp-edged-head-arrow',
+  name: 'sharp-edged-arrow',
   extendName: 'single-shape',
   options: {
     ...base,
@@ -34,12 +34,12 @@ export default {
       // 左箭头
       let A0 = {
         1: { x: -width / 2 + L1 + L7 - L99, y: L7 },
-        2: { x: -width / 2 + L1 + L7, y: height / 2 },
+        2: { x: -width / 2 + L1 + L7, y: height / 2 - L7 / 2 },
         3: { x: -width / 2 + L1, y: height / 2 },
         // 顶点
         4: { x: -width / 2, y: 0 },
         5: { x: -width / 2 + L1, y: -height / 2 },
-        6: { x: -width / 2 + L1 + L7, y: -height / 2 },
+        6: { x: -width / 2 + L1 + L7, y: -height / 2 + L7 / 2 },
         7: { x: -width / 2 + L1 + L7 - L99, y: -L7 }
       }
       // 右上顶点

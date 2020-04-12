@@ -1,7 +1,7 @@
 /**
  * Created by OXOYO on 2019/12/26.
  *
- * 右箭头
+ * 右缺口箭头
  */
 
 import Global from '@antv/g6/src/global'
@@ -10,7 +10,7 @@ import base from '../base'
 import utils from '../../utils'
 
 export default {
-  name: 'arrow-right',
+  name: 'right-notched-arrow',
   extendName: 'single-shape',
   options: {
     ...base,
@@ -21,11 +21,17 @@ export default {
       const height = size[1]
       const x = 0 - width / 2
       const y = 0 - height / 2
-      // 计算箭头
+      // 计算右箭头
       let { L1, L7 } = utils.node.computed({
         deg: 85,
         L1: width / 3,
         L7: height / 4
+      })
+      // 计算左箭头
+      let { L1: LL1, L7: LL7 } = utils.node.computed({
+        deg: 100,
+        L1: width / 6,
+        L7: height / 6
       })
       // 箭头顶点
       let P0 = {
@@ -48,18 +54,23 @@ export default {
         x: -width / 2,
         y: L7
       }
-      // 左上
+      // 左中
       let P4 = {
+        x: -width / 2 + LL1,
+        y: 0
+      }
+      // 左上
+      let P5 = {
         x: -width / 2,
         y: -L7
       }
       // 右下中
-      let P5 = {
+      let P6 = {
         x: width / 2 - L1,
         y: -L7
       }
       // 右上顶点
-      let P6 = {
+      let P7 = {
         x: width / 2 - L1,
         y: -height / 2
       }
@@ -72,6 +83,7 @@ export default {
         [ 'L', P4.x, P4.y ],
         [ 'L', P5.x, P5.y ],
         [ 'L', P6.x, P6.y ],
+        [ 'L', P7.x, P7.y ],
         [ 'Z' ]
       ]
       const color = cfg.color || Global.defaultNode.color
