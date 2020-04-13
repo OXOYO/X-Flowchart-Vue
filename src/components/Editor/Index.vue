@@ -815,6 +815,36 @@
                 break
             }
             break
+          case 'up':
+          case 'down':
+          case 'left':
+          case 'right':
+            _t.editor.getNodes().forEach(node => {
+              if (node.hasState('active')) {
+                isRecord = true
+                let model = node.getModel()
+                let position = {
+                  x: model.x,
+                  y: model.y
+                }
+                switch (info.name) {
+                  case 'up':
+                    position.y--
+                    break
+                  case 'down':
+                    position.y++
+                    break
+                  case 'left':
+                    position.x--
+                    break
+                  case 'right':
+                    position.x++
+                    break
+                }
+                _t.editor.updateItem(node, position)
+              }
+            })
+            break
         }
         if (isRecord) {
           // 记录操作日志

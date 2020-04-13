@@ -198,7 +198,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'del',
+            shortcuts: ['del', 'backspace'],
             toolbar: {
               enable: false,
               position: 'center',
@@ -1426,6 +1426,103 @@ export default new Vuex.Store({
             contextmenu: {
               enable: true,
               target: ['canvas'],
+              style: {},
+              divider: false
+            }
+          },
+          // FIXME 纯快捷键
+          {
+            name: 'up',
+            label: 'Up',
+            lang: '',
+            type: 'normal',
+            icon: '',
+            enable: true,
+            enableMode: ['edit'],
+            disabled: false,
+            disabledMode: ['edit'],
+            shortcuts: 'up',
+            toolbar: {
+              enable: false,
+              position: '',
+              style: {},
+              divider: false
+            },
+            contextmenu: {
+              enable: false,
+              target: [],
+              style: {},
+              divider: false
+            }
+          },
+          {
+            name: 'down',
+            label: 'Down',
+            lang: '',
+            type: 'normal',
+            icon: '',
+            enable: true,
+            enableMode: ['edit'],
+            disabled: false,
+            disabledMode: ['edit'],
+            shortcuts: 'down',
+            toolbar: {
+              enable: false,
+              position: '',
+              style: {},
+              divider: false
+            },
+            contextmenu: {
+              enable: false,
+              target: [],
+              style: {},
+              divider: false
+            }
+          },
+          {
+            name: 'left',
+            label: 'Left',
+            lang: '',
+            type: 'normal',
+            icon: '',
+            enable: true,
+            enableMode: ['edit'],
+            disabled: false,
+            disabledMode: ['edit'],
+            shortcuts: 'left',
+            toolbar: {
+              enable: false,
+              position: '',
+              style: {},
+              divider: false
+            },
+            contextmenu: {
+              enable: false,
+              target: [],
+              style: {},
+              divider: false
+            }
+          },
+          {
+            name: 'right',
+            label: 'Right',
+            lang: '',
+            type: 'normal',
+            icon: '',
+            enable: true,
+            enableMode: ['edit'],
+            disabled: false,
+            disabledMode: ['edit'],
+            shortcuts: 'right',
+            toolbar: {
+              enable: false,
+              position: '',
+              style: {},
+              divider: false
+            },
+            contextmenu: {
+              enable: false,
+              target: [],
               style: {},
               divider: false
             }
