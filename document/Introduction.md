@@ -1,7 +1,8 @@
 # 基于G6和Vue的可视化图形编辑器
 
-**先上预览地址：[http://oxoyo.co/X-Flowchart-Vue/](http://oxoyo.co/X-Flowchart-Vue/)**
-**再上仓库地址：[https://github.com/OXOYO/X-Flowchart-Vue](https://github.com/OXOYO/X-Flowchart-Vue)**
+**预览地址：[http://oxoyo.co/X-Flowchart-Vue/](http://oxoyo.co/X-Flowchart-Vue/)**
+
+**仓库地址：[https://github.com/OXOYO/X-Flowchart-Vue](https://github.com/OXOYO/X-Flowchart-Vue)**
 
 初衷很简单，开发一个基于Vue的流程编辑器。项目初期研究过jsplumb，不是很理想，后来就着手拿SVG直接堆一个出来，初版开发完基本满足需求。
 在经过了3个版本的迭代后，算是有一个比较成型的编辑器了，下面简单介绍一下。
@@ -55,7 +56,10 @@
 | language   | ✔   |                   | ✔     | ✔      | 语言 |
 | github     | ✔   |                   | ✔     | ✔      | Github |
 | feedback   | ✔   |                   | ✔     | ✔      | 反馈 |
-
+| up         | ✔   | up                | ✖     | ✖      | 上 |
+| down       | ✔   | down              | ✖     | ✖      | 下 |
+| left       | ✔   | left              | ✖     | ✖      | 左 |
+| right      | ✔   | right             | ✖     | ✖      | 右 |
 
 ### **undo**、**clearLog**、**redo**
 ***撤销***、***清空日志***、***重做***，在 `state` 中存储 `log` 数据，通过 `mutation` 来更新 `log` 数据。
@@ -248,6 +252,7 @@ modes: {
 [@antvis/g6](https://github.com/antvis/g6)
 
 产品在开发过程中参考了以下项目部分实现：
+
 [@alibaba/GGEditor](https://github.com/alibaba/GGEditor)  
 [@guozhaolong/wfd](https://github.com/guozhaolong/wfd)
 [grapheditor](http://jgraph.github.io/mxgraph/javascript/examples/grapheditor/www/index.html)
