@@ -55,7 +55,7 @@ export default {
         // 箭头顶点
         3: { x: -width / 2, y: height / 2 - L2 },
         4: { x: -width / 2 + L1, y: height / 2 - 2 * L2 },
-        5: { x: -width / 2 + L1, y: height / 2 - L2 - L7 },
+        5: { x: -width / 2 + L1, y: height / 2 - L2 - L7 }
       }
       const path = [
         // 上箭头
