@@ -359,7 +359,7 @@
         let node = {
           id: G6.Util.uniqueId(),
           shape: info.shape,
-          label: '',
+          label: info.defaultLabel,
           labelCfg: {
             position: 'center',
             style: {

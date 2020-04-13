@@ -610,7 +610,7 @@ export default {
       createNode (event) {
         let _t = this
         if (_t.dragNode.dottedNode && _t.info.node) {
-          let { width, height, minWidth, minHeight } = _t.info.node
+          let { width, height, minWidth, minHeight, label } = _t.info.node
           let node = {
             ..._t.info.node,
             id: G6.Util.uniqueId(),
@@ -619,6 +619,7 @@ export default {
             size: [width, height],
             minWidth: minWidth,
             minHeight: minHeight,
+            label: label,
             style: {
               fill: _t.graph.$X.fill,
               fillOpacity: _t.graph.$X.fillOpacity,

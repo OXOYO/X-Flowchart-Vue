@@ -64,6 +64,7 @@ export default [
       {
         shape: 'rectangle',
         label: 'Rectangle',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 40,
@@ -76,6 +77,7 @@ export default [
       {
         shape: 'rounded-rectangle',
         label: 'Rounded Rectangle',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 40,
@@ -88,9 +90,10 @@ export default [
       {
         shape: 'text',
         label: 'Text',
+        defaultLabel: 'Text',
         enable: true,
         width: 80,
-        height: 80,
+        height: 40,
         minWidth: 20,
         minHeight: 20,
         anchorPoints: anchorPoints,
@@ -100,7 +103,8 @@ export default [
       {
         shape: 'textbox',
         label: 'Textbox',
-        enable: true,
+        defaultLabel: '',
+        enable: false,
         width: 80,
         height: 80,
         minWidth: 20,
@@ -112,6 +116,7 @@ export default [
       {
         shape: 'ellipse',
         label: 'Ellipse',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 40,
@@ -124,6 +129,7 @@ export default [
       {
         shape: 'square',
         label: 'Square',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -136,6 +142,7 @@ export default [
       {
         shape: 'circle',
         label: 'Circle',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -148,6 +155,7 @@ export default [
       {
         shape: 'process',
         label: 'Process',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 40,
@@ -160,6 +168,7 @@ export default [
       {
         shape: 'diamond',
         label: 'Diamond',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -172,6 +181,7 @@ export default [
       {
         shape: 'parallelogram',
         label: 'Parallelogram',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 40,
@@ -184,6 +194,7 @@ export default [
       {
         shape: 'hexagon',
         label: 'Hexagon',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 40,
@@ -196,6 +207,7 @@ export default [
       {
         shape: 'triangle',
         label: 'Triangle',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -208,6 +220,7 @@ export default [
       {
         shape: 'cylinder',
         label: 'Cylinder',
+        defaultLabel: '',
         enable: true,
         width: 40,
         height: 80,
@@ -220,6 +233,7 @@ export default [
       {
         shape: 'cloud',
         label: 'Cloud',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -232,6 +246,7 @@ export default [
       {
         shape: 'document',
         label: 'Document',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 60,
@@ -244,6 +259,7 @@ export default [
       {
         shape: 'internal-storage',
         label: 'Internal Storage',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -256,6 +272,7 @@ export default [
       {
         shape: 'cube',
         label: 'Cube',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 60,
@@ -268,6 +285,7 @@ export default [
       {
         shape: 'step',
         label: 'Step',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 60,
@@ -280,6 +298,7 @@ export default [
       {
         shape: 'trapezoid',
         label: 'Trapezoid',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 40,
@@ -292,6 +311,7 @@ export default [
       {
         shape: 'tape',
         label: 'Tape',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -304,6 +324,7 @@ export default [
       {
         shape: 'note',
         label: 'Note',
+        defaultLabel: '',
         enable: true,
         width: 60,
         height: 80,
@@ -316,6 +337,7 @@ export default [
       {
         shape: 'card',
         label: 'Card',
+        defaultLabel: '',
         enable: true,
         width: 60,
         height: 80,
@@ -328,6 +350,7 @@ export default [
       {
         shape: 'callout',
         label: 'Callout',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 60,
@@ -340,6 +363,7 @@ export default [
       {
         shape: 'actor',
         label: 'Actor',
+        defaultLabel: '',
         enable: true,
         width: 60,
         height: 80,
@@ -352,6 +376,7 @@ export default [
       {
         shape: 'or',
         label: 'Or',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -364,6 +389,7 @@ export default [
       {
         shape: 'and',
         label: 'And',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -376,6 +402,7 @@ export default [
       {
         shape: 'data-storage',
         label: 'Data Storage',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -388,6 +415,7 @@ export default [
       {
         shape: 'bidirectional-arrow',
         label: 'Bidirectional Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -400,6 +428,7 @@ export default [
       {
         shape: 'arrow',
         label: 'Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -445,6 +474,7 @@ export default [
       {
         shape: 'arrow-down',
         label: 'Arrow Down',
+        defaultLabel: '',
         enable: true,
         width: 60,
         height: 80,
@@ -457,6 +487,7 @@ export default [
       {
         shape: 'arrow-left',
         label: 'Arrow Left',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 60,
@@ -469,6 +500,7 @@ export default [
       {
         shape: 'arrow-right',
         label: 'Arrow Right',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 60,
@@ -481,6 +513,7 @@ export default [
       {
         shape: 'arrow-up',
         label: 'Arrow Up',
+        defaultLabel: '',
         enable: true,
         width: 60,
         height: 80,
@@ -493,6 +526,7 @@ export default [
       {
         shape: 'bent-left-arrow',
         label: 'Bent Left Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -505,6 +539,7 @@ export default [
       {
         shape: 'bent-right-arrow',
         label: 'Bent Right Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -517,6 +552,7 @@ export default [
       {
         shape: 'bent-up-arrow',
         label: 'Bent Up Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -529,11 +565,12 @@ export default [
       {
         shape: 'callout-double-arrow',
         label: 'Callout Double Arrow',
+        defaultLabel: '',
         enable: true,
-        width: 60,
-        height: 100,
-        minWidth: 60,
-        minHeight: 100,
+        width: 40,
+        height: 80,
+        minWidth: 40,
+        minHeight: 80,
         anchorPoints: anchorPoints,
         shapeControl: shapeControl,
         icon: `<g><g></g><g><g transform="translate(0.5,0.5)" style="visibility: visible;"><path d="M 13.16 8.09 L 13.16 6.69 L 10.64 6.69 L 15.96 1.4 L 21.28 6.69 L 18.76 6.69 L 18.76 8.09 L 22.96 8.09 L 22.96 22.01 L 18.76 22.01 L 18.76 23.41 L 21.28 23.41 L 15.96 28.56 L 10.64 23.41 L 13.16 23.41 L 13.16 22.01 L 8.96 22.01 L 8.96 8.09 Z" fill="#ffffff" stroke="#000000" stroke-width="1.3" stroke-miterlimit="10" pointer-events="all"></path></g></g><g></g><g></g></g>`
@@ -541,6 +578,7 @@ export default [
       {
         shape: 'callout-quad-arrow',
         label: 'Callout Quad Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -553,9 +591,10 @@ export default [
       {
         shape: 'callout-up-arrow',
         label: 'Callout Up Arrow',
+        defaultLabel: '',
         enable: true,
-        width: 60,
-        height: 100,
+        width: 40,
+        height: 80,
         minWidth: 40,
         minHeight: 40,
         anchorPoints: anchorPoints,
@@ -565,6 +604,7 @@ export default [
       {
         shape: 'chevron-arrow',
         label: 'Chevron Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 40,
@@ -577,9 +617,10 @@ export default [
       {
         shape: 'circular-arrow',
         label: 'Circular Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
-        height: 50,
+        height: 60,
         minWidth: 40,
         minHeight: 40,
         anchorPoints: anchorPoints,
@@ -589,6 +630,7 @@ export default [
       {
         shape: 'jump-in-right-arrow',
         label: 'Jump-in Right Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -601,6 +643,7 @@ export default [
       {
         shape: 'jump-in-left-arrow',
         label: 'Jump-in Left Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -613,6 +656,7 @@ export default [
       {
         shape: 'left-and-up-arrow',
         label: 'Left and Up Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -625,6 +669,7 @@ export default [
       {
         shape: 'left-sharp-edged-head-arrow',
         label: 'Left Sharp Edged Head Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 40,
@@ -637,11 +682,12 @@ export default [
       {
         shape: 'notched-signal-in-arrow',
         label: 'Notched Signal-in Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
-        height: 40,
+        height: 20,
         minWidth: 40,
-        minHeight: 40,
+        minHeight: 20,
         anchorPoints: anchorPoints,
         shapeControl: shapeControl,
         icon: `<g><g></g><g><g transform="translate(0.5,0.5)" style="visibility: visible;"><path d="M 1.5 10.5 L 26.27 10.5 L 30.3 15 L 26.27 19.5 L 1.5 19.5 L 5.38 15 Z" fill="#ffffff" stroke="#000000" stroke-width="1.3" stroke-miterlimit="10" pointer-events="all"></path></g></g><g></g><g></g></g>`
@@ -649,6 +695,7 @@ export default [
       {
         shape: 'quad-arrow',
         label: 'Quad Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -661,9 +708,10 @@ export default [
       {
         shape: 'right-notched-arrow',
         label: 'Right Notched Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
-        height: 80,
+        height: 60,
         minWidth: 40,
         minHeight: 40,
         anchorPoints: anchorPoints,
@@ -673,6 +721,7 @@ export default [
       {
         shape: 'sharp-edged-arrow',
         label: 'Sharp Edged Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 40,
@@ -685,11 +734,12 @@ export default [
       {
         shape: 'signal-in-arrow',
         label: 'Signal-in Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
-        height: 40,
+        height: 20,
         minWidth: 40,
-        minHeight: 40,
+        minHeight: 20,
         anchorPoints: anchorPoints,
         shapeControl: shapeControl,
         icon: `<g><g></g><g><g transform="translate(0.5,0.5)" style="visibility: visible;"><path d="M 1.2 10.5 L 26.27 10.5 L 30.3 15 L 26.27 19.5 L 1.2 19.5 Z" fill="#ffffff" stroke="#000000" stroke-width="1.3" stroke-miterlimit="10" pointer-events="all"></path></g></g><g></g><g></g></g>`
@@ -697,6 +747,7 @@ export default [
       {
         shape: 'slender-left-arrow',
         label: 'Slender Left Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 60,
@@ -709,6 +760,7 @@ export default [
       {
         shape: 'slender-two-way-arrow',
         label: 'Slender Two Way Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 60,
@@ -721,6 +773,7 @@ export default [
       {
         shape: 'slender-wide-tailed-arrow',
         label: 'Slender Wide Tailed Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 60,
@@ -733,7 +786,8 @@ export default [
       {
         shape: 'striped-arrow',
         label: 'Striped Arrow',
-        enable: true,
+        defaultLabel: '',
+        enable: false,
         width: 80,
         height: 80,
         minWidth: 40,
@@ -745,9 +799,10 @@ export default [
       {
         shape: 'stylised-notched-arrow',
         label: 'Stylised Notched Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
-        height: 80,
+        height: 60,
         minWidth: 40,
         minHeight: 40,
         anchorPoints: anchorPoints,
@@ -757,9 +812,10 @@ export default [
       {
         shape: 'triad-arrow',
         label: 'Triad Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
-        height: 80,
+        height: 56,
         minWidth: 40,
         minHeight: 40,
         anchorPoints: anchorPoints,
@@ -769,9 +825,10 @@ export default [
       {
         shape: 'two-way-arrow-horizontal',
         label: 'Two Way Arrow Horizontal',
+        defaultLabel: '',
         enable: true,
         width: 80,
-        height: 80,
+        height: 60,
         minWidth: 40,
         minHeight: 40,
         anchorPoints: anchorPoints,
@@ -781,8 +838,9 @@ export default [
       {
         shape: 'two-way-arrow-vertical',
         label: 'Two Way Arrow Vertical',
+        defaultLabel: '',
         enable: true,
-        width: 80,
+        width: 60,
         height: 80,
         minWidth: 40,
         minHeight: 40,
@@ -793,6 +851,7 @@ export default [
       {
         shape: 'u-turn-arrow',
         label: 'U Turn Arrow',
+        defaultLabel: '',
         enable: true,
         width: 80,
         height: 80,
@@ -805,9 +864,10 @@ export default [
       {
         shape: 'u-turn-down-arrow',
         label: 'U Turn Down Arrow',
-        enable: true,
+        defaultLabel: '',
+        enable: false,
         width: 80,
-        height: 80,
+        height: 60,
         minWidth: 40,
         minHeight: 40,
         anchorPoints: anchorPoints,
@@ -817,7 +877,8 @@ export default [
       {
         shape: 'u-turn-left-arrow',
         label: 'U Turn Left Arrow',
-        enable: true,
+        defaultLabel: '',
+        enable: false,
         width: 80,
         height: 80,
         minWidth: 40,
@@ -829,7 +890,8 @@ export default [
       {
         shape: 'u-turn-right-arrow',
         label: 'U Turn Right Arrow',
-        enable: true,
+        defaultLabel: '',
+        enable: false,
         width: 80,
         height: 80,
         minWidth: 40,
@@ -841,7 +903,8 @@ export default [
       {
         shape: 'u-turn-up-arrow',
         label: 'U Turn Up Arrow',
-        enable: true,
+        defaultLabel: '',
+        enable: false,
         width: 80,
         height: 80,
         minWidth: 40,
