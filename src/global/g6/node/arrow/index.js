@@ -28,6 +28,12 @@ import signalInArrow from './signal-in-arrow'
 import slenderLeftArrow from './slender-left-arrow'
 import slenderTwoWayArrow from './slender-two-way-arrow'
 import slenderWideTailedArrow from './slender-wide-tailed-arrow'
+import stylisedNotchedArrow from './stylised-notched-arrow'
+import triadArrow from './triad-arrow'
+import twoWayArrowHorizontal from './two-way-arrow-horizontal'
+import twoWayArrowVertical from './two-way-arrow-vertical'
+import uTurnArrow from './u-turn-arrow'
+import uTurnDownArrow from './u-turn-down-arrow'
 
 export default {
   arrowDown,
@@ -53,5 +59,11 @@ export default {
   signalInArrow,
   slenderLeftArrow,
   slenderTwoWayArrow,
-  slenderWideTailedArrow
+  slenderWideTailedArrow,
+  stylisedNotchedArrow,
+  triadArrow,
+  twoWayArrowHorizontal,
+  twoWayArrowVertical,
+  uTurnArrow,
+  uTurnDownArrow
 }

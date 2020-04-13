@@ -1,7 +1,7 @@
 /**
- * Created by OXOYO on 2019/12/27.
+ * Created by OXOYO on 2019/12/26.
  *
- * 圆弧箭头
+ * 双向垂直箭头
  */
 
 import Global from '@antv/g6/src/global'
@@ -10,7 +10,7 @@ import base from '../base'
 import utils from '../../utils'
 
 export default {
-  name: 'circular-arrow',
+  name: 'two-way-arrow-vertical',
   extendName: 'single-shape',
   options: {
     ...base,
@@ -22,34 +22,42 @@ export default {
       const x = 0 - width / 2
       const y = 0 - height / 2
       // 计算箭头
-      let { L1, L2, L7 } = utils.node.computed({
+      let { L1, L7 } = utils.node.computed({
         deg: 85,
-        L1: height / 3,
-        L7: width / 8
+        L1: height * 0.35,
+        L7: width / 4
       })
-      // 下箭头
+      // 上箭头
       let A0 = {
-        1: { x: width / 2 - L2 + L7, y: L1 * 0.25 },
-        2: { x: width / 2, y: L1 * 0.25 },
+        1: { x: -L7, y: -height / 2 + L1 },
+        2: { x: -width / 2, y: -height / 2 + L1 },
         // 顶点
-        3: { x: width / 2 - L2, y: height / 2 },
-        4: { x: width / 2 - 2 * L2, y: L1 * 0.25 },
-        5: { x: width / 2 - L2 - L7, y: L1 * 0.25 }
+        3: { x: 0, y: -height / 2 },
+        4: { x: width / 2, y: -height / 2 + L1 },
+        5: { x: L7, y: -height / 2 + L1 }
       }
-      // 左下左
-      let P1 = { x: -width / 2, y: L1 * 0.25 }
-      // 左下右
-      let P2 = { x: -width / 2 + 2 * L7, y: L1 * 0.25 }
+
+      // 下箭头
+      let A1 = {
+        1: { x: L7, y: height / 2 - L1 },
+        2: { x: width / 2, y: height / 2 - L1 },
+        // 顶点
+        3: { x: 0, y: height / 2 },
+        4: { x: -width / 2, y: height / 2 - L1 },
+        5: { x: -L7, y: height / 2 - L1 }
+      }
+
       const path = [
-        [ 'M', P1.x, P1.y ],
-        // FIXME 圆弧的中心点不在坐标原点上
-        [ 'A', (width - (L2 - L7)) / 2, height / 2 + L1 * 0.25, 0, 1, 1, A0[1].x, A0[1].y ],
+        [ 'M', A0[1].x, A0[1].y ],
         [ 'L', A0[2].x, A0[2].y ],
         [ 'L', A0[3].x, A0[3].y ],
         [ 'L', A0[4].x, A0[4].y ],
         [ 'L', A0[5].x, A0[5].y ],
-        // FIXME 圆弧的中心点不在坐标原点上
-        [ 'A', (width - (L2 - L7)) / 2 - 2 * L7, height / 2 + L1 * 0.25 - 2 * L7, 0, 1, 0, P2.x, P2.y ],
+        [ 'L', A1[1].x, A1[1].y ],
+        [ 'L', A1[2].x, A1[2].y ],
+        [ 'L', A1[3].x, A1[3].y ],
+        [ 'L', A1[4].x, A1[4].y ],
+        [ 'L', A1[5].x, A1[5].y ],
         [ 'Z' ]
       ]
       const color = cfg.color || Global.defaultNode.color

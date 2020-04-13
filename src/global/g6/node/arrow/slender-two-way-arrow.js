@@ -23,8 +23,8 @@ export default {
       const y = 0 - height / 2
       // 计算箭头
       let { L1, L7 } = utils.node.computed({
-        deg: 85,
-        L1: width / 3,
+        deg: 120,
+        L1: width / 6,
         L7: height / 6
       })
       // 左箭头顶点
