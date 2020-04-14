@@ -4,8 +4,8 @@
  * 节点
  */
 
-import computed from './computed'
+import calculateArrow from './calculateArrow'
 
 export default {
-  computed
+  calculateArrow
 }

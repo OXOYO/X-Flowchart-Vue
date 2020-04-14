@@ -22,13 +22,13 @@ export default {
       const x = 0 - width / 2
       const y = 0 - height / 2
       // 计算右箭头
-      let { L1, L7 } = utils.node.computed({
+      let { L1, L7 } = utils.node.calculateArrow({
         deg: 85,
         L1: width / 3,
         L7: height / 4
       })
       // 计算左箭头
-      let { L1: LL1 } = utils.node.computed({
+      let { L1: LL1 } = utils.node.calculateArrow({
         deg: 100,
         L1: width / 6,
         L7: height / 6

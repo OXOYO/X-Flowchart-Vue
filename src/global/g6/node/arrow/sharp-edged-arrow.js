@@ -24,7 +24,7 @@ export default {
       // 计算箭头
       // 箭头角度
       let deg = 116
-      let { L1, L2, L7 } = utils.node.computed({
+      let { L1, L2, L7 } = utils.node.calculateArrow({
         deg: deg,
         L1: height / 4,
         L7: height / 6
