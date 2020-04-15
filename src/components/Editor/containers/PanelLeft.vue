@@ -16,7 +16,7 @@
 </style>
 
 <template>
-  <CardBox class="panel-left" placement="left" position="right" :width="250" @expand="toggleHandler">
+  <CardBox class="panel-left" placement="left" position="right" :width="250" :title="$t('L10300')" @expand="toggleHandler">
     <CardItem
       v-for="(item, index) in materials"
       :key="index"

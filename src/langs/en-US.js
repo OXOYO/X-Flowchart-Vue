@@ -42,6 +42,7 @@ export default {
   L10033: 'Upload',
   L10034: 'Canvas background',
   // right panel
+  L10100: 'Information',
   L10101: 'Configuration',
   L10102: 'Navigator',
   L10103: 'Properties',
@@ -57,6 +58,7 @@ export default {
   L10206: 'Uploading JSON data will overwrite the current canvas and confirm upload? ',
   L10207: '上传JSON数据失败！',
   // left panel
+  L10300: 'Materials',
   L10301: 'General',
   L10302: 'Miscellaneous',
   L10303: 'Advanced',

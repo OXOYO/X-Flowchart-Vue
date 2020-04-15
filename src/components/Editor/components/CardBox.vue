@@ -10,11 +10,25 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    padding-top: 40px;
+    /*padding-top: 40px;*/
     box-shadow: 0 0 2px 2px rgba(0, 0, 0, .1);
     background: #ffffff;
     z-index: 200;
     transition: all .5s ease-in-out;
+    .card-header {
+      display: inline-block;
+      width: 100%;
+      height: 40px;
+
+      .title {
+        height: 40px;
+        line-height: 40px;
+        text-indent: 10px;
+        font-size: 16px;
+        font-weight: bolder;
+        color: #000;
+      }
+    }
 
     .card-body {
       position: absolute;
@@ -41,6 +55,11 @@
       :callback="toggleHandler"
     >
     </Handler>
+    <div class="card-header">
+      <slot name="header">
+        <div class="title">{{ title }}</div>
+      </slot>
+    </div>
     <div class="card-body">
       <slot></slot>
     </div>
@@ -80,7 +99,8 @@
           return ['top', 'right', 'bottom', 'left'].includes(value)
         },
         default: 'right'
-      }
+      },
+      title: String
     },
     data () {
       return {

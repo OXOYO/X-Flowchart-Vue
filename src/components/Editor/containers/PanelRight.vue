@@ -7,7 +7,7 @@
 <style scoped lang="less" rel="stylesheet/less"></style>
 
 <template>
-  <CardBox placement="right" position="left" :width="300" @expand="toggleHandler">
+  <CardBox placement="right" position="left" :width="300" :title="$t('L10100')" @expand="toggleHandler">
     <CardItem :title="$t('L10101')" :enableFold="true" :bold="true">
       <Options></Options>
     </CardItem>
