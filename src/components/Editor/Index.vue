@@ -858,10 +858,6 @@
           ...data
         }
       },
-      ondblclickPad () {
-        let _t = this
-        _t.$X.utils.bus.$emit('editor/pad/dblclick')
-      },
       bindShortcuts () {
         let _t = this
         _t.toolList.forEach(item => {

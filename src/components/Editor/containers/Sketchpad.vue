@@ -33,8 +33,8 @@
 </style>
 
 <template>
-  <div class="sketchpad-box" :style="boxStyle">
-    <div class="sketchpad" id="sketchpad">
+  <div class="sketchpad-box" :style="boxStyle" @dblclick="ondblclickPad">
+    <div class="sketchpad" id="sketchpad" @dblclick.stop>
       <!-- 文本输入框 -->
       <input class="inputBox" autofocus value="">
     </div>
@@ -68,6 +68,12 @@
           }
         })
         return boxStyle
+      }
+    },
+    methods: {
+      ondblclickPad () {
+        let _t = this
+        _t.$X.utils.bus.$emit('editor/pad/dblclick')
       }
     },
     created () {
