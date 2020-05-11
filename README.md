@@ -6,7 +6,7 @@
 
 | XFC |
 | :-------- |
-| [v3.0.0](https://github.com/OXOYO/X-Flowchart-Vue/tree/master) |
+| [v3.0.0](https://github.com/OXOYO/X-Flowchart-Vue/tree/v3.0.0) |
 | [v2.0.0](https://github.com/OXOYO/X-Flowchart-Vue/tree/v2.0.0) |
 | [v1.0.0](https://github.com/OXOYO/X-Flowchart-Vue/tree/v1.0.0) |
 
