@@ -7,6 +7,7 @@
 import rectangle from './rectangle'
 import roundedRectangle from './rounded-rectangle'
 import text from './text'
+import textbox from './textbox'
 import ellipse from './ellipse'
 import square from './square'
 import circle from './circle'
@@ -37,6 +38,7 @@ export default {
   rectangle,
   roundedRectangle,
   text,
+  textbox,
   ellipse,
   square,
   circle,

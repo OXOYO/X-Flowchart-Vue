@@ -401,33 +401,23 @@
         // 是否记录日志标识
         let isRecord = false
         switch (info.name) {
-          case 'undo':
-          case 'redo':
-          case 'clearLog':
-            // 更新操作日志
-            _t.$store.commit('editor/log/update', {
-              action: info.name
-            })
-            if (['undo', 'redo'].includes(info.name)) {
-              _t.$nextTick(function () {
-                if (_t.log.list.length) {
-                  if (_t.log.current === 0) {
-                    let data = _t.log.list[0]
-                    if (data === null) {
-                      // 清除
-                      _t.editor.clear()
-                      _t.editor.paint()
-                    } else {
-                      // 渲染
-                      _t.editor.read(data.content)
-                      _t.editor.paint()
-                      // 缩放到实际大小
-                      _t.doZoom({
-                        name: 'actualSize'
-                      })
-                    }
+        case 'undo':
+        case 'redo':
+        case 'clearLog':
+          // 更新操作日志
+          _t.$store.commit('editor/log/update', {
+            action: info.name
+          })
+          if (['undo', 'redo'].includes(info.name)) {
+            _t.$nextTick(function () {
+              if (_t.log.list.length) {
+                if (_t.log.current === 0) {
+                  let data = _t.log.list[0]
+                  if (data === null) {
+                    // 清除
+                    _t.editor.clear()
+                    _t.editor.paint()
                   } else {
-                    let data = _t.log.list[_t.log.current]
                     // 渲染
                     _t.editor.read(data.content)
                     _t.editor.paint()
@@ -436,415 +426,425 @@
                       name: 'actualSize'
                     })
                   }
+                } else {
+                  let data = _t.log.list[_t.log.current]
+                  // 渲染
+                  _t.editor.read(data.content)
+                  _t.editor.paint()
+                  // 缩放到实际大小
+                  _t.doZoom({
+                    name: 'actualSize'
+                  })
                 }
-              })
-              // 更新currentItem
-              _t.$store.commit('editor/currentItem/update', [])
-            }
-            break
-          case 'copy':
-            (() => {
-              // FIXME 目前只支持节点的复制，不支持边的复制，边只能通过拖拽生成
-              let data = _t.currentItem ? _t.currentItem.filter(item => item.type === 'node') : []
-              _t.clipboard = {
-                data,
-                count: 0
-              }
-            })()
-            break
-          case 'paste':
-            (() => {
-              let data = _t.clipboard.data
-              _t.clipboard.count++
-              if (data.length) {
-                data.forEach((item, index) => {
-                  let model = item.model
-                  // 计算坐标，添加一定偏移量，防止重叠
-                  let x = model.x + 10 * _t.clipboard.count
-                  let y = model.y + 10 * _t.clipboard.count
-                  // 如果通过右键菜单触发的，则获取触发菜单时的canvas坐标
-                  if (info && info.context === 'ContextMenu' && info.data) {
-                    if (info.data.hasOwnProperty('canvasX')) {
-                      x = model.x + info.data.canvasX - data[0].model.x
-                    }
-                    if (info.data.hasOwnProperty('canvasY')) {
-                      y = model.y + info.data.canvasY - data[0].model.y
-                    }
-                  }
-                  let node = {
-                    ...model,
-                    id: G6.Util.uniqueId(),
-                    groupId: '',
-                    x,
-                    y
-                  }
-                  _t.editor.addItem('node', node)
-                })
-              }
-            })()
-            break
-          case 'delete':
-            // 删除逻辑
-            _t.editor.getNodes().forEach(node => {
-              if (node.hasState('active')) {
-                isRecord = true
-                _t.editor.removeItem(node)
-              }
-            })
-            _t.editor.getEdges().forEach(edge => {
-              if (edge.hasState('active')) {
-                isRecord = true
-                _t.editor.removeItem(edge)
               }
             })
             // 更新currentItem
             _t.$store.commit('editor/currentItem/update', [])
-            break
-          case 'zoom':
-          case 'zoomIn':
-          case 'zoomOut':
-          case 'actualSize':
-            _t.doZoom(info)
-            break
-          case 'fit':
-            _t.editor.fitView()
-            break
-          case 'preview':
-            _t.doSetMode(info.name)
-            let previewData = {
-              type: info.data,
-              content: ''
+          }
+          break
+        case 'copy':
+          (() => {
+            // FIXME 目前只支持节点的复制，不支持边的复制，边只能通过拖拽生成
+            let data = _t.currentItem ? _t.currentItem.filter(item => item.type === 'node') : []
+            _t.clipboard = {
+              data,
+              count: 0
             }
-            if (info.data === 'image') {
-              previewData.content = _t.editor.toDataURL()
-            } else if (info.data === 'json') {
-              previewData.content = _t.editor.save()
-            }
-            // 显示预览弹窗
-            _t.$X.utils.bus.$emit('editor/previewModel/open', previewData)
-            break
-          case 'edit':
-            _t.doSetMode(info.name)
-            break
-          case 'fill':
-            _t.editor.$X.fill = info.data
-            _t.editor.getNodes().forEach(node => {
-              if (node.hasState('active')) {
-                isRecord = true
-                let { style } = node.getModel()
-                _t.editor.updateItem(node, {
-                  style: {
-                    ...style,
-                    fill: info.data
+          })()
+          break
+        case 'paste':
+          (() => {
+            let data = _t.clipboard.data
+            _t.clipboard.count++
+            if (data.length) {
+              data.forEach((item, index) => {
+                let model = item.model
+                // 计算坐标，添加一定偏移量，防止重叠
+                let x = model.x + 10 * _t.clipboard.count
+                let y = model.y + 10 * _t.clipboard.count
+                // 如果通过右键菜单触发的，则获取触发菜单时的canvas坐标
+                if (info && info.context === 'ContextMenu' && info.data) {
+                  if (info.data.hasOwnProperty('canvasX')) {
+                    x = model.x + info.data.canvasX - data[0].model.x
                   }
-                })
-              }
-            })
-            break
-          case 'lineColor':
-            _t.editor.$X.lineColor = info.data
-            _t.editor.getEdges().forEach(edge => {
-              if (edge.hasState('active')) {
-                isRecord = true
-                let { style } = edge.getModel()
-                _t.editor.updateItem(edge, {
-                  style: {
-                    ...style,
-                    stroke: info.data
-                  }
-                })
-              }
-            })
-            _t.editor.getNodes().forEach(node => {
-              if (node.hasState('active')) {
-                isRecord = true
-                let { style } = node.getModel()
-                _t.editor.updateItem(node, {
-                  style: {
-                    ...style,
-                    stroke: info.data
-                  }
-                })
-              }
-            })
-            break
-          case 'lineWidth':
-            _t.editor.$X.lineWidth = info.data
-            _t.editor.getEdges().forEach(edge => {
-              if (edge.hasState('active')) {
-                isRecord = true
-                let { style } = edge.getModel()
-                _t.editor.updateItem(edge, {
-                  style: {
-                    ...style,
-                    lineWidth: info.data
-                  }
-                })
-              }
-            })
-            _t.editor.getNodes().forEach(node => {
-              if (node.hasState('active')) {
-                isRecord = true
-                let { style } = node.getModel()
-                _t.editor.updateItem(node, {
-                  style: {
-                    ...style,
-                    lineWidth: info.data
-                  }
-                })
-              }
-            })
-            break
-          case 'lineDash':
-            let edgeConfig = _t.editor.$C.edge
-            _t.editor.$X.lineDash = info.data
-            _t.editor.getEdges().forEach(edge => {
-              if (edge.hasState('active')) {
-                isRecord = true
-                let { style } = edge.getModel()
-                _t.editor.updateItem(edge, {
-                  style: {
-                    ...style,
-                    ...edgeConfig.type[info.data]
-                  }
-                })
-              }
-            })
-            _t.editor.getNodes().forEach(node => {
-              if (node.hasState('active')) {
-                isRecord = true
-                let { style } = node.getModel()
-                _t.editor.updateItem(node, {
-                  style: {
-                    ...style,
-                    ...edgeConfig.type[info.data]
-                  }
-                })
-              }
-            })
-            break
-          case 'lineType':
-            _t.editor.$X.lineType = info.data
-            _t.editor.getEdges().forEach(edge => {
-              if (edge.hasState('active')) {
-                isRecord = true
-                _t.editor.updateItem(edge, {
-                  shape: info.data
-                })
-                _t.editor.refreshItem(edge)
-              }
-            })
-            break
-          case 'startArrow':
-          case 'endArrow':
-            _t.editor.$X[info.name] = info.data
-            // 根据端点类型更新边
-            _t.editor.getEdges().forEach(edge => {
-              if (edge.hasState('active')) {
-                isRecord = true
-                let { style } = edge.getModel()
-                _t.editor.updateItem(edge, {
-                  style: {
-                    ...style,
-                    [info.name]: info.data
-                  }
-                })
-              }
-            })
-            break
-          case 'clear':
-            _t.$Modal.confirm({
-              title: _t.$t('L10200'),
-              // 确认清空画布？
-              content: _t.$t('L10201'),
-              onOk: function () {
-                // 更新操作日志
-                _t.$store.commit('editor/log/update', {
-                  action: 'clear'
-                })
-                _t.editor.clear()
-                _t.editor.paint()
-              }
-            })
-            // 更新currentItem
-            _t.$store.commit('editor/currentItem/update', [])
-            break
-          case 'toFront':
-          case 'toBack':
-            if (Array.isArray(info.data)) {
-              info.data.forEach(data => {
-                if (data.hasOwnProperty('id') && data.id) {
-                  isRecord = true
-                  let item = _t.editor.findById(data.id)
-                  if (item && item[info.name]) {
-                    // 执行操作
-                    item[info.name]()
-                    _t.editor.paint()
+                  if (info.data.hasOwnProperty('canvasY')) {
+                    y = model.y + info.data.canvasY - data[0].model.y
                   }
                 }
-              })
-            }
-            break
-          case 'fullscreen':
-            if (screenfull.enabled) {
-              screenfull.toggle()
-            }
-            break
-          case 'upload':
-            _t.$Modal.confirm({
-              title: _t.$t('L10200'),
-              // 上传JSON数据将覆盖当前画布，确认上传？
-              content: _t.$t('L10206'),
-              onOk: function () {
-                // 打开文件选择窗口
-                let input = document.createElement('input')
-                input.type = 'file'
-                // 限定文件类型
-                input.accept = '.json'
-                input.click()
-                input.onchange = function () {
-                  let file = input.files[0]
-                  // FileReader实例
-                  let reader = new FileReader()
-                  // 读取文件
-                  reader.readAsText(file, 'UTF-8')
-                  // 处理数据
-                  reader.onload = function (event) {
-                    try {
-                      let fileString = event.target.result
-                      let fileJson = JSON.parse(fileString)
-                      // 清空画布
-                      _t.editor.clear()
-                      // 更新currentItem
-                      _t.$store.commit('editor/currentItem/update', [])
-                      // 设置数据
-                      _t.editor.data(fileJson)
-                      // 渲染
-                      _t.editor.render()
-                      _t.editor.getNodes().forEach(node => {
-                          let model = node.getModel()
-                          let radian = model.radian
-                          let keyShape = node.getKeyShape()
-                          keyShape.resetMatrix()
-                          keyShape.rotate(radian)
-                          let group = _t.editor.get('group')
-                          // 更新shapeControl
-                          utils.shapeControl.rotate(model, group, radian)
-                          // 更新锚点
-                          utils.anchor.rotate(model, group, radian)
-                        })
-                      // 加载数据后保存记录
-                      // 更新操作日志
-                      _t.$store.commit('editor/log/update', {
-                        action: 'loadData',
-                        data: {
-                          time: new Date(),
-                          content: _t.editor.save()
-                        }
-                      })
-                    } catch (e) {
-                      // 提示
-                      _t.$Message.error(_t.$t('L10207'))
-                      console.error('Editor Error:: upload JSON failed!', e)
-                    }
-                  }
+                let node = {
+                  ...model,
+                  id: G6.Util.uniqueId(),
+                  groupId: '',
+                  x,
+                  y
                 }
-              }
-            })
-            break
-          case 'download':
-            let fileName = _t.$X.config.system.name + '_' + _t.$X.utils.filters.formatDate(new Date(), 'YYYYMMDDhhmmss')
-            if (info.data === 'image') {
-              _t.editor.downloadImage(fileName)
-            } else if (info.data === 'json') {
-              let content = _t.editor.save()
-              content = JSON.stringify(content)
-              let blob = new Blob([content], {
-                type: 'application/json;charset=UTF-8'
+                _t.editor.addItem('node', node)
               })
-              let url = URL.createObjectURL(blob)
-              let link = document.createElement('a')
-              link.textContent = 'download json'
-              link.href = url
-              link.download = fileName
-              link.click()
-              // no longer need to read the blob so it's revoked
-              URL.revokeObjectURL(url)
             }
-            break
-          case 'selectAll':
-            let groupId = G6.Util.uniqueId()
-            _t.editor.getNodes().forEach(node => {
-              // 更新节点
+          })()
+          break
+        case 'delete':
+          // 删除逻辑
+          _t.editor.getNodes().forEach(node => {
+            if (node.hasState('active')) {
+              isRecord = true
+              _t.editor.removeItem(node)
+            }
+          })
+          _t.editor.getEdges().forEach(edge => {
+            if (edge.hasState('active')) {
+              isRecord = true
+              _t.editor.removeItem(edge)
+            }
+          })
+          // 更新currentItem
+          _t.$store.commit('editor/currentItem/update', [])
+          break
+        case 'zoom':
+        case 'zoomIn':
+        case 'zoomOut':
+        case 'actualSize':
+          _t.doZoom(info)
+          break
+        case 'fit':
+          _t.editor.fitView()
+          break
+        case 'preview':
+          _t.doSetMode(info.name)
+          let previewData = {
+            type: info.data,
+            content: ''
+          }
+          if (info.data === 'image') {
+            previewData.content = _t.editor.toDataURL()
+          } else if (info.data === 'json') {
+            previewData.content = _t.editor.save()
+          }
+          // 显示预览弹窗
+          _t.$X.utils.bus.$emit('editor/previewModel/open', previewData)
+          break
+        case 'edit':
+          _t.doSetMode(info.name)
+          break
+        case 'fill':
+          _t.editor.$X.fill = info.data
+          _t.editor.getNodes().forEach(node => {
+            if (node.hasState('active')) {
+              isRecord = true
+              let { style } = node.getModel()
               _t.editor.updateItem(node, {
-                groupId
+                style: {
+                  ...style,
+                  fill: info.data
+                }
               })
-              _t.editor.setItemState(node, 'active', true)
-            })
-            break
-          case 'canvasBackground':
-            switch (info.data) {
-              case 'default':
-                _t.editor.emit('background:reset')
-                break
-              case 'image':
-                // 打开文件选择窗口
-                let input = document.createElement('input')
-                input.type = 'file'
-                // 限定文件类型
-                input.accept = 'image/png, image/jpeg, image/jpg'
-                input.click()
-                input.onchange = function () {
-                  let file = input.files[0]
-                  // FileReader实例
-                  let reader = new FileReader()
-                  // 读取图片
-                  if (file) {
-                    reader.readAsDataURL(file)
-                    // 处理数据
-                    reader.onload = function (event) {
-                      try {
-                        let imgFile = reader.result
-                        _t.editor.emit('background:update', imgFile)
-                      } catch (e) {
-                        console.error('Editor Error:: update background failed!', e)
-                      }
-                    }
-                  }
-                }
-                break
             }
-            break
-          case 'up':
-          case 'down':
-          case 'left':
-          case 'right':
-            _t.editor.getNodes().forEach(node => {
-              if (node.hasState('active')) {
+          })
+          break
+        case 'lineColor':
+          _t.editor.$X.lineColor = info.data
+          _t.editor.getEdges().forEach(edge => {
+            if (edge.hasState('active')) {
+              isRecord = true
+              let { style } = edge.getModel()
+              _t.editor.updateItem(edge, {
+                style: {
+                  ...style,
+                  stroke: info.data
+                }
+              })
+            }
+          })
+          _t.editor.getNodes().forEach(node => {
+            if (node.hasState('active')) {
+              isRecord = true
+              let { style } = node.getModel()
+              _t.editor.updateItem(node, {
+                style: {
+                  ...style,
+                  stroke: info.data
+                }
+              })
+            }
+          })
+          break
+        case 'lineWidth':
+          _t.editor.$X.lineWidth = info.data
+          _t.editor.getEdges().forEach(edge => {
+            if (edge.hasState('active')) {
+              isRecord = true
+              let { style } = edge.getModel()
+              _t.editor.updateItem(edge, {
+                style: {
+                  ...style,
+                  lineWidth: info.data
+                }
+              })
+            }
+          })
+          _t.editor.getNodes().forEach(node => {
+            if (node.hasState('active')) {
+              isRecord = true
+              let { style } = node.getModel()
+              _t.editor.updateItem(node, {
+                style: {
+                  ...style,
+                  lineWidth: info.data
+                }
+              })
+            }
+          })
+          break
+        case 'lineDash':
+          let edgeConfig = _t.editor.$C.edge
+          _t.editor.$X.lineDash = info.data
+          _t.editor.getEdges().forEach(edge => {
+            if (edge.hasState('active')) {
+              isRecord = true
+              let { style } = edge.getModel()
+              _t.editor.updateItem(edge, {
+                style: {
+                  ...style,
+                  ...edgeConfig.type[info.data]
+                }
+              })
+            }
+          })
+          _t.editor.getNodes().forEach(node => {
+            if (node.hasState('active')) {
+              isRecord = true
+              let { style } = node.getModel()
+              _t.editor.updateItem(node, {
+                style: {
+                  ...style,
+                  ...edgeConfig.type[info.data]
+                }
+              })
+            }
+          })
+          break
+        case 'lineType':
+          _t.editor.$X.lineType = info.data
+          _t.editor.getEdges().forEach(edge => {
+            if (edge.hasState('active')) {
+              isRecord = true
+              _t.editor.updateItem(edge, {
+                shape: info.data
+              })
+              _t.editor.refreshItem(edge)
+            }
+          })
+          break
+        case 'startArrow':
+        case 'endArrow':
+          _t.editor.$X[info.name] = info.data
+          // 根据端点类型更新边
+          _t.editor.getEdges().forEach(edge => {
+            if (edge.hasState('active')) {
+              isRecord = true
+              let { style } = edge.getModel()
+              _t.editor.updateItem(edge, {
+                style: {
+                  ...style,
+                  [info.name]: info.data
+                }
+              })
+            }
+          })
+          break
+        case 'clear':
+          _t.$Modal.confirm({
+            title: _t.$t('L10200'),
+            // 确认清空画布？
+            content: _t.$t('L10201'),
+            onOk: function () {
+              // 更新操作日志
+              _t.$store.commit('editor/log/update', {
+                action: 'clear'
+              })
+              _t.editor.clear()
+              _t.editor.paint()
+            }
+          })
+          // 更新currentItem
+          _t.$store.commit('editor/currentItem/update', [])
+          break
+        case 'toFront':
+        case 'toBack':
+          if (Array.isArray(info.data)) {
+            info.data.forEach(data => {
+              if (data.hasOwnProperty('id') && data.id) {
                 isRecord = true
-                let model = node.getModel()
-                let position = {
-                  x: model.x,
-                  y: model.y
+                let item = _t.editor.findById(data.id)
+                if (item && item[info.name]) {
+                  // 执行操作
+                  item[info.name]()
+                  _t.editor.paint()
                 }
-                switch (info.name) {
-                  case 'up':
-                    position.y--
-                    break
-                  case 'down':
-                    position.y++
-                    break
-                  case 'left':
-                    position.x--
-                    break
-                  case 'right':
-                    position.x++
-                    break
-                }
-                _t.editor.updateItem(node, position)
               }
             })
+          }
+          break
+        case 'fullscreen':
+          if (screenfull.enabled) {
+            screenfull.toggle()
+          }
+          break
+        case 'upload':
+          _t.$Modal.confirm({
+            title: _t.$t('L10200'),
+            // 上传JSON数据将覆盖当前画布，确认上传？
+            content: _t.$t('L10206'),
+            onOk: function () {
+              // 打开文件选择窗口
+              let input = document.createElement('input')
+              input.type = 'file'
+              // 限定文件类型
+              input.accept = '.json'
+              input.click()
+              input.onchange = function () {
+                let file = input.files[0]
+                // FileReader实例
+                let reader = new FileReader()
+                // 读取文件
+                reader.readAsText(file, 'UTF-8')
+                // 处理数据
+                reader.onload = function (event) {
+                  try {
+                    let fileString = event.target.result
+                    let fileJson = JSON.parse(fileString)
+                    // 清空画布
+                    _t.editor.clear()
+                    // 更新currentItem
+                    _t.$store.commit('editor/currentItem/update', [])
+                    // 设置数据
+                    _t.editor.data(fileJson)
+                    // 渲染
+                    _t.editor.render()
+                    _t.editor.getNodes().forEach(node => {
+                      let model = node.getModel()
+                      let radian = model.radian
+                      let keyShape = node.getKeyShape()
+                      keyShape.resetMatrix()
+                      keyShape.rotate(radian)
+                      let group = _t.editor.get('group')
+                      // 更新shapeControl
+                      utils.shapeControl.rotate(model, group, radian)
+                      // 更新锚点
+                      utils.anchor.rotate(model, group, radian)
+                    })
+                    // 加载数据后保存记录
+                    // 更新操作日志
+                    _t.$store.commit('editor/log/update', {
+                      action: 'loadData',
+                      data: {
+                        time: new Date(),
+                        content: _t.editor.save()
+                      }
+                    })
+                  } catch (e) {
+                    // 提示
+                    _t.$Message.error(_t.$t('L10207'))
+                    console.error('Editor Error:: upload JSON failed!', e)
+                  }
+                }
+              }
+            }
+          })
+          break
+        case 'download':
+          let fileName = _t.$X.config.system.name + '_' + _t.$X.utils.filters.formatDate(new Date(), 'YYYYMMDDhhmmss')
+          if (info.data === 'image') {
+            _t.editor.downloadImage(fileName)
+          } else if (info.data === 'json') {
+            let content = _t.editor.save()
+            content = JSON.stringify(content)
+            let blob = new Blob([content], {
+              type: 'application/json;charset=UTF-8'
+            })
+            let url = URL.createObjectURL(blob)
+            let link = document.createElement('a')
+            link.textContent = 'download json'
+            link.href = url
+            link.download = fileName
+            link.click()
+            // no longer need to read the blob so it's revoked
+            URL.revokeObjectURL(url)
+          }
+          break
+        case 'selectAll':
+          let groupId = G6.Util.uniqueId()
+          _t.editor.getNodes().forEach(node => {
+            // 更新节点
+            _t.editor.updateItem(node, {
+              groupId
+            })
+            _t.editor.setItemState(node, 'active', true)
+          })
+          break
+        case 'canvasBackground':
+          switch (info.data) {
+          case 'default':
+            _t.editor.emit('background:reset')
             break
+          case 'image':
+            // 打开文件选择窗口
+            let input = document.createElement('input')
+            input.type = 'file'
+            // 限定文件类型
+            input.accept = 'image/png, image/jpeg, image/jpg'
+            input.click()
+            input.onchange = function () {
+              let file = input.files[0]
+              // FileReader实例
+              let reader = new FileReader()
+              // 读取图片
+              if (file) {
+                reader.readAsDataURL(file)
+                // 处理数据
+                reader.onload = function (event) {
+                  try {
+                    let imgFile = reader.result
+                    _t.editor.emit('background:update', imgFile)
+                  } catch (e) {
+                    console.error('Editor Error:: update background failed!', e)
+                  }
+                }
+              }
+            }
+            break
+          }
+          break
+        case 'up':
+        case 'down':
+        case 'left':
+        case 'right':
+          _t.editor.getNodes().forEach(node => {
+            if (node.hasState('active')) {
+              isRecord = true
+              let model = node.getModel()
+              let position = {
+                x: model.x,
+                y: model.y
+              }
+              switch (info.name) {
+              case 'up':
+                position.y--
+                break
+              case 'down':
+                position.y++
+                break
+              case 'left':
+                position.x--
+                break
+              case 'right':
+                position.x++
+                break
+              }
+              _t.editor.updateItem(node, position)
+            }
+          })
+          break
         }
         if (isRecord) {
           // 记录操作日志

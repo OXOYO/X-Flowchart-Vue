@@ -294,34 +294,34 @@
           name: item.name
         }
         switch (item.name) {
-          case 'lineWidth':
-          case 'lineType':
-          case 'lineDash':
-          case 'preview':
-          case 'download':
-          case 'canvasBackground':
-            payload = {
-              ...payload,
-              data: child.name
-            }
-            break
-          case 'zoom':
-          case 'startArrow':
-          case 'endArrow':
-            payload = {
-              ...payload,
-              data: child.data
-            }
-            break
-          case 'language':
-            // 更新cookie
-            let cookieKey = _t.$X.config.cookie.getItem('locale')
-            _t.$X.Cookies.set(cookieKey, child.name, {
-              expires: 7,
-              path: _t.$X.config.cookie.path
-            })
-            _t.$i18n.locale = _t.$X.langs.locale = child.name
-            break
+        case 'lineWidth':
+        case 'lineType':
+        case 'lineDash':
+        case 'preview':
+        case 'download':
+        case 'canvasBackground':
+          payload = {
+            ...payload,
+            data: child.name
+          }
+          break
+        case 'zoom':
+        case 'startArrow':
+        case 'endArrow':
+          payload = {
+            ...payload,
+            data: child.data
+          }
+          break
+        case 'language':
+          // 更新cookie
+          let cookieKey = _t.$X.config.cookie.getItem('locale')
+          _t.$X.Cookies.set(cookieKey, child.name, {
+            expires: 7,
+            path: _t.$X.config.cookie.path
+          })
+          _t.$i18n.locale = _t.$X.langs.locale = child.name
+          break
         }
         _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
         _t.doHide()
@@ -336,27 +336,27 @@
           name: item.name
         }
         switch (item.name) {
-          case 'paste':
-            payload = {
-              ...payload,
-              data: _t.options
-            }
-            break
-          case 'fill':
-          case 'lineColor':
-            _t.formData[item.name] = val
-            payload = {
-              ...payload,
-              data: val
-            }
-            break
-          case 'toFront':
-          case 'toBack':
-            payload = {
-              ...payload,
-              data: _t.currentItem
-            }
-            break
+        case 'paste':
+          payload = {
+            ...payload,
+            data: _t.options
+          }
+          break
+        case 'fill':
+        case 'lineColor':
+          _t.formData[item.name] = val
+          payload = {
+            ...payload,
+            data: val
+          }
+          break
+        case 'toFront':
+        case 'toBack':
+          payload = {
+            ...payload,
+            data: _t.currentItem
+          }
+          break
         }
         _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
         _t.doHide()

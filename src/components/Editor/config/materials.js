@@ -104,7 +104,7 @@ export default [
         shape: 'textbox',
         label: 'Textbox',
         defaultLabel: '',
-        enable: false,
+        enable: true,
         width: 80,
         height: 80,
         minWidth: 20,

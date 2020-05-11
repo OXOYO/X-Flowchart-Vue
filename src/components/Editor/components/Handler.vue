@@ -81,49 +81,49 @@
 </template>
 
 <script>
-export default {
-  name: 'Handler',
-  props: {
-    // 模式
-    mode: {
-      type: String,
-      validator (value) {
-        return ['horizontal', 'vertical'].includes(value)
+  export default {
+    name: 'Handler',
+    props: {
+      // 模式
+      mode: {
+        type: String,
+        validator (value) {
+          return ['horizontal', 'vertical'].includes(value)
+        },
+        default: 'vertical'
       },
-      default: 'vertical'
-    },
-    // 相对目标元素位置关系
-    position: {
-      type: String,
-      validator (value) {
-        return ['top', 'right', 'bottom', 'left'].includes(value)
+      // 相对目标元素位置关系
+      position: {
+        type: String,
+        validator (value) {
+          return ['top', 'right', 'bottom', 'left'].includes(value)
+        },
+        default: 'right'
       },
-      default: 'right'
+      // 是否展开
+      expand: {
+        type: Boolean,
+        default: true
+      },
+      // 回调
+      callback: {
+        type: Function
+      }
     },
-    // 是否展开
-    expand: {
-      type: Boolean,
-      default: true
+    computed: {
+      className: function () {
+        let _t = this
+        return ['handler', _t.mode, _t.position, _t.expand]
+      }
     },
-    // 回调
-    callback: {
-      type: Function
-    }
-  },
-  computed: {
-    className: function () {
-      let _t = this
-      return ['handler', _t.mode, _t.position, _t.expand]
-    }
-  },
-  methods: {
-    // 切换handler显示/隐藏
-    toggleHandler: function () {
-      let _t = this
-      if (_t.callback) {
-        _t.callback()
+    methods: {
+      // 切换handler显示/隐藏
+      toggleHandler: function () {
+        let _t = this
+        if (_t.callback) {
+          _t.callback()
+        }
       }
     }
   }
-}
 </script>
