@@ -10,6 +10,13 @@
 | [v2.0.0](https://github.com/OXOYO/X-Flowchart-Vue/tree/v2.0.0) |
 | [v1.0.0](https://github.com/OXOYO/X-Flowchart-Vue/tree/v1.0.0) |
 
+## TODO
+- [ ] 1.升级G6版本至最新版（3.4.x）
+- [ ] 2.xfc核心架构优化。
+- [ ] 3.性能优化。
+- [ ] 4.图形丰富。
+- [ ] 5.遗留BUG修复。
+
 ## Preview
 
 [online](http://oxoyo.co/X-Flowchart-Vue/)
