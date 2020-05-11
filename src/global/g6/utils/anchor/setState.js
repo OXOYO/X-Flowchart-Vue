@@ -12,7 +12,8 @@ export default function (name, value, item) {
     let children = group.get('children')
     for (let i = 0, len = children.length; i < len; i++) {
       let child = children[i]
-      if (child._attrs && child.attr('name')) {
+      // console.log('child name', child, child.name, child.attr('name'))
+      if (child.attr('name')) {
         switch (child.attr('name')) {
           case 'anchorPoint':
             if (value) {

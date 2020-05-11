@@ -4,14 +4,13 @@
  * 向右跳箭头
  */
 
-import Global from '@antv/g6/src/global'
-import Util from '@antv/g6/src/util'
+import * as G6Util from '@antv/util'
 import base from '../base'
 import utils from '../../utils'
 
 export default {
   name: 'jump-in-right-arrow',
-  extendName: 'single-shape',
+  extendName: 'single-node',
   options: {
     ...base,
     shapeType: 'path',
@@ -51,8 +50,8 @@ export default {
         [ 'A', width - (L2 - L7) - 2 * L7, height - L1, 0, 0, 0, P1.x, P1.y ],
         [ 'Z' ]
       ]
-      const color = cfg.color || Global.defaultNode.color
-      const style = Util.mix({}, Global.defaultNode.style, {
+      const color = cfg.color
+      const style = G6Util.mix({}, {
         // 节点的位置在上层确定，所以这里仅使用相对位置即可
         x,
         y,

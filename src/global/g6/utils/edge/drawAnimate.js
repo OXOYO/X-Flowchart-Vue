@@ -29,16 +29,16 @@ export default function (cfg, group) {
   }
 
   // 对红色圆点添加动画
-  circle.animate({
-    onFrame (ratio) {
-      let tmpPoint = node.getPoint(ratio)
-      if (tmpPoint) {
-        return {
-          x: tmpPoint.x,
-          y: tmpPoint.y
-        }
+  circle.animate(ratio => {
+    let tmpPoint = node.getPoint(ratio)
+    if (tmpPoint) {
+      return {
+        x: tmpPoint.x,
+        y: tmpPoint.y
       }
-    },
-    repeat: true
-  }, config.edgeAnimate.delay)
+    }
+  }, {
+    repeat: true,
+    duration: config.edgeAnimate.duration
+  })
 }

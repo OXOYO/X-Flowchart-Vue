@@ -8,7 +8,7 @@ import { polylineFinding } from './polylineFinding'
 
 export default {
   name: 'x-broken',
-  extendName: 'single-line',
+  extendName: 'single-edge',
   options: {
     ...base,
     draw (cfg, group) {
@@ -21,6 +21,7 @@ export default {
       points.push(endPoint)
       let path = this.getPath(points)
       const keyShape = group.addShape('path', {
+        name: 'edgeShape',
         className: 'edge-shape',
         attrs: {
           ...cfg,

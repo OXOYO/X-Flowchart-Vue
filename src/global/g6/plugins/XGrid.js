@@ -7,7 +7,7 @@
  */
 
 import Grid from '@antv/g6/build/grid'
-import modifyCSS from '@antv/util/lib/dom/modify-css'
+import * as G6DomUtil from '@antv/dom-util'
 
 export default class XGrid extends Grid {
   updateGrid (e) {
@@ -15,7 +15,7 @@ export default class XGrid extends Grid {
     const matrix = e.matrix
     // 矩阵变换
     const transform = 'matrix(' + matrix[0] + ',' + matrix[1] + ',' + matrix[3] + ',' + matrix[4] + ',' + matrix[6] + ',' + matrix[7] + ')'
-    modifyCSS(gridContainer, {
+    G6DomUtil.modifyCSS(gridContainer, {
       transform
     })
   }

@@ -6,7 +6,7 @@
 import utils from '../utils'
 
 export default {
-  shape: null,
+  type: null,
   drawShape (cfg, group) {
     const shapeType = this.shapeType
     const style = this.getShapeStyle(cfg)
@@ -49,6 +49,11 @@ export default {
     // 设置shapeControl状态
     utils.shapeControl.setState(name, value, item)
   },
+  // update (cfg, item) {
+  //   console.log('update cfg', cfg)
+  //   this.updateShapeStyle(cfg, item)
+  //   this.updateLabel(cfg, item)
+  // },
   // 绘制后附加锚点
   afterDraw (cfg, group) {
     // 绘制锚点

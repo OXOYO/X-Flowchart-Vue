@@ -3,13 +3,13 @@
  *
  * 椭圆
  */
-import Global from '@antv/g6/src/global'
-import Util from '@antv/g6/src/util'
+
+import * as G6Util from '@antv/util'
 import base from '../base'
 
 export default {
   name: 'ellipse',
-  extendName: 'single-shape',
+  extendName: 'single-node',
   options: {
     ...base,
     shapeType: 'path',
@@ -28,8 +28,8 @@ export default {
         // 下弧
         [ 'A', width / 2, height / 2, 0, 1, 1, -width / 2, 0 ]
       ]
-      const color = cfg.color || Global.defaultNode.color
-      const style = Util.mix({}, Global.defaultNode.style, {
+      const color = cfg.color
+      const style = G6Util.mix({}, {
         // 节点的位置在上层确定，所以这里仅使用相对位置即可
         x,
         y,

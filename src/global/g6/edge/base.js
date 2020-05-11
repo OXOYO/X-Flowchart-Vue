@@ -10,6 +10,7 @@ export default {
   draw (cfg, group) {
     const { startPoint, endPoint } = cfg
     const keyShape = group.addShape('path', {
+      name: 'edgeShape',
       className: 'edge-shape',
       attrs: {
         ...cfg,

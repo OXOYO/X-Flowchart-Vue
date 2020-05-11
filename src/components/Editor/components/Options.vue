@@ -260,7 +260,7 @@
               ]
             },
             {
-              name: 'shape',
+              name: 'type',
               label: '形状',
               lang: '',
               type: 'string',

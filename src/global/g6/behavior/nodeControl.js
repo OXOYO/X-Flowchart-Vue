@@ -4,7 +4,8 @@
  * 综合节点控制交互
  */
 
-import G6 from '@antv/g6'
+import * as G6Util from '@antv/util'
+import * as G6DomUtil from '@antv/dom-util'
 import config from '../config'
 import utils from '../utils'
 
@@ -75,7 +76,7 @@ export default {
       _t.dragNode.status = 'dragNodeToEditor'
     },
     onNodeMousedown (event) {
-      if (event.event.button !== 0) { // 非左键忽略
+      if (event.originalEvent.button !== 0) { // 非左键忽略
         return
       }
       let _t = this
@@ -190,7 +191,7 @@ export default {
       })
     },
     onCanvasMousedown (event) {
-      if (event.event.button !== 0) { // 非左键忽略
+      if (event.originalEvent.button !== 0) { // 非左键忽略
         return
       }
       let _t = this
@@ -253,7 +254,7 @@ export default {
           sourceAnchor = _t.info.node.getLinkPoint({ x: event.x, y: event.y })
         }
         _t.drawLine.currentLine = _t.graph.addItem('edge', {
-          id: G6.Util.uniqueId(),
+          id: G6Util.uniqueId(),
           // 起始节点
           source: startModel.id,
           sourceAnchor: sourceAnchor ? sourceAnchor.anchorIndex : '',
@@ -279,7 +280,7 @@ export default {
             ...config.edge.type[_t.graph.$X.lineDash]
           },
           // FIXME 边的形式需要与工具栏联动
-          shape: _t.graph.$X.lineType || 'line',
+          type: _t.graph.$X.lineType || 'line',
           startArrow: _t.graph.$X.startArrow || false,
           endArrow: _t.graph.$X.endArrow || false
         })
@@ -367,7 +368,7 @@ export default {
         _t.shapeControlPoint.isMoving = true
         // 是否等比缩放
         // FIXME !!! 此处应该通过物料配置控制
-        _t.shapeControlPoint.isProportional = ['square', 'circle', 'bidirectional-arrow', 'arrow'].includes(model.shape)
+        _t.shapeControlPoint.isProportional = ['square', 'circle', 'bidirectional-arrow', 'arrow'].includes(model.type)
         if (_t.config.tooltip.shapeControl) {
           _t.toolTip.create.call(_t, {
             left: model.x,
@@ -381,7 +382,7 @@ export default {
         if (_t.info.node && _t.info.target && originNodeModel && _t.shapeControlPoint.isMoving) {
           let model = _t.info.node.getModel()
           // 判断位置
-          let position = _t.info.target._attrs ? _t.info.target.attr('position') : null
+          let position = _t.info.target.attr('position') || null
           let attrs = {
             x: originNodeModel.x,
             y: originNodeModel.y,
@@ -426,6 +427,9 @@ export default {
           } else {
             return
           }
+          // 格式化size
+          attrs.size[0] = parseInt(attrs.size[0])
+          attrs.size[1] = parseInt(attrs.size[1])
           // 设置宽高
           attrs.width = attrs.size[0]
           attrs.height = attrs.size[1]
@@ -452,8 +456,10 @@ export default {
             width: attrs.size[0],
             height: attrs.size[1]
           }, group)
+          console.log('attrs', attrs)
           // 更新节点
           _t.graph.updateItem(_t.info.node, attrs)
+          _t.graph.refreshItem(_t.info.node)
           if (_t.config.shapeControlPoint.updateEdge) {
             // 更新边
             utils.edge.update(_t.info.node, _t.graph)
@@ -590,6 +596,7 @@ export default {
           let { width, height } = _t.info.node
           let group = _t.graph.get('group')
           _t.dragNode.dottedNode = group.addShape('rect', {
+            name: 'dottedNode',
             attrs: {
               ..._t.dragNode.dottedNodeStyle,
               width,
@@ -613,7 +620,7 @@ export default {
           let { width, height, minWidth, minHeight, label } = _t.info.node
           let node = {
             ..._t.info.node,
-            id: G6.Util.uniqueId(),
+            id: G6Util.uniqueId(),
             x: event.x,
             y: event.y,
             size: [width, height],
@@ -678,8 +685,8 @@ export default {
               if (model.id === id) {
                 let attrs = {
                   // 处理点击移动 图形时的抖动
-                  x: x + event.event.movementX,
-                  y: y + event.event.movementY
+                  x: x + event.originalEvent.movementX,
+                  y: y + event.originalEvent.movementY
                 }
                 // 更新节点
                 _t.graph.updateItem(_t.info.node, attrs)
@@ -698,8 +705,8 @@ export default {
                 if (groupId && model.groupId && model.groupId === groupId) {
                   // 更新同组节点
                   _t.graph.updateItem(node, {
-                    x: model.x + event.event.movementX,
-                    y: model.y + event.event.movementY
+                    x: model.x + event.originalEvent.movementX,
+                    y: model.y + event.originalEvent.movementY
                   })
                 }
               }
@@ -762,8 +769,8 @@ export default {
           if (!_t.drawGroup.marqueeNode) {
             // 绘制虚线框
             let node = {
-              id: G6.Util.uniqueId(),
-              shape: 'rect',
+              id: G6Util.uniqueId(),
+              type: 'rect',
               x: x,
               y: y,
               size: [width, height],
@@ -796,7 +803,7 @@ export default {
           const { minX: marqueeNodeMinX, maxX: marqueeNodeMaxX, minY: marqueeNodeMinY, maxY: marqueeNodeMaxY } = _t.drawGroup.marqueeNode.getBBox()
           // 当前节点数组
           let currentItemArr = []
-          let groupId = G6.Util.uniqueId()
+          let groupId = G6Util.uniqueId()
           let marqueeNodeId = _t.drawGroup.marqueeNode.get('id')
           _t.graph.getNodes().forEach(item => {
             let model = item.getModel()
@@ -839,7 +846,7 @@ export default {
         if (html) {
           html.value = label
           // 更新输入框样式
-          G6.Util.modifyCSS(html, {
+          G6DomUtil.modifyCSS(html, {
             display: 'inline-block',
             position: 'absolute',
             left: x - width / 2 + 'px',
@@ -868,7 +875,7 @@ export default {
             })
             html.removeEventListener('blur', handler)
             // 隐藏输入框dom
-            G6.Util.modifyCSS(html, {
+            G6DomUtil.modifyCSS(html, {
               display: 'none'
             })
           }
@@ -923,7 +930,7 @@ export default {
         if (html) {
           html.value = label
           // 更新输入框样式
-          G6.Util.modifyCSS(html, {
+          G6DomUtil.modifyCSS(html, {
             display: 'inline-block',
             position: 'absolute',
             left: left,
@@ -952,7 +959,7 @@ export default {
             })
             html.removeEventListener('blur', handler)
             // 隐藏输入框dom
-            G6.Util.modifyCSS(html, {
+            G6DomUtil.modifyCSS(html, {
               display: 'none'
             })
           }
@@ -971,12 +978,12 @@ export default {
         }
         let canvas = _t.graph.get('canvas')
         const el = canvas.get('el')
-        _t.toolTip.currentTip = G6.Util.createDom(`<div class="tooltip">${content}</div>`)
+        _t.toolTip.currentTip = G6DomUtil.createDom(`<div class="tooltip">${content}</div>`)
         if (_t.toolTip.currentTip) {
           // 插入输入框dom
           el.parentNode.appendChild(_t.toolTip.currentTip)
           // 更新输入框样式
-          G6.Util.modifyCSS(_t.toolTip.currentTip, {
+          G6DomUtil.modifyCSS(_t.toolTip.currentTip, {
             display: 'inline-block',
             position: 'absolute',
             left: position.left + 'px',
@@ -1000,7 +1007,7 @@ export default {
           // 更新文本
           _t.toolTip.currentTip.innerHTML = content
           // 更新输入框样式
-          G6.Util.modifyCSS(_t.toolTip.currentTip, {
+          G6DomUtil.modifyCSS(_t.toolTip.currentTip, {
             left: position.left + 'px',
             top: position.top + 'px'
           })
@@ -1167,6 +1174,7 @@ export default {
                 x2 = Math.min(line[0], line[2])
               }
               let shape = group.addShape('line', {
+                name: 'alignLineHorizontal',
                 attrs: {
                   x1,
                   y1: line[1],
@@ -1196,6 +1204,7 @@ export default {
                 y2 = Math.min(line[1], line[3])
               }
               let shape = group.addShape('line', {
+                name: 'alignLineVertical',
                 attrs: {
                   x1: line[0],
                   y1,

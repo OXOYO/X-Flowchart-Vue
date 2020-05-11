@@ -38,12 +38,13 @@
   import utils from '@/global/g6/utils'
   // 扩展了节点、边的G6
   import G6 from '@/global/g6/index'
+  import * as G6Util from '@antv/util'
   // 导航器
-  import Minimap from '@antv/g6/build/minimap'
+  // import Minimap from '@antv/g6/build/minimap'
   // 自定义栅格插件
-  import XGrid from '@/global/g6/plugins/XGrid'
+  // import XGrid from '@/global/g6/plugins/XGrid'
   // 背景图
-  import XBackground from '@/global/g6/plugins/XBackground'
+  // import XBackground from '@/global/g6/plugins/XBackground'
   // 全屏
   import screenfull from 'screenfull'
   // 热键
@@ -96,31 +97,30 @@
           navigator.clientWidth,
           parseInt(navigator.clientWidth * sketchpad.clientHeight / sketchpad.clientWidth)
         ]
-        const minimap = new Minimap({
+        const minimap = new G6.Minimap({
           container: navigator,
           type: 'keyShape',
           size: size
         })
-        const grid = new XGrid()
-        const background = new XBackground()
+        const grid = new G6.Grid()
+        // const background = new XBackground()
         // 生成编辑器实例
         _t.editor = new G6.Graph({
           plugins: [
             minimap,
-            grid,
-            background
+            grid
+            // ,
+            // background
           ],
           container: sketchpad,
           width: sketchpad.clientWidth,
           height: sketchpad.clientHeight,
           fitView: true,
           fitViewPadding: 20,
+          autoPaint: true,
           // 模式
           modes: {
             edit: [
-              // 'zoom-canvas',
-              // 'drag-canvas',
-              // 'click-select',
               {
                 type: 'node-control',
                 config: {
@@ -230,6 +230,7 @@
             let node = _t.editor.findById(item.id)
             if (!index) {
               // 更新第一个节点
+              console.log('item.model', item.model)
               _t.editor.updateItem(node, item.model)
             } else {
               // FIXME 更新同组节点，只更新样式部分
@@ -315,7 +316,7 @@
           return
         }
         // 批量操作时关闭自动重绘，以提升性能
-        _t.editor.setAutoPaint(false)
+        // _t.editor.setAutoPaint(false)
         _t.editor.getNodes().forEach(function (node) {
           _t.editor.clearItemStates(node, ['active', 'hover', 'selected'])
         })
@@ -323,7 +324,7 @@
           _t.editor.clearItemStates(edge, ['active', 'hover', 'selected'])
         })
         _t.editor.paint()
-        _t.editor.setAutoPaint(true)
+        // _t.editor.setAutoPaint(true)
       },
       doZoom (info, position) {
         let _t = this
@@ -356,9 +357,10 @@
       },
       doAddNode (info) {
         let _t = this
+        console.log('info', info)
         let node = {
-          id: G6.Util.uniqueId(),
-          shape: info.shape,
+          id: G6Util.uniqueId(),
+          type: info.type,
           label: info.defaultLabel,
           labelCfg: {
             position: 'center',
@@ -473,7 +475,7 @@
                 }
                 let node = {
                   ...model,
-                  id: G6.Util.uniqueId(),
+                  id: G6Util.uniqueId(),
                   groupId: '',
                   x,
                   y
@@ -629,7 +631,7 @@
             if (edge.hasState('active')) {
               isRecord = true
               _t.editor.updateItem(edge, {
-                shape: info.data
+                type: info.data
               })
               _t.editor.refreshItem(edge)
             }
@@ -773,7 +775,7 @@
           }
           break
         case 'selectAll':
-          let groupId = G6.Util.uniqueId()
+          let groupId = G6Util.uniqueId()
           _t.editor.getNodes().forEach(node => {
             // 更新节点
             _t.editor.updateItem(node, {

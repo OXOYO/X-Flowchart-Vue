@@ -6,8 +6,7 @@
 
 // import Base from '@antv/g6/plugins/base'
 import Grid from '@antv/g6/build/grid'
-import createDOM from '@antv/util/lib/dom/create-dom'
-import modifyCSS from '@antv/util/lib/dom/modify-css'
+import * as G6DomUtil from '@antv/dom-util'
 
 export default class XBackground extends Grid {
   init () {
@@ -15,10 +14,10 @@ export default class XBackground extends Grid {
     const graph = _t.get('graph')
     const graphContainer = graph.get('container')
     const canvas = graph.get('canvas').get('el')
-    const backgroundContainer = createDOM(
+    const backgroundContainer = G6DomUtil.createDom(
       '<div class="x-background" style="position: absolute; left: 0; top:0; right:0; bottom:0; overflow: hidden; z-index: -999;"></div>'
     )
-    const imgDom = createDOM(
+    const imgDom = G6DomUtil.createDom(
       '<img class="x-background-img" style="width: 100%; height: 100%; visibility: hidden;"></img>'
     )
     backgroundContainer.appendChild(imgDom)
@@ -38,7 +37,7 @@ export default class XBackground extends Grid {
     let imgDom = _t.get('imgDom')
     if (imgDom) {
       imgDom.src = ''
-      modifyCSS(imgDom, {
+      G6DomUtil.modifyCSS(imgDom, {
         visibility: 'hidden'
       })
     }
@@ -48,7 +47,7 @@ export default class XBackground extends Grid {
     let imgDom = _t.get('imgDom')
     if (imgDom) {
       imgDom.src = data
-      modifyCSS(imgDom, {
+      G6DomUtil.modifyCSS(imgDom, {
         visibility: 'visible'
       })
     }

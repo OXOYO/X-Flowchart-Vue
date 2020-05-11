@@ -11,5 +11,5 @@ export default {
       r: 3
     }
   },
-  delay: 3000
+  duration: 3000
 }

@@ -11,6 +11,7 @@ export default function (cfg, group) {
   // 处理边框
   group.addShape('path', {
     id: id + '_shape_control_edge',
+    name: 'shapeControlEdge',
     attrs: {
       boxName: 'shapeControl',
       name: 'shapeControlEdge',
@@ -41,6 +42,7 @@ export default function (cfg, group) {
       // 添加Marker形状
       group.addShape('marker', {
         id: id + '_shape_control_point_' + i,
+        name: 'shapeControlPoint',
         index: i,
         attrs: {
           boxName: 'shapeControl',
@@ -65,6 +67,7 @@ export default function (cfg, group) {
     let rotateH = 20
     group.addShape('image', {
       id: id + '_shape_control_rotate',
+      name: 'shapeControlRotate',
       attrs: {
         boxName: 'shapeControl',
         name: 'shapeControlRotate',

@@ -4,13 +4,12 @@
  * 菱形
  */
 
-import Global from '@antv/g6/src/global'
-import Util from '@antv/g6/src/util'
+import * as G6Util from '@antv/util'
 import base from '../base'
 
 export default {
   name: 'diamond',
-  extendName: 'single-shape',
+  extendName: 'single-node',
   options: {
     ...base,
     /*
@@ -28,8 +27,8 @@ export default {
         [width / 2, 0],
         [0, height / 2]
       ]
-      const color = cfg.color || Global.defaultNode.color
-      const style = Util.mix({}, Global.defaultNode.style, {
+      const color = cfg.color
+      const style = G6Util.mix({}, {
         // 节点的位置在上层确定，所以这里仅使用相对位置即可
         x,
         y,
@@ -61,8 +60,8 @@ export default {
         [ 'L', 0, height / 2 ],
         [ 'Z' ]
       ]
-      const color = cfg.color || Global.defaultNode.color
-      const style = Util.mix({}, Global.defaultNode.style, {
+      const color = cfg.color
+      const style = G6Util.mix({}, {
         // 节点的位置在上层确定，所以这里仅使用相对位置即可
         x,
         y,

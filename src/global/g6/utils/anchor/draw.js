@@ -26,11 +26,10 @@ export default function (cfg, group) {
         anchorX = x * width + originX
         anchorY = y * height + originY
       }
-      let flag = shape.isPointInPath(anchorX, anchorY)
-      // console.log('isPointInPath', anchorPoints[i], anchorX, anchorY, flag)
       // 添加锚点背景
       let anchorBgShape = group.addShape('marker', {
         id: id + '_anchor_bg_' + i,
+        name: 'anchorBg',
         attrs: {
           boxName: 'anchor',
           name: 'anchorBg',
@@ -38,24 +37,26 @@ export default function (cfg, group) {
           y: anchorY,
           // 锚点默认样式
           ...config.anchorBg.style.default
-        }
+        },
+        zIndex: 100
       })
       // 添加锚点Marker形状
       let anchorShape = group.addShape('marker', {
         id: id + '_anchor_' + i,
+        name: 'anchorPoint',
         attrs: {
           boxName: 'anchor',
           name: 'anchorPoint',
           x: anchorX,
           y: anchorY,
           // 锚点默认样式
-          ...config.anchor.style.default,
-          fill: flag ? 'red' : config.anchor.style.default.fill
+          ...config.anchor.style.default
         }
       })
       // FIXME 【调试用代码】添加锚点文本
       // group.addShape('text', {
       //   id: id + '_anchor_text_' + i,
+      //   name: 'anchorText',
       //   attrs: {
       //     x: anchorX,
       //     y: anchorY,

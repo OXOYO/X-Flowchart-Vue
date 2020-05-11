@@ -58,7 +58,7 @@
         required: true,
         default () {
           return {
-            shape: 'circle',
+            type: 'circle',
             label: 'circle',
             enable: true,
             width: 40,
