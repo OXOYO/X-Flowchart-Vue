@@ -9,7 +9,7 @@ import config from '../../config'
 export default function (cfg, group) {
   let { anchorPoints, width, height, id } = cfg
   let shape = group.getFirst()
-  console.log('getAnchorPoints', id, shape, anchorPoints.length)
+  // console.log('getAnchorPoints', id, shape, anchorPoints.length)
   if (anchorPoints && anchorPoints.length) {
     for (let i = 0, len = anchorPoints.length; i < len; i++) {
       let anchorX

@@ -9,6 +9,8 @@ import * as G6DomUtil from '@antv/dom-util'
 import config from '../config'
 import utils from '../utils'
 
+const TIME_FRAME = 200
+
 export default {
   name: 'node-control',
   options: {
@@ -46,8 +48,11 @@ export default {
     },
     getEvents () {
       return {
-        'editor:addNode': 'startAddNode',
+        'editor:addNode': 'onEditorAddNode',
         'node:mousedown': 'onNodeMousedown',
+        'node:dragstart': 'onNodeDragStart',
+        'node:drag': 'onNodeDrag',
+        'node:dragend': 'onNodeDragEnd',
         'node:mouseup': 'onNodeMouseup',
         'node:dblclick': 'onNodeDblclick',
         'node:contextmenu': 'onNodeContextmenu',
@@ -56,7 +61,7 @@ export default {
         'edge:dblclick': 'onEdgeDblclick',
         'edge:contextmenu': 'onEdgeContextmenu',
         'canvas:mousedown': 'onCanvasMousedown',
-        'canvas:mousemouse': 'onCanvasMousemove',
+        // 'canvas:mousemove': 'onCanvasMousemove',
         'canvas:mouseup': 'onCanvasMouseup',
         'canvas:mouseenter': 'onCanvasMouseenter',
         'canvas:mouseleave': 'onCanvasMouseleave',
@@ -65,8 +70,9 @@ export default {
         'mouseup': 'onMouseup'
       }
     },
-    startAddNode (node) {
+    onEditorAddNode (node) {
       let _t = this
+      console.log('onEditorAddNode')
       // 初始化数据
       _t.info = {
         type: 'dragNode',
@@ -76,7 +82,9 @@ export default {
       _t.dragNode.status = 'dragNodeToEditor'
     },
     onNodeMousedown (event) {
-      if (event.originalEvent.button !== 0) { // 非左键忽略
+      console.log('onNodeMousedown')
+      // 非左键忽略
+      if (!utils.common.isLeftKey(event)) {
         return
       }
       let _t = this
@@ -106,26 +114,51 @@ export default {
             _t.info.type = 'shapeControlRotate'
             break
         }
-      } else {
-        _t.info.type = 'dragNode'
       }
       if (_t.info && _t.info.type && _t[_t.info.type].start) {
         _t[_t.info.type].start.call(_t, event)
       }
     },
+    onNodeDragStart (event) {
+      const _t = this
+      console.log('onNodeDragStart')
+      _t.info.type = 'dragNode'
+      if (_t.info && _t.info.type && _t[_t.info.type].start) {
+        _t[_t.info.type].start.call(_t, event)
+      }
+    },
+    onNodeDrag (event) {
+      console.log('onNodeDrag', new Date().getTime())
+      let _t = this
+      utils.common.throttle(function () {
+        if (_t.info && _t.info.type && _t[_t.info.type].move) {
+          _t[_t.info.type].move.call(_t, event)
+        }
+      }, TIME_FRAME)()
+    },
+    onNodeDragEnd (event) {
+      console.log('onNodeDragEnd')
+      const _t = this
+      if (_t.info && _t.info.type && _t[_t.info.type].stop) {
+        _t[_t.info.type].stop.call(_t, event)
+      }
+    },
     onNodeMouseup (event) {
+      console.log('onNodeMouseup')
       let _t = this
       if (_t.info && _t.info.type && _t[_t.info.type].stop) {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
     onNodeDblclick (event) {
+      console.log('onNodeDblclick')
       let _t = this
       if (_t.config.nodeLabel) {
         _t.nodeLabel.create.call(_t, event)
       }
     },
     onNodeContextmenu (event) {
+      console.log('onNodeContextmenu')
       let _t = this
       _t.graph.emit('editor:contextmenu', {
         type: 'node',
@@ -136,6 +169,7 @@ export default {
       })
     },
     onEdgeMousedown (event) {
+      console.log('onEdgeMousedown')
       let _t = this
       let model = event.item.getModel()
       _t.graph.emit('editor:getItem', [
@@ -147,18 +181,21 @@ export default {
       ])
     },
     onEdgeMouseup (event) {
+      console.log('onEdgeMouseup')
       let _t = this
       if (_t.info && _t.info.type === 'drawLine') {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
     onEdgeDblclick (event) {
+      console.log('onEdgeDblclick')
       let _t = this
       if (_t.config.edgeLabel) {
         _t.edgeLabel.create.call(_t, event)
       }
     },
     onEdgeContextmenu (event) {
+      console.log('onEdgeContextmenu')
       let _t = this
       _t.graph.emit('editor:contextmenu', {
         type: 'edge',
@@ -169,18 +206,21 @@ export default {
       })
     },
     onCanvasMouseenter (event) {
+      console.log('onCanvasMouseenter')
       let _t = this
       if (_t.info && _t.info.type === 'dragNode') {
         _t[_t.info.type].createDottedNode.call(_t, event)
       }
     },
     onCanvasMouseleave (event) {
+      console.log('onCanvasMouseleave')
       let _t = this
       if (_t.info && _t.info.type === 'dragNode') {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
     onCanvasContextmenu (event) {
+      console.log('onCanvasContextmenu')
       let _t = this
       _t.graph.emit('editor:contextmenu', {
         type: 'canvas',
@@ -191,7 +231,9 @@ export default {
       })
     },
     onCanvasMousedown (event) {
-      if (event.originalEvent.button !== 0) { // 非左键忽略
+      console.log('onCanvasMousedown')
+      // 非左键忽略
+      if (!utils.common.isLeftKey(event)) {
         return
       }
       let _t = this
@@ -208,33 +250,42 @@ export default {
       }
     },
     onCanvasMousemove (event) {
+      console.log('onCanvasMousemove')
       let _t = this
-      if (_t.info && _t.info.type && _t[_t.info.type].move) {
-        _t[_t.info.type].move.call(_t, event)
-      }
+      utils.common.throttle(function () {
+        if (_t.info && _t.info.type && _t[_t.info.type].move) {
+          console.log('onCanvasMousemove', _t.info.type)
+          _t[_t.info.type].move.call(_t, event)
+        }
+      }, TIME_FRAME)()
     },
     onCanvasMouseup (event) {
       let _t = this
+      console.log('onCanvasMouseup', _t.info.type)
       if (_t.info && _t.info.type && _t[_t.info.type].stop) {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
     onMousemove (event) {
       let _t = this
-      if (_t.info && _t.info.type && _t[_t.info.type].move) {
-        _t[_t.info.type].move.call(_t, event)
-      }
+      // console.log('onMousemove', _t.info)
+      utils.common.throttle(function () {
+        if (_t.info && _t.info.type && _t[_t.info.type].move) {
+          _t[_t.info.type].move.call(_t, event)
+        }
+      }, TIME_FRAME)()
     },
     onMouseup (event) {
       let _t = this
+      console.log('onMouseup')
       if (_t.info) {
-        if (_t.info.type === 'dragNode') {
-          if (_t.dragNode.status === 'dragNodeToEditor') {
+        if (_t.info.type) {
+          if (_t.info.type === 'dragNode' && _t.dragNode.status === 'dragNodeToEditor') {
             _t[_t.info.type].createNode.call(_t, event)
           }
-        }
-        if (_t.info.type && _t[_t.info.type].stop) {
-          _t[_t.info.type].stop.call(_t, event)
+          if (_t[_t.info.type].stop) {
+            _t[_t.info.type].stop.call(_t, event)
+          }
         }
       }
     },
@@ -268,12 +319,14 @@ export default {
           labelCfg: {
             position: 'center',
             style: {
+              autoRotate: _t.graph.$X.autoRotate,
               fontSize: 16,
               stroke: '#000000'
             }
           },
           attrs: {},
           style: {
+            lineAppendWidth: _t.graph.$X.lineAppendWidth,
             stroke: _t.graph.$X.lineColor,
             lineWidth: _t.graph.$X.lineWidth,
             ...config.edge.style.default,
@@ -535,7 +588,7 @@ export default {
         utils.shapeControl.rotate(model, group, radian)
         // 更新锚点
         utils.anchor.rotate(model, group, radian)
-        _t.graph.paint()
+        // _t.graph.paint()
       },
       move (event) {
         let _t = this
@@ -570,7 +623,7 @@ export default {
         utils.shapeControl.rotate(model, group, radian)
         // 更新锚点
         utils.anchor.rotate(model, group, radian)
-        _t.graph.paint()
+        // _t.graph.paint()
       },
       stop (event) {
         let _t = this
@@ -604,7 +657,7 @@ export default {
               y: event.y - height / 2
             }
           })
-          _t.graph.paint()
+          // _t.graph.paint()
           if (_t.config.tooltip.dragNode) {
             _t.toolTip.create.call(_t, {
               left: event.canvasX,
@@ -616,10 +669,12 @@ export default {
       createNode (event) {
         let _t = this
         if (_t.dragNode.dottedNode && _t.info.node) {
-          let { width, height, minWidth, minHeight, label } = _t.info.node
+          let { width, height, minWidth, minHeight, label, type } = _t.info.node
           let node = {
             ..._t.info.node,
             id: G6Util.uniqueId(),
+            name: 'XFC_NODE_' + utils.common.firstUpperCase(type),
+            draggable: true,
             x: event.x,
             y: event.y,
             size: [width, height],
@@ -663,7 +718,7 @@ export default {
               x: event.x - width / 2,
               y: event.y - height / 2
             })
-            _t.graph.paint()
+            // _t.graph.paint()
             if (_t.config.tooltip.dragNode) {
               _t.toolTip.update.call(_t, {
                 left: event.canvasX,
@@ -728,7 +783,7 @@ export default {
         if (_t.config.alignLine.enable) {
           _t.alignLine.stop.call(_t)
         }
-        _t.graph.paint()
+        // _t.graph.paint()
       },
       clear () {
         let _t = this
@@ -798,6 +853,7 @@ export default {
       },
       stop (event) {
         let _t = this
+        console.log('drawGroup stop')
         if (_t.info && _t.drawGroup.isMoving && _t.drawGroup.marqueeNode) {
           const { minX: marqueeNodeMinX, maxX: marqueeNodeMaxX, minY: marqueeNodeMinY, maxY: marqueeNodeMaxY } = _t.drawGroup.marqueeNode.getBBox()
           // 当前节点数组
@@ -1041,7 +1097,7 @@ export default {
           line.remove()
         })
         _t.alignLine.lineList = []
-        _t.graph.paint()
+        // _t.graph.paint()
       },
       move (item) {
         let _t = this

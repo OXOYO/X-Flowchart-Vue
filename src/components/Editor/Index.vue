@@ -160,16 +160,40 @@
               'preview-canvas'
             ]
           },
-          // 节点交互样式
-          nodeStateStyles: {
-            // 默认样式
-            default: {
-              fill: '#FFFFFF',
+          /*defaultNode: {
+            type: 'circle',
+            style: {
+              fill: '#FFFF00',
               fillOpacity: 1,
               stroke: '#000000',
               strokeOpacity: 1,
               cursor: 'move'
+            }
+          },
+          defaultEdge: {
+            style: {
+              stroke: '#FF0000',
+              strokeOpacity: 1,
+              // 扩展响应范围
+              lineAppendWidth: 10,
+              cursor: 'pointer'
             },
+            labelCfg: {
+              // 边上的标签文本根据边的方向旋转
+              autoRotate: true
+            }
+          },*/
+          /*
+          // 节点交互样式
+          nodeStateStyles: {
+            // 默认样式
+            // default: {
+            //   fill: '#FFFFFF',
+            //   fillOpacity: 1,
+            //   stroke: '#000000',
+            //   strokeOpacity: 1,
+            //   cursor: 'move'
+            // },
             // active 状态下的样式
             active: {},
             // selected 状态下的样式
@@ -179,14 +203,15 @@
           },
           // 边交互样式
           edgeStateStyles: {
-            default: {
-              stroke: '#000000',
-              strokeOpacity: 1,
-              // 扩展响应范围
-              lineAppendWidth: 10,
-              cursor: 'pointer'
-            }
+            // default: {
+            //   stroke: '#000000',
+            //   strokeOpacity: 1,
+            //   // 扩展响应范围
+            //   lineAppendWidth: 10,
+            //   cursor: 'pointer'
+            // }
           },
+          */
           // 分组样式
           groupType: 'rect',
           groupStyle: {
@@ -214,7 +239,7 @@
         // 绑定事件
         _t.editor.on('canvas:mousedown', _t._canvasMousedown)
         // 绑定事件
-        _t.editor.on('canvas:mouseup', _t._canvasMouseup)
+        // _t.editor.on('canvas:mouseup', _t._canvasMouseup)
         // _t.editor.on('click', _t._editorClick)
         // _t.editor.on('node:click', _t._nodeClick)
         _t.editor.on('node:mousedown', _t._nodeMousedown)
@@ -230,7 +255,6 @@
             let node = _t.editor.findById(item.id)
             if (!index) {
               // 更新第一个节点
-              console.log('item.model', item.model)
               _t.editor.updateItem(node, item.model)
             } else {
               // FIXME 更新同组节点，只更新样式部分
@@ -264,7 +288,6 @@
       },
       _canvasMousedown () {
         let _t = this
-        console.log('_canvasMousedown ')
         _t.doClearAllStates()
         // 更新currentItem
         _t.$store.commit('editor/currentItem/update', [])
@@ -304,7 +327,7 @@
       _edgeMousedown (event) {
         let _t = this
         _t.doClearAllStates()
-        console.log('_edgeMousedown', event)
+        // console.log('_edgeMousedown', event)
         if (event.item && !event.item.destroyed) {
           _t.editor.setItemState(event.item, 'active', !event.item.hasState('active'))
         }
@@ -316,7 +339,7 @@
           return
         }
         // 批量操作时关闭自动重绘，以提升性能
-        // _t.editor.setAutoPaint(false)
+        _t.editor.setAutoPaint(false)
         _t.editor.getNodes().forEach(function (node) {
           _t.editor.clearItemStates(node, ['active', 'hover', 'selected'])
         })
@@ -324,7 +347,7 @@
           _t.editor.clearItemStates(edge, ['active', 'hover', 'selected'])
         })
         _t.editor.paint()
-        // _t.editor.setAutoPaint(true)
+        _t.editor.setAutoPaint(true)
       },
       doZoom (info, position) {
         let _t = this
@@ -357,9 +380,9 @@
       },
       doAddNode (info) {
         let _t = this
-        console.log('info', info)
         let node = {
           id: G6Util.uniqueId(),
+          draggable: true,
           type: info.type,
           label: info.defaultLabel,
           labelCfg: {

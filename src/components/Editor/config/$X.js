@@ -14,5 +14,7 @@ export default {
   lineType: 'x-line',
   lineDash: 'solid',
   startArrow: false,
-  endArrow: false
+  endArrow: false,
+  lineAppendWidth: 10,
+  autoRotate: true
 }
