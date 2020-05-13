@@ -3,26 +3,31 @@
  *
  * 节点基础方法
  */
+import * as G6Util from '@antv/util'
 import utils from '../utils'
 
 export default {
   type: null,
+  // 自定义节点配置，需要配置时在各个图形中覆写
+  options: {},
   drawShape (cfg, group) {
     const shapeType = this.shapeType
     const style = this.getShapeStyle(cfg)
-    const shape = group.addShape(shapeType, {
-      attrs: style
+    const keyShape = group.addShape(shapeType, {
+      attrs: style,
+      name: 'XFCNodeKeyShape',
+      draggable: true
     })
-    this.shape = shape
-    return shape
+    this.keyShape = keyShape
+    return keyShape
   },
   getAnchorPoints (cfg) {
     const { anchorPoints, width, height } = cfg
-    const shape = this.shape
+    const keyShape = this.keyShape
     let points = []
     if (anchorPoints && anchorPoints.length) {
       for (let i = 0, len = anchorPoints.length; i < len; i++) {
-        let point = shape.getPoint((i + 1) / len)
+        let point = keyShape.getPoint((i + 1) / len)
         // 方式一：通过坐标反推占比
         let x = point.x
         let y = point.y
@@ -49,16 +54,36 @@ export default {
     // 设置shapeControl状态
     utils.shapeControl.setState(name, value, item)
   },
-  // update (cfg, item) {
-  //   console.log('update cfg', cfg)
-  //   this.updateShapeStyle(cfg, item)
-  //   this.updateLabel(cfg, item)
-  // },
-  // 绘制后附加锚点
+  update (cfg, item) {
+    // 自定义节点配置
+    const defaultStyle = this.options
+    // 从新计算图形样式
+    const shapeStyle = this.getShapeStyle(cfg)
+    const style = G6Util.mix({}, defaultStyle, shapeStyle)
+    // 更新图形
+    this.updateShape(cfg, item, style)
+  },
+  updateShape (cfg, item, style) {
+    const keyShape = item.get('keyShape')
+    keyShape.attr({
+      ...style
+    })
+    // 更新图形文本
+    this.updateLabel(cfg, item)
+  },
+  // 绘制完成后附加锚点
   afterDraw (cfg, group) {
     // 绘制锚点
     utils.anchor.draw(cfg, group)
     // 绘制shapeControl
     utils.shapeControl.draw(cfg, group)
+  },
+  // 更新完成后更新锚点
+  afterUpdate (cfg, item) {
+    const group = item.getContainer()
+    // 更新锚点
+    utils.anchor.update(cfg, group)
+    // 更新shapeControl
+    utils.shapeControl.update(cfg, group)
   }
 }

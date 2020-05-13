@@ -456,7 +456,6 @@ export default {
             width: attrs.size[0],
             height: attrs.size[1]
           }, group)
-          console.log('attrs', attrs)
           // 更新节点
           _t.graph.updateItem(_t.info.node, attrs)
           _t.graph.refreshItem(_t.info.node)
