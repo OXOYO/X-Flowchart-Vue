@@ -304,6 +304,19 @@ export default {
           // 获取距离指定坐标最近的一个锚点
           sourceAnchor = _t.info.node.getLinkPoint({ x: event.x, y: event.y })
         }
+        const handleArrowStyle = function (data, lineColor) {
+          if (!data) {
+            return false
+          }
+          let arrowStyle = data.style
+          // 处理箭头填充色
+          if (data.fill) {
+            arrowStyle.fill = lineColor
+            arrowStyle.stroke = lineColor
+          }
+          console.log('arrowStyle', arrowStyle, data, lineColor)
+          return arrowStyle
+        }
         _t.drawLine.currentLine = _t.graph.addItem('edge', {
           id: G6Util.uniqueId(),
           // 起始节点
@@ -334,8 +347,8 @@ export default {
           },
           // FIXME 边的形式需要与工具栏联动
           type: _t.graph.$X.lineType || 'line',
-          startArrow: _t.graph.$X.startArrow || false,
-          endArrow: _t.graph.$X.endArrow || false
+          startArrow: handleArrowStyle(_t.graph.$X.startArrow, _t.graph.$X.lineColor) || false,
+          endArrow: handleArrowStyle(_t.graph.$X.endArrow, _t.graph.$X.lineColor) || false
         })
         if (_t.config.tooltip.dragEdge) {
           _t.toolTip.create.call(_t, {

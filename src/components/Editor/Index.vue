@@ -252,13 +252,18 @@
         })
         _t.editor.on('editor:setItem', function (data) {
           data.forEach((item, index) => {
-            let node = _t.editor.findById(item.id)
+            console.log('item', item)
+            let model = item.model
+            // if (item.type === 'edge') {
+            //   TODO 处理箭头
+            // }
+            let shapeItem = _t.editor.findById(item.id)
             if (!index) {
               // 更新第一个节点
-              _t.editor.updateItem(node, item.model)
+              _t.editor.updateItem(shapeItem, model)
             } else {
               // FIXME 更新同组节点，只更新样式部分
-              _t.editor.updateItem(node, {
+              _t.editor.updateItem(shapeItem, {
                 style: data[0].model.style
               })
             }
@@ -568,10 +573,12 @@
           break
         case 'lineColor':
           _t.editor.$X.lineColor = info.data
+          console.log('lineColor', info.data)
           _t.editor.getEdges().forEach(edge => {
             if (edge.hasState('active')) {
               isRecord = true
               let { style } = edge.getModel()
+              console.log('edge style', style)
               _t.editor.updateItem(edge, {
                 style: {
                   ...style,
@@ -662,16 +669,23 @@
           break
         case 'startArrow':
         case 'endArrow':
+          console.log('in fo', info)
           _t.editor.$X[info.name] = info.data
           // 根据端点类型更新边
           _t.editor.getEdges().forEach(edge => {
             if (edge.hasState('active')) {
               isRecord = true
               let { style } = edge.getModel()
+              console.log('style', style)
+              let arrowStyle = info.data.style
+              // 处理箭头填充色
+              if (info.data.fill) {
+                arrowStyle.fill = style.stroke
+              }
               _t.editor.updateItem(edge, {
                 style: {
                   ...style,
-                  [info.name]: info.data
+                  [info.name]: arrowStyle
                 }
               })
             }

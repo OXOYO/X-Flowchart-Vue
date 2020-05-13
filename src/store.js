@@ -811,8 +811,11 @@ export default new Vuex.Store({
                 icon: 'solid-arrow',
                 style: {},
                 data: {
-                  path: 'M10,0 L-10,-10 L-10,10 Z',
-                  d: 10
+                  style: {
+                    path: 'M0,0 L20,-10 L20,10 Z',
+                    d: 0
+                  },
+                  fill: true
                 },
                 enable: true,
                 disabled: false,
@@ -826,8 +829,11 @@ export default new Vuex.Store({
                 icon: 'normal-arrow',
                 style: {},
                 data: {
-                  path: 'M10,0 L-10,10 L-10.707,9.293 L8.568,0 L-10.707,-9.293 L-10,-10 Z',
-                  d: 10
+                  style: {
+                    path: 'M0,0 L20,10 L20.707,9.293 L1.432,0 L20.707,-9.293 L20,-10 Z',
+                    d: 0
+                  },
+                  fill: false
                 },
                 enable: true,
                 disabled: false,
@@ -841,8 +847,30 @@ export default new Vuex.Store({
                 icon: 'asynch-arraw',
                 style: {},
                 data: {
-                  path: 'M10,0 L-10,10 L-10.707,9.293 L8.568,0 Z',
-                  d: 10
+                  style: {
+                    path: 'M0,0 L20,10 L20.707,9.293 L1.432,0 Z',
+                    d: 0
+                  },
+                  fill: false
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'diamondArrow',
+                label: 'diamond arrow',
+                lang: '',
+                type: 'normal',
+                icon: 'diamond-arrow',
+                style: {},
+                data: {
+                  style: {
+                    path: 'M0,0 L20,10 L20.707,9.293 L38.568,0 L20.707,-9.293 L20,-10 Z',
+                    d: 0,
+                    fill: '#FFFFFF'
+                  },
+                  fill: false
                 },
                 enable: true,
                 disabled: false,
@@ -903,8 +931,11 @@ export default new Vuex.Store({
                   transform: 'rotate(180deg)'
                 },
                 data: {
-                  path: 'M10,0 L-10,-10 L-10,10 Z',
-                  d: 10
+                  style: {
+                    path: 'M0,0 L20,-10 L20,10 Z',
+                    d: 0
+                  },
+                  fill: true
                 },
                 enable: true,
                 disabled: false,
@@ -921,8 +952,11 @@ export default new Vuex.Store({
                   transform: 'rotate(180deg)'
                 },
                 data: {
-                  path: 'M10,0 L-10,10 L-10.707,9.293 L8.568,0 L-10.707,-9.293 L-10,-10 Z',
-                  d: 10
+                  style: {
+                    path: 'M0,0 L20,10 L20.707,9.293 L1.432,0 L20.707,-9.293 L20,-10 Z',
+                    d: 0
+                  },
+                  fill: false
                 },
                 enable: true,
                 disabled: false,
@@ -939,8 +973,33 @@ export default new Vuex.Store({
                   transform: 'rotate(180deg)'
                 },
                 data: {
-                  path: 'M10,0 L-10,10 L-10.707,9.293 L8.568,0 Z',
-                  d: 10
+                  style: {
+                    path: 'M0,0 L20,10 L20.707,9.293 L1.432,0 Z',
+                    d: 0
+                  },
+                  fill: false
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'diamondArrow',
+                label: 'diamond arrow',
+                lang: '',
+                type: 'normal',
+                icon: 'diamond-arrow',
+                style: {
+                  display: 'inline-block',
+                  transform: 'rotate(180deg)'
+                },
+                data: {
+                  style: {
+                    path: 'M0,0 L20,10 L20.707,9.293 L38.568,0 L20.707,-9.293 L20,-10 Z',
+                    d: 0,
+                    fill: '#FFFFFF'
+                  },
+                  fill: false
                 },
                 enable: true,
                 disabled: false,
