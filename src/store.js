@@ -867,6 +867,61 @@ export default new Vuex.Store({
                 data: {
                   style: {
                     path: 'M0,0 L20,10 L20.707,9.293 L38.568,0 L20.707,-9.293 L20,-10 Z',
+                    d: 0
+                  },
+                  fill: true
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'diamondArrowEmpty',
+                label: 'diamond arrow empty',
+                lang: '',
+                type: 'normal',
+                icon: 'diamond-arrow-empty',
+                style: {},
+                data: {
+                  style: {
+                    path: 'M0,0 L20,10 L20.707,9.293 L38.568,0 L20.707,-9.293 L20,-10 Z',
+                    d: 0,
+                    fill: '#FFFFFF'
+                  },
+                  fill: false
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'circleArrow',
+                label: 'circle arrow',
+                lang: '',
+                type: 'normal',
+                icon: 'circle-arrow',
+                style: {},
+                data: {
+                  style: {
+                    path: 'M-10,0 A5,5,0,1,0,10,0 A5,5,0,1,0,-10,0 Z',
+                    d: 0
+                  },
+                  fill: true
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'circleArrowEmpty',
+                label: 'circle arrow empty',
+                lang: '',
+                type: 'normal',
+                icon: 'circle-arrow-empty',
+                style: {},
+                data: {
+                  style: {
+                    path: 'M-10,0 A5,5,0,1,0,10,0 A5,5,0,1,0,-10,0 Z',
                     d: 0,
                     fill: '#FFFFFF'
                   },
@@ -996,6 +1051,70 @@ export default new Vuex.Store({
                 data: {
                   style: {
                     path: 'M0,0 L20,10 L20.707,9.293 L38.568,0 L20.707,-9.293 L20,-10 Z',
+                    d: 0
+                  },
+                  fill: true
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'diamondArrowEmpty',
+                label: 'diamond arrow empty',
+                lang: '',
+                type: 'normal',
+                icon: 'diamond-arrow-empty',
+                style: {
+                  display: 'inline-block',
+                  transform: 'rotate(180deg)'
+                },
+                data: {
+                  style: {
+                    path: 'M0,0 L20,10 L20.707,9.293 L38.568,0 L20.707,-9.293 L20,-10 Z',
+                    d: 0,
+                    fill: '#FFFFFF'
+                  },
+                  fill: false
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'circleArrow',
+                label: 'circle arrow',
+                lang: '',
+                type: 'normal',
+                icon: 'circle-arrow',
+                style: {
+                  display: 'inline-block',
+                  transform: 'rotate(180deg)'
+                },
+                data: {
+                  style: {
+                    path: 'M-10,0 A5,5,0,1,0,10,0 A5,5,0,1,0,-10,0 Z',
+                    d: 0
+                  },
+                  fill: true
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'circleArrowEmpty',
+                label: 'circle arrow empty',
+                lang: '',
+                type: 'normal',
+                icon: 'circle-arrow-empty',
+                style: {
+                  display: 'inline-block',
+                  transform: 'rotate(180deg)'
+                },
+                data: {
+                  style: {
+                    path: 'M-10,0 A5,5,0,1,0,10,0 A5,5,0,1,0,-10,0 Z',
                     d: 0,
                     fill: '#FFFFFF'
                   },
