@@ -310,7 +310,7 @@ export default {
           }
           let arrowStyle = data.style
           // 处理箭头填充色
-          if (data.fill) {
+          if (typeof arrowStyle === 'object' && data.fill) {
             arrowStyle.fill = lineColor
             arrowStyle.stroke = lineColor
           }
@@ -347,8 +347,8 @@ export default {
           },
           // FIXME 边的形式需要与工具栏联动
           type: _t.graph.$X.lineType || 'line',
-          startArrow: handleArrowStyle(_t.graph.$X.startArrow, _t.graph.$X.lineColor) || false,
-          endArrow: handleArrowStyle(_t.graph.$X.endArrow, _t.graph.$X.lineColor) || false
+          startArrow: handleArrowStyle(_t.graph.$X.startArrow, _t.graph.$X.lineColor),
+          endArrow: handleArrowStyle(_t.graph.$X.endArrow, _t.graph.$X.lineColor)
         })
         if (_t.config.tooltip.dragEdge) {
           _t.toolTip.create.call(_t, {
