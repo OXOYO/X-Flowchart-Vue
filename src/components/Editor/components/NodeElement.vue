@@ -79,8 +79,8 @@
     },
     computed: {
       elementStyle () {
-        let _t = this
-        let style = {}
+        const _t = this
+        const style = {}
         if (_t.width) {
           style.width = _t.width + 'px'
         }
@@ -92,7 +92,7 @@
     },
     methods: {
       handleMouseDown (event) {
-        let _t = this
+        const _t = this
         _t.$X.utils.bus.$emit('editor/add/node', _t.info)
       }
     }

@@ -21,44 +21,44 @@ export default {
       const x = 0 - width / 2
       const y = 0 - height / 2
       // 计算箭头
-      let { L1, L7 } = utils.node.calculateArrow({
+      const { L1, L7 } = utils.node.calculateArrow({
         deg: 85,
         L1: height / 3,
         L7: width / 4
       })
       // 箭头顶点
-      let P0 = {
+      const P0 = {
         x: 0,
         y: height / 2
       }
 
       // 左下顶点
-      let P1 = {
+      const P1 = {
         x: -width / 2,
         y: P0.y - L1
       }
       // 左下中
-      let P2 = {
+      const P2 = {
         x: P0.x - L7,
         y: P1.y
       }
       // 左上
-      let P3 = {
+      const P3 = {
         x: P2.x,
         y: -height / 2
       }
       // 右上
-      let P4 = {
+      const P4 = {
         x: P0.x + L7,
         y: -height / 2
       }
       // 右下中
-      let P5 = {
+      const P5 = {
         x: P4.x,
         y: P2.y
       }
       // 右下顶点
-      let P6 = {
+      const P6 = {
         x: width / 2,
         y: P1.y
       }

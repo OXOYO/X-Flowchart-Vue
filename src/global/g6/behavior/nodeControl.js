@@ -71,7 +71,7 @@ export default {
       }
     },
     onEditorAddNode (node) {
-      let _t = this
+      const _t = this
       console.log('onEditorAddNode')
       // 初始化数据
       _t.info = {
@@ -87,8 +87,8 @@ export default {
       if (!utils.common.isLeftKey(event)) {
         return
       }
-      let _t = this
-      let model = event.item.getModel()
+      const _t = this
+      const model = event.item.getModel()
       _t.graph.emit('editor:getItem', [
         {
           type: 'node',
@@ -129,7 +129,7 @@ export default {
     },
     onNodeDrag (event) {
       console.log('onNodeDrag', new Date().getTime())
-      let _t = this
+      const _t = this
       utils.common.throttle(function () {
         if (_t.info && _t.info.type && _t[_t.info.type].move) {
           _t[_t.info.type].move.call(_t, event)
@@ -145,21 +145,21 @@ export default {
     },
     onNodeMouseup (event) {
       console.log('onNodeMouseup')
-      let _t = this
+      const _t = this
       if (_t.info && _t.info.type && _t[_t.info.type].stop) {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
     onNodeDblclick (event) {
       console.log('onNodeDblclick')
-      let _t = this
+      const _t = this
       if (_t.config.nodeLabel) {
         _t.nodeLabel.create.call(_t, event)
       }
     },
     onNodeContextmenu (event) {
       console.log('onNodeContextmenu')
-      let _t = this
+      const _t = this
       _t.graph.emit('editor:contextmenu', {
         type: 'node',
         x: event.clientX,
@@ -170,8 +170,8 @@ export default {
     },
     onEdgeMousedown (event) {
       console.log('onEdgeMousedown')
-      let _t = this
-      let model = event.item.getModel()
+      const _t = this
+      const model = event.item.getModel()
       _t.graph.emit('editor:getItem', [
         {
           type: 'edge',
@@ -182,21 +182,21 @@ export default {
     },
     onEdgeMouseup (event) {
       console.log('onEdgeMouseup')
-      let _t = this
+      const _t = this
       if (_t.info && _t.info.type === 'drawLine') {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
     onEdgeDblclick (event) {
       console.log('onEdgeDblclick')
-      let _t = this
+      const _t = this
       if (_t.config.edgeLabel) {
         _t.edgeLabel.create.call(_t, event)
       }
     },
     onEdgeContextmenu (event) {
       console.log('onEdgeContextmenu')
-      let _t = this
+      const _t = this
       _t.graph.emit('editor:contextmenu', {
         type: 'edge',
         x: event.clientX,
@@ -207,21 +207,21 @@ export default {
     },
     onCanvasMouseenter (event) {
       console.log('onCanvasMouseenter')
-      let _t = this
+      const _t = this
       if (_t.info && _t.info.type === 'dragNode') {
         _t[_t.info.type].createDottedNode.call(_t, event)
       }
     },
     onCanvasMouseleave (event) {
       console.log('onCanvasMouseleave')
-      let _t = this
+      const _t = this
       if (_t.info && _t.info.type === 'dragNode') {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
     onCanvasContextmenu (event) {
       console.log('onCanvasContextmenu')
-      let _t = this
+      const _t = this
       _t.graph.emit('editor:contextmenu', {
         type: 'canvas',
         x: event.clientX,
@@ -236,7 +236,7 @@ export default {
       if (!utils.common.isLeftKey(event)) {
         return
       }
-      let _t = this
+      const _t = this
       // 初始化数据
       _t.info = {
         type: 'drawGroup',
@@ -251,7 +251,7 @@ export default {
     },
     onCanvasMousemove (event) {
       console.log('onCanvasMousemove')
-      let _t = this
+      const _t = this
       utils.common.throttle(function () {
         if (_t.info && _t.info.type && _t[_t.info.type].move) {
           console.log('onCanvasMousemove', _t.info.type)
@@ -260,14 +260,14 @@ export default {
       }, TIME_FRAME)()
     },
     onCanvasMouseup (event) {
-      let _t = this
+      const _t = this
       console.log('onCanvasMouseup', _t.info.type)
       if (_t.info && _t.info.type && _t[_t.info.type].stop) {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
     onMousemove (event) {
-      let _t = this
+      const _t = this
       // console.log('onMousemove', _t.info)
       utils.common.throttle(function () {
         if (_t.info && _t.info.type && _t[_t.info.type].move) {
@@ -276,7 +276,7 @@ export default {
       }, TIME_FRAME)()
     },
     onMouseup (event) {
-      let _t = this
+      const _t = this
       console.log('onMouseup')
       if (_t.info) {
         if (_t.info.type) {
@@ -294,11 +294,11 @@ export default {
       isMoving: false,
       currentLine: null,
       start (event) {
-        let _t = this
+        const _t = this
         let sourceAnchor
-        let startModel = _t.info.node.getModel()
+        const startModel = _t.info.node.getModel()
         // 锚点数据
-        let anchorPoints = _t.info.node.getAnchorPoints()
+        const anchorPoints = _t.info.node.getAnchorPoints()
         // 处理线条目标点
         if (anchorPoints && anchorPoints.length) {
           // 获取距离指定坐标最近的一个锚点
@@ -308,7 +308,7 @@ export default {
           if (!data) {
             return false
           }
-          let arrowStyle = data.style
+          const arrowStyle = data.style
           // 处理箭头填充色
           if (typeof arrowStyle === 'object' && data.fill) {
             arrowStyle.fill = lineColor
@@ -359,7 +359,7 @@ export default {
         _t.drawLine.isMoving = true
       },
       move (event) {
-        let _t = this
+        const _t = this
         if (_t.drawLine.isMoving && _t.drawLine.currentLine) {
           _t.graph.updateItem(_t.drawLine.currentLine, {
             target: {
@@ -376,18 +376,18 @@ export default {
         }
       },
       stop (event) {
-        let _t = this
+        const _t = this
         if (_t.drawLine.isMoving) {
           if (_t.drawLine.currentLine === event.item) {
             // 画线过程中点击则移除当前画线
             _t.graph.removeItem(event.item)
           } else {
-            let endNode = event.item
-            let startModel = _t.info.node.getModel()
-            let endModel = endNode.getModel()
+            const endNode = event.item
+            const startModel = _t.info.node.getModel()
+            const endModel = endNode.getModel()
             let targetAnchor
             // 锚点数据
-            let anchorPoints = endNode.getAnchorPoints()
+            const anchorPoints = endNode.getAnchorPoints()
             // 处理线条目标点
             if (anchorPoints && anchorPoints.length) {
               // 获取距离指定坐标最近的一个锚点
@@ -422,8 +422,8 @@ export default {
       // 原始节点信息
       originNodeModel: null,
       start (event) {
-        let _t = this
-        let model = _t.info.node.getModel()
+        const _t = this
+        const model = _t.info.node.getModel()
         _t.shapeControlPoint.originNodeModel = {
           x: model.x,
           y: model.y,
@@ -443,28 +443,28 @@ export default {
         }
       },
       move (event) {
-        let _t = this
-        let originNodeModel = _t.shapeControlPoint.originNodeModel
+        const _t = this
+        const originNodeModel = _t.shapeControlPoint.originNodeModel
         if (_t.info.node && _t.info.target && originNodeModel && _t.shapeControlPoint.isMoving) {
-          let model = _t.info.node.getModel()
+          const model = _t.info.node.getModel()
           // 判断位置
-          let position = _t.info.target.attr('position') || null
-          let attrs = {
+          const position = _t.info.target.attr('position') || null
+          const attrs = {
             x: originNodeModel.x,
             y: originNodeModel.y,
             size: [...model.size]
           }
-          let width = model.width
-          let height = model.height
+          const width = model.width
+          const height = model.height
           if (position) {
             // 参照点，及当前controller的对角点
             // 参照点位置信息
-            let referencePosition = [1 - position.x, 1 - position.y]
+            const referencePosition = [1 - position.x, 1 - position.y]
             // 相对图形坐标原点，(0,0)点位于图形左上角，与position的坐标系相同
-            let originX = originNodeModel.x - width / 2
-            let originY = originNodeModel.y - height / 2
+            const originX = originNodeModel.x - width / 2
+            const originY = originNodeModel.y - height / 2
             // 参照点坐标
-            let referencePoint = {
+            const referencePoint = {
               x: referencePosition[0] * width + originX,
               y: referencePosition[1] * height + originY
             }
@@ -509,7 +509,7 @@ export default {
             }, `X: ${attrs.x.toFixed(2)} Y: ${attrs.y.toFixed(2)}<br>W: ${attrs.size[0].toFixed(2)} H: ${attrs.size[1].toFixed(2)}`)
           }
           // 当前节点容器
-          let group = _t.info.node.getContainer()
+          const group = _t.info.node.getContainer()
           // 更新锚点
           utils.anchor.update({
             ..._t.info.node.getModel(),
@@ -532,11 +532,11 @@ export default {
         }
       },
       stop (event) {
-        let _t = this
+        const _t = this
         if (_t.info.node && _t.info.attrs && _t.shapeControlPoint.originNodeModel && _t.shapeControlPoint.isMoving) {
-          let attrs = _t.info.attrs
+          const attrs = _t.info.attrs
           // 当前节点容器
-          let group = _t.info.node.getContainer()
+          const group = _t.info.node.getContainer()
           // 更新锚点
           utils.anchor.update({
             ..._t.info.node.getModel(),
@@ -570,22 +570,22 @@ export default {
     shapeControlRotate: {
       isMoving: false,
       start (event) {
-        let _t = this
+        const _t = this
         _t.shapeControlRotate.isMoving = true
         // 计算旋转度数
-        let model = _t.info.node.getModel()
-        let p1 = {
+        const model = _t.info.node.getModel()
+        const p1 = {
           x: model.x,
           y: model.y
         }
-        let p2 = {
+        const p2 = {
           x: event.x,
           y: event.y
         }
         // 弧度，由于旋转把手位于图形正上方，因此需再加 Math.PI / 2
-        let radian = Math.atan2(p2.y - p1.y, p2.x - p1.x) + Math.PI / 2
+        const radian = Math.atan2(p2.y - p1.y, p2.x - p1.x) + Math.PI / 2
         // 角度
-        let angle = radian * (180 / Math.PI)
+        const angle = radian * (180 / Math.PI)
         if (_t.config.tooltip.shapeControl) {
           _t.toolTip.create.call(_t, {
             left: model.x,
@@ -593,10 +593,10 @@ export default {
           }, `${angle.toFixed(2)}°`)
         }
         // 更新节点
-        let keyShape = _t.info.node.getKeyShape()
+        const keyShape = _t.info.node.getKeyShape()
         keyShape.resetMatrix()
         keyShape.rotate(radian)
-        let group = _t.graph.get('group')
+        const group = _t.graph.get('group')
         // 更新shapeControl
         utils.shapeControl.rotate(model, group, radian)
         // 更新锚点
@@ -604,22 +604,22 @@ export default {
         // _t.graph.paint()
       },
       move (event) {
-        let _t = this
+        const _t = this
         // 计算旋转度数
-        let model = _t.info.node.getModel()
-        let p1 = {
+        const model = _t.info.node.getModel()
+        const p1 = {
           x: model.x,
           y: model.y
         }
-        let p2 = {
+        const p2 = {
           x: event.x,
           y: event.y
         }
         // 弧度
-        let radian = Math.atan2(p2.y - p1.y, p2.x - p1.x) + Math.PI / 2
+        const radian = Math.atan2(p2.y - p1.y, p2.x - p1.x) + Math.PI / 2
         model.radian = radian
         // 角度
-        let angle = radian * (180 / Math.PI)
+        const angle = radian * (180 / Math.PI)
         if (_t.config.tooltip.shapeControl) {
           _t.toolTip.update.call(_t, {
             left: model.x,
@@ -627,11 +627,11 @@ export default {
           }, `${angle.toFixed(2)}°`)
         }
         // 更新节点
-        let keyShape = _t.info.node.getKeyShape()
+        const keyShape = _t.info.node.getKeyShape()
         // FIXME g中shape的rotate是角度累加的，所以更新时如果style中有rotate就重置一下变换
         keyShape.resetMatrix()
         keyShape.rotate(radian)
-        let group = _t.graph.get('group')
+        const group = _t.graph.get('group')
         // 更新shapeControl
         utils.shapeControl.rotate(model, group, radian)
         // 更新锚点
@@ -639,7 +639,7 @@ export default {
         // _t.graph.paint()
       },
       stop (event) {
-        let _t = this
+        const _t = this
         if (_t.config.tooltip.shapeControl) {
           _t.toolTip.destroy.call(_t)
         }
@@ -656,10 +656,10 @@ export default {
         ...config.dottedNode.style.default
       },
       createDottedNode (event) {
-        let _t = this
+        const _t = this
         if (!_t.dragNode.dottedNode && _t.info.node) {
-          let { width, height } = _t.info.node
-          let group = _t.graph.get('group')
+          const { width, height } = _t.info.node
+          const group = _t.graph.get('group')
           _t.dragNode.dottedNode = group.addShape('rect', {
             name: 'dottedNode',
             attrs: {
@@ -680,10 +680,10 @@ export default {
         }
       },
       createNode (event) {
-        let _t = this
+        const _t = this
         if (_t.dragNode.dottedNode && _t.info.node) {
-          let { width, height, minWidth, minHeight, label, type } = _t.info.node
-          let node = {
+          const { width, height, minWidth, minHeight, label, type } = _t.info.node
+          const node = {
             ..._t.info.node,
             id: G6Util.uniqueId(),
             name: 'XFC_NODE_' + utils.common.firstUpperCase(type),
@@ -707,10 +707,10 @@ export default {
         }
       },
       start (event) {
-        let _t = this
+        const _t = this
         // _t.dragNode.createDottedNode.call(_t, event)
         if (_t.config.tooltip.dragNode) {
-          let { width, height } = _t.info.node.getModel()
+          const { width, height } = _t.info.node.getModel()
           _t.toolTip.create.call(_t, {
             left: event.canvasX,
             top: event.canvasY + height / 2
@@ -723,10 +723,10 @@ export default {
         }
       },
       move (event) {
-        let _t = this
+        const _t = this
         if (_t.dragNode.status === 'dragNodeToEditor') {
           if (_t.dragNode.dottedNode && _t.info.node) {
-            let { width, height } = _t.info.node
+            const { width, height } = _t.info.node
             _t.dragNode.dottedNode.attr({
               x: event.x - width / 2,
               y: event.y - height / 2
@@ -745,12 +745,12 @@ export default {
           }
         } else if (_t.dragNode.status === 'dragNode') {
           if (_t.info.node) {
-            let { id, groupId, x, y } = _t.info.node.getModel()
+            const { id, groupId, x, y } = _t.info.node.getModel()
             _t.graph.find('node', node => {
-              let model = node.getModel()
+              const model = node.getModel()
               // 更新当节点
               if (model.id === id) {
-                let attrs = {
+                const attrs = {
                   // 处理点击移动 图形时的抖动
                   x: x + event.originalEvent.movementX,
                   y: y + event.originalEvent.movementY
@@ -762,7 +762,7 @@ export default {
                   utils.edge.update(_t.info.node, _t.graph)
                 }
                 if (_t.config.tooltip.dragNode) {
-                  let { width, height } = _t.info.node.getModel()
+                  const { width, height } = _t.info.node.getModel()
                   _t.toolTip.update.call(_t, {
                     left: event.canvasX,
                     top: event.canvasY + height / 2
@@ -786,7 +786,7 @@ export default {
         }
       },
       stop (event) {
-        let _t = this
+        const _t = this
         // 记录操作日志
         _t.graph.emit('editor:record', 'dragNode stop')
         _t.dragNode.clear.call(_t)
@@ -799,7 +799,7 @@ export default {
         // _t.graph.paint()
       },
       clear () {
-        let _t = this
+        const _t = this
         if (_t.dragNode.dottedNode) {
           _t.dragNode.dottedNode.remove()
           _t.dragNode.dottedNode = null
@@ -814,7 +814,7 @@ export default {
       // 选框节点
       marqueeNode: null,
       start (event) {
-        let _t = this
+        const _t = this
         _t.drawGroup.isMoving = true
         // 清除已有group
         _t.graph.getNodes().forEach(item => {
@@ -825,17 +825,17 @@ export default {
         })
       },
       move (event) {
-        let _t = this
+        const _t = this
         if (_t.info && _t.drawGroup.isMoving) {
           // 计算坐标、宽高
-          let { startPosition } = _t.info
-          let x = startPosition.x + (event.x - startPosition.x) / 2
-          let y = startPosition.y + (event.y - startPosition.y) / 2
-          let width = Math.abs(event.x - startPosition.x)
-          let height = Math.abs(event.y - startPosition.y)
+          const { startPosition } = _t.info
+          const x = startPosition.x + (event.x - startPosition.x) / 2
+          const y = startPosition.y + (event.y - startPosition.y) / 2
+          const width = Math.abs(event.x - startPosition.x)
+          const height = Math.abs(event.y - startPosition.y)
           if (!_t.drawGroup.marqueeNode) {
             // 绘制虚线框
-            let node = {
+            const node = {
               id: G6Util.uniqueId(),
               type: 'rect',
               x: x,
@@ -865,18 +865,18 @@ export default {
         }
       },
       stop (event) {
-        let _t = this
+        const _t = this
         console.log('drawGroup stop')
         if (_t.info && _t.drawGroup.isMoving && _t.drawGroup.marqueeNode) {
           const { minX: marqueeNodeMinX, maxX: marqueeNodeMaxX, minY: marqueeNodeMinY, maxY: marqueeNodeMaxY } = _t.drawGroup.marqueeNode.getBBox()
           // 当前节点数组
-          let currentItemArr = []
-          let groupId = G6Util.uniqueId()
-          let marqueeNodeId = _t.drawGroup.marqueeNode.get('id')
+          const currentItemArr = []
+          const groupId = G6Util.uniqueId()
+          const marqueeNodeId = _t.drawGroup.marqueeNode.get('id')
           _t.graph.getNodes().forEach(item => {
-            let model = item.getModel()
-            let { id } = model
-            let { minX, maxX, minY, maxY } = item.getBBox()
+            const model = item.getModel()
+            const { id } = model
+            const { minX, maxX, minY, maxY } = item.getBBox()
             // 判断节点是否在组区域内
             if (id !== marqueeNodeId && minX > marqueeNodeMinX && maxX < marqueeNodeMaxX && minY > marqueeNodeMinY && maxY < marqueeNodeMaxY) {
               // 更新节点
@@ -905,10 +905,10 @@ export default {
     nodeLabel: {
       // 节点文本创建
       create (event) {
-        let _t = this
-        let canvas = _t.graph.get('canvas')
-        let node = event.item
-        let { label, x, y, width, height } = node.getModel()
+        const _t = this
+        const canvas = _t.graph.get('canvas')
+        const node = event.item
+        const { label, x, y, width, height } = node.getModel()
         const el = canvas.get('el')
         const html = el.parentNode.querySelector('.inputBox')
         if (html) {
@@ -955,27 +955,27 @@ export default {
     edgeLabel: {
       // 节点文本创建
       create (event) {
-        let _t = this
-        let canvas = _t.graph.get('canvas')
-        let edge = event.item
-        let model = edge.getModel()
-        let { label, source, sourceAnchor, target, targetAnchor } = model
+        const _t = this
+        const canvas = _t.graph.get('canvas')
+        const edge = event.item
+        const model = edge.getModel()
+        const { label, source, sourceAnchor, target, targetAnchor } = model
         // 查找节点
-        let sourceNode = _t.graph.findById(source)
-        let targetNode = _t.graph.findById(target)
+        const sourceNode = _t.graph.findById(source)
+        const targetNode = _t.graph.findById(target)
         // 查找锚点
-        let sourceAnchors = sourceNode.getAnchorPoints()
-        let targetAnchors = targetNode.getAnchorPoints()
+        const sourceAnchors = sourceNode.getAnchorPoints()
+        const targetAnchors = targetNode.getAnchorPoints()
         // 查找锚点信息
-        let sourceAnchorPoint = sourceAnchors[sourceAnchor]
-        let targetAnchorPoint = targetAnchors[targetAnchor]
+        const sourceAnchorPoint = sourceAnchors[sourceAnchor]
+        const targetAnchorPoint = targetAnchors[targetAnchor]
         let left
         let top
-        let minWidth = 40
-        let maxWidth = 100
+        const minWidth = 40
+        const maxWidth = 100
         let width = 40
-        let height = 20
-        let distance = Math.abs(targetAnchorPoint.x - sourceAnchorPoint.x)
+        const height = 20
+        const distance = Math.abs(targetAnchorPoint.x - sourceAnchorPoint.x)
         if (distance < minWidth) {
           width = minWidth
         }
@@ -1039,12 +1039,12 @@ export default {
     toolTip: {
       currentTip: null,
       create (position, content) {
-        let _t = this
+        const _t = this
         if (_t.toolTip.currentTip) {
           console.warn('Editor Warn:: can\'t creat tootip when currentTip not null!')
           return
         }
-        let canvas = _t.graph.get('canvas')
+        const canvas = _t.graph.get('canvas')
         const el = canvas.get('el')
         _t.toolTip.currentTip = G6DomUtil.createDom(`<div class="tooltip">${content}</div>`)
         if (_t.toolTip.currentTip) {
@@ -1070,7 +1070,7 @@ export default {
         }
       },
       update (position, content) {
-        let _t = this
+        const _t = this
         if (_t.toolTip.currentTip) {
           // 更新文本
           _t.toolTip.currentTip.innerHTML = content
@@ -1082,9 +1082,9 @@ export default {
         }
       },
       destroy () {
-        let _t = this
+        const _t = this
         if (_t.toolTip.currentTip) {
-          let canvas = _t.graph.get('canvas')
+          const canvas = _t.graph.get('canvas')
           const el = canvas.get('el')
           // 删除输入框dom
           el.parentNode.removeChild(_t.toolTip.currentTip)
@@ -1101,11 +1101,11 @@ export default {
       // 最大距离
       maxDistance: 2,
       start () {
-        let _t = this
+        const _t = this
         _t.alignLine._clear.call(_t)
       },
       _clear () {
-        let _t = this
+        const _t = this
         _t.alignLine.lineList.forEach(line => {
           line.remove()
         })
@@ -1113,7 +1113,7 @@ export default {
         // _t.graph.paint()
       },
       move (item) {
-        let _t = this
+        const _t = this
         // 先清空已有对齐线
         _t.alignLine._clear.call(_t)
         const bbox = item.getBBox()
@@ -1132,8 +1132,8 @@ export default {
         const getDistance = function (line, point) {
           // 归一向量
           function normalize (out, a) {
-            let x = a[0]
-            let y = a[1]
+            const x = a[0]
+            const y = a[1]
             let len = x * x + y * y
             if (len > 0) {
               // TODO: evaluate use of glm_invsqrt here?
@@ -1151,7 +1151,7 @@ export default {
             if (lineLength[0] === 0 && lineLength[1] === 0) {
               return NaN
             }
-            let s = [-lineLength[1], lineLength[0]]
+            const s = [-lineLength[1], lineLength[0]]
             normalize(s, s)
             return Math.abs(dot([pointX - lineX1, pointY - lineY1], s))
           }
@@ -1167,13 +1167,13 @@ export default {
           let horizontalLines = []
           let verticalLines = []
           // 对齐线信息
-          let info = {
+          const info = {
             horizontals: [],
             verticals: []
           }
           const bbox1 = node.getBBox()
           // 水平线
-          let horizontalInfo = [
+          const horizontalInfo = [
             // 左上 右上 tltr
             [bbox1.minX, bbox1.minY, bbox1.maxX, bbox1.minY],
             // 左中 右中 lcrc
@@ -1182,7 +1182,7 @@ export default {
             [bbox1.minX, bbox1.maxY, bbox1.maxX, bbox1.maxY]
           ]
           // 垂直线
-          let verticalInfo = [
+          const verticalInfo = [
             // 左上 左下 tlbl
             [bbox1.minX, bbox1.minY, bbox1.minX, bbox1.maxY],
             // 上中 下中 tcbc
@@ -1229,9 +1229,9 @@ export default {
           // 处理水平线
           if (info.horizontals.length) {
             info.horizontals.forEach(lineObj => {
-              let line = lineObj.line
-              let point = lineObj.point
-              let lineHalf = (line[0] + line[2]) / 2
+              const line = lineObj.line
+              const point = lineObj.point
+              const lineHalf = (line[0] + line[2]) / 2
               let x1
               let x2
               if (point.x < lineHalf) {
@@ -1241,7 +1241,7 @@ export default {
                 x1 = point.x + bbox.width / 2
                 x2 = Math.min(line[0], line[2])
               }
-              let shape = group.addShape('line', {
+              const shape = group.addShape('line', {
                 name: 'alignLineHorizontal',
                 attrs: {
                   x1,
@@ -1259,9 +1259,9 @@ export default {
           // 处理垂直线
           if (info.verticals.length) {
             info.verticals.forEach(lineObj => {
-              let line = lineObj.line
-              let point = lineObj.point
-              let lineHalf = (line[1] + line[3]) / 2
+              const line = lineObj.line
+              const point = lineObj.point
+              const lineHalf = (line[1] + line[3]) / 2
               let y1
               let y2
               if (point.y < lineHalf) {
@@ -1271,7 +1271,7 @@ export default {
                 y1 = point.y + bbox.height / 2
                 y2 = Math.min(line[1], line[3])
               }
-              let shape = group.addShape('line', {
+              const shape = group.addShape('line', {
                 name: 'alignLineVertical',
                 attrs: {
                   x1: line[0],
@@ -1288,7 +1288,7 @@ export default {
         })
       },
       stop () {
-        let _t = this
+        const _t = this
         _t.alignLine._clear.call(_t)
       }
     }

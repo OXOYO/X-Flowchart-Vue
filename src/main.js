@@ -18,7 +18,7 @@ import 'highlight.js/styles/zenburn.css'
 import vClickOutside from 'v-click-outside'
 
 // Vue 全局配置
-let isDev = process && process.env.NODE_ENV !== 'production'
+const isDev = process && process.env.NODE_ENV !== 'production'
 Vue.config.debug = isDev
 Vue.config.devtools = isDev
 Vue.config.productionTip = isDev

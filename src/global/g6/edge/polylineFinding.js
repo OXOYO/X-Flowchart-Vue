@@ -19,13 +19,13 @@ export const polylineFinding = function (sNode, tNode, sPort, tPort, offset = 10
   const sPoint = getExpandedPort(sBBox, sPort)
   const tPoint = getExpandedPort(tBBox, tPort)
   // 获取合法折点集
-  let points = getConnectablePoints(sBBox, tBBox, sPoint, tPoint)
+  const points = getConnectablePoints(sBBox, tBBox, sPoint, tPoint)
   // 过滤合法点集，预处理、剪枝等
   filterConnectablePoints(points, sBBox)
   // 过滤合法点集，预处理、剪枝等
   filterConnectablePoints(points, tBBox)
   // 用 A-Star 算法寻径
-  let polylinePoints = AStar(points, sPoint, tPoint, sBBox, tBBox)
+  const polylinePoints = AStar(points, sPoint, tPoint, sBBox, tBBox)
   return polylinePoints
 }
 
@@ -76,17 +76,17 @@ const getExpandedPort = function (bbox, point) {
 
 // 获取合法折点集合
 const getConnectablePoints = function (sBBox, tBBox, sPoint, tPoint) {
-  let lineBBox = getBBoxFromVertexes(sPoint, tPoint)
-  let outerBBox = combineBBoxes(sBBox, tBBox)
-  let sLineBBox = combineBBoxes(sBBox, lineBBox)
-  let tLineBBox = combineBBoxes(tBBox, lineBBox)
+  const lineBBox = getBBoxFromVertexes(sPoint, tPoint)
+  const outerBBox = combineBBoxes(sBBox, tBBox)
+  const sLineBBox = combineBBoxes(sBBox, lineBBox)
+  const tLineBBox = combineBBoxes(tBBox, lineBBox)
   let points = [
     ...vertexOfBBox(sLineBBox),
     ...vertexOfBBox(tLineBBox),
     ...vertexOfBBox(outerBBox)
   ]
   const centerPoint = { x: outerBBox.centerX, y: outerBBox.centerY }
-  let bboxes = [ outerBBox, sLineBBox, tLineBBox, lineBBox ]
+  const bboxes = [ outerBBox, sLineBBox, tLineBBox, lineBBox ]
   bboxes.forEach(bbox => {
     // 包含 bbox 延长线和线段的相交线
     points = [
@@ -198,7 +198,7 @@ const AStar = function (points, sPoint, tPoint, sBBox, tBBox) {
   points.forEach(item => {
     item.id = item.x + '-' + item.y
   })
-  let tmpArr = []
+  const tmpArr = []
   points.forEach(item => {
     if (!tmpArr.includes(target => target.id === item.id)) {
       tmpArr.push(item)

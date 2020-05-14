@@ -68,20 +68,20 @@
     },
     methods: {
       doHide () {
-        let _t = this
+        const _t = this
         _t.isShow = false
         // 清空数据
         _t.previewData = null
       },
       doShow (previewData) {
-        let _t = this
+        const _t = this
         if (previewData) {
           _t.previewData = previewData
           _t.isShow = true
         }
       },
       doDownload (event) {
-        let _t = this
+        const _t = this
         _t.flagMap.loading = true
         // 触发下载
         _t.$X.utils.bus.$emit('editor/tool/trigger', {
@@ -96,7 +96,7 @@
       }
     },
     created () {
-      let _t = this
+      const _t = this
       _t.$X.utils.bus.$on('editor/previewModel/open', _t.doShow)
       _t.$X.utils.bus.$on('editor/previewModel/close', _t.doHide)
     }

@@ -5,16 +5,16 @@
  */
 
 export default function (node, graph) {
-  let edges = graph.getEdges()
+  const edges = graph.getEdges()
   if (!edges || !edges.length) {
     return
   }
-  let { id } = node.getModel()
+  const { id } = node.getModel()
   // 锚点数据
-  let anchorPoints = node.getAnchorPoints()
+  const anchorPoints = node.getAnchorPoints()
   // 遍历边
   edges.forEach(edge => {
-    let edgeModel = edge.getModel()
+    const edgeModel = edge.getModel()
     let anchorIndex
     let anchorPoint
     let model

@@ -20,7 +20,7 @@ export default {
       }
     },
     onNodeContextmenu (event) {
-      let _t = this
+      const _t = this
       _t.graph.emit('editor:contextmenu', {
         type: 'node',
         x: event.clientX,
@@ -30,7 +30,7 @@ export default {
       })
     },
     onCanvasContextmenu (event) {
-      let _t = this
+      const _t = this
       _t.graph.emit('editor:contextmenu', {
         type: 'canvas',
         x: event.clientX,
@@ -40,7 +40,7 @@ export default {
       })
     },
     onEdgeContextmenu (event) {
-      let _t = this
+      const _t = this
       _t.graph.emit('editor:contextmenu', {
         type: 'edge',
         x: event.clientX,

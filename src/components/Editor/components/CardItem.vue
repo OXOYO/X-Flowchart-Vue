@@ -95,7 +95,7 @@
     },
     watch: {
       fold: function (val, newVal) {
-        let _t = this
+        const _t = this
         if (_t.enableFold) {
           _t.isFolded = newVal
         }
@@ -103,7 +103,7 @@
     },
     methods: {
       handleToggle: function () {
-        let _t = this
+        const _t = this
         if (!_t.enableFold) {
           return
         }

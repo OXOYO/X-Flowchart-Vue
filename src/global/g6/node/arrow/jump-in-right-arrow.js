@@ -21,13 +21,13 @@ export default {
       const x = 0 - width / 2
       const y = 0 - height / 2
       // 计算箭头
-      let { L1, L2, L7 } = utils.node.calculateArrow({
+      const { L1, L2, L7 } = utils.node.calculateArrow({
         deg: 85,
         L1: height * 0.4,
         L7: width * 0.08
       })
       // 下箭头
-      let A0 = {
+      const A0 = {
         1: { x: width / 2 - L2 + L7, y: height / 2 - L1 },
         2: { x: width / 2, y: height / 2 - L1 },
         // 顶点
@@ -36,7 +36,7 @@ export default {
         5: { x: width / 2 - L2 - L7, y: height / 2 - L1 }
       }
       // 左上顶点
-      let P1 = { x: -width / 2, y: -height / 2 }
+      const P1 = { x: -width / 2, y: -height / 2 }
 
       const path = [
         [ 'M', P1.x, P1.y ],

@@ -110,8 +110,8 @@
     },
     computed: {
       boxStyle () {
-        let _t = this
-        let style = {}
+        const _t = this
+        const style = {}
         if (_t.placement) {
           style[_t.placement] = 0
         }
@@ -134,12 +134,12 @@
     },
     methods: {
       toggleHandler (val) {
-        let _t = this
+        const _t = this
         _t.isExpand = val !== undefined ? val : !_t.isExpand
       }
     },
     created () {
-      let _t = this
+      const _t = this
       _t.$X.utils.bus.$on('editor/pad/dblclick', _t.toggleHandler)
     }
   }

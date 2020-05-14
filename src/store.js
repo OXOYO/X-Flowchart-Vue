@@ -1603,9 +1603,9 @@ export default new Vuex.Store({
       if (!data.hasOwnProperty('action') || !data.action) {
         return
       }
-      let oldLog = state.editor.log
-      let maxLog = state.editor.maxLog
-      let log = {
+      const oldLog = state.editor.log
+      const maxLog = state.editor.maxLog
+      const log = {
         current: null,
         list: []
       }
@@ -1615,7 +1615,7 @@ export default new Vuex.Store({
           if (oldLog.current === null) {
             oldLog.list = [null]
           } else if (oldLog.list.length - 1 > oldLog.current) {
-            let removeCount = oldLog.list.length - 1 - oldLog.current
+            const removeCount = oldLog.list.length - 1 - oldLog.current
             oldLog.list.splice(oldLog.current + 1, removeCount)
           }
           if (maxLog !== null && oldLog.list.length > maxLog) {
@@ -1659,7 +1659,7 @@ export default new Vuex.Store({
             ]
           } else {
             if (oldLog.list.length - 1 > oldLog.current) {
-              let removeCount = oldLog.list.length - 1 - oldLog.current
+              const removeCount = oldLog.list.length - 1 - oldLog.current
               oldLog.list.splice(oldLog.current + 1, removeCount)
             }
             if (maxLog !== null && oldLog.list.length > maxLog) {

@@ -112,14 +112,14 @@
     },
     computed: {
       className: function () {
-        let _t = this
+        const _t = this
         return ['handler', _t.mode, _t.position, _t.expand]
       }
     },
     methods: {
       // 切换handler显示/隐藏
       toggleHandler: function () {
-        let _t = this
+        const _t = this
         if (_t.callback) {
           _t.callback()
         }

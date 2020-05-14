@@ -126,31 +126,31 @@
     },
     watch: {
       value (val) {
-        let _t = this
+        const _t = this
         _t.color = val
       }
     },
     methods: {
       doShow () {
-        let _t = this
+        const _t = this
         _t.showPanel = true
       },
       doHide () {
-        let _t = this
+        const _t = this
         _t.showPanel = false
         _t.$emit('on-close')
       },
       togglePanel () {
-        let _t = this
+        const _t = this
         _t.showPanel = !_t.showPanel
       },
       handleChange (val) {
-        let _t = this
+        const _t = this
         _t.color = typeof val === 'object' && val.hasOwnProperty('hex8') ? val.hex8 : ''
         _t.$emit('input', _t.color)
       },
       doConfirm () {
-        let _t = this
+        const _t = this
         _t.$emit('on-change', _t.color)
         _t.doHide()
       }

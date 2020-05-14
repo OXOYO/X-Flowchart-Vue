@@ -7,7 +7,7 @@
 import config from '../../config'
 
 export default function (cfg, group) {
-  let { id, width, height, shapeControl } = cfg
+  const { id, width, height, shapeControl } = cfg
   // 处理边框
   group.addShape('path', {
     id: id + '_shape_control_edge',
@@ -33,12 +33,12 @@ export default function (cfg, group) {
   // 处理控制点
   if (shapeControl && shapeControl.hasOwnProperty('controllers') && shapeControl.controllers.length) {
     for (let i = 0, len = shapeControl.controllers.length; i < len; i++) {
-      let [x, y, cursor] = shapeControl.controllers[i]
+      const [x, y, cursor] = shapeControl.controllers[i]
       // 计算Marker中心点坐标
-      let originX = -width / 2
-      let originY = -height / 2
-      let anchorX = x * width + originX
-      let anchorY = y * height + originY
+      const originX = -width / 2
+      const originY = -height / 2
+      const anchorX = x * width + originX
+      const anchorY = y * height + originY
       // 添加Marker形状
       group.addShape('marker', {
         id: id + '_shape_control_point_' + i,
@@ -63,8 +63,8 @@ export default function (cfg, group) {
   }
   // 处理旋转
   if (shapeControl && shapeControl.hasOwnProperty('rotate') && shapeControl.rotate) {
-    let rotateW = 20
-    let rotateH = 20
+    const rotateW = 20
+    const rotateH = 20
     group.addShape('image', {
       id: id + '_shape_control_rotate',
       name: 'shapeControlRotate',

@@ -85,9 +85,9 @@
       }
     },
     mounted () {
-      let _t = this
-      let el = _t.$refs.tooltip
-      let marginLeft = el.clientWidth ? el.clientWidth / -2 : 0
+      const _t = this
+      const el = _t.$refs.tooltip
+      const marginLeft = el.clientWidth ? el.clientWidth / -2 : 0
       if (marginLeft) {
         _t.tooltipStyle = {
           'margin-left': marginLeft + 'px'

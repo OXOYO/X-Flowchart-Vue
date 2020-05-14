@@ -10,23 +10,23 @@ export default {
     if (!(date instanceof Date)) {
       date = new Date(date)
     }
-    let padLeftZero = (str) => {
+    const padLeftZero = (str) => {
       return ('00' + str).substr(str.length)
     }
-    let doFormatDate = (date, fmt) => {
+    const doFormatDate = (date, fmt) => {
       if (/(Y+)/.test(fmt)) {
         fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length))
       }
-      let obj = {
+      const obj = {
         'M+': date.getMonth() + 1,
         'D+': date.getDate(),
         'h+': date.getHours(),
         'm+': date.getMinutes(),
         's+': date.getSeconds()
       }
-      for (let k in obj) {
+      for (const k in obj) {
         if (new RegExp(`(${k})`).test(fmt)) {
-          let str = obj[k] + ''
+          const str = obj[k] + ''
           fmt = fmt.replace(RegExp.$1, RegExp.$1.length === 1 ? str : padLeftZero(str))
         }
       }

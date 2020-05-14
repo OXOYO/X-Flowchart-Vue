@@ -7,12 +7,12 @@
 export default {
   // Base64转Blob
   base642Blob (code) {
-    let parts = code.split(';base64,')
-    let contentType = parts[0].split(':')[1]
-    let raw = window.atob(parts[1])
-    let rawLength = raw.length
+    const parts = code.split(';base64,')
+    const contentType = parts[0].split(':')[1]
+    const raw = window.atob(parts[1])
+    const rawLength = raw.length
 
-    let uInt8Array = new Uint8Array(rawLength)
+    const uInt8Array = new Uint8Array(rawLength)
 
     for (let i = 0; i < rawLength; i++) {
       uInt8Array[i] = raw.charCodeAt(i)
@@ -24,9 +24,9 @@ export default {
   },
   // 下载文件
   downloadFile (fileName, content) {
-    let blob = this.base642Blob(content)
-    let url = URL.createObjectURL(blob)
-    let link = document.createElement('a')
+    const blob = this.base642Blob(content)
+    const url = URL.createObjectURL(blob)
+    const link = document.createElement('a')
     link.textContent = 'download image'
     link.href = url
     link.download = fileName

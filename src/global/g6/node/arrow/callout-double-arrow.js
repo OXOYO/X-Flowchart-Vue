@@ -21,100 +21,100 @@ export default {
       const x = 0 - width / 2
       const y = 0 - height / 2
       // 计算箭头
-      let { L1, L2, L7 } = utils.node.calculateArrow({
+      const { L1, L2, L7 } = utils.node.calculateArrow({
         deg: 85,
         L1: height * 0.21,
         L7: width * 0.16
       })
       // 上箭头顶点
-      let P0 = {
+      const P0 = {
         x: 0,
         y: -height / 2
       }
 
       // 上箭头右顶点
-      let P1 = {
+      const P1 = {
         x: L2,
         y: -height / 2 + L1
       }
       // 上箭头右拐点
-      let P2 = {
+      const P2 = {
         x: L7,
         y: P1.y
       }
       // 上箭头左拐点
-      let P16 = {
+      const P16 = {
         x: -L7,
         y: P1.y
       }
       // 上箭头左顶点
-      let P17 = {
+      const P17 = {
         x: -L2,
         y: P1.y
       }
       // 右上中
-      let P3 = {
+      const P3 = {
         x: L7,
         y: P2.y + L7
       }
       // 右上顶点
-      let P4 = {
+      const P4 = {
         x: width / 2,
         y: P2.y + L7
       }
 
       // 下箭头顶点
-      let P9 = {
+      const P9 = {
         x: 0,
         y: height / 2
       }
       // 下箭头右顶点
-      let P8 = {
+      const P8 = {
         x: L2,
         y: P9.y - L1
       }
       // 下箭头右拐点
-      let P7 = {
+      const P7 = {
         x: L7,
         y: P9.y - L1
       }
       // 下箭头左顶点
-      let P10 = {
+      const P10 = {
         x: -L2,
         y: P9.y - L1
       }
       // 下箭头左拐点
-      let P11 = {
+      const P11 = {
         x: -L7,
         y: P9.y - L1
       }
       // 右下顶点
-      let P5 = {
+      const P5 = {
         x: width / 2,
         y: P8.y - L7
       }
       // 右下中
-      let P6 = {
+      const P6 = {
         x: L7,
         y: P8.y - L7
       }
       // 左下中
-      let P12 = {
+      const P12 = {
         x: -L7,
         y: P8.y - L7
       }
       // 左下顶点
-      let P13 = {
+      const P13 = {
         x: -width / 2,
         y: P8.y - L7
       }
       // 左上顶点
-      let P14 = {
+      const P14 = {
         x: -width / 2,
         y: P2.y + L7
       }
       // 左上拐点
-      let P15 = {
+      const P15 = {
         x: -L7,
         y: P2.y + L7
       }

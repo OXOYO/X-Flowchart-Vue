@@ -8,10 +8,10 @@ import config from '../../config'
 
 export default function (name, value, item) {
   if (name === 'hover') {
-    let group = item.getContainer()
-    let children = group.get('children')
+    const group = item.getContainer()
+    const children = group.get('children')
     for (let i = 0, len = children.length; i < len; i++) {
-      let child = children[i]
+      const child = children[i]
       // console.log('child name', child, child.name, child.attr('name'))
       if (child.attr('name')) {
         switch (child.attr('name')) {

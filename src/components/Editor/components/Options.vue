@@ -290,14 +290,14 @@
         'toolList'
       ]),
       lineDashList () {
-        let _t = this
-        let edgeConfig = _t.editor.$C.edge
-        let lineDash = _t.toolList.find(item => item.name === 'lineDash')
-        let list = []
+        const _t = this
+        const edgeConfig = _t.editor.$C.edge
+        const lineDash = _t.toolList.find(item => item.name === 'lineDash')
+        const list = []
         if (lineDash && lineDash.enable && lineDash.children) {
           lineDash.children.forEach(item => {
             if (item.enable) {
-              let typeData = edgeConfig.type[item.name]
+              const typeData = edgeConfig.type[item.name]
               list.push({
                 name: item.name,
                 label: item.label,
@@ -314,12 +314,12 @@
     watch: {
       currentItem: {
         handler (val) {
-          let _t = this
+          const _t = this
           // 取第一个节点
           _t.firstItem = val[0]
           if (_t.firstItem) {
             _t.formData = JSON.parse(JSON.stringify(_t.firstItem.model))
-            let target = _t.lineDashList.find(item => JSON.stringify(item.lineDash) === JSON.stringify(_t.formData.style.lineDash))
+            const target = _t.lineDashList.find(item => JSON.stringify(item.lineDash) === JSON.stringify(_t.formData.style.lineDash))
             _t.lineDashName = target ? target.name : ''
           } else {
             _t.formData = {}
@@ -330,14 +330,14 @@
     },
     methods: {
       handleChange () {
-        let _t = this
+        const _t = this
         // 处理数据
-        let model = {
+        const model = {
           ..._t.formData
         }
         // 处理lineDash
         if (_t.lineDashName) {
-          let target = _t.lineDashList.find(item => item.name === _t.lineDashName)
+          const target = _t.lineDashList.find(item => item.name === _t.lineDashName)
           model.style.lineDash = target ? target.lineDash : []
         }
         // node元素需处理size
@@ -345,7 +345,7 @@
           model.size = [ _t.formData.width, _t.formData.height ]
         }
         // 当前节点数组
-        let currentItemArr = _t.currentItem
+        const currentItemArr = _t.currentItem
         // 更新第一个节点
         if (_t.firstItem) {
           currentItemArr[0] = {

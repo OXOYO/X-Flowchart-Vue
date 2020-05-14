@@ -21,26 +21,26 @@ export default {
       const x = 0 - width / 2
       const y = 0 - height / 2
       // 计算左箭头
-      let { L1: LL1 } = utils.node.calculateArrow({
+      const { L1: LL1 } = utils.node.calculateArrow({
         deg: 125,
         L1: width / 6,
         L7: height / 4
       })
       // 计算右箭头
-      let { L1: LR1 } = utils.node.calculateArrow({
+      const { L1: LR1 } = utils.node.calculateArrow({
         deg: 75,
         L1: width * 0.4,
         L7: height / 4
       })
       // 左箭头
-      let A0 = {
+      const A0 = {
         1: { x: -width / 2, y: -height * 0.4 },
         // 顶点
         2: { x: -width / 2 + LL1, y: 0 },
         3: { x: -width / 2, y: height * 0.4 }
       }
       // 右箭头
-      let A1 = {
+      const A1 = {
         1: { x: width / 2 - LR1 + LL1, y: -height / 6 },
         2: { x: width / 2 - LR1, y: -height / 2 },
         3: { x: width / 2, y: 0 },

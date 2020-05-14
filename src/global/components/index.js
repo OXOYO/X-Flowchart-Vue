@@ -63,7 +63,7 @@ const obj = {
 
 const components = {}
 components.install = function (Vue, options) {
-  for (let name in obj) {
+  for (const name in obj) {
     if (name && obj[name]) {
       Vue.component(name, obj[name])
       if (['Message', 'Modal'].includes(name)) {

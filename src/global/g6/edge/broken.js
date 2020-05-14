@@ -14,12 +14,12 @@ export default {
     draw (cfg, group) {
       const { startPoint, endPoint } = cfg
       const controlPoints = this.getControlPoints(cfg)
-      let points = [startPoint]
+      const points = [startPoint]
       if (controlPoints) {
         points.push(controlPoints)
       }
       points.push(endPoint)
-      let path = this.getPath(points)
+      const path = this.getPath(points)
       const keyShape = group.addShape('path', {
         name: 'edgeShape',
         className: 'edge-shape',
@@ -40,7 +40,7 @@ export default {
           path.push([ 'L', point.x, point.y ])
         } else {
           const prevPoint = points[i - 1]
-          let nextPoint = points[i + 1]
+          const nextPoint = points[i + 1]
           let cornerLen = 5
           if (Math.abs(point.y - prevPoint.y) > cornerLen || Math.abs(point.x - prevPoint.x) > cornerLen) {
             if (prevPoint.x === point.x) {

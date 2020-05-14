@@ -24,19 +24,19 @@ export default {
   getAnchorPoints (cfg) {
     const { anchorPoints, width, height } = cfg
     const keyShape = this.keyShape
-    let points = []
+    const points = []
     if (anchorPoints && anchorPoints.length) {
       for (let i = 0, len = anchorPoints.length; i < len; i++) {
-        let point = keyShape.getPoint((i + 1) / len)
+        const point = keyShape.getPoint((i + 1) / len)
         // 方式一：通过坐标反推占比
-        let x = point.x
-        let y = point.y
+        const x = point.x
+        const y = point.y
         // 坐标系转换
-        let x1 = width / 2 + x
-        let y1 = height / 2 + y
+        const x1 = width / 2 + x
+        const y1 = height / 2 + y
         // 百分比
-        let px = x1 / width
-        let py = y1 / height
+        const px = x1 / width
+        const py = y1 / height
         points.push([ px, py ])
         // 方式二：覆盖坐标，有BUG
         // points.push([...anchorPoints[i], {

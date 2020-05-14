@@ -87,13 +87,13 @@
     },
     methods: {
       init () {
-        let _t = this
-        let el = _t.$el
+        const _t = this
+        const el = _t.$el
         // 画板
-        let sketchpad = el.querySelector('#sketchpad')
+        const sketchpad = el.querySelector('#sketchpad')
         // 导航器
-        let navigator = el.querySelector('#navigator')
-        let size = [
+        const navigator = el.querySelector('#navigator')
+        const size = [
           navigator.clientWidth,
           parseInt(navigator.clientWidth * sketchpad.clientHeight / sketchpad.clientWidth)
         ]
@@ -253,11 +253,11 @@
         _t.editor.on('editor:setItem', function (data) {
           data.forEach((item, index) => {
             console.log('item', item)
-            let model = item.model
+            const model = item.model
             // if (item.type === 'edge') {
             //   TODO 处理箭头
             // }
-            let shapeItem = _t.editor.findById(item.id)
+            const shapeItem = _t.editor.findById(item.id)
             if (!index) {
               // 更新第一个节点
               _t.editor.updateItem(shapeItem, model)
@@ -292,7 +292,7 @@
         _t.$store.commit('editor/instance/update', _t.editor)
       },
       _canvasMousedown () {
-        let _t = this
+        const _t = this
         _t.doClearAllStates()
         // 更新currentItem
         _t.$store.commit('editor/currentItem/update', [])
@@ -311,26 +311,26 @@
         // _t.editor.setItemState(event.item, 'active', true)
       },
       _nodeMousedown (event) {
-        let _t = this
+        const _t = this
         _t.doClearAllStates()
         _t.editor.setItemState(event.item, 'active', true)
       },
       _nodeHover (event) {
-        let _t = this
+        const _t = this
         // FIXME 当节点未激活时才可设置hover true状态
         if (!event.item.hasState('active')) {
           _t.editor.setItemState(event.item, 'hover', true)
         }
       },
       _nodeOut (event) {
-        let _t = this
+        const _t = this
         _t.editor.setItemState(event.item, 'hover', false)
       },
       _nodeContextmenu (event) {
         console.log('_nodeContextmenu', event)
       },
       _edgeMousedown (event) {
-        let _t = this
+        const _t = this
         _t.doClearAllStates()
         // console.log('_edgeMousedown', event)
         if (event.item && !event.item.destroyed) {
@@ -339,7 +339,7 @@
       },
       // 清除所有状态
       doClearAllStates () {
-        let _t = this
+        const _t = this
         if (!_t.editor) {
           return
         }
@@ -355,15 +355,15 @@
         _t.editor.setAutoPaint(true)
       },
       doZoom (info, position) {
-        let _t = this
+        const _t = this
         // 缩放率
         let ratio = 1
         let center
         if (position) {
           center = position
         } else {
-          let width = _t.editor.get('width')
-          let height = _t.editor.get('height')
+          const width = _t.editor.get('width')
+          const height = _t.editor.get('height')
           center = {
             x: width / 2,
             y: height / 2
@@ -372,8 +372,8 @@
         if (info.name === 'zoom') {
           _t.editor.zoomTo(info.data, center)
         } else if (['zoomIn', 'zoomOut'].includes(info.name)) {
-          let currentRatio = _t.editor.getZoom()
-          let step = 0.1
+          const currentRatio = _t.editor.getZoom()
+          const step = 0.1
           ratio = info.name === 'zoomOut' ? currentRatio - step : currentRatio + step
           ratio = ratio.toFixed(1)
           // 缩放视窗窗口到一个固定比例
@@ -384,8 +384,8 @@
         }
       },
       doAddNode (info) {
-        let _t = this
-        let node = {
+        const _t = this
+        const node = {
           id: G6Util.uniqueId(),
           draggable: true,
           type: info.type,
@@ -410,7 +410,7 @@
         _t.editor.emit('editor:addNode', node)
       },
       doSetMode (name) {
-        let _t = this
+        const _t = this
         _t.mode = name
         _t.editor.setMode(name)
         // 更新toolList
@@ -427,7 +427,7 @@
         _t.$store.commit('editor/toolList/update', toolList)
       },
       handleToolTrigger (info) {
-        let _t = this
+        const _t = this
         // 是否记录日志标识
         let isRecord = false
         switch (info.name) {
@@ -442,7 +442,7 @@
               _t.$nextTick(function () {
                 if (_t.log.list.length) {
                   if (_t.log.current === 0) {
-                    let data = _t.log.list[0]
+                    const data = _t.log.list[0]
                     if (data === null) {
                       // 清除
                       _t.editor.clear()
@@ -457,7 +457,7 @@
                       })
                     }
                   } else {
-                    let data = _t.log.list[_t.log.current]
+                    const data = _t.log.list[_t.log.current]
                     // 渲染
                     _t.editor.read(data.content)
                     _t.editor.paint()
@@ -475,7 +475,7 @@
           }
           case 'copy': {
             // FIXME 目前只支持节点的复制，不支持边的复制，边只能通过拖拽生成
-            let data = _t.currentItem ? _t.currentItem.filter(item => item.type === 'node') : []
+            const data = _t.currentItem ? _t.currentItem.filter(item => item.type === 'node') : []
             _t.clipboard = {
               data,
               count: 0
@@ -483,11 +483,11 @@
             break
           }
           case 'paste': {
-            let data = _t.clipboard.data
+            const data = _t.clipboard.data
             _t.clipboard.count++
             if (data.length) {
               data.forEach((item, index) => {
-                let model = item.model
+                const model = item.model
                 // 计算坐标，添加一定偏移量，防止重叠
                 let x = model.x + 10 * _t.clipboard.count
                 let y = model.y + 10 * _t.clipboard.count
@@ -500,7 +500,7 @@
                     y = model.y + info.data.canvasY - data[0].model.y
                   }
                 }
-                let node = {
+                const node = {
                   ...model,
                   id: G6Util.uniqueId(),
                   groupId: '',
@@ -543,7 +543,7 @@
           }
           case 'preview': {
             _t.doSetMode(info.name)
-            let previewData = {
+            const previewData = {
               type: info.data,
               content: ''
             }
@@ -565,7 +565,7 @@
             _t.editor.getNodes().forEach(node => {
               if (node.hasState('active')) {
                 isRecord = true
-                let { style } = node.getModel()
+                const { style } = node.getModel()
                 _t.editor.updateItem(node, {
                   style: {
                     ...style,
@@ -582,7 +582,7 @@
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
                 isRecord = true
-                let { style } = edge.getModel()
+                const { style } = edge.getModel()
                 console.log('edge style', style)
                 _t.editor.updateItem(edge, {
                   style: {
@@ -595,7 +595,7 @@
             _t.editor.getNodes().forEach(node => {
               if (node.hasState('active')) {
                 isRecord = true
-                let { style } = node.getModel()
+                const { style } = node.getModel()
                 _t.editor.updateItem(node, {
                   style: {
                     ...style,
@@ -611,7 +611,7 @@
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
                 isRecord = true
-                let { style } = edge.getModel()
+                const { style } = edge.getModel()
                 _t.editor.updateItem(edge, {
                   style: {
                     ...style,
@@ -623,7 +623,7 @@
             _t.editor.getNodes().forEach(node => {
               if (node.hasState('active')) {
                 isRecord = true
-                let { style } = node.getModel()
+                const { style } = node.getModel()
                 _t.editor.updateItem(node, {
                   style: {
                     ...style,
@@ -635,12 +635,12 @@
             break
           }
           case 'lineDash': {
-            let edgeConfig = _t.editor.$C.edge
+            const edgeConfig = _t.editor.$C.edge
             _t.editor.$X.lineDash = info.data
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
                 isRecord = true
-                let { style } = edge.getModel()
+                const { style } = edge.getModel()
                 _t.editor.updateItem(edge, {
                   style: {
                     ...style,
@@ -652,7 +652,7 @@
             _t.editor.getNodes().forEach(node => {
               if (node.hasState('active')) {
                 isRecord = true
-                let { style } = node.getModel()
+                const { style } = node.getModel()
                 _t.editor.updateItem(node, {
                   style: {
                     ...style,
@@ -684,7 +684,7 @@
               if (!data) {
                 return false
               }
-              let arrowStyle = data.style
+              const arrowStyle = data.style
               // 处理箭头填充色
               if (typeof arrowStyle === 'object' && data.fill) {
                 arrowStyle.fill = lineColor
@@ -697,7 +697,7 @@
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
                 isRecord = true
-                let { style } = edge.getModel()
+                const { style } = edge.getModel()
                 console.log('style', style, info.name)
                 _t.editor.updateItem(edge, {
                   style: {
@@ -733,7 +733,7 @@
               info.data.forEach(data => {
                 if (data.hasOwnProperty('id') && data.id) {
                   isRecord = true
-                  let item = _t.editor.findById(data.id)
+                  const item = _t.editor.findById(data.id)
                   if (item && item[info.name]) {
                     // 执行操作
                     item[info.name]()
@@ -757,22 +757,22 @@
               content: _t.$t('L10206'),
               onOk: function () {
                 // 打开文件选择窗口
-                let input = document.createElement('input')
+                const input = document.createElement('input')
                 input.type = 'file'
                 // 限定文件类型
                 input.accept = '.json'
                 input.click()
                 input.onchange = function () {
-                  let file = input.files[0]
+                  const file = input.files[0]
                   // FileReader实例
-                  let reader = new FileReader()
+                  const reader = new FileReader()
                   // 读取文件
                   reader.readAsText(file, 'UTF-8')
                   // 处理数据
                   reader.onload = function (event) {
                     try {
-                      let fileString = event.target.result
-                      let fileJson = JSON.parse(fileString)
+                      const fileString = event.target.result
+                      const fileJson = JSON.parse(fileString)
                       // 清空画布
                       _t.editor.clear()
                       // 更新currentItem
@@ -782,12 +782,12 @@
                       // 渲染
                       _t.editor.render()
                       _t.editor.getNodes().forEach(node => {
-                        let model = node.getModel()
-                        let radian = model.radian
-                        let keyShape = node.getKeyShape()
+                        const model = node.getModel()
+                        const radian = model.radian
+                        const keyShape = node.getKeyShape()
                         keyShape.resetMatrix()
                         keyShape.rotate(radian)
-                        let group = _t.editor.get('group')
+                        const group = _t.editor.get('group')
                         // 更新shapeControl
                         utils.shapeControl.rotate(model, group, radian)
                         // 更新锚点
@@ -814,17 +814,17 @@
             break
           }
           case 'download': {
-            let fileName = _t.$X.config.system.name + '_' + _t.$X.utils.filters.formatDate(new Date(), 'YYYYMMDDhhmmss')
+            const fileName = _t.$X.config.system.name + '_' + _t.$X.utils.filters.formatDate(new Date(), 'YYYYMMDDhhmmss')
             if (info.data === 'image') {
               _t.editor.downloadImage(fileName)
             } else if (info.data === 'json') {
               let content = _t.editor.save()
               content = JSON.stringify(content)
-              let blob = new Blob([content], {
+              const blob = new Blob([content], {
                 type: 'application/json;charset=UTF-8'
               })
-              let url = URL.createObjectURL(blob)
-              let link = document.createElement('a')
+              const url = URL.createObjectURL(blob)
+              const link = document.createElement('a')
               link.textContent = 'download json'
               link.href = url
               link.download = fileName
@@ -835,7 +835,7 @@
             break
           }
           case 'selectAll': {
-            let groupId = G6Util.uniqueId()
+            const groupId = G6Util.uniqueId()
             _t.editor.getNodes().forEach(node => {
               // 更新节点
               _t.editor.updateItem(node, {
@@ -852,22 +852,22 @@
                 break
               case 'image':
                 // 打开文件选择窗口
-                let input = document.createElement('input')
+                const input = document.createElement('input')
                 input.type = 'file'
                 // 限定文件类型
                 input.accept = 'image/png, image/jpeg, image/jpg'
                 input.click()
                 input.onchange = function () {
-                  let file = input.files[0]
+                  const file = input.files[0]
                   // FileReader实例
-                  let reader = new FileReader()
+                  const reader = new FileReader()
                   // 读取图片
                   if (file) {
                     reader.readAsDataURL(file)
                     // 处理数据
                     reader.onload = function (event) {
                       try {
-                        let imgFile = reader.result
+                        const imgFile = reader.result
                         _t.editor.emit('background:update', imgFile)
                       } catch (e) {
                         console.error('Editor Error:: update background failed!', e)
@@ -886,8 +886,8 @@
             _t.editor.getNodes().forEach(node => {
               if (node.hasState('active')) {
                 isRecord = true
-                let model = node.getModel()
-                let position = {
+                const model = node.getModel()
+                const position = {
                   x: model.x,
                   y: model.y
                 }
@@ -917,14 +917,14 @@
         }
       },
       initInfo (data = {}) {
-        let _t = this
+        const _t = this
         _t.editorInfo = {
           ..._t.defInfo,
           ...data
         }
       },
       bindShortcuts () {
-        let _t = this
+        const _t = this
         _t.toolList.forEach(item => {
           if (item.enable && item.shortcuts) {
             Mousetrap.bind(item.shortcuts, function (e) {
@@ -954,12 +954,12 @@
         }
       },
       handleEditorClick () {
-        let _t = this
+        const _t = this
         _t.$X.utils.bus.$emit('editor/contextmenu/close')
       }
     },
     created () {
-      let _t = this
+      const _t = this
       // 处理操作类型，初始化编辑器
       _t.initInfo()
       _t.$nextTick(_t.init)

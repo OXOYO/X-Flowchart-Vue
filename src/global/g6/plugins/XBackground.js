@@ -10,7 +10,7 @@ import * as G6DomUtil from '@antv/dom-util'
 
 export default class XBackground extends Grid {
   init () {
-    let _t = this
+    const _t = this
     const graph = _t.get('graph')
     const graphContainer = graph.get('container')
     const canvas = graph.get('canvas').get('el')
@@ -33,8 +33,8 @@ export default class XBackground extends Grid {
   }
   // 重置背景
   resetBackground (e) {
-    let _t = this
-    let imgDom = _t.get('imgDom')
+    const _t = this
+    const imgDom = _t.get('imgDom')
     if (imgDom) {
       imgDom.src = ''
       G6DomUtil.modifyCSS(imgDom, {
@@ -43,8 +43,8 @@ export default class XBackground extends Grid {
     }
   }
   updateBackground (data) {
-    let _t = this
-    let imgDom = _t.get('imgDom')
+    const _t = this
+    const imgDom = _t.get('imgDom')
     if (imgDom) {
       imgDom.src = data
       G6DomUtil.modifyCSS(imgDom, {
@@ -57,7 +57,7 @@ export default class XBackground extends Grid {
     return this.get('container')
   }
   destroy () {
-    let _t = this
+    const _t = this
     const graph = _t.get('graph')
     const graphContainer = graph.get('container')
     const backgroundContainer = _t.get('container')

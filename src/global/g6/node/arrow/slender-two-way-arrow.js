@@ -21,59 +21,59 @@ export default {
       const x = 0 - width / 2
       const y = 0 - height / 2
       // 计算箭头
-      let { L1, L7 } = utils.node.calculateArrow({
+      const { L1, L7 } = utils.node.calculateArrow({
         deg: 120,
         L1: width / 6,
         L7: height / 6
       })
       // 左箭头顶点
-      let P0 = {
+      const P0 = {
         x: -width / 2,
         y: 0
       }
 
       // 左上顶点
-      let P1 = {
+      const P1 = {
         x: -width / 2 + L1,
         y: height / 2
       }
       // 左上中
-      let P2 = {
+      const P2 = {
         x: -width / 2 + L1,
         y: L7
       }
       // 右上中
-      let P3 = {
+      const P3 = {
         x: width / 2 - L1,
         y: L7
       }
       // 右上顶点
-      let P4 = {
+      const P4 = {
         x: width / 2 - L1,
         y: height / 2
       }
       // 右箭头顶点
-      let P5 = {
+      const P5 = {
         x: width / 2,
         y: 0
       }
       // 右下顶点
-      let P6 = {
+      const P6 = {
         x: width / 2 - L1,
         y: -height / 2
       }
       // 右下中
-      let P7 = {
+      const P7 = {
         x: width / 2 - L1,
         y: -L7
       }
       // 左下中
-      let P8 = {
+      const P8 = {
         x: -width / 2 + L1,
         y: -L7
       }
       // 左下顶点
-      let P9 = {
+      const P9 = {
         x: -width / 2 + L1,
         y: -height / 2
       }

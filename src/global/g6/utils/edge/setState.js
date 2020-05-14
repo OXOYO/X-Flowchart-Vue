@@ -10,9 +10,9 @@ import config from '../../config'
 
 export default function (name, value, item) {
   if (name === 'active') {
-    let group = item.getContainer()
-    let children = group.get('children')
-    let edge = children[0]
+    const group = item.getContainer()
+    const children = group.get('children')
+    const edge = children[0]
     // 处理线条状态
     if (edge) {
       if (value) {

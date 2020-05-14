@@ -55,15 +55,15 @@
     },
     computed: {
       boxStyle () {
-        let _t = this
-        let boxStyle = {}
-        let keys = Object.keys(_t.panelStyle)
+        const _t = this
+        const boxStyle = {}
+        const keys = Object.keys(_t.panelStyle)
         keys.forEach(key => {
-          let panelStyle = _t.panelStyle[key]
+          const panelStyle = _t.panelStyle[key]
           if (panelStyle) {
             // 位置数据
-            let positionVal = isNaN(parseInt(panelStyle[key])) ? 0 : parseInt(panelStyle[key])
-            let width = isNaN(parseInt(panelStyle.width)) ? 0 : parseInt(panelStyle.width)
+            const positionVal = isNaN(parseInt(panelStyle[key])) ? 0 : parseInt(panelStyle[key])
+            const width = isNaN(parseInt(panelStyle.width)) ? 0 : parseInt(panelStyle.width)
             boxStyle[key] = positionVal + width + 'px'
           }
         })
@@ -72,12 +72,12 @@
     },
     methods: {
       ondblclickPad () {
-        let _t = this
+        const _t = this
         _t.$X.utils.bus.$emit('editor/pad/dblclick')
       }
     },
     created () {
-      let _t = this
+      const _t = this
       _t.$X.utils.bus.$on('editor/panel/toggle', function (data) {
         _t.$set(_t.panelStyle, data.name, data.style)
       })

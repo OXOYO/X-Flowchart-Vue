@@ -21,14 +21,14 @@ export default {
       const x = 0 - width / 2
       const y = 0 - height / 2
       // 计算箭头
-      let { L1, L2, L7 } = utils.node.calculateArrow({
+      const { L1, L2, L7 } = utils.node.calculateArrow({
         deg: 85,
         L1: height * 0.16,
         L7: width * 0.08
       })
       // FIXME 顺时针接续计算
       // 上箭头
-      let A0 = {
+      const A0 = {
         1: { x: -L7, y: -height / 2 + L1 + L7 },
         2: { x: -L7, y: -height / 2 + L1 },
         3: { x: -L2, y: -height / 2 + L1 },
@@ -39,7 +39,7 @@ export default {
         7: { x: L7, y: -height / 2 + L1 + L7 }
       }
       // 右箭头
-      let A1 = {
+      const A1 = {
         1: { x: width / 2 - L1 - L7, y: -L7 },
         2: { x: width / 2 - L1, y: -L7 },
         3: { x: width / 2 - L1, y: -L2 },
@@ -50,7 +50,7 @@ export default {
         7: { x: width / 2 - L1 - L7, y: L7 }
       }
       // 下箭头
-      let A2 = {
+      const A2 = {
         1: { x: L7, y: height / 2 - L1 - L7 },
         2: { x: L7, y: height / 2 - L1 },
         3: { x: L2, y: height / 2 - L1 },
@@ -61,7 +61,7 @@ export default {
         7: { x: -L7, y: height / 2 - L1 - L7 }
       }
       // 左箭头
-      let A3 = {
+      const A3 = {
         1: { x: -width / 2 + L1 + L7, y: L7 },
         2: { x: -width / 2 + L1, y: L7 },
         3: { x: -width / 2 + L1, y: L2 },

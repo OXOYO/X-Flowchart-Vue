@@ -21,13 +21,13 @@ export default {
       const x = 0 - width / 2
       const y = 0 - height / 2
       // 计算箭头
-      let { L1, L2, L7 } = utils.node.calculateArrow({
+      const { L1, L2, L7 } = utils.node.calculateArrow({
         deg: 85,
         L1: height / 3,
         L7: width / 8
       })
       // 下箭头
-      let A0 = {
+      const A0 = {
         1: { x: width / 2 - L2 + L7, y: L1 * 0.25 },
         2: { x: width / 2, y: L1 * 0.25 },
         // 顶点
@@ -36,9 +36,9 @@ export default {
         5: { x: width / 2 - L2 - L7, y: L1 * 0.25 }
       }
       // 左下左
-      let P1 = { x: -width / 2, y: L1 * 0.25 }
+      const P1 = { x: -width / 2, y: L1 * 0.25 }
       // 左下右
-      let P2 = { x: -width / 2 + 2 * L7, y: L1 * 0.25 }
+      const P2 = { x: -width / 2 + 2 * L7, y: L1 * 0.25 }
       const path = [
         [ 'M', P1.x, P1.y ],
         // FIXME 圆弧的中心点不在坐标原点上

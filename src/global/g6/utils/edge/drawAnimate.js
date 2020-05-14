@@ -7,12 +7,12 @@
 import config from '../../config'
 
 export default function (cfg, group) {
-  let node = group.getFirst()
-  let startPoint = node.getPoint(0)
+  const node = group.getFirst()
+  const startPoint = node.getPoint(0)
   if (!startPoint) {
     return
   }
-  let circleName = 'edgeAnimatePoint'
+  const circleName = 'edgeAnimatePoint'
   // 查找已有圆点
   let circle = group.find(item => item.name === circleName)
   if (!circle) {
@@ -30,7 +30,7 @@ export default function (cfg, group) {
 
   // 对红色圆点添加动画
   circle.animate(ratio => {
-    let tmpPoint = node.getPoint(ratio)
+    const tmpPoint = node.getPoint(ratio)
     if (tmpPoint) {
       return {
         x: tmpPoint.x,

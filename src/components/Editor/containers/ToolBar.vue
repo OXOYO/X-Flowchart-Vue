@@ -267,8 +267,8 @@
         'toolList'
       ]),
       toolBarStyle () {
-        let _t = this
-        let style = {}
+        const _t = this
+        const style = {}
         // 处理展开
         if (_t.isExpand) {
           style.top = 0
@@ -278,11 +278,11 @@
         return style
       },
       toolMap () {
-        let _t = this
-        let toolMap = {}
+        const _t = this
+        const toolMap = {}
         _t.toolList.forEach(item => {
           if (item.enable && item.toolbar && item.toolbar.enable) {
-            let position = item.toolbar.position
+            const position = item.toolbar.position
             if (!toolMap.hasOwnProperty(position)) {
               toolMap[position] = []
             }
@@ -294,16 +294,16 @@
     },
     methods: {
       toggleHandler (val) {
-        let _t = this
+        const _t = this
         _t.isExpand = val !== undefined ? val : !_t.isExpand
       },
       handleDropdownClick (item, type, index, val) {
-        let _t = this
+        const _t = this
         console.log('handleDropdownClick', item.name)
         if (item.disabled) {
           return
         }
-        let child = item.children[val]
+        const child = item.children[val]
         _t.formData[item.name] = child.name
         let payload = {
           context: 'ToolBar',
@@ -311,34 +311,34 @@
           name: item.name
         }
         switch (item.name) {
-        case 'lineWidth':
-        case 'lineType':
-        case 'lineDash':
-        case 'preview':
-        case 'download':
-        case 'canvasBackground':
-          payload = {
-            ...payload,
-            data: child.name
-          }
-          break
-        case 'zoom':
-        case 'startArrow':
-        case 'endArrow':
-          payload = {
-            ...payload,
-            data: child.data
-          }
-          break
-        case 'language':
-          // 更新cookie
-          let cookieKey = _t.$X.config.cookie.getItem('locale')
-          _t.$X.Cookies.set(cookieKey, child.name, {
-            expires: 7,
-            path: _t.$X.config.cookie.path
-          })
-          _t.$i18n.locale = _t.$X.langs.locale = child.name
-          break
+          case 'lineWidth':
+          case 'lineType':
+          case 'lineDash':
+          case 'preview':
+          case 'download':
+          case 'canvasBackground':
+            payload = {
+              ...payload,
+              data: child.name
+            }
+            break
+          case 'zoom':
+          case 'startArrow':
+          case 'endArrow':
+            payload = {
+              ...payload,
+              data: child.data
+            }
+            break
+          case 'language':
+            // 更新cookie
+            const cookieKey = _t.$X.config.cookie.getItem('locale')
+            _t.$X.Cookies.set(cookieKey, child.name, {
+              expires: 7,
+              path: _t.$X.config.cookie.path
+            })
+            _t.$i18n.locale = _t.$X.langs.locale = child.name
+            break
         }
         _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
         // 处理选中，更新toolList
@@ -352,7 +352,7 @@
         _t.$store.commit('editor/toolList/update', toolList)
       },
       handleToolClick (item, val) {
-        let _t = this
+        const _t = this
         console.log('handleToolClick', item.name, val)
         if (item.disabled) {
           return
@@ -362,27 +362,27 @@
           name: item.name
         }
         switch (item.name) {
-        case 'fill':
-        case 'lineColor':
-          _t.formData[item.name] = val
-          payload = {
-            ...payload,
-            data: val
-          }
-          break
-        case 'toFront':
-        case 'toBack':
-          payload = {
-            ...payload,
-            data: _t.currentItem
-          }
-          break
+          case 'fill':
+          case 'lineColor':
+            _t.formData[item.name] = val
+            payload = {
+              ...payload,
+              data: val
+            }
+            break
+          case 'toFront':
+          case 'toBack':
+            payload = {
+              ...payload,
+              data: _t.currentItem
+            }
+            break
         }
         _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
       }
     },
     created () {
-      let _t = this
+      const _t = this
       _t.$X.utils.bus.$on('editor/pad/dblclick', _t.toggleHandler)
     }
   }
