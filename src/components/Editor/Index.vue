@@ -914,6 +914,10 @@
             })
             break
           }
+          case 'layout': {
+            _t.editor.updateLayout(info.data)
+            break
+          }
         }
         if (isRecord) {
           // 记录操作日志

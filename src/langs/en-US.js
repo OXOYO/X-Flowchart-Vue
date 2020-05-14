@@ -41,6 +41,7 @@ export default {
   L10032: 'Clear operation log (Ctrl + Shift + L)',
   L10033: 'Upload',
   L10034: 'Canvas background',
+  L10035: 'Layout',
   // right panel
   L10100: 'Information',
   L10101: 'Configuration',

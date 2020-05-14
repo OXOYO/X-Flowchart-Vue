@@ -325,6 +325,7 @@
           case 'zoom':
           case 'startArrow':
           case 'endArrow':
+          case 'layout':
             payload = {
               ...payload,
               data: child.data
@@ -342,8 +343,7 @@
         }
         _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
         // 处理选中，更新toolList
-        let toolList
-        toolList = _t.toolList.map(target => {
+        const toolList = _t.toolList.map(target => {
           if (target.name === item.name) {
             target.selected = val
           }

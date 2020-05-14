@@ -1362,6 +1362,268 @@ export default new Vuex.Store({
             ]
           },
           {
+            name: 'layout',
+            label: 'Layout',
+            lang: 'L10035',
+            type: 'dropdown-list',
+            icon: 'layout',
+            enable: false,
+            enableMode: [],
+            disabled: false,
+            disabledMode: [],
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center',
+              style: {},
+              divider: true
+            },
+            contextmenu: {
+              enable: true,
+              target: ['canvas'],
+              style: {},
+              divider: true
+            },
+            // 默认选中项index
+            selected: 0,
+            lockLabel: true,
+            // 子节点
+            children: [
+              {
+                name: 'random',
+                label: 'random',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: {
+                  type: 'random'
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'force',
+                label: 'force',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: {
+                  type: 'force'
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'fruchterman',
+                label: 'fruchterman',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: {
+                  type: 'fruchterman',
+                  gravity: 5,
+                  speed: 5
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'circular',
+                label: 'circular',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: {
+                  type: 'circular'
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'radial',
+                label: 'radial',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: {
+                  type: 'radial',
+                  unitRadius: 50
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'mds',
+                label: 'mds',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: {
+                  type: 'mds',
+                  linkDistance: 100
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'dagre',
+                label: 'dagre',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: {
+                  type: 'dagre',
+                  ranksep: 70,
+                  controlPoints: true
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'concentric',
+                label: 'concentric',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: {
+                  type: 'concentric',
+                  maxLevelDiff: 0.5,
+                  sortBy: 'degree'
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'grid',
+                label: 'grid',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: {
+                  type: 'grid',
+                  begin: [20, 20]
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'compactbox',
+                label: 'compactbox',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: {
+                  type: 'compactBox',
+                  direction: 'LR',
+                  getId: function getId (d) {
+                    return d.id
+                  },
+                  getHeight: function getHeight () {
+                    return 16
+                  },
+                  getWidth: function getWidth () {
+                    return 16
+                  },
+                  getVGap: function getVGap () {
+                    return 10
+                  },
+                  getHGap: function getHGap () {
+                    return 100
+                  }
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'dendrogram',
+                label: 'dendrogram',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: {
+                  type: 'dendrogram',
+                  direction: 'LR', // H / V / LR / RL / TB / BT
+                  nodeSep: 30,
+                  rankSep: 100
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'indented',
+                label: 'indented',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: {
+                  type: 'indented',
+                  isHorizontal: true,
+                  direction: 'LR',
+                  indent: 30,
+                  getHeight: function getHeight () {
+                    return 16
+                  },
+                  getWidth: function getWidth () {
+                    return 16
+                  }
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'mindmap',
+                label: 'mindmap',
+                lang: '',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: {
+                  type: 'mindmap',
+                  direction: 'H',
+                  getHeight: () => {
+                    return 16
+                  },
+                  getWidth: () => {
+                    return 16
+                  },
+                  getVGap: () => {
+                    return 10
+                  },
+                  getHGap: () => {
+                    return 50
+                  }
+                },
+                enable: true,
+                disabled: false,
+                divider: false
+              }
+            ]
+          },
+          {
             name: 'fullscreen',
             label: 'fullscreen',
             lang: 'L10025',
