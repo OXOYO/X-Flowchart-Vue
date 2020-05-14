@@ -4,7 +4,7 @@
  * 折线
  */
 import base from './base'
-import { polylineFinding } from './polylineFinding'
+import utils from '../utils'
 
 export default {
   name: 'x-broken',
@@ -69,7 +69,7 @@ export default {
       if (!cfg.sourceNode) {
         return cfg.controlPoints
       }
-      return polylineFinding(cfg.sourceNode, cfg.targetNode, cfg.startPoint, cfg.endPoint, 40)
+      return utils.edge.polylineFinding(cfg.sourceNode, cfg.targetNode, cfg.startPoint, cfg.endPoint, 40)
     }
   }
 }

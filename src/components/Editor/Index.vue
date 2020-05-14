@@ -414,8 +414,7 @@
         _t.mode = name
         _t.editor.setMode(name)
         // 更新toolList
-        let toolList
-        toolList = _t.toolList.map(item => {
+        const toolList = _t.toolList.map(item => {
           if (item.hasOwnProperty('enableMode') && Array.isArray(item.enableMode)) {
             item.enable = item.enableMode.includes(name)
           }
@@ -682,7 +681,12 @@
             _t.editor.$X[info.name] = info.data
             const handleArrowStyle = function (data, lineColor) {
               if (!data) {
-                return false
+                // FIXME return false 无法在updateItem时清除箭头，暂使用如下方式清除
+                return {
+                  path: '',
+                  d: 0,
+                  fill: ''
+                }
               }
               const arrowStyle = data.style
               // 处理箭头填充色

@@ -7,6 +7,8 @@
 import utils from '../utils'
 
 export default {
+  // 自定义边配置，需要配置时在各个图形中覆写
+  options: {},
   draw (cfg, group) {
     const { startPoint, endPoint } = cfg
     const keyShape = group.addShape('path', {

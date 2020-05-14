@@ -9,7 +9,7 @@
  */
 
 // 折线寻径
-export const polylineFinding = function (sNode, tNode, sPort, tPort, offset = 10) {
+export default function (sNode, tNode, sPort, tPort, offset = 10) {
   const sourceBBox = sNode && sNode.getBBox ? sNode.getBBox() : getPointBBox(sPort)
   const targetBBox = tNode && tNode.getBBox ? tNode.getBBox() : getPointBBox(tPort)
   // 获取节点带 offset 的区域（扩展区域）
