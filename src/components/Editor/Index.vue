@@ -513,15 +513,18 @@
           }
           case 'delete': {
             // 删除逻辑
+            isRecord = true
+            let nodes = []
             _t.editor.getNodes().forEach(node => {
               if (node.hasState('active')) {
-                isRecord = true
-                _t.editor.removeItem(node)
+                nodes.push(node)
               }
+            })
+            nodes.forEach(node => {
+              _t.editor.removeItem(node)
             })
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
-                isRecord = true
                 _t.editor.removeItem(edge)
               }
             })
