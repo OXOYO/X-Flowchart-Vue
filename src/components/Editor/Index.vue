@@ -23,6 +23,7 @@
     <PanelRight></PanelRight>
     <PreviewModel></PreviewModel>
     <ContextMenu></ContextMenu>
+    <AboutXFC ref="aboutXFC"></AboutXFC>
   </div>
 </template>
 
@@ -35,6 +36,7 @@
   import PanelRight from './containers/PanelRight'
   import PreviewModel from './containers/PreviewModel'
   import ContextMenu from './containers/ContextMenu'
+  import AboutXFC from './containers/AboutXFC'
   import utils from '@/global/g6/utils'
   // 扩展了节点、边的G6
   import G6 from '@/global/g6/index'
@@ -59,7 +61,8 @@
       PanelLeft,
       PanelRight,
       PreviewModel,
-      ContextMenu
+      ContextMenu,
+      AboutXFC
     },
     data () {
       return {
@@ -923,6 +926,15 @@
           }
           case 'layout': {
             _t.editor.updateLayout(info.data)
+            break
+          }
+          case 'help': {
+            if (info.data === 'aboutXFC') {
+              const ref = _t.$refs.aboutXFC
+              if (ref && ref.show) {
+                ref.show()
+              }
+            }
             break
           }
         }

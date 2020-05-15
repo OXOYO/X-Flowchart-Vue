@@ -42,6 +42,8 @@ export default {
   L10033: 'Upload',
   L10034: 'Canvas background',
   L10035: 'Layout',
+  L10036: 'Help',
+  L10037: 'About XFC',
   // right panel
   L10100: 'Information',
   L10101: 'Configuration',
@@ -58,6 +60,9 @@ export default {
   L10205: 'Confirm',
   L10206: 'Uploading JSON data will overwrite the current canvas and confirm upload? ',
   L10207: '上传JSON数据失败！',
+  L10220: 'Version',
+  L10221: 'Author',
+  L10222: 'Github',
   // left panel
   L10300: 'Materials',
   L10301: 'General',

@@ -37,7 +37,11 @@
           background: #FFF;
           box-shadow: 0 0 5px 2px rgba(0, 0, 0, .1);
         }
-
+        .item-link {
+          display: inline-block;
+          vertical-align: middle;
+          width: 100%;
+        }
         .item-icon {
           display: inline-block;
           width: 16px;
@@ -131,17 +135,26 @@
             <ToolBox mode="vertical">
               <template v-for="(child, childIndex) in item.children">
                 <ToolItem
-                  v-if="child.type === 'normal'"
                   :key="'contextmenu_item_' + index + '_child_' + childIndex"
                   :active="child.active"
                   :disabled="child.disabled"
                   @click.native="handleChildClick(item, child)"
                 >
                   <template v-slot:label>
-                    <div class="item-icon">
-                      <XIcon :type="child.icon"></XIcon>
-                    </div>
-                    <span class="item-label">{{ child.lang ? $t(child.lang) : child.label }}</span>
+                    <template v-if="child.type === 'normal'">
+                      <div class="item-icon">
+                        <XIcon :type="child.icon"></XIcon>
+                      </div>
+                      <span class="item-label">{{ child.lang ? $t(child.lang) : child.label }}</span>
+                    </template>
+                    <template v-else-if="child.type === 'link'">
+                      <a class="item-link" :href="child.link" target="_blank" style="color: #333333;" @click.stop>
+                        <div class="item-icon">
+                          <XIcon :type="child.icon"></XIcon>
+                        </div>
+                        <span class="item-label">{{ child.lang ? $t(child.lang) : child.label }}</span>
+                      </a>
+                    </template>
                   </template>
                 </ToolItem>
                 <XDivider
@@ -300,6 +313,7 @@
           case 'preview':
           case 'download':
           case 'canvasBackground':
+          case 'help':
             payload = {
               ...payload,
               data: child.name
@@ -308,6 +322,7 @@
           case 'zoom':
           case 'startArrow':
           case 'endArrow':
+          case 'layout':
             payload = {
               ...payload,
               data: child.data

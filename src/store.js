@@ -1862,7 +1862,7 @@ export default new Vuex.Store({
             type: 'link',
             icon: 'github',
             link: config.system.github,
-            enableTool: true,
+            enableTool: false,
             enable: true,
             enableMode: ['edit', 'preview'],
             disabled: false,
@@ -1888,7 +1888,7 @@ export default new Vuex.Store({
             type: 'link',
             icon: 'feedback',
             link: config.system.feedback,
-            enableTool: true,
+            enableTool: false,
             enable: true,
             enableMode: ['edit', 'preview'],
             disabled: false,
@@ -1906,6 +1906,61 @@ export default new Vuex.Store({
               style: {},
               divider: false
             }
+          },
+          {
+            name: 'help',
+            label: 'help',
+            lang: 'L10036',
+            type: 'dropdown-list',
+            icon: 'help',
+            enableTool: true,
+            enable: true,
+            enableMode: ['edit', 'preview'],
+            disabled: false,
+            disabledMode: ['edit', 'preview'],
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center',
+              style: {},
+              divider: false
+            },
+            contextmenu: {
+              enable: true,
+              target: ['canvas'],
+              style: {},
+              divider: false
+            },
+            // 默认选中项index
+            selected: 0,
+            lockLabel: true,
+            // 子节点
+            children: [
+              {
+                name: 'aboutXFC',
+                label: 'about XFC',
+                lang: 'L10037',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: false,
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'feedback',
+                label: 'feedback',
+                lang: 'L10028',
+                type: 'link',
+                icon: '',
+                link: config.system.feedback,
+                style: {},
+                enable: true,
+                disabled: false,
+                divider: false
+              }
+            ]
           },
           // FIXME 纯快捷键
           {

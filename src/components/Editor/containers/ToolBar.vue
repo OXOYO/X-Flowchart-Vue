@@ -33,7 +33,7 @@
         justify-content: flex-start;
       }
       &.center {
-        justify-content: center;
+        justify-content: flex-start;
       }
       &.right {
         justify-content: flex-end;
@@ -98,22 +98,16 @@
             <template v-slot:label>
               <template v-if="item.disabled">
                 <div style="margin: 0 3px;">
-                  <XIcon
-                    :type="item.icon"
-                    style="vertical-align: middle;"
-                  >
-                  </XIcon>
+                  <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
+                  <span v-else>{{ $t(item.lang) }}</span>
                   <Icon type="ios-arrow-down"></Icon>
                 </div>
               </template>
               <template v-else>
                 <XColorPicker v-model="formData[item.name]" @on-change="(val) => handleToolClick(item, val, null)">
                   <div style="margin: 0 3px;" slot="preview">
-                    <XIcon
-                      :type="item.icon"
-                      style="vertical-align: middle;"
-                    >
-                    </XIcon>
+                    <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
+                    <span v-else>{{ $t(item.lang) }}</span>
                     <Icon type="ios-arrow-down"></Icon>
                   </div>
                 </XColorPicker>
@@ -132,11 +126,8 @@
               <template v-if="item.disabled">
                 <div style="margin: 0 3px;">
                   <template v-if="item.lockLabel">
-                    <XIcon
-                      :type="item.icon"
-                      style="vertical-align: middle;"
-                    >
-                    </XIcon>
+                    <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
+                    <span v-else>{{ $t(item.lang) }}</span>
                   </template>
                   <template v-else>
                     <XIcon
@@ -155,11 +146,8 @@
                 <Dropdown trigger="click" @on-click="(val) => handleDropdownClick(item, type, index, val)">
                   <div style="margin: 0 3px;">
                     <template v-if="item.lockLabel">
-                      <XIcon
-                        :type="item.icon"
-                        style="vertical-align: middle;"
-                      >
-                      </XIcon>
+                      <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
+                      <span v-else>{{ $t(item.lang) }}</span>
                     </template>
                     <template v-else>
                       <XIcon
@@ -182,11 +170,16 @@
                       :divided="child.divider"
                       :selected="item.selected === childIndex"
                     >
-                      <template v-if="child.icon">
-                        <XIcon :type="child.icon" :title="$t(child.lang)" :style="child.style"></XIcon>
+                      <template v-if="child.type === 'normal'">
+                        <XIcon v-if="child.icon" :type="child.icon" :title="$t(child.lang)" :style="child.style"></XIcon>
+                        <span v-else>{{ child.lang ? $t(child.lang) : child.label }}</span>
                       </template>
-                      <template v-else>
-                        <span>{{ child.lang ? $t(child.lang) : child.label }}</span>
+                      <template v-else-if="child.type === 'link'">
+                        <a class="link" :href="child.link" target="_blank" style="color: #333333;">
+                          <XIcon v-if="child.icon" :type="child.icon"></XIcon>
+                          <img class="img" v-else-if="child.img" :src="child.img" alt="">
+                          <span v-else>{{ $t(child.lang) }}</span>
+                        </a>
                       </template>
                     </DropdownItem>
                   </DropdownMenu>
@@ -317,6 +310,7 @@
           case 'preview':
           case 'download':
           case 'canvasBackground':
+          case 'help':
             payload = {
               ...payload,
               data: child.name

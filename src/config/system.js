@@ -3,10 +3,12 @@
  *
  * 系统相关配置
  */
-
+const packageInfo = require('../../package')
 export default {
-  version: '3.0.0',
-  name: 'XFC',
+  version: packageInfo.version,
+  name: packageInfo.name,
+  author: packageInfo.author,
+  description: packageInfo.description,
   title: 'XFC',
   subtitle: 'XFC',
   minTitle: 'XFC',
