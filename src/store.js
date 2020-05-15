@@ -6,23 +6,23 @@ Vue.use(Vuex)
 
 // 快捷键列表
 const shortcutMap = {
-  undo: { tool: 'undo', key: 'mod+z', lang: 'L10400', description: '' },
-  clearLog: { tool: 'clearLog', key: 'mod+shift+l', lang: 'L10401', description: '' },
-  history: { tool: 'history', key: 'mod+shift+h', lang: 'L10402', description: '' },
-  redo: { tool: 'redo', key: 'mod+shift+z', lang: 'L10403', description: '' },
-  copy: { tool: 'copy', key: 'mod+c', lang: 'L10404', description: '' },
-  paste: { tool: 'paste', key: 'mod+v', lang: 'L10405', description: '' },
-  delete: { tool: 'delete', key: ['del', 'backspace'], lang: 'L10406', description: '' },
-  clear: { tool: 'clear', key: 'mod+shift+c', lang: 'L10407', description: '' },
-  zoomIn: { tool: 'zoomIn', key: ['mod+=', 'mod+plus'], lang: 'L10408', description: '' },
-  zoomOut: { tool: 'zoomOut', key: 'mod+-', lang: 'L10409', description: '' },
-  fit: { tool: 'fit', key: 'mod+0', lang: 'L10410', description: '' },
-  actualSize: { tool: 'actualSize', key: 'mod+1', lang: 'L10411', description: '' },
-  selectAll: { tool: 'selectAll', key: 'mod+a', lang: 'L10412', description: '' },
-  up: { tool: 'up', key: 'up', lang: 'L10413', description: '' },
-  down: { tool: 'down', key: 'down', lang: 'L10414', description: '' },
-  left: { tool: 'left', key: 'left', lang: 'L10415', description: '' },
-  right: { tool: 'right', key: 'right', lang: 'L10416', description: '' }
+  undo: { tool: 'undo', key: 'mod+z', label: 'Ctrl + Z', description: '' },
+  clearLog: { tool: 'clearLog', key: 'mod+shift+l', label: 'Ctrl + Shift + L', description: '' },
+  history: { tool: 'history', key: 'mod+shift+h', label: 'Ctrl + Shift + H', description: '' },
+  redo: { tool: 'redo', key: 'mod+shift+z', label: 'Ctrl + shift + Z', description: '' },
+  copy: { tool: 'copy', key: 'mod+c', label: 'Ctrl + C', description: '' },
+  paste: { tool: 'paste', key: 'mod+v', label: 'Ctrl + V', description: '' },
+  delete: { tool: 'delete', key: ['del', 'backspace'], label: 'Delete', description: '' },
+  clear: { tool: 'clear', key: 'mod+shift+c', label: 'Ctrl + Shift + C', description: '' },
+  zoomIn: { tool: 'zoomIn', key: ['mod+=', 'mod+plus'], label: 'Ctrl + +', description: '' },
+  zoomOut: { tool: 'zoomOut', key: 'mod+-', label: 'Ctrl + -', description: '' },
+  fit: { tool: 'fit', key: 'mod+0', label: 'Ctrl + 0', description: '' },
+  actualSize: { tool: 'actualSize', key: 'mod+1', label: 'Ctrl + 1', description: '' },
+  selectAll: { tool: 'selectAll', key: 'mod+a', label: 'Ctrl + A', description: '' },
+  up: { tool: 'up', key: 'up', label: 'up', description: '' },
+  down: { tool: 'down', key: 'down', label: 'down', description: '' },
+  left: { tool: 'left', key: 'left', label: 'left', description: '' },
+  right: { tool: 'right', key: 'right', label: 'right', description: '' }
 }
 
 export default new Vuex.Store({
@@ -514,6 +514,31 @@ export default new Vuex.Store({
               enable: true,
               position: 'center',
               style: {},
+              divider: false
+            },
+            contextmenu: {
+              enable: true,
+              target: ['canvas'],
+              style: {},
+              divider: false
+            }
+          },
+          {
+            name: 'canvasBackground',
+            label: 'Canvas background',
+            lang: 'L10034',
+            type: 'dropdown-list',
+            icon: 'canvas-background',
+            enableTool: true,
+            enable: true,
+            enableMode: ['edit'],
+            disabled: false,
+            disabledMode: ['edit', 'preview'],
+            shortcuts: '',
+            toolbar: {
+              enable: true,
+              position: 'center',
+              style: {},
               divider: true
             },
             contextmenu: {
@@ -521,7 +546,37 @@ export default new Vuex.Store({
               target: ['canvas'],
               style: {},
               divider: true
-            }
+            },
+            // 默认选中项index
+            selected: 0,
+            lockLabel: true,
+            // 子节点
+            children: [
+              {
+                name: 'default',
+                label: 'Default',
+                lang: 'L10039',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: false,
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
+                name: 'image',
+                label: 'Image',
+                lang: 'L10040',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: false,
+                enable: true,
+                disabled: false,
+                divider: false
+              }
+            ]
           },
           {
             name: 'fill',
@@ -1495,61 +1550,6 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: 'json',
-                style: {},
-                data: false,
-                enable: true,
-                disabled: false,
-                divider: false
-              }
-            ]
-          },
-          {
-            name: 'canvasBackground',
-            label: 'Canvas background',
-            lang: 'L10034',
-            type: 'dropdown-list',
-            icon: 'canvas-background',
-            enableTool: true,
-            enable: true,
-            enableMode: ['edit'],
-            disabled: false,
-            disabledMode: ['edit', 'preview'],
-            shortcuts: '',
-            toolbar: {
-              enable: true,
-              position: 'center',
-              style: {},
-              divider: true
-            },
-            contextmenu: {
-              enable: true,
-              target: ['canvas'],
-              style: {},
-              divider: true
-            },
-            // 默认选中项index
-            selected: 0,
-            lockLabel: true,
-            // 子节点
-            children: [
-              {
-                name: 'default',
-                label: 'Default',
-                lang: '',
-                type: 'normal',
-                icon: '',
-                style: {},
-                data: false,
-                enable: true,
-                disabled: false,
-                divider: false
-              },
-              {
-                name: 'image',
-                label: 'Image',
-                lang: '',
-                type: 'normal',
-                icon: '',
                 style: {},
                 data: false,
                 enable: true,

@@ -18,7 +18,9 @@
       padding: 0;
 
       .tool-item {
-        padding: 5px 10px;
+        padding: 8px 10px;
+        display: flex;
+        align-items: center;
 
         &:hover {
           color: #000000;
@@ -46,14 +48,23 @@
           display: inline-block;
           width: 16px;
           height: 16px;
-          margin-right: 10px;
+          line-height: 1;
         }
-        .item-label {}
+        .item-label {
+          flex: 1 1 auto;
+          margin: 0 10px;
+          line-height: 1;
+          min-width: 60px;
+          white-space: nowrap;
+        }
+        .item-shortcut {
+          line-height: 1;
+        }
         .item-more {
           display: inline-block;
           float: right;
           width: 16px;
-          height: 16px;
+          line-height: 1;
         }
       }
       .divider {
@@ -80,6 +91,7 @@
               <XIcon :type="item.icon"></XIcon>
             </div>
             <span class="item-label">{{ $t(item.lang) }}</span>
+            <span class="item-shortcut" v-if="item.shortcuts">{{ item.shortcuts.label }}</span>
           </template>
         </ToolItem>
         <ToolItem
@@ -95,6 +107,7 @@
               <XIcon :type="item.icon"></XIcon>
             </div>
             <span class="item-label">{{ $t(item.lang) }}</span>
+            <span class="item-shortcut" v-if="item.shortcuts">{{ item.shortcuts.label }}</span>
             <div class="item-more">
               <Icon type="ios-arrow-forward"></Icon>
             </div>
@@ -127,6 +140,7 @@
               <XIcon :type="item.icon"></XIcon>
             </div>
             <span class="item-label">{{ $t(item.lang) }}</span>
+            <span class="item-shortcut" v-if="item.shortcuts">{{ item.shortcuts.label }}</span>
             <div class="item-more">
               <Icon type="ios-arrow-forward"></Icon>
             </div>
@@ -181,6 +195,7 @@
                 <XIcon :type="item.icon"></XIcon>
               </div>
               <span class="item-label">{{ $t(item.lang) }}</span>
+              <span class="item-shortcut" v-if="item.shortcuts">{{ item.shortcuts.label }}</span>
             </a>
           </template>
         </ToolItem>
@@ -197,6 +212,7 @@
               <XIcon :type="item.icon"></XIcon>
             </div>
             <span class="item-label">{{ $t(item.lang) }}</span>
+            <span class="item-shortcut" v-if="item.shortcuts">{{ item.shortcuts.label }}</span>
           </template>
         </ToolItem>
         <XDivider

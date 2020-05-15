@@ -76,7 +76,7 @@
           <ToolItem
             v-if="item.type === 'text'"
             :key="'tool_' + type + '_item_' + index"
-            :title="$t(item.lang)"
+            :title="handleLabel(item)"
             :active="item.active"
             :disabled="item.disabled"
             :style="item.toolbar.style"
@@ -84,13 +84,13 @@
           >
             <template v-slot:label>
               <XIcon v-if="item.icon" :type="item.icon"></XIcon>
-              <span v-else>{{ $t(item.lang) }}</span>
+              <span v-else>{{ handleLabel(item) }}</span>
             </template>
           </ToolItem>
           <ToolItem
             v-if="item.type === 'dropdown-color-picker'"
             :key="'tool_' + type + '_item_' + index"
-            :title="$t(item.lang)"
+            :title="handleLabel(item)"
             :active="item.active"
             :disabled="item.disabled"
             :style="item.toolbar.style"
@@ -99,7 +99,7 @@
               <template v-if="item.disabled">
                 <div style="margin: 0 3px;">
                   <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
-                  <span v-else>{{ $t(item.lang) }}</span>
+                  <span v-else>{{ handleLabel(item) }}</span>
                   <Icon type="ios-arrow-down"></Icon>
                 </div>
               </template>
@@ -107,7 +107,7 @@
                 <XColorPicker v-model="formData[item.name]" @on-change="(val) => handleToolClick(item, val, null)">
                   <div style="margin: 0 3px;" slot="preview">
                     <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
-                    <span v-else>{{ $t(item.lang) }}</span>
+                    <span v-else>{{ handleLabel(item) }}</span>
                     <Icon type="ios-arrow-down"></Icon>
                   </div>
                 </XColorPicker>
@@ -117,7 +117,7 @@
           <ToolItem
             v-if="item.type === 'dropdown-list'"
             :key="'tool_' + type + '_item_' + index"
-            :title="$t(item.lang)"
+            :title="handleLabel(item)"
             :active="item.active"
             :disabled="item.disabled"
             :style="item.toolbar.style"
@@ -127,7 +127,7 @@
                 <div style="margin: 0 3px;">
                   <template v-if="item.lockLabel">
                     <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
-                    <span v-else>{{ $t(item.lang) }}</span>
+                    <span v-else>{{ handleLabel(item) }}</span>
                   </template>
                   <template v-else>
                     <XIcon
@@ -147,7 +147,7 @@
                   <div style="margin: 0 3px;">
                     <template v-if="item.lockLabel">
                       <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
-                      <span v-else>{{ $t(item.lang) }}</span>
+                      <span v-else>{{ handleLabel(item) }}</span>
                     </template>
                     <template v-else>
                       <XIcon
@@ -190,7 +190,7 @@
           <ToolItem
             v-if="item.type === 'link'"
             :key="'tool_' + type + '_item_' + index"
-            :title="$t(item.lang)"
+            :title="handleLabel(item)"
             :active="item.active"
             :disabled="item.disabled"
             :style="item.toolbar.style"
@@ -200,14 +200,14 @@
               <a class="link" :href="item.link" target="_blank" style="color: #333333;">
                 <XIcon v-if="item.icon" :type="item.icon"></XIcon>
                 <img class="img" v-else-if="item.img" :src="item.img" alt="">
-                <span v-else>{{ $t(item.lang) }}</span>
+                <span v-else>{{ handleLabel(item) }}</span>
               </a>
             </template>
           </ToolItem>
           <ToolItem
             v-if="item.type === 'normal'"
             :key="'tool_' + type + '_item_' + index"
-            :title="$t(item.lang)"
+            :title="handleLabel(item)"
             :active="item.active"
             :disabled="item.disabled"
             :style="item.toolbar.style"
@@ -215,7 +215,7 @@
           >
             <template v-slot:label>
               <XIcon v-if="item.icon" :type="item.icon"></XIcon>
-              <span v-else>{{ $t(item.lang) }}</span>
+              <span v-else>{{ handleLabel(item) }}</span>
             </template>
           </ToolItem>
           <XDivider
@@ -373,6 +373,15 @@
             break
         }
         _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
+      },
+      // 处理label
+      handleLabel (item) {
+        const _t = this
+        let label = _t.$t(item.lang)
+        if (item.shortcuts) {
+          label += ` (${item.shortcuts.label})`
+        }
+        return label
       }
     },
     created () {

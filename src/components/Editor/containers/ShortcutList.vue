@@ -24,34 +24,28 @@
   export default {
     name: 'ShortcutList',
     data () {
-      const _t = this
       return {
-        isShow: false,
-        tableColumns: [
-          {
-            title: _t.$t('L10451'),
-            key: 'tool'
-          },
-          {
-            title: _t.$t('L10452'),
-            key: 'shortcut'
-          }
-        ],
-        tableData: []
+        isShow: false
       }
     },
     computed: {
       ...mapGetters([
         'shortcutMap',
         'toolList'
-      ])
-    },
-    methods: {
-      show () {
-        this.isShow = true
-        this.handleTableData()
+      ]),
+      tableColumns () {
+        return [
+          {
+            title: this.$t('L10451'),
+            key: 'tool'
+          },
+          {
+            title: this.$t('L10452'),
+            key: 'label'
+          }
+        ]
       },
-      handleTableData () {
+      tableData () {
         const _t = this
         const tableData = []
         _t.toolList.forEach(item => {
@@ -60,12 +54,17 @@
             if (shortcutInfo) {
               tableData.push({
                 tool: shortcutInfo.tool,
-                shortcut: _t.$t(shortcutInfo.lang)
+                label: shortcutInfo.label
               })
             }
           }
         })
-        _t.tableData = tableData
+        return tableData
+      }
+    },
+    methods: {
+      show () {
+        this.isShow = true
       }
     }
   }
