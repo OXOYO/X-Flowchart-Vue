@@ -414,14 +414,17 @@
         _t.mode = name
         _t.editor.setMode(name)
         // 更新toolList
-        const toolList = _t.toolList.map(item => {
-          if (item.hasOwnProperty('enableMode') && Array.isArray(item.enableMode)) {
-            item.enable = item.enableMode.includes(name)
+        const toolList = []
+        _t.toolList.forEach(item => {
+          if (item.enableTool) {
+            if (item.hasOwnProperty('enableMode') && Array.isArray(item.enableMode)) {
+              item.enable = item.enableMode.includes(name)
+            }
+            if (item.hasOwnProperty('disabledMode') && Array.isArray(item.disabledMode)) {
+              item.disabled = !item.disabledMode.includes(name)
+            }
+            toolList.push(item)
           }
-          if (item.hasOwnProperty('disabledMode') && Array.isArray(item.disabledMode)) {
-            item.disabled = !item.disabledMode.includes(name)
-          }
-          return item
         })
         _t.$store.commit('editor/toolList/update', toolList)
       },
@@ -513,7 +516,7 @@
           }
           case 'delete': {
             // 删除逻辑
-            let nodes = []
+            const nodes = []
             _t.editor.getNodes().forEach(node => {
               if (node.hasState('active')) {
                 isRecord = true
@@ -938,7 +941,7 @@
       bindShortcuts () {
         const _t = this
         _t.toolList.forEach(item => {
-          if (item.enable && item.shortcuts) {
+          if (item.enableTool && item.shortcuts) {
             Mousetrap.bind(item.shortcuts, function (e) {
               if (e.preventDefault) {
                 e.preventDefault()

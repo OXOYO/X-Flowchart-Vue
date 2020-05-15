@@ -292,7 +292,7 @@
       lineDashList () {
         const _t = this
         const edgeConfig = _t.editor.$C.edge
-        const lineDash = _t.toolList.find(item => item.name === 'lineDash')
+        const lineDash = _t.toolList.find(item => item.enableTool && item.name === 'lineDash')
         const list = []
         if (lineDash && lineDash.enable && lineDash.children) {
           lineDash.children.forEach(item => {

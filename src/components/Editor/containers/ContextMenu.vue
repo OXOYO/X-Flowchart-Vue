@@ -233,7 +233,7 @@
         const _t = this
         const contextMenuList = []
         _t.toolList.forEach(item => {
-          if (item.enable && item.contextmenu && item.contextmenu.enable) {
+          if (item.enableTool && item.enable && item.contextmenu && item.contextmenu.enable) {
             if (!item.contextmenu.hasOwnProperty('target') || (item.contextmenu.hasOwnProperty('target') && (item.contextmenu.target.length && _t.options && _t.options.type && item.contextmenu.target.includes(_t.options.type)))) {
               contextMenuList.push(item)
             }

@@ -281,7 +281,7 @@
         const _t = this
         const toolMap = {}
         _t.toolList.forEach(item => {
-          if (item.enable && item.toolbar && item.toolbar.enable) {
+          if (item.enableTool && item.enable && item.toolbar && item.toolbar.enable) {
             const position = item.toolbar.position
             if (!toolMap.hasOwnProperty(position)) {
               toolMap[position] = []
@@ -344,7 +344,7 @@
         _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
         // 处理选中，更新toolList
         const toolList = _t.toolList.map(target => {
-          if (target.name === item.name) {
+          if (target.enableTool && target.name === item.name) {
             target.selected = val
           }
           return target
