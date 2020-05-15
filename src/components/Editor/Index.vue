@@ -41,12 +41,10 @@
   // 扩展了节点、边的G6
   import G6 from '@/global/g6/index'
   import * as G6Util from '@antv/util'
-  // 导航器
-  // import Minimap from '@antv/g6/build/minimap'
   // 自定义栅格插件
   // import XGrid from '@/global/g6/plugins/XGrid'
   // 背景图
-  // import XBackground from '@/global/g6/plugins/XBackground'
+  import XBackground from '@/global/g6/plugins/XBackground'
   // 全屏
   import screenfull from 'screenfull'
   // 热键
@@ -106,14 +104,13 @@
           size: size
         })
         const grid = new G6.Grid()
-        // const background = new XBackground()
+        const background = new XBackground()
         // 生成编辑器实例
         _t.editor = new G6.Graph({
           plugins: [
             minimap,
-            grid
-            // ,
-            // background
+            grid,
+            background
           ],
           container: sketchpad,
           width: sketchpad.clientWidth,

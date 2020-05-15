@@ -6,7 +6,7 @@
  * 扩展G6自带Grid插件
  */
 
-import Grid from '@antv/g6/build/grid'
+import { Grid } from '@antv/g6'
 import * as G6DomUtil from '@antv/dom-util'
 
 export default class XGrid extends Grid {

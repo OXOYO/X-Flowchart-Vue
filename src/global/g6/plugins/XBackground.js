@@ -5,7 +5,7 @@
  */
 
 // import Base from '@antv/g6/plugins/base'
-import Grid from '@antv/g6/build/grid'
+import { Grid } from '@antv/g6'
 import * as G6DomUtil from '@antv/dom-util'
 
 export default class XBackground extends Grid {
