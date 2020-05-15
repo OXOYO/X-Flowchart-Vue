@@ -24,6 +24,7 @@
     <PreviewModel></PreviewModel>
     <ContextMenu></ContextMenu>
     <AboutXFC ref="aboutXFC"></AboutXFC>
+    <ShortcutList ref="shortcutList"></ShortcutList>
   </div>
 </template>
 
@@ -37,6 +38,7 @@
   import PreviewModel from './containers/PreviewModel'
   import ContextMenu from './containers/ContextMenu'
   import AboutXFC from './containers/AboutXFC'
+  import ShortcutList from './containers/ShortcutList'
   import utils from '@/global/g6/utils'
   // 扩展了节点、边的G6
   import G6 from '@/global/g6/index'
@@ -60,7 +62,8 @@
       PanelRight,
       PreviewModel,
       ContextMenu,
-      AboutXFC
+      AboutXFC,
+      ShortcutList
     },
     data () {
       return {
@@ -926,8 +929,8 @@
             break
           }
           case 'help': {
-            if (info.data === 'aboutXFC') {
-              const ref = _t.$refs.aboutXFC
+            if (['aboutXFC', 'shortcutList'].includes(info.data)) {
+              const ref = _t.$refs[info.data]
               if (ref && ref.show) {
                 ref.show()
               }
@@ -951,7 +954,7 @@
         const _t = this
         _t.toolList.forEach(item => {
           if (item.enableTool && item.shortcuts) {
-            Mousetrap.bind(item.shortcuts, function (e) {
+            Mousetrap.bind(item.shortcuts.key, function (e) {
               if (e.preventDefault) {
                 e.preventDefault()
               } else {

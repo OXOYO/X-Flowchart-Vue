@@ -4,6 +4,27 @@ import config from './config'
 
 Vue.use(Vuex)
 
+// 快捷键列表
+const shortcutMap = {
+  undo: { tool: 'undo', key: 'mod+z', lang: 'L10400', description: '' },
+  clearLog: { tool: 'clearLog', key: 'mod+shift+l', lang: 'L10401', description: '' },
+  history: { tool: 'history', key: 'mod+shift+h', lang: 'L10402', description: '' },
+  redo: { tool: 'redo', key: 'mod+shift+z', lang: 'L10403', description: '' },
+  copy: { tool: 'copy', key: 'mod+c', lang: 'L10404', description: '' },
+  paste: { tool: 'paste', key: 'mod+v', lang: 'L10405', description: '' },
+  delete: { tool: 'delete', key: ['del', 'backspace'], lang: 'L10406', description: '' },
+  clear: { tool: 'clear', key: 'mod+shift+c', lang: 'L10407', description: '' },
+  zoomIn: { tool: 'zoomIn', key: ['mod+=', 'mod+plus'], lang: 'L10408', description: '' },
+  zoomOut: { tool: 'zoomOut', key: 'mod+-', lang: 'L10409', description: '' },
+  fit: { tool: 'fit', key: 'mod+0', lang: 'L10410', description: '' },
+  actualSize: { tool: 'actualSize', key: 'mod+1', lang: 'L10411', description: '' },
+  selectAll: { tool: 'selectAll', key: 'mod+a', lang: 'L10412', description: '' },
+  up: { tool: 'up', key: 'up', lang: 'L10413', description: '' },
+  down: { tool: 'down', key: 'down', lang: 'L10414', description: '' },
+  left: { tool: 'left', key: 'left', lang: 'L10415', description: '' },
+  right: { tool: 'right', key: 'right', lang: 'L10416', description: '' }
+}
+
 export default new Vuex.Store({
   state: {
     editor: {
@@ -80,7 +101,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'mod+z',
+            shortcuts: shortcutMap.undo,
             toolbar: {
               enable: true,
               position: 'center',
@@ -105,7 +126,32 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'mod+shift+l',
+            shortcuts: shortcutMap.clearLog,
+            toolbar: {
+              enable: true,
+              position: 'center',
+              style: {},
+              divider: false
+            },
+            contextmenu: {
+              enable: true,
+              target: ['canvas'],
+              style: {},
+              divider: false
+            }
+          },
+          {
+            name: 'history',
+            label: 'history',
+            lang: 'L10032',
+            type: 'normal',
+            icon: 'history',
+            enableTool: false,
+            enable: true,
+            enableMode: ['edit'],
+            disabled: false,
+            disabledMode: ['edit'],
+            shortcuts: shortcutMap.history,
             toolbar: {
               enable: true,
               position: 'center',
@@ -130,7 +176,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'mod+shift+z',
+            shortcuts: shortcutMap.redo,
             toolbar: {
               enable: true,
               position: 'center',
@@ -156,7 +202,7 @@ export default new Vuex.Store({
             disabled: false,
             disabledMode: ['edit'],
             // FIXME 通用mod助手用于设置跨平台快捷方式，用于将command+c在Windows和Linux上映射到mod+c
-            shortcuts: 'mod+c',
+            shortcuts: shortcutMap.copy,
             toolbar: {
               enable: true,
               position: 'center',
@@ -181,7 +227,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'mod+v',
+            shortcuts: shortcutMap.paste,
             toolbar: {
               enable: true,
               position: 'center',
@@ -206,7 +252,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: ['del', 'backspace'],
+            shortcuts: shortcutMap.delete,
             toolbar: {
               enable: false,
               position: 'center',
@@ -231,7 +277,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'mod+shift+e',
+            shortcuts: shortcutMap.clear,
             toolbar: {
               enable: true,
               position: 'center',
@@ -388,7 +434,7 @@ export default new Vuex.Store({
             disabled: false,
             disabledMode: ['edit', 'preview'],
             // FIXME mod+= 用于支持主键盘区的+，mod+plus用于支持数字键盘区的+
-            shortcuts: ['mod+=', 'mod+plus'],
+            shortcuts: shortcutMap.zoomIn,
             toolbar: {
               enable: true,
               position: 'center',
@@ -413,7 +459,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit', 'preview'],
-            shortcuts: 'mod+-',
+            shortcuts: shortcutMap.zoomOut,
             toolbar: {
               enable: true,
               position: 'center',
@@ -438,7 +484,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit', 'preview'],
-            shortcuts: 'mod+0',
+            shortcuts: shortcutMap.fit,
             toolbar: {
               enable: true,
               position: 'center',
@@ -463,7 +509,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit', 'preview'],
-            shortcuts: 'mod+1',
+            shortcuts: shortcutMap.actualSize,
             toolbar: {
               enable: true,
               position: 'center',
@@ -1208,7 +1254,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'mod+a',
+            shortcuts: shortcutMap.selectAll,
             toolbar: {
               enable: true,
               position: 'center',
@@ -1949,6 +1995,18 @@ export default new Vuex.Store({
                 divider: false
               },
               {
+                name: 'shortcutList',
+                label: 'shortcut list',
+                lang: 'L10038',
+                type: 'normal',
+                icon: '',
+                style: {},
+                data: false,
+                enable: true,
+                disabled: false,
+                divider: false
+              },
+              {
                 name: 'feedback',
                 label: 'feedback',
                 lang: 'L10028',
@@ -1974,7 +2032,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'up',
+            shortcuts: shortcutMap.up,
             toolbar: {
               enable: false,
               position: '',
@@ -1999,7 +2057,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'down',
+            shortcuts: shortcutMap.down,
             toolbar: {
               enable: false,
               position: '',
@@ -2024,7 +2082,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'left',
+            shortcuts: shortcutMap.left,
             toolbar: {
               enable: false,
               position: '',
@@ -2049,7 +2107,7 @@ export default new Vuex.Store({
             enableMode: ['edit'],
             disabled: false,
             disabledMode: ['edit'],
-            shortcuts: 'right',
+            shortcuts: shortcutMap.right,
             toolbar: {
               enable: false,
               position: '',
@@ -2063,7 +2121,9 @@ export default new Vuex.Store({
               divider: false
             }
           }
-        ]
+        ],
+      // 快捷键列表
+      shortcutMap
     }
   },
   mutations: {
@@ -2160,6 +2220,7 @@ export default new Vuex.Store({
     editor: state => state.editor.instance,
     currentItem: state => state.editor.currentItem,
     toolList: state => state.editor.toolList,
+    shortcutMap: state => state.editor.shortcutMap,
     log: state => state.editor.log
   }
 })

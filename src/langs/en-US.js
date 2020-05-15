@@ -44,6 +44,7 @@ export default {
   L10035: 'Layout',
   L10036: 'Help',
   L10037: 'About XFC',
+  L10038: 'Shortcut List',
   // right panel
   L10100: 'Information',
   L10101: 'Configuration',
