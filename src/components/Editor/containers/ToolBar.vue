@@ -320,59 +320,12 @@
         _t.formData[item.name] = child.name
         let payload = {
           context: 'ToolBar',
-          event: event,
-          name: item.name
-        }
-        switch (item.name) {
-          case 'lineWidth':
-          case 'lineType':
-          case 'lineDash':
-          case 'preview':
-          case 'download':
-          case 'canvasBackground':
-          case 'help':
-            payload = {
-              ...payload,
-              data: child.name
-            }
-            break
-          case 'zoom':
-          case 'startArrow':
-          case 'endArrow':
-          case 'layout':
-            payload = {
-              ...payload,
-              data: child.data
-            }
-            break
-          case 'language':
-            // 更新cookie
-            const cookieKey = _t.$X.config.cookie.getItem('locale')
-            _t.$X.Cookies.set(cookieKey, child.name, {
-              expires: 7,
-              path: _t.$X.config.cookie.path
-            })
-            _t.$i18n.locale = _t.$X.langs.locale = child.name
-            break
+          type: item.type,
+          name: item.name,
+          data: child.data,
+          selected: val
         }
         _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
-        // 处理选中，更新toolList
-        const toolList = _t.toolList.map(target => {
-          if (target.enableTool && target.name === item.name) {
-            target.selected = val
-            // 更新自定义值
-            if (target.hasOwnProperty('custom')) {
-              target.custom = {
-                ...target.custom,
-                enable: false,
-                label: '',
-                data: ''
-              }
-            }
-          }
-          return target
-        })
-        _t.$store.commit('editor/toolList/update', toolList)
       },
       handleToolClick (item, val) {
         const _t = this

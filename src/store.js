@@ -569,7 +569,7 @@ export default new Vuex.Store({
                 type: 'normal',
                 icon: '',
                 style: {},
-                data: false,
+                data: 'default',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -581,7 +581,7 @@ export default new Vuex.Store({
                 type: 'normal',
                 icon: '',
                 style: {},
-                data: false,
+                data: 'image',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -673,6 +673,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: '',
+                data: 1,
                 enable: true,
                 disabled: false,
                 divider: false
@@ -683,6 +684,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: '',
+                data: 2,
                 enable: true,
                 disabled: false,
                 divider: false
@@ -693,6 +695,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: '',
+                data: 3,
                 enable: true,
                 disabled: false,
                 divider: false
@@ -703,6 +706,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: '',
+                data: 4,
                 enable: true,
                 disabled: false,
                 divider: false
@@ -713,6 +717,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: '',
+                data: 5,
                 enable: true,
                 disabled: false,
                 divider: false
@@ -723,6 +728,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: '',
+                data: 6,
                 enable: true,
                 disabled: false,
                 divider: false
@@ -733,6 +739,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: '',
+                data: 7,
                 enable: true,
                 disabled: false,
                 divider: false
@@ -743,6 +750,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: '',
+                data: 8,
                 enable: true,
                 disabled: false,
                 divider: false
@@ -753,6 +761,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: '',
+                data: 9,
                 enable: true,
                 disabled: false,
                 divider: false
@@ -763,6 +772,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: '',
+                data: 10,
                 enable: true,
                 disabled: false,
                 divider: false
@@ -804,6 +814,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: 'solid',
+                data: 'solid',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -814,6 +825,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: 'dashed',
+                data: 'dashed',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -824,6 +836,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: 'dot',
+                data: 'dot',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -865,6 +878,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: 'flow-line',
+                data: 'x-line',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -875,6 +889,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: 'flow-broken',
+                data: 'x-broken',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -885,6 +900,7 @@ export default new Vuex.Store({
                 lang: '',
                 type: 'normal',
                 icon: 'flow-curve',
+                data: 'x-cubic',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -1469,7 +1485,7 @@ export default new Vuex.Store({
                 type: 'normal',
                 icon: 'image',
                 style: {},
-                data: false,
+                data: 'image',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -1481,7 +1497,7 @@ export default new Vuex.Store({
                 type: 'normal',
                 icon: 'json',
                 style: {},
-                data: false,
+                data: 'json',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -1549,7 +1565,7 @@ export default new Vuex.Store({
                 type: 'normal',
                 icon: 'image',
                 style: {},
-                data: false,
+                data: 'image',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -1561,7 +1577,7 @@ export default new Vuex.Store({
                 type: 'normal',
                 icon: 'json',
                 style: {},
-                data: false,
+                data: 'json',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -1892,7 +1908,7 @@ export default new Vuex.Store({
                 type: 'normal',
                 icon: '',
                 style: {},
-                data: false,
+                data: 'zh-CN',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -1904,7 +1920,7 @@ export default new Vuex.Store({
                 type: 'normal',
                 icon: '',
                 style: {},
-                data: false,
+                data: 'en-US',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -1999,7 +2015,7 @@ export default new Vuex.Store({
                 type: 'normal',
                 icon: '',
                 style: {},
-                data: false,
+                data: 'aboutXFC',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -2011,7 +2027,7 @@ export default new Vuex.Store({
                 type: 'normal',
                 icon: '',
                 style: {},
-                data: false,
+                data: 'shortcutList',
                 enable: true,
                 disabled: false,
                 divider: false
@@ -2024,6 +2040,7 @@ export default new Vuex.Store({
                 icon: '',
                 link: config.system.feedback,
                 style: {},
+                data: 'feedback',
                 enable: true,
                 disabled: false,
                 divider: false

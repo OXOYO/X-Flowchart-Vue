@@ -382,17 +382,20 @@
           // 缩放视窗窗口到一个固定比例
           _t.editor.zoomTo(ratio, center)
           // 处理选中，更新toolList
-          const toolList = _t.toolList.map(target => {
-            if (target.enableTool && target.name === 'zoom') {
-              target.selected = null
-              target.custom = {
-                ...target.custom,
-                enable: true,
-                label: (ratio * 1000 / 10) + '%',
-                data: ratio
+          const toolList = []
+          _t.toolList.forEach(target => {
+            if (target.enableTool) {
+              if (target.name === 'zoom') {
+                target.selected = null
+                target.custom = {
+                  ...target.custom,
+                  enable: true,
+                  label: (ratio * 1000 / 10) + '%',
+                  data: ratio
+                }
               }
+              toolList.push(target)
             }
-            return target
           })
           _t.$store.commit('editor/toolList/update', toolList)
         } else if (info.name === 'actualSize') {
@@ -951,10 +954,42 @@
             }
             break
           }
+          case 'language': {
+            // 更新cookie
+            const cookieKey = _t.$X.config.cookie.getItem('locale')
+            _t.$X.Cookies.set(cookieKey, info.name, {
+              expires: 7,
+              path: _t.$X.config.cookie.path
+            })
+            _t.$i18n.locale = _t.$X.langs.locale = info.name
+            break
+          }
         }
         if (isRecord) {
           // 记录操作日志
           _t.editor.emit('editor:record', 'handleToolTrigger')
+        }
+        if (info.type === 'dropdown-list') {
+          // 处理选中，更新toolList
+          const toolList = []
+          _t.toolList.forEach(target => {
+            if (target.enableTool) {
+              if (target.name === info.name) {
+                target.selected = info.selected
+                // 更新自定义值
+                if (target.hasOwnProperty('custom')) {
+                  target.custom = {
+                    ...target.custom,
+                    enable: false,
+                    label: '',
+                    data: ''
+                  }
+                }
+              }
+              toolList.push(target)
+            }
+          })
+          _t.$store.commit('editor/toolList/update', toolList)
         }
       },
       initInfo (data = {}) {
