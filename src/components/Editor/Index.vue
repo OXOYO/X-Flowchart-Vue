@@ -97,14 +97,16 @@
         const sketchpad = el.querySelector('#sketchpad')
         // 导航器
         const navigator = el.querySelector('#navigator')
-        const size = [
-          navigator.clientWidth,
-          parseInt(navigator.clientWidth * sketchpad.clientHeight / sketchpad.clientWidth)
-        ]
+        const size = [300, 200]
         const minimap = new G6.Minimap({
           container: navigator,
-          type: 'keyShape',
-          size: size
+          // FIXME 【BUG】type 为 keyShape 时导航图中元素显示错位，暂改为 delegate
+          type: 'delegate',
+          size: size,
+          delegateStyle: {
+            fill: '#ffffff',
+            stroke: '#000000'
+          }
         })
         const grid = new G6.Grid()
         const background = new XBackground()
