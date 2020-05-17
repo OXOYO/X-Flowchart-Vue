@@ -129,6 +129,16 @@
                     <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
                     <span v-else>{{ handleLabel(item) }}</span>
                   </template>
+                  <template v-else-if="item.custom && item.custom.enable">
+                    <XIcon
+                      v-if="item.custom.icon"
+                      :type="item.custom.icon"
+                      style="vertical-align: middle;"
+                      :style="item.custom.style"
+                    >
+                    </XIcon>
+                    <span v-else>{{ item.custom.label }}</span>
+                  </template>
                   <template v-else>
                     <XIcon
                       v-if="item.children[item.selected].icon"
@@ -148,6 +158,16 @@
                     <template v-if="item.lockLabel">
                       <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
                       <span v-else>{{ handleLabel(item) }}</span>
+                    </template>
+                    <template v-else-if="item.custom && item.custom.enable">
+                      <XIcon
+                        v-if="item.custom.icon"
+                        :type="item.custom.icon"
+                        style="vertical-align: middle;"
+                        :style="item.custom.style"
+                      >
+                      </XIcon>
+                      <span v-else>{{ item.custom.label }}</span>
                     </template>
                     <template v-else>
                       <XIcon
@@ -340,6 +360,15 @@
         const toolList = _t.toolList.map(target => {
           if (target.enableTool && target.name === item.name) {
             target.selected = val
+            // 更新自定义值
+            if (target.hasOwnProperty('custom')) {
+              target.custom = {
+                ...target.custom,
+                enable: false,
+                label: '',
+                data: ''
+              }
+            }
           }
           return target
         })

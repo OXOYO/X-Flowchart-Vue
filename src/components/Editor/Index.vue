@@ -381,6 +381,20 @@
           ratio = ratio.toFixed(1)
           // 缩放视窗窗口到一个固定比例
           _t.editor.zoomTo(ratio, center)
+          // 处理选中，更新toolList
+          const toolList = _t.toolList.map(target => {
+            if (target.enableTool && target.name === 'zoom') {
+              target.selected = null
+              target.custom = {
+                ...target.custom,
+                enable: true,
+                label: (ratio * 1000 / 10) + '%',
+                data: ratio
+              }
+            }
+            return target
+          })
+          _t.$store.commit('editor/toolList/update', toolList)
         } else if (info.name === 'actualSize') {
           ratio = 1
           _t.editor.zoomTo(ratio, center)

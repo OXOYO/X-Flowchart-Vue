@@ -152,7 +152,7 @@
                   :key="'contextmenu_item_' + index + '_child_' + childIndex"
                   :active="child.active"
                   :disabled="child.disabled"
-                  @click.native="handleChildClick(item, child)"
+                  @click.native="handleChildClick(item, child, childIndex)"
                 >
                   <template v-slot:label>
                     <template v-if="child.type === 'normal'">
@@ -313,7 +313,7 @@
         _t.contextMenuList = []
         _t.isShow = false
       },
-      handleChildClick (item, child) {
+      handleChildClick (item, child, childIndex) {
         const _t = this
         if (child.disabled) {
           return
@@ -355,6 +355,23 @@
             break
         }
         _t.$X.utils.bus.$emit('editor/tool/trigger', payload)
+        // 处理选中，更新toolList
+        const toolList = _t.toolList.map(target => {
+          if (target.enableTool && target.name === item.name) {
+            target.selected = childIndex
+            // 更新自定义值
+            if (target.hasOwnProperty('custom')) {
+              target.custom = {
+                ...target.custom,
+                enable: false,
+                label: '',
+                data: ''
+              }
+            }
+          }
+          return target
+        })
+        _t.$store.commit('editor/toolList/update', toolList)
         _t.doHide()
       },
       handleToolClick (item, val) {

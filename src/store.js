@@ -316,9 +316,19 @@ export default new Vuex.Store({
               divider: false
             },
             // 默认选中项index
-            selected: 0,
+            selected: 3,
+            // 自定义值对象
+            custom: {
+              name: 'custom',
+              label: '',
+              lang: '',
+              type: 'normal',
+              icon: '',
+              data: '',
+              enable: false
+            },
             // 锁定下拉菜单label
-            lockLabel: true,
+            lockLabel: false,
             // 子节点
             children: [
               {
@@ -464,13 +474,13 @@ export default new Vuex.Store({
               enable: true,
               position: 'center',
               style: {},
-              divider: false
+              divider: true
             },
             contextmenu: {
               enable: true,
               target: ['canvas'],
               style: {},
-              divider: false
+              divider: true
             }
           },
           {
