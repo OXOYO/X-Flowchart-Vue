@@ -25,6 +25,7 @@
     <ContextMenu></ContextMenu>
     <AboutXFC ref="aboutXFC"></AboutXFC>
     <ShortcutList ref="shortcutList"></ShortcutList>
+    <History ref="history" @on-revert="doRevert"></History>
   </div>
 </template>
 
@@ -39,6 +40,7 @@
   import ContextMenu from './containers/ContextMenu'
   import AboutXFC from './containers/AboutXFC'
   import ShortcutList from './containers/ShortcutList'
+  import History from './containers/History'
   import utils from '@/global/g6/utils'
   // 扩展了节点、边的G6
   import G6 from '@/global/g6/index'
@@ -63,7 +65,8 @@
       PreviewModel,
       ContextMenu,
       AboutXFC,
-      ShortcutList
+      ShortcutList,
+      History
     },
     data () {
       return {
@@ -966,6 +969,12 @@
             _t.$i18n.locale = _t.$X.langs.locale = info.name
             break
           }
+          case 'history': {
+            const ref = _t.$refs[info.name]
+            if (ref && ref.show) {
+              ref.show()
+            }
+          }
         }
         if (isRecord) {
           // 记录操作日志
@@ -1034,6 +1043,42 @@
       handleEditorClick () {
         const _t = this
         _t.$X.utils.bus.$emit('editor/contextmenu/close')
+      },
+      // 还原
+      doRevert (data) {
+        const _t = this
+        if (!data) {
+          return
+        }
+        // 清空画布
+        _t.editor.clear()
+        // 更新currentItem
+        _t.$store.commit('editor/currentItem/update', [])
+        // 设置数据
+        _t.editor.data(data)
+        // 渲染
+        _t.editor.render()
+        _t.editor.getNodes().forEach(node => {
+          const model = node.getModel()
+          const radian = model.radian
+          const keyShape = node.getKeyShape()
+          keyShape.resetMatrix()
+          keyShape.rotate(radian)
+          const group = _t.editor.get('group')
+          // 更新shapeControl
+          utils.shapeControl.rotate(model, group, radian)
+          // 更新锚点
+          utils.anchor.rotate(model, group, radian)
+        })
+        // 加载数据后保存记录
+        // 更新操作日志
+        _t.$store.commit('editor/log/update', {
+          action: 'loadData',
+          data: {
+            time: new Date(),
+            content: _t.editor.save()
+          }
+        })
       }
     },
     created () {

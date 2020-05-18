@@ -32,6 +32,7 @@ import XIcon from './Icon/Index'
 import XTooltip from './Tooltip/Index'
 import XDivider from './Divider/Index'
 import XColorPicker from './ColorPicker/Index'
+import XNoData from './NoData/Index'
 
 const obj = {
   // ui组件
@@ -60,7 +61,8 @@ const obj = {
   XIcon,
   XTooltip,
   XDivider,
-  XColorPicker
+  XColorPicker,
+  XNoData
 }
 
 const components = {}

@@ -143,10 +143,10 @@ export default new Vuex.Store({
           {
             name: 'history',
             label: 'history',
-            lang: 'L10032',
+            lang: 'L10041',
             type: 'normal',
             icon: 'history',
-            enableTool: false,
+            enableTool: true,
             enable: true,
             enableMode: ['edit'],
             disabled: false,
@@ -2176,20 +2176,22 @@ export default new Vuex.Store({
       switch (data.action) {
         // 记录
         case 'record':
-          if (oldLog.current === null) {
-            oldLog.list = [null]
-          } else if (oldLog.list.length - 1 > oldLog.current) {
-            const removeCount = oldLog.list.length - 1 - oldLog.current
-            oldLog.list.splice(oldLog.current + 1, removeCount)
+          if (data.data) {
+            if (oldLog.current === null) {
+              oldLog.list = []
+            } else if (oldLog.list.length - 1 > oldLog.current) {
+              const removeCount = oldLog.list.length - 1 - oldLog.current
+              oldLog.list.splice(oldLog.current + 1, removeCount)
+            }
+            if (maxLog !== null && oldLog.list.length > maxLog) {
+              oldLog.list.splice(0, 1)
+            }
+            log.list = [
+              ...oldLog.list,
+              JSON.parse(JSON.stringify(data.data))
+            ]
+            log.current = log.list.length - 1
           }
-          if (maxLog !== null && oldLog.list.length > maxLog) {
-            oldLog.list.splice(0, 1)
-          }
-          log.list = [
-            ...oldLog.list,
-            JSON.parse(JSON.stringify(data.data))
-          ]
-          log.current = log.list.length - 1
           break
         // 撤销
         case 'undo':
@@ -2217,24 +2219,26 @@ export default new Vuex.Store({
           log.current = 0
           break
         case 'loadData':
-          if (oldLog.current === null) {
-            log.list = [
-              JSON.parse(JSON.stringify(data.data))
-            ]
-          } else {
-            if (oldLog.list.length - 1 > oldLog.current) {
-              const removeCount = oldLog.list.length - 1 - oldLog.current
-              oldLog.list.splice(oldLog.current + 1, removeCount)
+          if (data.data) {
+            if (oldLog.current === null) {
+              log.list = [
+                JSON.parse(JSON.stringify(data.data))
+              ]
+            } else {
+              if (oldLog.list.length - 1 > oldLog.current) {
+                const removeCount = oldLog.list.length - 1 - oldLog.current
+                oldLog.list.splice(oldLog.current + 1, removeCount)
+              }
+              if (maxLog !== null && oldLog.list.length > maxLog) {
+                oldLog.list.splice(0, 1)
+              }
+              log.list = [
+                ...oldLog.list,
+                JSON.parse(JSON.stringify(data.data))
+              ]
             }
-            if (maxLog !== null && oldLog.list.length > maxLog) {
-              oldLog.list.splice(0, 1)
-            }
-            log.list = [
-              ...oldLog.list,
-              JSON.parse(JSON.stringify(data.data))
-            ]
+            log.current = log.list.length - 1
           }
-          log.current = log.list.length - 1
           break
       }
       state.editor.log = log

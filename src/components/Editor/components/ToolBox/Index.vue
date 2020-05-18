@@ -7,7 +7,7 @@
   .tool-box {
     padding: 5px;
     background: #fff;
-    cursor: default;
+    cursor: pointer;
     z-index: 10;
 
     // 水平

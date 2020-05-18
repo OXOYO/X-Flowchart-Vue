@@ -261,7 +261,7 @@ export default {
     },
     onCanvasMouseup (event) {
       const _t = this
-      console.log('onCanvasMouseup', _t.info.type)
+      // console.log('onCanvasMouseup', _t.info.type)
       if (_t.info && _t.info.type && _t[_t.info.type].stop) {
         _t[_t.info.type].stop.call(_t, event)
       }

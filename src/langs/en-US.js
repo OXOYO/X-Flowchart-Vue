@@ -47,6 +47,7 @@ export default {
   L10038: 'Shortcut List',
   L10039: 'Default Background',
   L10040: 'Picture Background',
+  L10041: 'History',
   // right panel
   L10100: 'Information',
   L10101: 'Configuration',
@@ -63,6 +64,8 @@ export default {
   L10205: 'Confirm',
   L10206: 'Uploading JSON data will overwrite the current canvas and confirm upload? ',
   L10207: 'Failed to upload JSON data!',
+  L10208: 'No data!',
+  L10209: 'Revert',
   L10220: 'Version',
   L10221: 'Author',
   L10222: 'Github',
