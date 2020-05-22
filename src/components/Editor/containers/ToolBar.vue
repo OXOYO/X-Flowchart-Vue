@@ -318,7 +318,7 @@
         }
         const child = item.children[val]
         _t.formData[item.name] = child.name
-        let payload = {
+        const payload = {
           context: 'ToolBar',
           type: item.type,
           name: item.name,

@@ -318,7 +318,7 @@
         if (child.disabled) {
           return
         }
-        let payload = {
+        const payload = {
           context: 'ContextMenu',
           name: item.name,
           type: item.type,

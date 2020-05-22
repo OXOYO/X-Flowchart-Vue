@@ -99,7 +99,7 @@
       },
       className () {
         const _t = this
-        let className = []
+        const className = []
         if (_t.size) {
           className.push(_t.size)
         }
