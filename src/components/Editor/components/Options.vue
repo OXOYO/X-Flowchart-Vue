@@ -4,7 +4,7 @@
 * Options 配置信息面板
 */
 
-<style scoped lang="less" rel="stylesheet/less">
+<style lang="less" rel="stylesheet/less">
   .options {
     display: inline-block;
     width: 100%;
@@ -12,6 +12,33 @@
 
     .form-item-block {
       padding: 10px 20px;
+
+      .row {
+        display: flex;
+        align-items: center;
+        align-content: center;
+        justify-content: space-between;
+        .col {
+          display: flex;
+          align-items: center;
+          align-content: center;
+          justify-content: center;
+
+          .ivu-form-item-label {
+            min-width: 50px;
+            text-align: right;
+            padding: 0 10px 0 0;
+          }
+          .ivu-form-item-content {
+            display: inline-block;
+            min-width: 80px;
+          }
+        }
+      }
+
+      .input-number {
+        /*width: 60px;*/
+      }
 
       .color-picker-box {
         .color-preview {
@@ -30,107 +57,116 @@
 <template>
   <div class="options">
     <Form v-if="Object.keys(formData).length" :model="formData" label-position="top">
-      <!-- 属性 -->
+      <!-- 元素属性 -->
       <CardItem :title="$t('L10103')" :enableFold="true">
         <div class="form-item-block">
-          <FormItem label="x">
-            <InputNumber v-model="formData.x" size="small" @on-change="handleChange"></InputNumber>
-          </FormItem>
-          <FormItem label="y">
-            <InputNumber v-model="formData.y" size="small" @on-change="handleChange"></InputNumber>
-          </FormItem>
-          <FormItem label="width">
-            <InputNumber v-model="formData.width" size="small" @on-change="handleChange"></InputNumber>
-          </FormItem>
-          <FormItem label="height">
-            <InputNumber v-model="formData.height" size="small" @on-change="handleChange"></InputNumber>
-          </FormItem>
+          <div class="row">
+            <FormItem class="col" label="x">
+              <InputNumber class="input-number" v-model="formData.x" size="small" @on-change="handleChange"></InputNumber>
+            </FormItem>
+            <FormItem class="col" label="y">
+              <InputNumber class="input-number" v-model="formData.y" size="small" @on-change="handleChange"></InputNumber>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="width">
+              <InputNumber class="input-number" v-model="formData.width" size="small" @on-change="handleChange"></InputNumber>
+            </FormItem>
+            <FormItem class="col" label="height">
+              <InputNumber class="input-number" v-model="formData.height" size="small" @on-change="handleChange"></InputNumber>
+            </FormItem>
+          </div>
         </div>
       </CardItem>
-      <!-- 节点样式 -->
+      <!-- 元素样式 -->
       <CardItem :title="$t('L10104')" :enableFold="true">
         <div class="form-item-block">
           <template v-if="firstItem && firstItem.type === 'node'">
-            <FormItem label="fill">
-              <XColorPicker v-model="formData.style.fill" @on-change="handleChange"></XColorPicker>
+            <div class="row">
+              <FormItem class="col" label="fill">
+                <XColorPicker v-model="formData.style.fill" @on-change="handleChange"></XColorPicker>
+              </FormItem>
+              <FormItem class="col" label="fill Opacity">
+                <Slider
+                  v-model="formData.style.fillOpacity"
+                  :min="0"
+                  :max="1"
+                  :step="0.1"
+                  @on-change="handleChange"
+                >
+                </Slider>
+              </FormItem>
+            </div>
+          </template>
+          <div class="row">
+            <FormItem class="col" label="stroke">
+              <XColorPicker v-model="formData.style.stroke" @on-change="handleChange"></XColorPicker>
             </FormItem>
-            <FormItem label="fillOpacity">
+            <FormItem class="col" label="stroke Opacity">
               <Slider
-                v-model="formData.style.fillOpacity"
+                v-model="formData.style.strokeOpacity"
                 :min="0"
                 :max="1"
                 :step="0.1"
-                :show-input="true"
-                input-size="small"
+              >
+              </Slider>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="line Dash">
+              <Select v-model="lineDashName" size="small" @on-change="handleChange">
+                <Option
+                  v-for="(item, index) in lineDashList"
+                  :key="index"
+                  :value="item.name"
+                  :label="item.name"
+                >
+                  <XIcon
+                    v-if="item.icon"
+                    :type="item.icon"
+                    style="vertical-align: middle;"
+                    :style="item.style"
+                  >
+                  </XIcon>
+                  <span v-else>{{ item.label }}</span>
+                </Option>
+              </Select>
+            </FormItem>
+            <FormItem class="col" label="line Width">
+              <Slider
+                v-model="formData.style.lineWidth"
+                :min="1"
+                :max="10"
+                :step="1"
                 @on-change="handleChange"
               >
               </Slider>
             </FormItem>
-          </template>
-          <FormItem label="stroke">
-            <XColorPicker v-model="formData.style.stroke" @on-change="handleChange"></XColorPicker>
-          </FormItem>
-          <FormItem label="strokeOpacity">
-            <Slider
-              v-model="formData.style.strokeOpacity"
-              :min="0"
-              :max="1"
-              :step="0.1"
-              :show-input="true"
-              input-size="small"
-            >
-            </Slider>
-          </FormItem>
-          <FormItem label="lineWidth">
-            <Slider
-              v-model="formData.style.lineWidth"
-              :min="1"
-              :max="10"
-              :step="1"
-              :show-input="true"
-              input-size="small"
-              @on-change="handleChange"
-            >
-            </Slider>
-          </FormItem>
-          <FormItem label="lineDash">
-            <Select v-model="lineDashName" size="small" @on-change="handleChange">
-              <Option
-                v-for="(item, index) in lineDashList"
-                :key="index"
-                :value="item.name"
-              >
-                <XIcon
-                  v-if="item.icon"
-                  :type="item.icon"
-                  style="vertical-align: middle;"
-                  :style="item.style"
-                >
-                </XIcon>
-                <span v-else>{{ item.label }}</span>
-              </Option>
-            </Select>
-          </FormItem>
+          </div>
         </div>
       </CardItem>
-      <!-- 文本样式 -->
+      <!-- 元素文本样式 -->
       <CardItem :title="$t('L10105')" :enableFold="true">
         <div class="form-item-block">
-          <FormItem label="label">
-            <Input v-model="formData.label" size="small" @on-change="handleChange"></Input>
-          </FormItem>
-          <FormItem label="position" v-if="formData.labelCfg">
-            <Select v-model="formData.labelCfg.position" size="small" @on-change="handleChange">
-              <Option value="center">center</Option>
-              <Option value="top">top</Option>
-              <Option value="left">left</Option>
-              <Option value="right">right</Option>
-              <Option value="bottom">bottom</Option>
-            </Select>
-          </FormItem>
-          <FormItem label="offset" v-if="formData.labelCfg">
-            <InputNumber v-model="formData.labelCfg.offset" size="small" @on-change="handleChange"></InputNumber>
-          </FormItem>
+          <div class="row">
+            <FormItem class="col" label="label">
+              <Input v-model="formData.label" size="small" style="width: 270px;" @on-change="handleChange"></Input>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="position" v-if="formData.labelCfg">
+              <Select v-model="formData.labelCfg.position" size="small" @on-change="handleChange">
+                <Option value="center">center</Option>
+                <Option value="top">top</Option>
+                <Option value="left">left</Option>
+                <Option value="right">right</Option>
+                <Option value="bottom">bottom</Option>
+              </Select>
+            </FormItem>
+            <FormItem class="col" label="offset" v-if="formData.labelCfg">
+              <InputNumber v-model="formData.labelCfg.offset" size="small" @on-change="handleChange"></InputNumber>
+            </FormItem>
+          </div>
         </div>
       </CardItem>
     </Form>
@@ -149,7 +185,7 @@
     data () {
       return {
         firstItem: null,
-        lineDashName: '',
+        lineDashName: null,
         formData: {
           // x: 0,
           // y: 0,
