@@ -42,7 +42,7 @@ export default {
         x: -width / 2,
         y: L7
       }
-      // // 左中
+      // 左中
       // let P3 = {
       //   x: -width / 2 + L1,
       //   y: 0

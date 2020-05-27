@@ -72,7 +72,7 @@ export default {
     },
     onEditorAddNode (node) {
       const _t = this
-      console.log('onEditorAddNode')
+      // console.log('onEditorAddNode')
       // 初始化数据
       _t.info = {
         type: 'dragNode',
@@ -82,7 +82,7 @@ export default {
       _t.dragNode.status = 'dragNodeToEditor'
     },
     onNodeMousedown (event) {
-      console.log('onNodeMousedown')
+      // console.log('onNodeMousedown')
       // 非左键忽略
       if (!utils.common.isLeftKey(event)) {
         return
@@ -121,14 +121,14 @@ export default {
     },
     onNodeDragStart (event) {
       const _t = this
-      console.log('onNodeDragStart')
+      // console.log('onNodeDragStart')
       _t.info.type = 'dragNode'
       if (_t.info && _t.info.type && _t[_t.info.type].start) {
         _t[_t.info.type].start.call(_t, event)
       }
     },
     onNodeDrag (event) {
-      console.log('onNodeDrag', new Date().getTime())
+      // console.log('onNodeDrag', new Date().getTime())
       const _t = this
       utils.common.throttle(function () {
         if (_t.info && _t.info.type && _t[_t.info.type].move) {
@@ -137,28 +137,28 @@ export default {
       }, TIME_FRAME)()
     },
     onNodeDragEnd (event) {
-      console.log('onNodeDragEnd')
+      // console.log('onNodeDragEnd')
       const _t = this
       if (_t.info && _t.info.type && _t[_t.info.type].stop) {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
     onNodeMouseup (event) {
-      console.log('onNodeMouseup')
+      // console.log('onNodeMouseup')
       const _t = this
       if (_t.info && _t.info.type && _t[_t.info.type].stop) {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
     onNodeDblclick (event) {
-      console.log('onNodeDblclick')
+      // console.log('onNodeDblclick')
       const _t = this
       if (_t.config.nodeLabel) {
         _t.nodeLabel.create.call(_t, event)
       }
     },
     onNodeContextmenu (event) {
-      console.log('onNodeContextmenu')
+      // console.log('onNodeContextmenu')
       const _t = this
       _t.graph.emit('editor:contextmenu', {
         type: 'node',
@@ -169,7 +169,7 @@ export default {
       })
     },
     onEdgeMousedown (event) {
-      console.log('onEdgeMousedown')
+      // console.log('onEdgeMousedown')
       const _t = this
       const model = event.item.getModel()
       _t.graph.emit('editor:getItem', [
@@ -181,21 +181,21 @@ export default {
       ])
     },
     onEdgeMouseup (event) {
-      console.log('onEdgeMouseup')
+      // console.log('onEdgeMouseup')
       const _t = this
       if (_t.info && _t.info.type === 'drawLine') {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
     onEdgeDblclick (event) {
-      console.log('onEdgeDblclick')
+      // console.log('onEdgeDblclick')
       const _t = this
       if (_t.config.edgeLabel) {
         _t.edgeLabel.create.call(_t, event)
       }
     },
     onEdgeContextmenu (event) {
-      console.log('onEdgeContextmenu')
+      // console.log('onEdgeContextmenu')
       const _t = this
       _t.graph.emit('editor:contextmenu', {
         type: 'edge',
@@ -206,21 +206,21 @@ export default {
       })
     },
     onCanvasMouseenter (event) {
-      console.log('onCanvasMouseenter')
+      // console.log('onCanvasMouseenter')
       const _t = this
       if (_t.info && _t.info.type === 'dragNode') {
         _t[_t.info.type].createDottedNode.call(_t, event)
       }
     },
     onCanvasMouseleave (event) {
-      console.log('onCanvasMouseleave')
+      // console.log('onCanvasMouseleave')
       const _t = this
       if (_t.info && _t.info.type === 'dragNode') {
         _t[_t.info.type].stop.call(_t, event)
       }
     },
     onCanvasContextmenu (event) {
-      console.log('onCanvasContextmenu')
+      // console.log('onCanvasContextmenu')
       const _t = this
       _t.graph.emit('editor:contextmenu', {
         type: 'canvas',
@@ -231,7 +231,7 @@ export default {
       })
     },
     onCanvasMousedown (event) {
-      console.log('onCanvasMousedown')
+      // console.log('onCanvasMousedown')
       // 非左键忽略
       if (!utils.common.isLeftKey(event)) {
         return
@@ -250,11 +250,11 @@ export default {
       }
     },
     onCanvasMousemove (event) {
-      console.log('onCanvasMousemove')
+      // console.log('onCanvasMousemove')
       const _t = this
       utils.common.throttle(function () {
         if (_t.info && _t.info.type && _t[_t.info.type].move) {
-          console.log('onCanvasMousemove', _t.info.type)
+          // console.log('onCanvasMousemove', _t.info.type)
           _t[_t.info.type].move.call(_t, event)
         }
       }, TIME_FRAME)()
@@ -277,7 +277,7 @@ export default {
     },
     onMouseup (event) {
       const _t = this
-      console.log('onMouseup')
+      // console.log('onMouseup')
       if (_t.info) {
         if (_t.info.type) {
           if (_t.info.type === 'dragNode' && _t.dragNode.status === 'dragNodeToEditor') {
@@ -314,7 +314,7 @@ export default {
             arrowStyle.fill = lineColor
             arrowStyle.stroke = lineColor
           }
-          console.log('arrowStyle', arrowStyle, data, lineColor)
+          // console.log('arrowStyle', arrowStyle, data, lineColor)
           return arrowStyle
         }
         _t.drawLine.currentLine = _t.graph.addItem('edge', {
@@ -866,7 +866,7 @@ export default {
       },
       stop (event) {
         const _t = this
-        console.log('drawGroup stop')
+        // console.log('drawGroup stop')
         if (_t.info && _t.drawGroup.isMoving && _t.drawGroup.marqueeNode) {
           const { minX: marqueeNodeMinX, maxX: marqueeNodeMaxX, minY: marqueeNodeMinY, maxY: marqueeNodeMaxY } = _t.drawGroup.marqueeNode.getBBox()
           // 当前节点数组
@@ -1041,7 +1041,7 @@ export default {
       create (position, content) {
         const _t = this
         if (_t.toolTip.currentTip) {
-          console.warn('Editor Warn:: can\'t creat tootip when currentTip not null!')
+          // console.warn('Editor Warn:: can\'t creat tootip when currentTip not null!')
           return
         }
         const canvas = _t.graph.get('canvas')
