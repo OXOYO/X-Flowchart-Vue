@@ -74,7 +74,7 @@
 
 <template>
   <div class="options">
-    <Form label-position="top">
+    <Form v-if="isNode || isEdge" label-position="top">
       <!-- 元素属性 -->
       <CardItem v-if="isNode" :title="$t('L10103')" :enableFold="true">
         <div class="form-item-block">
@@ -285,6 +285,7 @@
           if (_t.firstItem) {
             // 解构属性
             const model = JSON.parse(JSON.stringify(_t.firstItem.model))
+            console.log('model', model)
             const { labelCfg } = model
             const formData = {}
             if (_t.isNode) {
@@ -309,8 +310,8 @@
                 fillOpacity: style.fillOpacity
               }
               // 元素文本
-              formData.labelAttrs = {
-                label,
+              formData.label = label
+              formData.labelCfg = {
                 position: labelCfg.position,
                 offset: labelCfg.offset
               }
@@ -339,8 +340,8 @@
                 startArrow: style.startArrow
               }
               // 元素文本
-              formData.labelAttrs = {
-                label,
+              formData.label = label
+              formData.labelCfg = {
                 position: labelCfg.position,
                 refX: labelCfg.refX,
                 refY: labelCfg.refY,
@@ -394,8 +395,19 @@
         const _t = this
         console.log('change', val, from)
         // 处理数据
-        const model = {
-          ..._t.formData
+        let model = {
+          style: _t.formData.style,
+          label: _t.formData.label,
+          labelCfg: {
+            ..._t.formData.labelCfg,
+            style: _t.formData.labelStyle
+          }
+        }
+        if (_t.isNode) {
+          model = {
+            ...model,
+            ..._t.formData.attrs
+          }
         }
         // 处理lineDash
         if (_t.lineDashName) {
