@@ -105,14 +105,16 @@
                 <XColorPicker v-model="fillColor" @on-change="val => handleChange(val, 'fillColor')"></XColorPicker>
               </FormItem>
               <FormItem class="col" label="Fill Opacity">
-                <Slider
+                <InputNumber
+                  class="input-number"
                   v-model="formData.style.fillOpacity"
+                  size="small"
                   :min="0"
                   :max="1"
                   :step="0.1"
                   @on-change="val => handleChange(val, 'fillOpacity')"
                 >
-                </Slider>
+                </InputNumber>
               </FormItem>
             </div>
             <div class="row">
@@ -122,7 +124,7 @@
                     <Option
                       v-for="(item, index) in gradientDirectionList"
                       :key="index"
-                      :value="item.value"
+                      v-model="item.value"
                       :label="item.label"
                     >
                     </Option>
@@ -137,13 +139,16 @@
               <XColorPicker v-model="formData.style.stroke" @on-change="val => handleChange(val, 'stroke')"></XColorPicker>
             </FormItem>
             <FormItem v-if="isEdge" class="col" label="stroke Opacity">
-              <Slider
+              <InputNumber
+                class="input-number"
                 v-model="formData.style.strokeOpacity"
+                size="small"
                 :min="0"
                 :max="1"
                 :step="0.1"
+                @on-change="val => handleChange(val, 'strokeOpacity')"
               >
-              </Slider>
+              </InputNumber>
             </FormItem>
           </div>
           <div class="row">
@@ -152,7 +157,7 @@
                 <Option
                   v-for="(item, index) in lineDashList"
                   :key="index"
-                  :value="item.name"
+                  v-model="item.name"
                   :label="item.name"
                 >
                   <XIcon
@@ -167,22 +172,63 @@
               </Select>
             </FormItem>
             <FormItem class="col" label="Line Width">
-              <Slider
+              <InputNumber
+                class="input-number"
                 v-model="formData.style.lineWidth"
+                size="small"
                 :min="1"
                 :max="10"
                 :step="1"
                 @on-change="val => handleChange(val, 'lineWidth')"
               >
-              </Slider>
+              </InputNumber>
             </FormItem>
           </div>
           <div class="row">
             <FormItem class="col" label="shadowColor">
               <XColorPicker v-model="formData.style.shadowColor" @on-change="val => handleChange(val, 'shadowColor')"></XColorPicker>
             </FormItem>
+          </div>
+          <div class="row">
             <FormItem class="col" label="shadowBlur">
-
+              <InputNumber
+                class="input-number"
+                v-model="formData.style.shadowBlur"
+                size="small"
+                :min="1"
+                :max="10"
+                :step="1"
+                @on-change="val => handleChange(val, 'shadowBlur')"
+              >
+              </InputNumber>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="shadowOffsetX">
+              <InputNumber
+                class="input-number"
+                v-model="formData.style.shadowOffsetX"
+                size="small"
+                :min="-10"
+                :max="10"
+                :step="1"
+                @on-change="val => handleChange(val, 'shadowOffsetX')"
+              >
+              </InputNumber>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="shadowOffsetY">
+              <InputNumber
+                class="input-number"
+                v-model="formData.style.shadowOffsetY"
+                size="small"
+                :min="-10"
+                :max="10"
+                :step="1"
+                @on-change="val => handleChange(val, 'shadowOffsetY')"
+              >
+              </InputNumber>
             </FormItem>
           </div>
         </div>
@@ -207,6 +253,135 @@
             </FormItem>
             <FormItem class="col" label="Offset" v-if="formData.labelCfg">
               <InputNumber v-model="formData.labelCfg.offset" size="small" @on-change="val => handleChange(val, 'labelCfg.offset')"></InputNumber>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="Fill">
+              <XColorPicker v-model="formData.labelStyle.fill" @on-change="val => handleChange(val, 'labelStyle.fill')"></XColorPicker>
+            </FormItem>
+            <FormItem class="col" label="Opacity">
+              <InputNumber
+                class="input-number"
+                v-model="formData.labelStyle.opacity"
+                size="small"
+                :min="0"
+                :max="1"
+                :step="0.1"
+                @on-change="val => handleChange(val, 'labelStyle.opacity')"
+              >
+              </InputNumber>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="Stroke">
+              <XColorPicker v-model="formData.labelStyle.stroke" @on-change="val => handleChange(val, 'labelStyle.stroke')"></XColorPicker>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="Line Width">
+              <InputNumber
+                class="input-number"
+                v-model="formData.labelStyle.lineWidth"
+                size="small"
+                :min="1"
+                :max="10"
+                :step="1"
+                @on-change="val => handleChange(val, 'labelStyle.lineWidth')"
+              >
+              </InputNumber>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="shadowColor">
+              <XColorPicker v-model="formData.labelStyle.shadowColor" @on-change="val => handleChange(val, 'labelStyle.shadowColor')"></XColorPicker>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="shadowBlur">
+              <InputNumber
+                class="input-number"
+                v-model="formData.labelStyle.shadowBlur"
+                size="small"
+                :min="1"
+                :max="10"
+                :step="1"
+                @on-change="val => handleChange(val, 'labelStyle.shadowBlur')"
+              >
+              </InputNumber>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="shadowOffsetX">
+              <InputNumber
+                class="input-number"
+                v-model="formData.labelStyle.shadowOffsetX"
+                size="small"
+                :min="-10"
+                :max="10"
+                :step="1"
+                @on-change="val => handleChange(val, 'labelStyle.shadowOffsetX')"
+              >
+              </InputNumber>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="shadowOffsetY">
+              <InputNumber
+                class="input-number"
+                v-model="formData.labelStyle.shadowOffsetY"
+                size="small"
+                :min="-10"
+                :max="10"
+                :step="1"
+                @on-change="val => handleChange(val, 'labelStyle.shadowOffsetY')"
+              >
+              </InputNumber>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="TextAlign">
+              <Select v-model="formData.labelStyle.textAlign" size="small" @on-change="val => handleChange(val, 'labelStyle.textAlign')">
+                <Option value="center">center</Option>
+                <Option value="end">end</Option>
+                <Option value="left">left</Option>
+                <Option value="right">right</Option>
+                <Option value="start">start</Option>
+              </Select>
+            </FormItem>
+            <FormItem class="col" label="TextBaseline">
+              <Select v-model="formData.labelStyle.textBaseline" size="small" @on-change="val => handleChange(val, 'labelStyle.textBaseline')">
+                <Option value="top">top</Option>
+                <Option value="middle">middle</Option>
+                <Option value="bottom">bottom</Option>
+                <Option value="alphabetic">alphabetic</Option>
+                <Option value="hanging">hanging</Option>
+              </Select>
+            </FormItem>
+          </div>
+          <div class="row">
+            <FormItem class="col" label="FontWeight">
+              <InputNumber
+                class="input-number"
+                v-model="formData.labelStyle.fontWeight"
+                size="small"
+                :min="100"
+                :max="900"
+                :step="100"
+                @on-change="val => handleChange(val, 'labelStyle.fontWeight')"
+              >
+              </InputNumber>
+            </FormItem>
+            <FormItem class="col" label="FontSize">
+              <InputNumber
+                class="input-number"
+                v-model="formData.labelStyle.fontSize"
+                size="small"
+                :min="12"
+                :max="50"
+                :step="1"
+                @on-change="val => handleChange(val, 'labelStyle.fontSize')"
+              >
+              </InputNumber>
             </FormItem>
           </div>
         </div>
@@ -238,7 +413,18 @@
           { name: 'right', label: 'Right', value: 0 },
           { name: 'bottom', label: 'Bottom', value: 90 },
           { name: 'left', label: 'Left', value: 180 }
-        ]
+        ],
+        defaultValue: {
+          fill: '#000000',
+          shadowColor: '#999999',
+          shadowBlur: 5,
+          shadowOffsetX: 5,
+          shadowOffsetY: 5,
+          textAlign: 'center',
+          textBaseline: 'middle',
+          fontWeight: 400,
+          fontSize: 16
+        }
       }
     },
     computed: {
@@ -273,6 +459,9 @@
       },
       isEdge () {
         return this.firstItem && this.firstItem.type === 'edge'
+      },
+      isCanvas () {
+        return !this.firstItem
       }
     },
     watch: {
@@ -297,16 +486,17 @@
                 width,
                 height
               }
+              console.log('style', style)
               // 元素样式属性
               formData.style = {
                 fill: style.fill,
                 stroke: style.stroke,
                 lineWidth: style.lineWidth,
                 lineDash: style.lineDash,
-                shadowColor: style.shadowColor,
-                shadowBlur: style.shadowBlur,
-                shadowOffsetX: style.shadowOffsetX,
-                shadowOffsetY: style.shadowOffsetY,
+                shadowColor: style.shadowColor || _t.defaultValue.shadowColor,
+                shadowBlur: style.shadowBlur || _t.defaultValue.shadowBlur,
+                shadowOffsetX: style.shadowOffsetX || _t.defaultValue.shadowOffsetX,
+                shadowOffsetY: style.shadowOffsetY || _t.defaultValue.shadowOffsetY,
                 fillOpacity: style.fillOpacity
               }
               // 元素文本
@@ -330,10 +520,10 @@
                 stroke: style.stroke,
                 lineWidth: style.lineWidth,
                 lineDash: style.lineDash,
-                shadowColor: style.shadowColor,
-                shadowBlur: style.shadowBlur,
-                shadowOffsetX: style.shadowOffsetX,
-                shadowOffsetY: style.shadowOffsetY,
+                shadowColor: style.shadowColor || _t.defaultValue.shadowColor,
+                shadowBlur: style.shadowBlur || _t.defaultValue.shadowBlur,
+                shadowOffsetX: style.shadowOffsetX || _t.defaultValue.shadowOffsetX,
+                shadowOffsetY: style.shadowOffsetY || _t.defaultValue.shadowOffsetY,
                 strokeOpacity: style.strokeOpacity,
                 lineAppendWidth: style.lineAppendWidth,
                 endArrow: style.endArrow,
@@ -350,7 +540,7 @@
             }
             // 元素文本样式，节点与边通用
             formData.labelStyle = {
-              fill: labelCfg.style.fill,
+              fill: labelCfg.style.fill || _t.defaultValue.fill,
               stroke: labelCfg.style.stroke,
               lineWidth: labelCfg.style.lineWidth,
               shadowColor: labelCfg.style.shadowColor,
@@ -359,29 +549,32 @@
               shadowOffsetY: labelCfg.style.shadowOffsetY,
               opacity: labelCfg.style.opacity,
               font: labelCfg.style.font,
-              textAlign: labelCfg.style.textAlign,
-              textBaseline: labelCfg.style.textBaseline,
+              textAlign: labelCfg.style.textAlign || _t.defaultValue.textAlign,
+              textBaseline: labelCfg.style.textBaseline || _t.defaultValue.textBaseline,
               fontStyle: labelCfg.style.fontStyle,
               fontVariant: labelCfg.style.fontVariant,
-              fontWeight: labelCfg.style.fontWeight,
-              fontSize: labelCfg.style.fontSize,
+              fontWeight: labelCfg.style.fontWeight || _t.defaultValue.fontWeight,
+              fontSize: labelCfg.style.fontSize || _t.defaultValue.fontSize,
               fontFamily: labelCfg.style.fontFamily,
               lineHeight: labelCfg.style.lineHeight
             }
-            /*
             // 处理线条样式
-            const target = _t.lineDashList.find(item => JSON.stringify(item.lineDash) === JSON.stringify(_t.formData.style.lineDash))
+            const target = _t.lineDashList.find(item => {
+              if (item.hasOwnProperty('lineDash') && formData.hasOwnProperty('lineDash')) {
+                return JSON.stringify(item.lineDash) === JSON.stringify(formData.style.lineDash)
+              }
+              return false
+            })
             _t.lineDashName = target ? target.name : ''
             // 处理填充色
-            if (/^l\(\d{1,3}\)/gi.test(_t.formData.style.fill)) {
-              const gradientDirection = _t.formData.style.fill.match(/^l\((\d{1,3})\)/gi)[0].match(/\d{1,3}/gi)[0]
-              const [fillColor, gradientColor] = _t.formData.style.fill.match(/[0,1]{1}:#([\da-f]{3}){1,2}/gi)
+            if (/^l\(\d{1,3}\)/gi.test(formData.style.fill)) {
+              const gradientDirection = formData.style.fill.match(/^l\((\d{1,3})\)/gi)[0].match(/\d{1,3}/gi)[0]
+              const [fillColor, gradientColor] = formData.style.fill.match(/[0,1]{1}:#([\da-f]{3}){1,2}/gi)
               console.log('fileColor', gradientDirection, typeof gradientDirection, fillColor, gradientColor)
               _t.gradientDirection = gradientDirection ? parseInt(gradientDirection) : 0
               _t.fillColor = fillColor.replace('0:', '')
               _t.gradientColor = gradientColor.replace('1:', '')
             }
-            */
             _t.formData = formData
           } else {
             _t.formData = {}
@@ -406,7 +599,8 @@
         if (_t.isNode) {
           model = {
             ...model,
-            ..._t.formData.attrs
+            ..._t.formData.attrs,
+            size: [ _t.formData.attrs.width, _t.formData.attrs.height ]
           }
         }
         // 处理lineDash
@@ -420,10 +614,7 @@
         } else {
           model.style.fill = _t.fillColor
         }
-        // node元素需处理size
-        if (_t.isNode) {
-          model.size = [ _t.formData.width, _t.formData.height ]
-        }
+        console.log('model', JSON.stringify(model))
         // 当前节点数组
         const currentItemArr = _t.currentItem
         // 更新第一个节点
