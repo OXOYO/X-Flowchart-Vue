@@ -1545,7 +1545,7 @@ export default new Vuex.Store({
               enable: true,
               position: 'center',
               style: {},
-              divider: true
+              divider: false
             },
             contextmenu: {
               enable: true,
@@ -1861,7 +1861,7 @@ export default new Vuex.Store({
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center',
+              position: 'right',
               style: {},
               divider: false
             },
@@ -1886,7 +1886,7 @@ export default new Vuex.Store({
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center',
+              position: 'right',
               style: {},
               divider: false
             },
@@ -1993,7 +1993,7 @@ export default new Vuex.Store({
             shortcuts: '',
             toolbar: {
               enable: true,
-              position: 'center',
+              position: 'right',
               style: {},
               divider: false
             },
