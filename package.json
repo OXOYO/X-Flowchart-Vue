@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/OXOYO/X-Flowchart-Vue#readme",
   "dependencies": {
-    "@antv/g6": "^3.5.0",
+    "@antv/g6": "^3.5.1",
     "core-js": "^2.6.5",
     "iview": "^3.4.2",
     "js-cookie": "^2.2.1",
