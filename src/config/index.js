@@ -6,8 +6,12 @@
 
 import system from './system'
 import cookie from './cookie'
+import materials from './materials'
+import tools from './tools'
 
 export default {
   system,
-  cookie
+  cookie,
+  materials,
+  tools
 }

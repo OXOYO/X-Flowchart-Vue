@@ -88,7 +88,7 @@
         >
           <template v-slot:label>
             <div class="item-icon">
-              <XIcon :type="item.icon"></XIcon>
+              <XIcon :iconfont="item.icon"></XIcon>
             </div>
             <span class="item-label">{{ $t(item.lang) }}</span>
             <span class="item-shortcut" v-if="item.shortcuts">{{ item.shortcuts.label }}</span>
@@ -104,7 +104,7 @@
         >
           <template v-slot:label>
             <div class="item-icon">
-              <XIcon :type="item.icon"></XIcon>
+              <XIcon :iconfont="item.icon"></XIcon>
             </div>
             <span class="item-label">{{ $t(item.lang) }}</span>
             <span class="item-shortcut" v-if="item.shortcuts">{{ item.shortcuts.label }}</span>
@@ -137,7 +137,7 @@
         >
           <template v-slot:label>
             <div class="item-icon">
-              <XIcon :type="item.icon"></XIcon>
+              <XIcon :iconfont="item.icon"></XIcon>
             </div>
             <span class="item-label">{{ $t(item.lang) }}</span>
             <span class="item-shortcut" v-if="item.shortcuts">{{ item.shortcuts.label }}</span>
@@ -157,14 +157,14 @@
                   <template v-slot:label>
                     <template v-if="child.type === 'normal'">
                       <div class="item-icon">
-                        <XIcon :type="child.icon"></XIcon>
+                        <XIcon :iconfont="child.icon"></XIcon>
                       </div>
                       <span class="item-label">{{ child.lang ? $t(child.lang) : child.label }}</span>
                     </template>
                     <template v-else-if="child.type === 'link'">
                       <a class="item-link" :href="child.link" target="_blank" style="color: #333333;" @click.stop>
                         <div class="item-icon">
-                          <XIcon :type="child.icon"></XIcon>
+                          <XIcon :iconfont="child.icon"></XIcon>
                         </div>
                         <span class="item-label">{{ child.lang ? $t(child.lang) : child.label }}</span>
                       </a>
@@ -192,7 +192,7 @@
           <template v-slot:label>
             <a :href="item.link" target="_blank" style="color: #333333;">
               <div class="item-icon">
-                <XIcon :type="item.icon"></XIcon>
+                <XIcon :iconfont="item.icon"></XIcon>
               </div>
               <span class="item-label">{{ $t(item.lang) }}</span>
               <span class="item-shortcut" v-if="item.shortcuts">{{ item.shortcuts.label }}</span>
@@ -209,7 +209,7 @@
         >
           <template v-slot:label>
             <div class="item-icon">
-              <XIcon :type="item.icon"></XIcon>
+              <XIcon :iconfont="item.icon"></XIcon>
             </div>
             <span class="item-label">{{ $t(item.lang) }}</span>
             <span class="item-shortcut" v-if="item.shortcuts">{{ item.shortcuts.label }}</span>
@@ -231,7 +231,6 @@
 
   import ToolBox from '../components/ToolBox/Index'
   import ToolItem from '../components/ToolBox/ToolItem'
-  import config from '../config'
 
   export default {
     name: 'ContextMenu',
@@ -245,14 +244,13 @@
         activeMenu: '',
         options: null,
         contextMenuList: [],
-        formData: {
-          ...config.$X
-        },
+        formData: this.editor ? { ...this.editor.$D } : {},
         contextMenuStyle: {}
       }
     },
     computed: {
       ...mapGetters([
+        'editor',
         'currentItem',
         'toolList'
       ])

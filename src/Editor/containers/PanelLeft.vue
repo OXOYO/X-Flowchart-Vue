@@ -36,8 +36,6 @@
 </template>
 
 <script>
-  import config from '../config/index'
-
   import CardBox from '../components/CardBox'
   import CardItem from '../components/CardItem'
   import NodeElement from '../components/NodeElement'
@@ -54,7 +52,8 @@
     },
     computed: {
       materials () {
-        return config && Array.isArray(config.materials) ? config.materials.filter(item => item.enable) : []
+        const { materials } = this.$X.config
+        return materials.filter(item => item.enable)
       }
     },
     methods: {

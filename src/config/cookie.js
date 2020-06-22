@@ -5,7 +5,7 @@
  */
 
 export default {
-  prefix: 'x-board-',
+  prefix: 'xfc-',
   path: '/',
   items: {
     account: 'a',

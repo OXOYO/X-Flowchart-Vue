@@ -53,7 +53,6 @@
   import screenfull from 'screenfull'
   // 热键
   import Mousetrap from 'mousetrap'
-  import config from './config/index'
 
   export default {
     name: 'MaterialsEditor',
@@ -241,12 +240,22 @@
             }
           }
         })
-        // 挂载编辑器$X命名空间，用于Vue组件与Graph之间传值
-        _t.editor.$X = {
-          ...config.$X
-        }
         // 挂载G6配置
         _t.editor.$C = G6.$C
+        // 挂载编辑器$D命名空间，用于Vue组件与Graph之间传值
+        _t.editor.$D = {
+          fill: '#FFFFFF',
+          fillOpacity: 1,
+          lineColor: '#000000',
+          strokeOpacity: 1,
+          lineWidth: 1,
+          lineType: 'x-line',
+          lineDash: 'solid',
+          startArrow: false,
+          endArrow: false,
+          lineAppendWidth: 10,
+          autoRotate: true
+        }
         // 设置模式为编辑
         _t.doSetMode('edit')
         // 绑定事件
@@ -301,8 +310,11 @@
         _t.bindShortcuts()
         // 绑定unload
         _t.bindUnload()
-        // 更新编辑器实例
-        _t.$store.commit('editor/instance/update', _t.editor)
+        // 更新编辑器数据
+        _t.$store.commit('editor/init', {
+          instance: _t.editor,
+          ..._t.$X.config.tools
+        })
       },
       _canvasMousedown () {
         const _t = this
@@ -597,7 +609,7 @@
             break
           }
           case 'fill': {
-            _t.editor.$X.fill = info.data
+            _t.editor.$D.fill = info.data
             _t.editor.getNodes().forEach(node => {
               if (node.hasState('active')) {
                 isRecord = true
@@ -613,7 +625,7 @@
             break
           }
           case 'lineColor': {
-            _t.editor.$X.lineColor = info.data
+            _t.editor.$D.lineColor = info.data
             console.log('lineColor', info.data)
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
@@ -643,7 +655,7 @@
             break
           }
           case 'lineWidth': {
-            _t.editor.$X.lineWidth = info.data
+            _t.editor.$D.lineWidth = info.data
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
                 isRecord = true
@@ -672,7 +684,7 @@
           }
           case 'lineDash': {
             const edgeConfig = _t.editor.$C.edge
-            _t.editor.$X.lineDash = info.data
+            _t.editor.$D.lineDash = info.data
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
                 isRecord = true
@@ -700,7 +712,7 @@
             break
           }
           case 'lineType': {
-            _t.editor.$X.lineType = info.data
+            _t.editor.$D.lineType = info.data
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
                 isRecord = true
@@ -715,7 +727,7 @@
           case 'startArrow':
           case 'endArrow': {
             console.log('info', info)
-            _t.editor.$X[info.name] = info.data
+            _t.editor.$D[info.name] = info.data
             const handleArrowStyle = function (data, lineColor) {
               if (!data) {
                 // FIXME return false 无法在updateItem时清除箭头，暂使用如下方式清除

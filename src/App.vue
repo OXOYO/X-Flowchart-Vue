@@ -11,7 +11,7 @@
 </template>
 
 <script>
-  import Editor from './components/Editor/Index'
+  import Editor from './Editor/Index'
   export default {
     name: 'App',
     components: {

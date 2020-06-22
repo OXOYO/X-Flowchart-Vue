@@ -161,13 +161,12 @@
                   :label="item.name"
                 >
                   <XIcon
-                    v-if="item.icon"
-                    :type="item.icon"
+                    :iconfont="item.icon"
+                    :label="item.label"
                     style="vertical-align: middle;"
                     :style="item.style"
                   >
                   </XIcon>
-                  <span v-else>{{ item.label }}</span>
                 </Option>
               </Select>
             </FormItem>

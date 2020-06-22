@@ -58,9 +58,12 @@
       <div class="info-item" v-for="(item, index) in infoList" :key="index">
         <div class="label">{{ item.label }}:</div>
         <div class="content">
-          <span v-if="item.content.type === 'text'">{{ item.content.text }}</span>
+          <span v-if="item.content.type === 'text'">{{ item.content.label }}</span>
           <a v-else-if="item.content.type === 'link'" target="_blank" :href="item.content.link">
-            <XIcon v-if="item.content.icon" :type="item.content.icon"></XIcon>
+            <XIcon
+              :iconfont="item.content.icon"
+              :label="item.content.label"
+            ></XIcon>
           </a>
         </div>
       </div>
@@ -90,7 +93,8 @@
             icon: '',
             content: {
               type: 'text',
-              text: _t.systemInfo.version
+              icon: '',
+              label: _t.systemInfo.version
             }
           },
           {
@@ -99,7 +103,8 @@
             icon: '',
             content: {
               type: 'text',
-              text: _t.systemInfo.author
+              icon: '',
+              label: _t.systemInfo.author
             }
           },
           {
@@ -109,7 +114,8 @@
             content: {
               type: 'link',
               link: _t.systemInfo.github,
-              icon: 'github'
+              icon: 'github',
+              label: 'Github'
             }
           }
         ]

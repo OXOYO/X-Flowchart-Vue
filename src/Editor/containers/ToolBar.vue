@@ -46,8 +46,7 @@
           line-height: 1;
           vertical-align: middle;
 
-          .icon {}
-          .img {
+          .icon {
             width: 40px;
             height: auto;
           }
@@ -83,8 +82,7 @@
             @click.native="handleToolClick(item)"
           >
             <template v-slot:label>
-              <XIcon v-if="item.icon" :type="item.icon"></XIcon>
-              <span v-else>{{ handleLabel(item) }}</span>
+              <XIcon :iconfont="item.icon" :label="handleLabel(item)"></XIcon>
             </template>
           </ToolItem>
           <ToolItem
@@ -98,16 +96,14 @@
             <template v-slot:label>
               <template v-if="item.disabled">
                 <div style="margin: 0 3px;">
-                  <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
-                  <span v-else>{{ handleLabel(item) }}</span>
+                  <XIcon :iconfont="item.icon" :label="handleLabel(item)" style="vertical-align: middle;"></XIcon>
                   <Icon type="ios-arrow-down"></Icon>
                 </div>
               </template>
               <template v-else>
                 <XColorPicker v-model="formData[item.name]" @on-change="(val) => handleToolClick(item, val, null)">
                   <div style="margin: 0 3px;" slot="preview">
-                    <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
-                    <span v-else>{{ handleLabel(item) }}</span>
+                    <XIcon :iconfont="item.icon" :label="handleLabel(item)" style="vertical-align: middle;"></XIcon>
                     <Icon type="ios-arrow-down"></Icon>
                   </div>
                 </XColorPicker>
@@ -126,28 +122,24 @@
               <template v-if="item.disabled">
                 <div style="margin: 0 3px;">
                   <template v-if="item.lockLabel">
-                    <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
-                    <span v-else>{{ handleLabel(item) }}</span>
+                    <XIcon :iconfont="item.icon" :label="handleLabel(item)" style="vertical-align: middle;"></XIcon>
                   </template>
                   <template v-else-if="item.custom && item.custom.enable">
                     <XIcon
-                      v-if="item.custom.icon"
-                      :type="item.custom.icon"
+                      :iconfont="item.custom.icon"
+                      :label="item.custom.label"
                       style="vertical-align: middle;"
                       :style="item.custom.style"
-                    >
-                    </XIcon>
-                    <span v-else>{{ item.custom.label }}</span>
+                    ></XIcon>
                   </template>
                   <template v-else>
                     <XIcon
-                      v-if="item.children[item.selected].icon"
-                      :type="item.children[item.selected].icon"
+                      :iconfont="item.children[item.selected].icon"
+                      :label="item.children[item.selected].label"
                       style="vertical-align: middle;"
                       :style="item.children[item.selected].style"
                     >
                     </XIcon>
-                    <span v-else>{{ item.children[item.selected].label }}</span>
                   </template>
                   <Icon type="ios-arrow-down"></Icon>
                 </div>
@@ -156,28 +148,25 @@
                 <Dropdown trigger="click" @on-click="(val) => handleDropdownClick(item, type, index, val)">
                   <div style="margin: 0 3px;">
                     <template v-if="item.lockLabel">
-                      <XIcon v-if="item.icon" :type="item.icon" style="vertical-align: middle;"></XIcon>
-                      <span v-else>{{ handleLabel(item) }}</span>
+                      <XIcon :iconfont="item.icon" :label="handleLabel(item)" style="vertical-align: middle;"></XIcon>
                     </template>
                     <template v-else-if="item.custom && item.custom.enable">
                       <XIcon
-                        v-if="item.custom.icon"
-                        :type="item.custom.icon"
+                        :iconfont="item.custom.icon"
+                        :label="item.custom.label"
                         style="vertical-align: middle;"
                         :style="item.custom.style"
                       >
                       </XIcon>
-                      <span v-else>{{ item.custom.label }}</span>
                     </template>
                     <template v-else>
                       <XIcon
-                        v-if="item.children[item.selected].icon"
-                        :type="item.children[item.selected].icon"
+                        :iconfont="item.children[item.selected].icon"
+                        :label="item.children[item.selected].label"
                         style="vertical-align: middle;"
                         :style="item.children[item.selected].style"
                       >
                       </XIcon>
-                      <span v-else>{{ item.children[item.selected].label }}</span>
                     </template>
                     <Icon type="ios-arrow-down"></Icon>
                   </div>
@@ -191,14 +180,16 @@
                       :selected="item.selected === childIndex"
                     >
                       <template v-if="child.type === 'normal'">
-                        <XIcon v-if="child.icon" :type="child.icon" :title="$t(child.lang)" :style="child.style"></XIcon>
-                        <span v-else>{{ child.lang ? $t(child.lang) : child.label }}</span>
+                        <XIcon
+                          :iconfont="child.icon"
+                          :title="$t(child.lang)"
+                          :label="child.lang ? $t(child.lang) : child.label"
+                          :style="child.style"
+                        ></XIcon>
                       </template>
                       <template v-else-if="child.type === 'link'">
                         <a class="link" :href="child.link" target="_blank" style="color: #333333;">
-                          <XIcon v-if="child.icon" :type="child.icon"></XIcon>
-                          <img class="img" v-else-if="child.img" :src="child.img" alt="">
-                          <span v-else>{{ $t(child.lang) }}</span>
+                          <XIcon :iconfont="child.icon" :img="child.img" :label="$t(child.lang)"></XIcon>
                         </a>
                       </template>
                     </DropdownItem>
@@ -218,9 +209,7 @@
           >
             <template v-slot:label>
               <a class="link" :href="item.link" target="_blank" style="color: #333333;">
-                <XIcon v-if="item.icon" :type="item.icon"></XIcon>
-                <img class="img" v-else-if="item.img" :src="item.img" alt="">
-                <span v-else>{{ handleLabel(item) }}</span>
+                <XIcon :iconfont="item.icon" :img="item.img" :label="handleLabel(item)"></XIcon>
               </a>
             </template>
           </ToolItem>
@@ -234,8 +223,7 @@
             @click.native="handleToolClick(item)"
           >
             <template v-slot:label>
-              <XIcon v-if="item.icon" :type="item.icon"></XIcon>
-              <span v-else>{{ handleLabel(item) }}</span>
+              <XIcon :iconfont="item.icon" :label="handleLabel(item)"></XIcon>
             </template>
           </ToolItem>
           <XDivider
@@ -256,7 +244,6 @@
   import Handler from '../components/Handler'
   import ToolBox from '../components/ToolBox/Index'
   import ToolItem from '../components/ToolBox/ToolItem'
-  import config from '../config/index'
 
   export default {
     name: 'ToolBar',
@@ -267,15 +254,14 @@
     },
     data () {
       return {
-        formData: {
-          ...config.$X
-        },
+        formData: this.editor ? { ...this.editor.$D } : {},
         // 是否展开
         isExpand: true
       }
     },
     computed: {
       ...mapGetters([
+        'editor',
         'currentItem',
         'toolList'
       ]),

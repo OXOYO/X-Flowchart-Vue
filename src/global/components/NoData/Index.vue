@@ -47,7 +47,7 @@
 
 <template>
   <div class="no-data" :class="className">
-    <XIcon class="icon" :type="icon"></XIcon>
+    <XIcon class="icon" :iconfont="icon"></XIcon>
     <span class="text">
       {{ label }}
     </span>

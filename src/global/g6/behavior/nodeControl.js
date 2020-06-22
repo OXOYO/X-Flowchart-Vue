@@ -332,23 +332,23 @@ export default {
           labelCfg: {
             position: 'center',
             style: {
-              autoRotate: _t.graph.$X.autoRotate,
+              autoRotate: _t.graph.$D.autoRotate,
               fontSize: 16,
               stroke: '#000000'
             }
           },
           attrs: {},
           style: {
-            lineAppendWidth: _t.graph.$X.lineAppendWidth,
-            stroke: _t.graph.$X.lineColor,
-            lineWidth: _t.graph.$X.lineWidth,
+            lineAppendWidth: _t.graph.$D.lineAppendWidth,
+            stroke: _t.graph.$D.lineColor,
+            lineWidth: _t.graph.$D.lineWidth,
             ...config.edge.style.default,
-            ...config.edge.type[_t.graph.$X.lineDash]
+            ...config.edge.type[_t.graph.$D.lineDash]
           },
           // FIXME 边的形式需要与工具栏联动
-          type: _t.graph.$X.lineType || 'line',
-          startArrow: handleArrowStyle(_t.graph.$X.startArrow, _t.graph.$X.lineColor),
-          endArrow: handleArrowStyle(_t.graph.$X.endArrow, _t.graph.$X.lineColor)
+          type: _t.graph.$D.lineType || 'line',
+          startArrow: handleArrowStyle(_t.graph.$D.startArrow, _t.graph.$D.lineColor),
+          endArrow: handleArrowStyle(_t.graph.$D.endArrow, _t.graph.$D.lineColor)
         })
         if (_t.config.tooltip.dragEdge) {
           _t.toolTip.create.call(_t, {
@@ -695,12 +695,12 @@ export default {
             minHeight: minHeight,
             label: label,
             style: {
-              fill: _t.graph.$X.fill,
-              fillOpacity: _t.graph.$X.fillOpacity,
-              stroke: _t.graph.$X.lineColor,
-              strokeOpacity: _t.graph.$X.strokeOpacity,
-              lineWidth: _t.graph.$X.lineWidth,
-              ...config.edge.type[_t.graph.$X.lineDash]
+              fill: _t.graph.$D.fill,
+              fillOpacity: _t.graph.$D.fillOpacity,
+              stroke: _t.graph.$D.lineColor,
+              strokeOpacity: _t.graph.$D.strokeOpacity,
+              lineWidth: _t.graph.$D.lineWidth,
+              ...config.edge.type[_t.graph.$D.lineDash]
             }
           }
           _t.graph.addItem('node', node)
