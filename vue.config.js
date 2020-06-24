@@ -41,6 +41,10 @@ module.exports = {
       // publicPath: '/lead/assets',
       // filename: `${fileName()}.js`,
       chunkFilename: '[name].[chunkhash].js'
+    },
+    externals: {
+      '@antv/g6': 'G6',
+      'iview': 'iview'
     }
   }
 }

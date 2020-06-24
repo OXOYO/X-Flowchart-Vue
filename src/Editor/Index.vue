@@ -16,7 +16,7 @@
 </style>
 
 <template>
-  <div class="materials-editor" @click="handleEditorClick">
+  <div class="materials-editor" @click="handleEditorClick" @contextmenu.stop.prevent>
     <ToolBar></ToolBar>
     <Sketchpad></Sketchpad>
     <PanelLeft></PanelLeft>

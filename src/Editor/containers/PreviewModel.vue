@@ -36,7 +36,7 @@
           :src="previewData.content"
           alt=""
         >
-        <XHighlight
+        <!--<XHighlight
           v-else-if="previewData.type === 'json'"
           class="preview-json"
           :locale="$X.langs.locale === 'zh-CN' ? 'zh' : 'en'"
@@ -44,7 +44,7 @@
           :maxHeight="1200"
           :data="previewData.content"
         >
-        </XHighlight>
+        </XHighlight>-->
       </template>
     </div>
     <div slot="footer">

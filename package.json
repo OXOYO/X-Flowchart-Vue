@@ -2,9 +2,12 @@
   "name": "x-flowchart-vue",
   "version": "3.0.1",
   "description": "A visual graph editor based on G6 and Vue.",
+  "main": "dist/xfc.umd.min.js",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "example": "npx --max_old_space_size=8192 vue-cli-service serve ./example/main.js",
     "build": "vue-cli-service build",
+    "build-package": "vue-cli-service build --target lib --name xfc ./src/xfc.js --dest ./dist --report",
     "lint": "vue-cli-service lint"
   },
   "repository": {
