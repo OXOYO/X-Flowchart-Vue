@@ -43,8 +43,30 @@ module.exports = {
       chunkFilename: '[name].[chunkhash].js'
     },
     externals: {
+      'vue': 'Vue',
+      'vuex': 'Vuex',
       '@antv/g6': 'G6',
       'iview': 'iview'
     }
+  }
+  ,
+  chainWebpack: config => {
+    const cdn = {
+      // 访问https://unpkg.com/element-ui/lib/theme-chalk/index.css获取最新版本
+      css: ['//unpkg.com/iview@3.4.2/dist/styles/iview.css'],
+      js: [
+        '//unpkg.com/vue@2.6.10/dist/vue.min.js',
+        '//unpkg.com/vuex@3.0.1/dist/vuex.min.js',
+        '//unpkg.com/iview@3.4.2/dist/iview.js',
+        '//unpkg.com/@antv/g6@3.5.6/dist/g6.min.js'
+      ]
+    }
+
+    // 如果使用多页面打包，使用vue inspect --plugins查看html是否在结果数组中
+    config.plugin('html').tap(args => {
+      // html中添加cdn
+      args[0].cdn = cdn
+      return args
+    })
   }
 }

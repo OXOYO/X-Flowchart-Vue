@@ -19,7 +19,9 @@ export default new Vuex.Store({
       // 工具列表
       toolList: [],
       // 快捷键列表
-      shortcutMap: {}
+      shortcutMap: {},
+      // 物料列表
+      materials: []
     }
   },
   mutations: {
@@ -121,6 +123,7 @@ export default new Vuex.Store({
     currentItem: state => state.editor.currentItem,
     toolList: state => state.editor.toolList,
     shortcutMap: state => state.editor.shortcutMap,
+    materials: state => state.editor.materials,
     log: state => state.editor.log
   }
 })

@@ -67,6 +67,10 @@
       ShortcutList,
       History
     },
+    props: {
+      tools: Object,
+      materials: Array
+    },
     data () {
       return {
         editorInfo: {},
@@ -311,9 +315,12 @@
         // 绑定unload
         _t.bindUnload()
         // 更新编辑器数据
+        const tools = _t.tools || _t.$X.config.tools
+        const materials = _t.materials || _t.$X.config.materials
         _t.$store.commit('editor/init', {
           instance: _t.editor,
-          ..._t.$X.config.tools
+          ...tools,
+          materials
         })
       },
       _canvasMousedown () {

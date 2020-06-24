@@ -46,12 +46,14 @@ Vue.use(components)
 Vue.use(vClickOutside)
 
 export default function (options) {
-  const { el } = options
+  const { el, props } = options
   if (el) {
     new Vue({
       i18n: i18nInstance,
       store,
-      render: h => h(Editor)
+      render: h => h(Editor, {
+        props
+      })
     }).$mount(el)
   }
 }
