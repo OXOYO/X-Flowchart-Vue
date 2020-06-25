@@ -260,6 +260,8 @@
           lineAppendWidth: 10,
           autoRotate: true
         }
+        // 关闭局部渲染
+        // _t.editor.get('canvas').set('localRefresh', false)
         // 设置模式为编辑
         _t.doSetMode('edit')
         // 绑定事件
@@ -853,6 +855,10 @@
                         // 更新锚点
                         utils.anchor.rotate(model, group, radian)
                       })
+                      // 缩放到实际大小
+                      _t.doZoom({
+                        name: 'actualSize'
+                      })
                       // 加载数据后保存记录
                       // 更新操作日志
                       _t.$store.commit('editor/log/update', {
@@ -865,7 +871,7 @@
                     } catch (e) {
                       // 提示
                       _t.$Message.error(_t.$t('L10207'))
-                      console.error('Editor Error:: upload JSON failed!', e)
+                      console.error('XFC EDITOR ERROR:: upload JSON failed!', e)
                     }
                   }
                 }
@@ -874,7 +880,7 @@
             break
           }
           case 'download': {
-            const fileName = _t.$X.config.system.name + '_' + _t.$X.utils.filters.formatDate(new Date(), 'YYYYMMDDhhmmss')
+            const fileName = _t.$X.config.system.title + '_' + _t.$X.utils.filters.formatDate(new Date(), 'YYYYMMDDhhmmss')
             if (info.data === 'image') {
               _t.editor.downloadImage(fileName)
             } else if (info.data === 'json') {
@@ -930,7 +936,7 @@
                         const imgFile = reader.result
                         _t.editor.emit('background:update', imgFile)
                       } catch (e) {
-                        console.error('Editor Error:: update background failed!', e)
+                        console.error('XFC EDITOR ERROR:: update background failed!', e)
                       }
                     }
                   }
