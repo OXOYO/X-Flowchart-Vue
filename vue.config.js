@@ -6,8 +6,6 @@
  * 文档：https://cli.vuejs.org/zh/config/
  */
 
-const webpack = require('webpack')
-
 module.exports = {
   // 部署应用包时的基本URL，置空使用相对路径
   publicPath: '/X-Flowchart-Vue/',
@@ -48,25 +46,25 @@ module.exports = {
       '@antv/g6': 'G6',
       'iview': 'iview'
     }
-  }
-  ,
+  },
   chainWebpack: config => {
-    const cdn = {
-      // 访问https://unpkg.com/element-ui/lib/theme-chalk/index.css获取最新版本
-      css: ['//unpkg.com/iview@3.4.2/dist/styles/iview.css'],
-      js: [
-        '//unpkg.com/vue@2.6.10/dist/vue.min.js',
-        '//unpkg.com/vuex@3.0.1/dist/vuex.min.js',
-        '//unpkg.com/iview@3.4.2/dist/iview.js',
-        '//unpkg.com/@antv/g6@3.5.6/dist/g6.min.js'
-      ]
-    }
+    config.when(['development', 'production'].includes(process.env.NODE_ENV), config => {
+      const cdn = {
+        css: ['//unpkg.com/iview@3.4.2/dist/styles/iview.css'],
+        js: [
+          '//unpkg.com/vue@2.6.10/dist/vue.min.js',
+          '//unpkg.com/vuex@3.0.1/dist/vuex.min.js',
+          '//unpkg.com/iview@3.4.2/dist/iview.js',
+          '//unpkg.com/@antv/g6@3.5.6/dist/g6.min.js'
+        ]
+      }
 
-    // 如果使用多页面打包，使用vue inspect --plugins查看html是否在结果数组中
-    config.plugin('html').tap(args => {
-      // html中添加cdn
-      args[0].cdn = cdn
-      return args
+      // 如果使用多页面打包，使用vue inspect --plugins查看html是否在结果数组中
+      config.plugin('html').tap(args => {
+        // html中添加cdn
+        args[0].cdn = cdn
+        return args
+      })
     })
   }
 }
