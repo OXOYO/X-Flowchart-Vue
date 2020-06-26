@@ -35,10 +35,7 @@
   // Vue.use(iView)
   // import 'iview/dist/styles/iview.css'
   import xfc from '../dist/xfc.umd.min.js'
-  import '../dist/xfc.css'
 
-  // import xfc from '../dist-package/xfc.umd.min.js'
-  import '../dist-package/xfc.css'
   export default {
     name: 'app',
     mounted () {
