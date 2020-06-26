@@ -5,7 +5,7 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    editor: {
+    xfc: {
       // 编辑器实例
       instance: null,
       currentItem: [],
@@ -26,23 +26,23 @@ export default new Vuex.Store({
   },
   mutations: {
     'editor/init': (state, data) => {
-      state.editor = {
-        ...state.editor,
+      state.xfc = {
+        ...state.xfc,
         ...data
       }
     },
     'editor/currentItem/update': (state, data) => {
-      state.editor.currentItem = data
+      state.xfc.currentItem = data
     },
     'editor/toolList/update': (state, data) => {
-      state.editor.toolList = data
+      state.xfc.toolList = data
     },
     'editor/log/update': (state, data) => {
       if (!data.hasOwnProperty('action') || !data.action) {
         return
       }
-      const oldLog = state.editor.log
-      const maxLog = state.editor.maxLog
+      const oldLog = state.xfc.log
+      const maxLog = state.xfc.maxLog
       const log = {
         current: null,
         list: []
@@ -115,15 +115,15 @@ export default new Vuex.Store({
           }
           break
       }
-      state.editor.log = log
+      state.xfc.log = log
     }
   },
   getters: {
-    editor: state => state.editor.instance,
-    currentItem: state => state.editor.currentItem,
-    toolList: state => state.editor.toolList,
-    shortcutMap: state => state.editor.shortcutMap,
-    materials: state => state.editor.materials,
-    log: state => state.editor.log
+    editor: state => state.xfc.instance,
+    currentItem: state => state.xfc.currentItem,
+    toolList: state => state.xfc.toolList,
+    shortcutMap: state => state.xfc.shortcutMap,
+    materials: state => state.xfc.materials,
+    log: state => state.xfc.log
   }
 })

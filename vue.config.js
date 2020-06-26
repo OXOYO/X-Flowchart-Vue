@@ -36,8 +36,8 @@ module.exports = {
   configureWebpack: config => {
     if (process.env.NODE_ENV === 'build-lib') {
       config.externals = {
-        'vue': 'Vue',
-        'vuex': 'Vuex',
+        'vue': 'vue',
+        'vuex': 'vuex',
         '@antv/g6': '@antv/g6',
         'iview': 'iview'
       }
