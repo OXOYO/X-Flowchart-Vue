@@ -33,38 +33,14 @@ module.exports = {
       }
     }
   },
-  configureWebpack: {
-    output: {
-      // path: `${root}/public/assets/`,
-      // publicPath: '/lead/assets',
-      // filename: `${fileName()}.js`,
-      chunkFilename: '[name].[chunkhash].js'
-    },
-    externals: {
-      'vue': 'Vue',
-      'vuex': 'Vuex',
-      '@antv/g6': 'G6',
-      'iview': 'iview'
-    }
-  },
-  chainWebpack: config => {
-    config.when(['development', 'production'].includes(process.env.NODE_ENV), config => {
-      const cdn = {
-        css: ['//unpkg.com/iview@3.4.2/dist/styles/iview.css'],
-        js: [
-          '//unpkg.com/vue@2.6.10/dist/vue.min.js',
-          '//unpkg.com/vuex@3.0.1/dist/vuex.min.js',
-          '//unpkg.com/iview@3.4.2/dist/iview.js',
-          '//unpkg.com/@antv/g6@3.5.6/dist/g6.min.js'
-        ]
+  configureWebpack: config => {
+    if (process.env.NODE_ENV === 'build-lib') {
+      config.externals = {
+        'vue': 'Vue',
+        'vuex': 'Vuex',
+        '@antv/g6': '@antv/g6',
+        'iview': 'iview'
       }
-
-      // 如果使用多页面打包，使用vue inspect --plugins查看html是否在结果数组中
-      config.plugin('html').tap(args => {
-        // html中添加cdn
-        args[0].cdn = cdn
-        return args
-      })
-    })
+    }
   }
 }
