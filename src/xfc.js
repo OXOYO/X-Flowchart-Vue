@@ -5,7 +5,7 @@
  */
 import Vue from 'vue'
 import Editor from './Editor/Index'
-import store from './store'
+// import store from './store'
 import i18n from './i18n'
 import * as Cookies from 'js-cookie'
 import './registerServiceWorker'
@@ -50,7 +50,7 @@ export default function (options) {
   if (el) {
     new Vue({
       i18n: i18nInstance,
-      store,
+      // store,
       render: h => h(Editor, {
         props
       })

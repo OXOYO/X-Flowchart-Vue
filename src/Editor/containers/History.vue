@@ -42,7 +42,7 @@
 <template>
   <Modal class-name="history-model" v-model="isShow" width="660" @on-cancel="doHide">
     <div class="body">
-      <template v-if="log.list.length">
+      <template v-if="log && log.list.length">
         <div class="history-list">
           <div
             v-for="(item, index) in log.list"
@@ -66,7 +66,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
   import G6 from '@antv/g6'
   export default {
     name: 'History',
@@ -74,15 +73,14 @@
       return {
         isShow: false,
         editor: null,
-        currentIndex: null
+        currentIndex: null,
+        log: null
       }
-    },
-    computed: {
-      ...mapGetters(['log'])
     },
     methods: {
       show () {
         const _t = this
+        _t.getLog()
         _t.isShow = true
         _t.$nextTick(function () {
           _t.toggleLog(0)
@@ -99,6 +97,9 @@
       },
       doRevert () {
         const _t = this
+        if (!_t.log) {
+          return
+        }
         const item = _t.log.list[_t.currentIndex]
         if (!item) {
           return
@@ -106,8 +107,15 @@
         _t.$emit('on-revert', item.content)
         _t.doHide()
       },
+      getLog () {
+        const _t = this
+        _t.log = _t.$X.utils.storage.get('log')
+      },
       toggleLog (index) {
         const _t = this
+        if (!_t.log) {
+          return
+        }
         const el = _t.$el
         _t.currentIndex = index
         const item = _t.log.list[_t.currentIndex]
@@ -132,6 +140,13 @@
         }
         _t.editor.data(item.content)
         _t.editor.render()
+        const width = _t.editor.get('width')
+        const height = _t.editor.get('height')
+        const center = {
+          x: width / 2,
+          y: height / 2
+        }
+        _t.editor.zoomTo(1, center)
       }
     }
   }

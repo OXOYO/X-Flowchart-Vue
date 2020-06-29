@@ -17,21 +17,19 @@
 
 <template>
   <div class="materials-editor" @click="handleEditorClick" @contextmenu.stop.prevent>
-    <ToolBar></ToolBar>
+    <ToolBar :editorData="editorData" :toolList="toolList" :currentItem="currentItem"></ToolBar>
     <Sketchpad></Sketchpad>
-    <PanelLeft></PanelLeft>
-    <PanelRight></PanelRight>
+    <PanelLeft :materialList="materialList"></PanelLeft>
+    <PanelRight :editorConfig="editorConfig" :toolList="toolList" :currentItem="currentItem"></PanelRight>
     <PreviewModel></PreviewModel>
-    <ContextMenu></ContextMenu>
+    <ContextMenu :editorData="editorData"></ContextMenu>
     <AboutXFC ref="aboutXFC"></AboutXFC>
-    <ShortcutList ref="shortcutList"></ShortcutList>
+    <ShortcutList ref="shortcutList" :toolList="toolList" :shortcutMap="shortcutMap"></ShortcutList>
     <History ref="history" @on-revert="doRevert"></History>
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-
   import ToolBar from './containers/ToolBar'
   import Sketchpad from './containers/Sketchpad'
   import PanelLeft from './containers/PanelLeft'
@@ -69,7 +67,12 @@
     },
     props: {
       tools: Object,
-      materials: Array
+      materials: Array,
+      // 操作日志最大存储条数，null 不限制
+      maxLogSize: {
+        type: Number,
+        default: 20
+      }
     },
     data () {
       return {
@@ -85,19 +88,44 @@
           data: null,
           // 粘贴计数器
           count: 0
-        }
+        },
+        // 工具列表
+        toolList: [],
+        // 快捷键列表
+        shortcutMap: {},
+        // 物料列表
+        materialList: [],
+        // 当前激活元素
+        currentItem: []
       }
     },
     computed: {
-      ...mapGetters([
-        'currentItem',
-        'toolList',
-        'log'
-      ])
+      editorData () {
+        return this.editor && this.editor.$D ? this.editor.$D : null
+      },
+      editorConfig () {
+        return this.editor && this.editor.$C ? this.editor.$C : null
+      }
     },
     methods: {
       init () {
         const _t = this
+        // 初始化存储数据
+        const { toolList, shortcutMap } = {
+          ..._t.$X.config.tools,
+          ..._t.tools
+        }
+        const materials = _t.materials || _t.$X.config.materials
+        _t.toolList = toolList
+        _t.shortcutMap = shortcutMap
+        _t.materialList = materials
+        _t.$X.utils.storage.set('toolList', toolList)
+        _t.$X.utils.storage.set('shortcutMap', shortcutMap)
+        _t.$X.utils.storage.set('materials', materials)
+        _t.$X.utils.storage.set('log', {
+          current: null,
+          list: []
+        })
         const el = _t.$el
         // 画板
         const sketchpad = el.querySelector('#sketchpad')
@@ -276,7 +304,7 @@
         // _t.editor.on('node:contextmenu', _t._nodeContextmenu)
         _t.editor.on('edge:mousedown', _t._edgeMousedown)
         _t.editor.on('editor:getItem', function (data) {
-          _t.$store.commit('editor/currentItem/update', data)
+          _t.currentItem = data
         })
         _t.editor.on('editor:setItem', function (data) {
           data.forEach((item, index) => {
@@ -304,7 +332,7 @@
         _t.editor.on('editor:record', function (from) {
           console.log('editor:record from', from)
           // 更新操作日志
-          _t.$store.commit('editor/log/update', {
+          _t.doUpdateLog({
             action: 'record',
             data: {
               time: new Date(),
@@ -316,20 +344,12 @@
         _t.bindShortcuts()
         // 绑定unload
         _t.bindUnload()
-        // 更新编辑器数据
-        const tools = _t.tools || _t.$X.config.tools
-        const materials = _t.materials || _t.$X.config.materials
-        _t.$store.commit('editor/init', {
-          instance: _t.editor,
-          ...tools,
-          materials
-        })
       },
       _canvasMousedown () {
         const _t = this
         _t.doClearAllStates()
         // 更新currentItem
-        _t.$store.commit('editor/currentItem/update', [])
+        _t.currentItem = []
       },
       _canvasMouseup () {
         // let _t = this
@@ -414,21 +434,25 @@
           _t.editor.zoomTo(ratio, center)
           // 处理选中，更新toolList
           const toolList = []
-          _t.toolList.forEach(target => {
-            if (target.enableTool) {
-              if (target.name === 'zoom') {
-                target.selected = null
-                target.custom = {
-                  ...target.custom,
-                  enable: true,
-                  label: (ratio * 1000 / 10) + '%',
-                  data: ratio
+          const toolListData = _t.$X.utils.storage.get('toolList')
+          if (Array.isArray(toolListData)) {
+            toolListData.forEach(target => {
+              if (target.enableTool) {
+                if (target.name === 'zoom') {
+                  target.selected = null
+                  target.custom = {
+                    ...target.custom,
+                    enable: true,
+                    label: (ratio * 1000 / 10) + '%',
+                    data: ratio
+                  }
                 }
+                toolList.push(target)
               }
-              toolList.push(target)
-            }
-          })
-          _t.$store.commit('editor/toolList/update', toolList)
+            })
+            _t.toolList = toolList
+            _t.$X.utils.storage.set('toolList', toolList)
+          }
         } else if (info.name === 'actualSize') {
           ratio = 1
           _t.editor.zoomTo(ratio, center)
@@ -466,18 +490,22 @@
         _t.editor.setMode(name)
         // 更新toolList
         const toolList = []
-        _t.toolList.forEach(item => {
-          if (item.enableTool) {
-            if (item.hasOwnProperty('enableMode') && Array.isArray(item.enableMode)) {
-              item.enable = item.enableMode.includes(name)
+        const toolListData = _t.$X.utils.storage.get('toolList')
+        if (Array.isArray(toolListData)) {
+          toolListData.forEach(item => {
+            if (item.enableTool) {
+              if (item.hasOwnProperty('enableMode') && Array.isArray(item.enableMode)) {
+                item.enable = item.enableMode.includes(name)
+              }
+              if (item.hasOwnProperty('disabledMode') && Array.isArray(item.disabledMode)) {
+                item.disabled = !item.disabledMode.includes(name)
+              }
+              toolList.push(item)
             }
-            if (item.hasOwnProperty('disabledMode') && Array.isArray(item.disabledMode)) {
-              item.disabled = !item.disabledMode.includes(name)
-            }
-            toolList.push(item)
-          }
-        })
-        _t.$store.commit('editor/toolList/update', toolList)
+          })
+          _t.toolList = toolList
+          _t.$X.utils.storage.set('toolList', toolList)
+        }
       },
       handleToolTrigger (info) {
         const _t = this
@@ -488,14 +516,15 @@
           case 'redo':
           case 'clearLog': {
             // 更新操作日志
-            _t.$store.commit('editor/log/update', {
+            _t.doUpdateLog({
               action: info.name
             })
             if (['undo', 'redo'].includes(info.name)) {
+              const log = _t.$X.utils.storage.get('log')
               _t.$nextTick(function () {
-                if (_t.log.list.length) {
-                  if (_t.log.current === 0) {
-                    const data = _t.log.list[0]
+                if (log.list.length) {
+                  if (log.current === 0) {
+                    const data = log.list[0]
                     if (data === null) {
                       // 清除
                       _t.editor.clear()
@@ -510,7 +539,7 @@
                       })
                     }
                   } else {
-                    const data = _t.log.list[_t.log.current]
+                    const data = log.list[log.current]
                     // 渲染
                     _t.editor.read(data.content)
                     _t.editor.paint()
@@ -522,7 +551,7 @@
                 }
               })
               // 更新currentItem
-              _t.$store.commit('editor/currentItem/update', [])
+              _t.currentItem = []
             }
             break
           }
@@ -584,7 +613,7 @@
               }
             })
             // 更新currentItem
-            _t.$store.commit('editor/currentItem/update', [])
+            _t.currentItem = []
             break
           }
           case 'zoom':
@@ -778,7 +807,7 @@
               content: _t.$t('L10201'),
               onOk: function () {
                 // 更新操作日志
-                _t.$store.commit('editor/log/update', {
+                _t.doUpdateLog({
                   action: 'clear'
                 })
                 _t.editor.clear()
@@ -786,7 +815,7 @@
               }
             })
             // 更新currentItem
-            _t.$store.commit('editor/currentItem/update', [])
+            _t.currentItem = []
             break
           }
           case 'toFront':
@@ -838,7 +867,7 @@
                       // 清空画布
                       _t.editor.clear()
                       // 更新currentItem
-                      _t.$store.commit('editor/currentItem/update', [])
+                      _t.currentItem = []
                       // 设置数据
                       _t.editor.data(fileJson)
                       // 渲染
@@ -861,7 +890,7 @@
                       })
                       // 加载数据后保存记录
                       // 更新操作日志
-                      _t.$store.commit('editor/log/update', {
+                      _t.doUpdateLog({
                         action: 'loadData',
                         data: {
                           time: new Date(),
@@ -880,7 +909,7 @@
             break
           }
           case 'download': {
-            const fileName = _t.$X.config.system.title + '_' + _t.$X.utils.filters.formatDate(new Date(), 'YYYYMMDDhhmmss')
+            const fileName = _t.$X.config.system.libName + '_' + _t.$X.utils.filters.formatDate(new Date(), 'YYYYMMDDhhmmss')
             if (info.data === 'image') {
               _t.editor.downloadImage(fileName)
             } else if (info.data === 'json') {
@@ -1013,24 +1042,28 @@
         if (info.type === 'dropdown-list') {
           // 处理选中，更新toolList
           const toolList = []
-          _t.toolList.forEach(target => {
-            if (target.enableTool) {
-              if (target.name === info.name) {
-                target.selected = info.selected
-                // 更新自定义值
-                if (target.hasOwnProperty('custom')) {
-                  target.custom = {
-                    ...target.custom,
-                    enable: false,
-                    label: '',
-                    data: ''
+          const toolListData = _t.$X.utils.storage.get('toolList')
+          if (Array.isArray(toolListData)) {
+            toolListData.forEach(target => {
+              if (target.enableTool) {
+                if (target.name === info.name) {
+                  target.selected = info.selected
+                  // 更新自定义值
+                  if (target.hasOwnProperty('custom')) {
+                    target.custom = {
+                      ...target.custom,
+                      enable: false,
+                      label: '',
+                      data: ''
+                    }
                   }
                 }
+                toolList.push(target)
               }
-              toolList.push(target)
-            }
-          })
-          _t.$store.commit('editor/toolList/update', toolList)
+            })
+            _t.toolList = toolList
+            _t.$X.utils.storage.set('toolList', toolList)
+          }
         }
       },
       initInfo (data = {}) {
@@ -1042,23 +1075,26 @@
       },
       bindShortcuts () {
         const _t = this
-        _t.toolList.forEach(item => {
-          if (item.enableTool && item.shortcuts) {
-            Mousetrap.bind(item.shortcuts.key, function (e) {
-              if (e.preventDefault) {
-                e.preventDefault()
-              } else {
-                // internet explorer
-                e.returnValue = false
-              }
-              _t.handleToolTrigger({
-                name: item.name,
-                data: {}
+        const toolListData = _t.$X.utils.storage.get('toolList')
+        if (Array.isArray(toolListData)) {
+          toolListData.forEach(item => {
+            if (item.enableTool && item.shortcuts) {
+              Mousetrap.bind(item.shortcuts.key, function (e) {
+                if (e.preventDefault) {
+                  e.preventDefault()
+                } else {
+                  // internet explorer
+                  e.returnValue = false
+                }
+                _t.handleToolTrigger({
+                  name: item.name,
+                  data: {}
+                })
+                return false
               })
-              return false
-            })
-          }
-        })
+            }
+          })
+        }
         // 绑定按键事件
         document.addEventListener('keyup', function () {
           _t.$X.utils.bus.$emit('editor/contextmenu/close')
@@ -1083,7 +1119,7 @@
         // 清空画布
         _t.editor.clear()
         // 更新currentItem
-        _t.$store.commit('editor/currentItem/update', [])
+        _t.currentItem = []
         // 设置数据
         _t.editor.data(data)
         // 渲染
@@ -1102,13 +1138,94 @@
         })
         // 加载数据后保存记录
         // 更新操作日志
-        _t.$store.commit('editor/log/update', {
+        _t.doUpdateLog({
           action: 'loadData',
           data: {
             time: new Date(),
             content: _t.editor.save()
           }
         })
+      },
+      // 更新log
+      doUpdateLog (data) {
+        const _t = this
+        if (!data.hasOwnProperty('action') || !data.action) {
+          return
+        }
+        const oldLog = JSON.parse(JSON.stringify(_t.$X.utils.storage.get('log')))
+        const log = {
+          current: null,
+          list: []
+        }
+        switch (data.action) {
+          // 记录
+          case 'record':
+            if (data.data) {
+              if (oldLog.current === null) {
+                oldLog.list = []
+              } else if (oldLog.list.length - 1 > oldLog.current) {
+                const removeCount = oldLog.list.length - 1 - oldLog.current
+                oldLog.list.splice(oldLog.current + 1, removeCount)
+              }
+              if (_t.maxLogSize !== null && oldLog.list.length > _t.maxLogSize) {
+                oldLog.list.splice(0, 1)
+              }
+              log.list = [
+                ...oldLog.list,
+                JSON.parse(JSON.stringify(data.data))
+              ]
+              log.current = log.list.length - 1
+            }
+            break
+          // 撤销
+          case 'undo':
+            log.list = [
+              ...oldLog.list
+            ]
+            log.current = oldLog.current - 1 < 0 ? 0 : oldLog.current - 1
+            break
+          // 重做
+          case 'redo':
+            log.list = [
+              ...oldLog.list
+            ]
+            if (oldLog.current === null) {
+              log.current = oldLog.list.length ? 0 : null
+            } else {
+              log.current = oldLog.current + 1 > oldLog.list.length - 1 ? oldLog.list.length - 1 : oldLog.current + 1
+            }
+            break
+          // 清空
+          case 'clearLog':
+            log.list = [
+              oldLog.list[oldLog.current]
+            ]
+            log.current = 0
+            break
+          case 'loadData':
+            if (data.data) {
+              if (oldLog.current === null) {
+                log.list = [
+                  JSON.parse(JSON.stringify(data.data))
+                ]
+              } else {
+                if (oldLog.list.length - 1 > oldLog.current) {
+                  const removeCount = oldLog.list.length - 1 - oldLog.current
+                  oldLog.list.splice(oldLog.current + 1, removeCount)
+                }
+                if (_t.maxLogSize !== null && oldLog.list.length > _t.maxLogSize) {
+                  oldLog.list.splice(0, 1)
+                }
+                log.list = [
+                  ...oldLog.list,
+                  JSON.parse(JSON.stringify(data.data))
+                ]
+              }
+              log.current = log.list.length - 1
+            }
+            break
+        }
+        _t.$X.utils.storage.set('log', log)
       }
     },
     created () {

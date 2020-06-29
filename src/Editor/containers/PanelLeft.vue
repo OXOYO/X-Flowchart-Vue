@@ -18,7 +18,7 @@
 <template>
   <CardBox class="panel-left" placement="left" position="right" :width="250" :title="$t('L10300')" @expand="toggleHandler">
     <CardItem
-      v-for="(item, index) in materialList"
+      v-for="(item, index) in materials"
       :key="index"
       :title="$t(item.lang) || item.label"
       :enableFold="true"
@@ -36,8 +36,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-
   import CardBox from '../components/CardBox'
   import CardItem from '../components/CardItem'
   import NodeElement from '../components/NodeElement'
@@ -49,15 +47,15 @@
       CardItem,
       NodeElement
     },
+    props: {
+      materialList: Array
+    },
     data () {
       return {}
     },
     computed: {
-      ...mapGetters([
-        'materials'
-      ]),
-      materialList () {
-        return this.materials.filter(item => item.enable)
+      materials () {
+        return this.materialList.filter(item => item.enable)
       }
     },
     methods: {

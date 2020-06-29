@@ -9,6 +9,7 @@ export default {
   name,
   author,
   description,
+  libName: 'xfc',
   title: 'XFC',
   subtitle: 'XFC',
   minTitle: 'XFC',

@@ -9,7 +9,7 @@
 <template>
   <CardBox placement="right" position="left" :width="360" :title="$t('L10100')" @expand="toggleHandler">
     <CardItem :title="$t('L10101')" :enableFold="true" :bold="true">
-      <Options></Options>
+      <Options :editorConfig="editorConfig" :toolList="toolList" :currentItem="currentItem"></Options>
     </CardItem>
     <CardItem :title="$t('L10102')" :enableFold="true" :bold="true">
       <Navigator></Navigator>
@@ -30,6 +30,11 @@
       CardItem,
       Options,
       Navigator
+    },
+    props: {
+      editorConfig: Object,
+      toolList: Array,
+      currentItem: Array
     },
     methods: {
       toggleHandler (data) {

@@ -227,8 +227,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-
   import ToolBox from '../components/ToolBox/Index'
   import ToolItem from '../components/ToolBox/ToolItem'
 
@@ -238,22 +236,20 @@
       ToolBox,
       ToolItem
     },
+    props: {
+      editorData: Object,
+      toolList: Array,
+      currentItem: Array
+    },
     data () {
       return {
         isShow: false,
         activeMenu: '',
         options: null,
         contextMenuList: [],
-        formData: this.editor ? { ...this.editor.$D } : {},
+        formData: this.editorData ? { ...this.editorData } : {},
         contextMenuStyle: {}
       }
-    },
-    computed: {
-      ...mapGetters([
-        'editor',
-        'currentItem',
-        'toolList'
-      ])
     },
     methods: {
       handleContextMenuList () {

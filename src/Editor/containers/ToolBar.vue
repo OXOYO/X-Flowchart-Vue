@@ -239,8 +239,6 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
-
   import Handler from '../components/Handler'
   import ToolBox from '../components/ToolBox/Index'
   import ToolItem from '../components/ToolBox/ToolItem'
@@ -252,19 +250,19 @@
       ToolBox,
       ToolItem
     },
+    props: {
+      editorData: Object,
+      toolList: Array,
+      currentItem: Array
+    },
     data () {
       return {
-        formData: this.editor ? { ...this.editor.$D } : {},
+        formData: this.editorData ? { ...this.editorData } : {},
         // 是否展开
         isExpand: true
       }
     },
     computed: {
-      ...mapGetters([
-        'editor',
-        'currentItem',
-        'toolList'
-      ]),
       toolBarStyle () {
         const _t = this
         const style = {}

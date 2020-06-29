@@ -390,13 +390,17 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
   import CardItem from './CardItem'
 
   export default {
     name: 'Options',
     components: {
       CardItem
+    },
+    props: {
+      editorConfig: Object,
+      toolList: Array,
+      currentItem: Array
     },
     data () {
       return {
@@ -427,17 +431,12 @@
       }
     },
     computed: {
-      ...mapGetters([
-        'editor',
-        'currentItem',
-        'toolList'
-      ]),
       lineDashList () {
         const _t = this
-        const edgeConfig = _t.editor.$C.edge
+        const edgeConfig = _t.editorConfig ? _t.editorConfig.edge : null
         const lineDash = _t.toolList.find(item => item.enableTool && item.name === 'lineDash')
         const list = []
-        if (lineDash && lineDash.enable && lineDash.children) {
+        if (edgeConfig && lineDash && lineDash.enable && lineDash.children) {
           lineDash.children.forEach(item => {
             if (item.enable) {
               const typeData = edgeConfig.type[item.name]

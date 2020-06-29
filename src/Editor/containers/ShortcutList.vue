@@ -20,19 +20,18 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
   export default {
     name: 'ShortcutList',
+    props: {
+      toolList: Array,
+      shortcutMap: Object
+    },
     data () {
       return {
         isShow: false
       }
     },
     computed: {
-      ...mapGetters([
-        'shortcutMap',
-        'toolList'
-      ]),
       tableColumns () {
         return [
           {

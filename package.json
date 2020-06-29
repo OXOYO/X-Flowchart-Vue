@@ -39,7 +39,6 @@
     "vue": "^2.6.10",
     "vue-color": "^2.7.0",
     "vue-i18n": "^8.14.0",
-    "vuex": "^3.0.1",
     "x-highlight": "^1.0.5"
   },
   "devDependencies": {
