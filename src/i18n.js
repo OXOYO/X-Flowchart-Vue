@@ -8,13 +8,8 @@ import langs from './langs'
 import locale from 'iview/src/locale/index'
 
 export default function (Vue, defLang) {
-  const { config, Cookies } = Vue.prototype.$X
-  const key = config.cookie.getItem('locale')
-  const val = Cookies.get(key)
-  if (!defLang) {
-    const keys = Object.keys(langs.label)
-    defLang = val || keys[0]
-  }
+  const keys = Object.keys(langs.label)
+  defLang = Vue.prototype.$X.utils.storage.get('locale') || defLang || keys[0]
   // 注册插件
   Vue.use(VueI18n)
   Vue.locale = () => {}

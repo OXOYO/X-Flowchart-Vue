@@ -6,7 +6,6 @@
 import Vue from 'vue'
 import Editor from './Editor/Index'
 import i18n from './i18n'
-import * as Cookies from 'js-cookie'
 import './registerServiceWorker'
 
 import utils from './global/utils'
@@ -32,8 +31,7 @@ Vue.config.performance = isDev
 Vue.prototype.$X = {
   isDev,
   utils,
-  config,
-  Cookies
+  config
 }
 // i18n实例
 const i18nInstance = i18n(Vue, 'zh-CN')

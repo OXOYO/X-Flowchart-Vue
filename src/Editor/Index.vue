@@ -1019,13 +1019,8 @@
             break
           }
           case 'language': {
-            // 更新cookie
-            const cookieKey = _t.$X.config.cookie.getItem('locale')
-            _t.$X.Cookies.set(cookieKey, info.name, {
-              expires: 7,
-              path: _t.$X.config.cookie.path
-            })
-            _t.$i18n.locale = _t.$X.langs.locale = info.name
+            _t.$X.utils.storage.set('locale', info.data)
+            _t.$i18n.locale = _t.$X.langs.locale = info.data
             break
           }
           case 'history': {
