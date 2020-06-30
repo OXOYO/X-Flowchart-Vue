@@ -39,10 +39,7 @@
         name: 'xfcDemo',
         author: 'OXOYO',
         description: 'xfcDemo',
-        libName: 'xfcDemo',
         title: 'xfcDemo',
-        subtitle: 'xfcDemo',
-        minTitle: 'xfcDemo',
         logo: require('@/assets/images/logo.png'),
         github: 'https://github.com/OXOYO/X-Flowchart-Vue',
         githubPages: 'http://oxoyo.co/X-Flowchart-Vue/',
@@ -2199,7 +2196,8 @@
         props: {
           tools
           // ,
-          // materials
+          // materials,
+          // system
         }
       })
       console.log('xfcEditor', xfcEditor)
