@@ -7,9 +7,11 @@
 import system from './system'
 import materials from './materials'
 import tools from './tools'
+import storage from './storage'
 
 export default {
   system,
   materials,
-  tools
+  tools,
+  storage
 }

@@ -10,7 +10,7 @@ import locale from 'iview/src/locale/index'
 export default function (Vue, defLang) {
   const keys = Object.keys(langs.label)
   const $X = Vue.prototype.$X
-  defLang = $X.utils.storage.get('locale', $X.config.system.libName) || defLang || keys[0]
+  defLang = $X.utils.storage.get('locale', $X.config.storage.prefix) || defLang || keys[0]
   // 注册插件
   Vue.use(VueI18n)
   Vue.locale = () => {}

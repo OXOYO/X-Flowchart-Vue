@@ -9,7 +9,6 @@ export default {
   name,
   author,
   description,
-  libName: 'xfc',
   title: 'XFC',
   logo: require('@/assets/images/logo.png'),
   github: 'https://github.com/OXOYO/X-Flowchart-Vue',

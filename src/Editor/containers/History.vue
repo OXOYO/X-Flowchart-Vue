@@ -109,7 +109,7 @@
       },
       getLog () {
         const _t = this
-        _t.log = _t.$X.utils.storage.get('log', _t.$X.config.system.libName)
+        _t.log = _t.$X.utils.storage.get('log', _t.$X.config.storage.prefix)
       },
       toggleLog (index) {
         const _t = this
