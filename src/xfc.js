@@ -5,7 +5,6 @@
  */
 import Vue from 'vue'
 import Editor from './Editor/Index'
-// import store from './store'
 import i18n from './i18n'
 import * as Cookies from 'js-cookie'
 import './registerServiceWorker'
@@ -48,12 +47,52 @@ Vue.use(vClickOutside)
 export default function (options) {
   const { el, props } = options
   if (el) {
-    new Vue({
+    return new Vue({
       i18n: i18nInstance,
-      // store,
       render: h => h(Editor, {
-        props
-      })
+        props,
+        ref: 'editor'
+      }),
+      computed: {
+        editorRef () {
+          return this.$refs.editor
+        },
+        editor () {
+          return this.editorRef.editor
+        }
+      },
+      methods: {
+        // 接收数据，并进行渲染，read 方法的功能相当于 data 和 render 方法的结合
+        read (data, isActualSize) {
+          this.editor.read(data)
+          if (isActualSize) {
+            // 缩放到实际大小
+            this.editorRef.doZoom({
+              name: 'actualSize'
+            })
+          }
+        },
+        // 获取图数据
+        save () {
+          return this.editor.save()
+        },
+        // 获取图中所有节点的实例
+        getNodes () {
+          return this.editor.getNodes()
+        },
+        // 获取图中所有边的实例
+        getEdges () {
+          return this.editor.getEdges()
+        },
+        // 将画布上的元素导出为图片
+        downloadImage (name, type, backgroundColor) {
+          return this.editor.downloadImage(name, type, backgroundColor)
+        },
+        // 将画布上元素生成为图片的 URL
+        toDataURL (type, backgroundColor) {
+          return this.editor.toDataURL(type, backgroundColor)
+        }
+      }
     }).$mount(el)
   }
 }

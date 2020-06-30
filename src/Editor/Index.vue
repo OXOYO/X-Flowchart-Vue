@@ -22,7 +22,7 @@
     <PanelLeft :materialList="materialList"></PanelLeft>
     <PanelRight :editorConfig="editorConfig" :toolList="toolList" :currentItem="currentItem"></PanelRight>
     <PreviewModel></PreviewModel>
-    <ContextMenu :editorData="editorData"></ContextMenu>
+    <ContextMenu :editorData="editorData" :toolList="toolList"></ContextMenu>
     <AboutXFC ref="aboutXFC"></AboutXFC>
     <ShortcutList ref="shortcutList" :toolList="toolList" :shortcutMap="shortcutMap"></ShortcutList>
     <History ref="history" @on-revert="doRevert"></History>
