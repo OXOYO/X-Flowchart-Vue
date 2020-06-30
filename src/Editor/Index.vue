@@ -66,8 +66,12 @@
       History
     },
     props: {
+      // 全量工具数据
       tools: Object,
+      // 全量物料数据
       materials: Array,
+      // 系统配置
+      system: Object,
       // 操作日志最大存储条数，null 不限制
       maxLogSize: {
         type: Number,
@@ -110,22 +114,30 @@
     methods: {
       init () {
         const _t = this
+        // 更新系统配置
+        if (_t.system) {
+          _t.$X.config.system = {
+            ..._t.$X.config.system,
+            ..._t.system
+          }
+        }
         // 初始化存储数据
+        const defTools = _t.$X.config.tools(_t.$X.config.system)
         const { toolList, shortcutMap } = {
-          ..._t.$X.config.tools,
+          ...defTools,
           ..._t.tools
         }
         const materials = _t.materials || _t.$X.config.materials
         _t.toolList = toolList
         _t.shortcutMap = shortcutMap
         _t.materialList = materials
-        _t.$X.utils.storage.set('toolList', toolList)
-        _t.$X.utils.storage.set('shortcutMap', shortcutMap)
-        _t.$X.utils.storage.set('materials', materials)
+        _t.$X.utils.storage.set('toolList', toolList, _t.$X.config.system.libName)
+        _t.$X.utils.storage.set('shortcutMap', shortcutMap, _t.$X.config.system.libName)
+        _t.$X.utils.storage.set('materials', materials, _t.$X.config.system.libName)
         _t.$X.utils.storage.set('log', {
           current: null,
           list: []
-        })
+        }, _t.$X.config.system.libName)
         const el = _t.$el
         // 画板
         const sketchpad = el.querySelector('#sketchpad')
@@ -434,7 +446,7 @@
           _t.editor.zoomTo(ratio, center)
           // 处理选中，更新toolList
           const toolList = []
-          const toolListData = _t.$X.utils.storage.get('toolList')
+          const toolListData = _t.$X.utils.storage.get('toolList', _t.$X.config.system.libName)
           if (Array.isArray(toolListData)) {
             toolListData.forEach(target => {
               if (target.enableTool) {
@@ -451,7 +463,7 @@
               }
             })
             _t.toolList = toolList
-            _t.$X.utils.storage.set('toolList', toolList)
+            _t.$X.utils.storage.set('toolList', toolList, _t.$X.config.system.libName)
           }
         } else if (info.name === 'actualSize') {
           ratio = 1
@@ -490,7 +502,7 @@
         _t.editor.setMode(name)
         // 更新toolList
         const toolList = []
-        const toolListData = _t.$X.utils.storage.get('toolList')
+        const toolListData = _t.$X.utils.storage.get('toolList', _t.$X.config.system.libName)
         if (Array.isArray(toolListData)) {
           toolListData.forEach(item => {
             if (item.enableTool) {
@@ -504,7 +516,7 @@
             }
           })
           _t.toolList = toolList
-          _t.$X.utils.storage.set('toolList', toolList)
+          _t.$X.utils.storage.set('toolList', toolList, _t.$X.config.system.libName)
         }
       },
       handleToolTrigger (info) {
@@ -520,7 +532,7 @@
               action: info.name
             })
             if (['undo', 'redo'].includes(info.name)) {
-              const log = _t.$X.utils.storage.get('log')
+              const log = _t.$X.utils.storage.get('log', _t.$X.config.system.libName)
               _t.$nextTick(function () {
                 if (log.list.length) {
                   if (log.current === 0) {
@@ -1019,7 +1031,7 @@
             break
           }
           case 'language': {
-            _t.$X.utils.storage.set('locale', info.data)
+            _t.$X.utils.storage.set('locale', info.data, _t.$X.config.system.libName)
             _t.$i18n.locale = _t.$X.langs.locale = info.data
             break
           }
@@ -1037,7 +1049,7 @@
         if (info.type === 'dropdown-list') {
           // 处理选中，更新toolList
           const toolList = []
-          const toolListData = _t.$X.utils.storage.get('toolList')
+          const toolListData = _t.$X.utils.storage.get('toolList', _t.$X.config.system.libName)
           if (Array.isArray(toolListData)) {
             toolListData.forEach(target => {
               if (target.enableTool) {
@@ -1057,7 +1069,7 @@
               }
             })
             _t.toolList = toolList
-            _t.$X.utils.storage.set('toolList', toolList)
+            _t.$X.utils.storage.set('toolList', toolList, _t.$X.config.system.libName)
           }
         }
       },
@@ -1070,7 +1082,7 @@
       },
       bindShortcuts () {
         const _t = this
-        const toolListData = _t.$X.utils.storage.get('toolList')
+        const toolListData = _t.$X.utils.storage.get('toolList', _t.$X.config.system.libName)
         if (Array.isArray(toolListData)) {
           toolListData.forEach(item => {
             if (item.enableTool && item.shortcuts) {
@@ -1147,7 +1159,7 @@
         if (!data.hasOwnProperty('action') || !data.action) {
           return
         }
-        const oldLog = JSON.parse(JSON.stringify(_t.$X.utils.storage.get('log')))
+        const oldLog = JSON.parse(JSON.stringify(_t.$X.utils.storage.get('log', _t.$X.config.system.libName)))
         const log = {
           current: null,
           list: []
@@ -1220,7 +1232,7 @@
             }
             break
         }
-        _t.$X.utils.storage.set('log', log)
+        _t.$X.utils.storage.set('log', log, _t.$X.config.system.libName)
       }
     },
     created () {

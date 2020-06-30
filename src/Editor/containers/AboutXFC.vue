@@ -51,11 +51,11 @@
 <template>
   <Modal class-name="about-model" v-model="isShow" :footer-hide="true">
     <div class="body">
-      <a class="title" :href="systemInfo.githubPages" target="_blank">
-        <img class="img" :src="systemInfo.logo" alt="">
+      <a class="title" :href="$X.config.system.site" target="_blank">
+        <img class="img" :src="$X.config.system.logo" alt="">
       </a>
-      <div class="description">{{ systemInfo.description }}</div>
-      <div class="info-item" v-for="(item, index) in infoList" :key="index">
+      <div class="description">{{ $X.config.system.description }}</div>
+      <div class="info-item" v-for="(item, index) in getInfoList()" :key="index">
         <div class="label">{{ item.label }}:</div>
         <div class="content">
           <span v-if="item.content.type === 'text'">{{ item.content.label }}</span>
@@ -67,7 +67,7 @@
           </a>
         </div>
       </div>
-      <div class="copyright">{{ systemInfo.copyright }}</div>
+      <div class="copyright">{{ $X.config.system.copyright }}</div>
     </div>
   </Modal>
 </template>
@@ -80,12 +80,13 @@
         isShow: false
       }
     },
-    computed: {
-      systemInfo () {
-        return this.$X.config.system
+    methods: {
+      show () {
+        this.isShow = true
       },
-      infoList () {
+      getInfoList () {
         const _t = this
+        const system = _t.$X.config.system
         return [
           {
             name: 'version',
@@ -94,7 +95,7 @@
             content: {
               type: 'text',
               icon: '',
-              label: _t.systemInfo.version
+              label: system.version
             }
           },
           {
@@ -104,7 +105,7 @@
             content: {
               type: 'text',
               icon: '',
-              label: _t.systemInfo.author
+              label: system.author
             }
           },
           {
@@ -113,17 +114,12 @@
             icon: '',
             content: {
               type: 'link',
-              link: _t.systemInfo.github,
+              link: system.github,
               icon: 'github',
               label: 'Github'
             }
           }
         ]
-      }
-    },
-    methods: {
-      show () {
-        this.isShow = true
       }
     }
   }

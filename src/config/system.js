@@ -11,11 +11,9 @@ export default {
   description,
   libName: 'xfc',
   title: 'XFC',
-  subtitle: 'XFC',
-  minTitle: 'XFC',
   logo: require('@/assets/images/logo.png'),
   github: 'https://github.com/OXOYO/X-Flowchart-Vue',
-  githubPages: 'http://oxoyo.co/X-Flowchart-Vue/',
+  site: 'http://oxoyo.co/X-Flowchart-Vue/',
   feedback: 'https://github.com/OXOYO/X-Flowchart-Vue/issues/new',
   copyright: '©2019 - 2020 OXOYO All Rights Reserved.'
 }

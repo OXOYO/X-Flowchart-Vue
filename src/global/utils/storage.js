@@ -3,9 +3,8 @@
  *
  * 本地存储
  */
-import system from '@/config/system'
 
-const getKey = function (key, prefix = system.libName, separator = '-') {
+const getKey = function (key, prefix, separator = '-') {
   return [prefix, key].join(separator)
 }
 export default {
