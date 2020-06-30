@@ -40,6 +40,7 @@ export default function (options) {
   const { el, props } = options
   if (el) {
     return new Vue({
+      el,
       i18n: i18nInstance,
       render: h => h(Editor, {
         props,
@@ -85,6 +86,6 @@ export default function (options) {
           return this.editor.toDataURL(type, backgroundColor)
         }
       }
-    }).$mount(el)
+    })
   }
 }
