@@ -29,7 +29,6 @@
   "homepage": "https://github.com/OXOYO/X-Flowchart-Vue#readme",
   "dependencies": {
     "@antv/g6": "^3.5.6",
-    "core-js": "^2.6.5",
     "iview": "^3.4.2",
     "mousetrap": "^1.6.3",
     "register-service-worker": "^1.6.2",
@@ -37,8 +36,7 @@
     "v-click-outside": "^2.1.4",
     "vue": "^2.6.10",
     "vue-color": "^2.7.0",
-    "vue-i18n": "^8.14.0",
-    "x-highlight": "^1.0.5"
+    "vue-i18n": "^8.14.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.11.0",

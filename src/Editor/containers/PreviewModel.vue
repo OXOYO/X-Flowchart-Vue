@@ -13,7 +13,10 @@
         margin: 0;
       }
       .preview-json {
-
+        background: #2d2d2d;
+        color: #cccccc;
+        padding: 10px;
+        white-space: pre-wrap;
       }
     }
   }
@@ -36,15 +39,12 @@
           :src="previewData.content"
           alt=""
         >
-        <XHighlight
+        <pre
           v-else-if="previewData.type === 'json'"
           class="preview-json"
-          :locale="$X.langs.locale === 'zh-CN' ? 'zh' : 'en'"
-          :tool="['select-all', 'copy']"
-          :maxHeight="1200"
-          :data="previewData.content"
         >
-        </XHighlight>
+          <code>{{ previewData.content }}</code>
+        </pre>
       </template>
     </div>
     <div slot="footer">
