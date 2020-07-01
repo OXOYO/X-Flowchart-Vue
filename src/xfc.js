@@ -15,29 +15,29 @@ import './assets/styles/main.less'
 
 import vClickOutside from 'v-click-outside'
 
-// Vue 全局配置
-const isDev = process && process.env.NODE_ENV !== 'production'
-Vue.config.debug = isDev
-Vue.config.devtools = isDev
-Vue.config.productionTip = isDev
-Vue.config.performance = isDev
-
-// 挂载 $X 命名空间
-Vue.prototype.$X = {
-  isDev,
-  utils,
-  config
-}
-// i18n实例
-const i18nInstance = i18n(Vue, 'zh-CN')
-
-// 注册全局组件
-Vue.use(components)
-// 注册指令
-Vue.use(vClickOutside)
-
 export default function (options) {
   const { el, props } = options
+  // Vue 全局配置
+  const isDev = process && process.env.NODE_ENV !== 'production'
+  Vue.config.debug = isDev
+  Vue.config.devtools = isDev
+  Vue.config.productionTip = isDev
+  Vue.config.performance = isDev
+
+  // 挂载 $X 命名空间
+  Vue.prototype.$X = {
+    isDev,
+    utils,
+    config
+  }
+  // i18n实例
+  const i18nInstance = i18n(Vue, props.i18n)
+
+  // 注册全局组件
+  Vue.use(components)
+  // 注册指令
+  Vue.use(vClickOutside)
+
   if (el) {
     return new Vue({
       el,

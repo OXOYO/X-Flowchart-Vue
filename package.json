@@ -1,5 +1,5 @@
 {
-  "name": "x-flowchart-vue",
+  "name": "@oxoyo/xfc",
   "version": "3.0.1",
   "description": "A visual graph editor based on G6 and Vue.",
   "main": "dist/xfc.umd.min.js",
