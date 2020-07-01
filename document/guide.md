@@ -4,7 +4,7 @@
 
 ### 安装
 ```
-npm i @OXOYO/xfc --save
+npm i @oxoyo/xfc --save
 ```
 
 ### 引用
@@ -29,6 +29,7 @@ const xfcEditor = xfc({
 | shortcutMap |【与tools互斥，配置后以此为主】设置自带的工具项的快捷键 | Object | - | - |
 | system | 配置系统信息 | Object | - | - |
 | storage | 配置本地存储信息 | Object | - | - |
+| i18n | 配置多语言 | Object | - | - |
 
 #### tools
 全量配置工具项，覆写系统默认工具项信息，自定义程度高，<span style="color: red; font-weight: 800;">无非必要不建议配置此项</span>。
@@ -238,6 +239,23 @@ xfc({
     storage: {
         // 本地存储前缀
         prefix: 'xfc'
+    }
+  }
+})
+```
+
+#### 配置多语言
+```
+xfc({
+  el: '#xfc',
+  props: {
+    i18n: {
+        // 默认语言包
+        defLocale: 'zh-CN',
+        // 自定义语音包或覆写系统语音包
+        locales: {
+            ...
+        }
     }
   }
 })
