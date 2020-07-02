@@ -30,6 +30,7 @@ const xfcEditor = xfc({
 | system | 配置系统信息 | Object | - | - |
 | storage | 配置本地存储信息 | Object | - | - |
 | i18n | 配置多语言 | Object | - | - |
+| infoPanel | 信息面板配置 | Object | - | - |
 
 #### tools
 全量配置工具项，覆写系统默认工具项信息，自定义程度高，<span style="color: red; font-weight: 800;">无非必要不建议配置此项</span>。
@@ -258,6 +259,33 @@ xfc({
         // 自定义语音包或覆写系统语音包
         locales: {
             ...
+        }
+    }
+  }
+})
+```
+#### infoPanel
+配置信息面板
+```
+xfc({
+  el: '#xfc',
+  props: {
+    infoPanel: {
+        // 配置信息
+        options: {
+            enable: true
+        },
+        // 导航器
+        navigator: {
+            enable: true,
+            // minimap插件配置
+            config: {
+                type: 'delegate',
+                delegateStyle: {
+                    fill: '#ffffff',
+                    stroke: '#000000'
+                }
+            }
         }
     }
   }
