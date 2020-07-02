@@ -7,11 +7,18 @@
 <style scoped lang="less" rel="stylesheet/less"></style>
 
 <template>
-  <CardBox placement="right" position="left" :width="360" :title="$t('L10100')" @expand="toggleHandler">
-    <CardItem :title="$t('L10101')" :enableFold="true" :bold="true">
+  <CardBox
+    v-if="isEnablePanel"
+    placement="right"
+    position="left"
+    :width="360"
+    :title="$t('L10100')"
+    @expand="toggleHandler"
+  >
+    <CardItem v-if="isEnableOptions" :title="$t('L10101')" :enableFold="true" :bold="true">
       <Options :editorConfig="editorConfig" :toolList="toolList" :currentItem="currentItem"></Options>
     </CardItem>
-    <CardItem :title="$t('L10102')" :enableFold="true" :bold="true">
+    <CardItem v-if="isEnableNavigator" :title="$t('L10102')" :enableFold="true" :bold="true">
       <Navigator></Navigator>
     </CardItem>
   </CardBox>
@@ -35,6 +42,20 @@
       editorConfig: Object,
       toolList: Array,
       currentItem: Array
+    },
+    computed: {
+      infoPanel () {
+        return this.$X.config.infoPanel
+      },
+      isEnableOptions () {
+        return this.infoPanel.options.enable
+      },
+      isEnableNavigator () {
+        return this.infoPanel.navigator.enable
+      },
+      isEnablePanel () {
+        return this.isEnableOptions || this.isEnableNavigator
+      }
     },
     methods: {
       toggleHandler (data) {

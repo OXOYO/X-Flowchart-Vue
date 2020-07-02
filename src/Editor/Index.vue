@@ -74,6 +74,8 @@
       system: Object,
       // 存储配置
       storage: Object,
+      // 信息面板配置
+      infoPanel: Object,
       // 操作日志最大存储条数，null 不限制
       maxLogSize: {
         type: Number,
@@ -130,6 +132,13 @@
             ..._t.storage
           }
         }
+        // 更新信息面板
+        if (_t.storage) {
+          _t.$X.config.infoPanel = {
+            ..._t.$X.config.infoPanel,
+            ..._t.infoPanel
+          }
+        }
         // 初始化存储数据
         const defTools = _t.$X.config.tools(_t.$X.config.system)
         const { toolList, shortcutMap } = {
@@ -150,32 +159,36 @@
         const el = _t.$el
         // 画板
         const sketchpad = el.querySelector('#sketchpad')
-        // 导航器
-        const navigator = el.querySelector('#navigator')
-        // const size = [300, 200]
-        const size = [
-          navigator.clientWidth,
-          parseInt(navigator.clientWidth * sketchpad.clientHeight / sketchpad.clientWidth)
-        ]
-        const minimap = new G6.Minimap({
-          container: navigator,
-          // FIXME 【BUG】type 为 keyShape 时导航图中元素显示错位，暂改为 delegate
-          type: 'delegate',
-          size: size,
-          delegateStyle: {
-            fill: '#ffffff',
-            stroke: '#000000'
-          }
-        })
+        const plugins = []
+        if (_t.$X.config.infoPanel.navigator.enable) {
+          // 导航器
+          const navigator = el.querySelector('#navigator')
+          // const size = [300, 200]
+          const size = [
+            navigator.clientWidth,
+            parseInt(navigator.clientWidth * sketchpad.clientHeight / sketchpad.clientWidth)
+          ]
+          const navigatorConfig = _t.$X.config.infoPanel.navigator.config || {}
+          const minimap = new G6.Minimap({
+            container: navigator,
+            // FIXME 【BUG】type 为 keyShape 时导航图中元素显示错位，暂改为 delegate
+            type: 'delegate',
+            size: size,
+            delegateStyle: {
+              fill: '#ffffff',
+              stroke: '#000000'
+            },
+            ...navigatorConfig
+          })
+          plugins.push(minimap)
+        }
         const grid = new G6.Grid()
         const background = new XBackground()
+        plugins.push(grid)
+        plugins.push(background)
         // 生成编辑器实例
         _t.editor = new G6.Graph({
-          plugins: [
-            minimap,
-            grid,
-            background
-          ],
+          plugins,
           container: sketchpad,
           width: sketchpad.clientWidth,
           height: sketchpad.clientHeight,

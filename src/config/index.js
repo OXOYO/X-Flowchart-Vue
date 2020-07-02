@@ -8,10 +8,12 @@ import system from './system'
 import materials from './materials'
 import tools from './tools'
 import storage from './storage'
+import infoPanel from './infoPanel'
 
 export default {
   system,
   materials,
   tools,
-  storage
+  storage,
+  infoPanel
 }
