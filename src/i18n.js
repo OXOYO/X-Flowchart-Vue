@@ -9,19 +9,26 @@ import locale from 'iview/src/locale/index'
 
 export default function (Vue, config) {
   const $X = Vue.prototype.$X
-  let { defLocale, locales } = config
+  let defLocale
+  let locales
+  if (typeof locales === 'object' && locales instanceof Object) {
+    defLocale = config.hasOwnProperty('defLocale') ? config.defLocale : null
+    locales = config.hasOwnProperty('locales') ? config.locales : null
+  }
   // 合并语言包
   const langData = langs.data
-  Object.keys(locales).forEach(key => {
-    if (langData.hasOwnProperty(key)) {
-      langData[key] = {
-        ...langData[key],
-        ...locales[key]
+  if (typeof locales === 'object' && locales instanceof Object) {
+    Object.keys(locales).forEach(key => {
+      if (langData.hasOwnProperty(key)) {
+        langData[key] = {
+          ...langData[key],
+          ...locales[key]
+        }
+      } else {
+        langData[key] = locales[key]
       }
-    } else {
-      langData[key] = locales[key]
-    }
-  })
+    })
+  }
   // 默认语言
   defLocale = $X.utils.storage.get('locale', $X.config.storage.prefix) || defLocale || Object.keys(langData)[0]
   // 注册插件

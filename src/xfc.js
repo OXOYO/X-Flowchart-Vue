@@ -31,7 +31,7 @@ export default function (options) {
     config
   }
   // i18n实例
-  const i18nInstance = i18n(Vue, props.i18n)
+  const i18nInstance = i18n(Vue, props && props.i18n ? props.i18n : null)
 
   // 注册全局组件
   Vue.use(components)
