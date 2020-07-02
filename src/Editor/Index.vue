@@ -1041,7 +1041,7 @@
           }
           case 'language': {
             _t.$X.utils.storage.set('locale', info.data, _t.$X.config.storage.prefix)
-            _t.$i18n.locale = _t.$X.langs.locale = info.data
+            _t.$i18n.locale = info.data
             break
           }
           case 'history': {

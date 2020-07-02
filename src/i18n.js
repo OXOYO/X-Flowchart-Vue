@@ -27,10 +27,6 @@ export default function (Vue, config) {
   // 注册插件
   Vue.use(VueI18n)
   Vue.locale = () => {}
-  // 全局挂载语言包key
-  Vue.prototype.$X.langs = {
-    locale: defLocale
-  }
   // i18n实例
   const i18nInstance = new VueI18n({
     locale: defLocale,
