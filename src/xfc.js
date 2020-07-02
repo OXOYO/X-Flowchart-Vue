@@ -55,7 +55,7 @@ export default function (options) {
         }
       },
       methods: {
-        // 接收数据，并进行渲染，read 方法的功能相当于 data 和 render 方法的结合
+        // 接收数据，并进行渲染
         read (data, isActualSize) {
           this.editor.read(data)
           if (isActualSize) {
