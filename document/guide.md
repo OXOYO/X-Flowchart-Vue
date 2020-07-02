@@ -21,17 +21,17 @@ const xfcEditor = xfc({
 
 在初始化 `xfc` 实例时，可以配置参数。
 
-### props
+### [](#props)props
 | 参数       | 说明                      | 类型            | 可选值 | 默认值 |
 | :--------- | :----------------------- | :--------------- | :----- | :----- |
-| tools       | 全量配置工具项，覆写系统默认工具项信息，详见[全量配置tools](tools)   | Object | - | - |
+| tools       | 全量配置工具项，覆写系统默认工具项信息，详见[全量配置tools](#props.tools)   | Object | - | - |
 | enableTools |【与tools互斥，配置后以此为主】设置要启用自带的工具项 | Array | - | - |
 | shortcutMap |【与tools互斥，配置后以此为主】设置自带的工具项的快捷键 | Object | - | - |
 | system | 配置系统信息 | Object | - | - |
 | storage | 配置本地存储信息 | Object | - | - |
 | i18n | 配置多语言 | Object | - | - |
 
-#### tools
+#### [](#props.tools)tools
 全量配置工具项，覆写系统默认工具项信息，自定义程度高，<span style="color: red; font-weight: 800;">无非必要不建议配置此项</span>。
 
 ***tools数据结构***
@@ -121,7 +121,7 @@ shortcutMap: {
 }
 ```
     
-#### enableTools
+#### [](#props.enableTools)enableTools
 【与tools互斥，配置后以此为主】设置要启用的工具项。
 
 ```
@@ -183,7 +183,7 @@ xfc({
 })
 ```
 
-#### shortcutMap
+#### [](#props.shortcutMap)shortcutMap
 【与tools互斥，配置后以此为主】设置自带的工具项的快捷键
 
 ```
@@ -207,7 +207,7 @@ xfc({
 })
 ```
 
-#### system
+#### [](#props.system)system
 配置系统信息
 
 ```
@@ -230,7 +230,8 @@ xfc({
 })
 ```
 
-#### 配置本地存储信息
+#### [](#props.storage)storage
+配置本地存储信息
 
 ```
 xfc({
@@ -244,7 +245,9 @@ xfc({
 })
 ```
 
-#### 配置多语言
+#### [](#props.i18n)i18n
+配置多语言
+
 ```
 xfc({
   el: '#xfc',
@@ -262,3 +265,134 @@ xfc({
 ```
 
 ## API
+
+### [](#read)read (data, isActualSize)
+接收数据，并进行渲染。
+
+**参数**
+
+| 名称 | 类型 | 是否必选 | 描述 |
+| --- | --- | --- | --- |
+| data | Object | true | 初始化的图数据，是一个包括 nodes 和 edges 的对象 |
+
+**用法**
+
+```
+const data = {
+  nodes: [
+    {
+      id: 'node1',
+      label: 'node1',
+    },
+    {
+      id: 'node2',
+      label: 'node2',
+    },
+  ],
+  edges: [
+    {
+      source: 'node1',
+      target: 'node2',
+    },
+  ],
+};
+
+xfcEditor.read(data)
+```
+
+### [](#save)save()
+
+获取图数据。
+
+该方法无参数。
+
+**返回值**
+
+*   返回值类型：Object；
+*   返回值包括所有节点和边，数据结构如下下所示：
+
+```
+{
+    nodes: [],
+    edges: [],
+    groups: []
+}
+```
+
+**用法**
+
+```
+xfcEditor.save()
+```
+
+### [](#getnodes)getNodes()
+
+获取图中所有节点的实例。
+
+**⚠️ 注意:** 这里返回的是节点的实例，而不是节点的数据项。
+
+**返回值**
+
+*   返回值类型：Array；
+*   返回值表示图中所有节点的实例。
+
+**用法**
+
+```
+const nodes = xfcEditor.getNodes()
+```
+
+### [](#getedges)getEdges()
+
+获取图中所有边的实例。
+
+**⚠️ 注意:** 这里返回的是边的实例，而不是边的数据项。
+
+**返回值**
+
+*   返回值类型：Array；
+*   返回值表示图中所有边的实例。
+
+**用法**
+
+```
+const edges = xfcEditor.getEdges()
+```
+
+### [](#downloadImage)downloadImage (name, type, backgroundColor)
+将画布上的元素导出为图片。
+
+**参数**
+
+| 名称 | 类型 | 是否必选 | 描述 |
+| --- | --- | --- | --- |
+| name | String | false | 图片的名称，不指定则为 'graph' |
+| type | `'image/png'` / `'image/jpeg'` / `'image/webp'` / `'image/bmp'` | false | 图片的类型。图的 `renderer` 为默认的 `'canvas'` 时生效，图的 `renderer` 为 `'svg'` 时将导出 svg 文件 |
+| backgroundColor | String | false | 图片的背景色，可选，不传值时将导出透明背景的图片 |
+
+**用法**
+
+```
+xfcEditor.downloadImage()
+```
+
+### [](#toDataURL)toDataURL (type, backgroundColor)
+将画布上元素生成为图片的 URL。
+
+**参数**
+
+| 名称 | 类型 | 是否必选 | 描述 |
+| --- | --- | --- | --- |
+| type | `'image/png'` / `'image/jpeg'` / `'image/webp'` / `'image/bmp'` | false | 图片的类型。图的 `renderer` 为默认的 `'canvas'` 时生效，图的 `renderer` 为 `'svg'` 时将导出 svg 文件 |
+| backgroundColor | String | false | 图片的背景色，可选，不传值时将导出透明背景的图片 |
+
+**返回值**
+
+*   返回值类型：String；
+*   返回值表示生成的图片的 URL。
+
+**用法**
+
+```
+const dataURL = xfcEditor.toDataURL()
+```
