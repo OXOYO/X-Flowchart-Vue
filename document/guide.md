@@ -25,8 +25,10 @@ const xfcEditor = xfc({
 | 参数       | 说明                      | 类型            | 可选值 | 默认值 |
 | :--------- | :----------------------- | :--------------- | :----- | :----- |
 | tools       | 全量配置工具项，覆写系统默认工具项信息，详见[全量配置tools](#tools)   | Object | - | - |
-| enableTools |【与tools互斥，配置后以此为主】设置要启用自带的工具项 | Array | - | - |
+| enableTools |【与tools互斥，配置后以此为主】设置要启用的系统工具项 | Array | - | - |
 | shortcutMap |【与tools互斥，配置后以此为主】设置自带的工具项的快捷键 | Object | - | - |
+| materials   | 全量配置物料列表，覆写系统默认物料，详见[全量配置materials](#materials)   | Array | - | - |
+| enableMaterials |【与materials互斥，配置后以此为主】设置要启用的系统物料 | Object | - | - |
 | system | 配置系统信息 | Object | - | - |
 | storage | 配置本地存储信息 | Object | - | - |
 | i18n | 配置多语言 | Object | - | - |
@@ -203,6 +205,39 @@ xfc({
         // 快捷键描述
         description: '' 
       }
+    }
+  }
+})
+```
+
+#### materials
+全量配置物料列表，覆写系统默认物料，自定义程度高，<span style="color: red; font-weight: 800;">无非必要不建议配置此项</span>。
+
+```
+xfc({
+  el: '#xfc',
+  props: {
+    materials: [
+        ...
+    ]
+  }
+})
+```
+
+#### enableMaterials
+【与materials互斥，配置后以此为主】设置要启用的系统物料
+
+```
+xfc({
+  el: '#xfc',
+  props: {
+    enableMaterials: {
+        // 启用的物料分类
+        general: [
+            // 启用的分类下图形
+            'rectangle', 
+            'rounded-rectangle'
+        ]  
     }
   }
 })
