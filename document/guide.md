@@ -21,17 +21,17 @@ const xfcEditor = xfc({
 
 在初始化 `xfc` 实例时，可以配置参数。
 
-### [](#props)props
+### props
 | 参数       | 说明                      | 类型            | 可选值 | 默认值 |
 | :--------- | :----------------------- | :--------------- | :----- | :----- |
-| tools       | 全量配置工具项，覆写系统默认工具项信息，详见[全量配置tools](#props.tools)   | Object | - | - |
+| tools       | 全量配置工具项，覆写系统默认工具项信息，详见[全量配置tools](#tools)   | Object | - | - |
 | enableTools |【与tools互斥，配置后以此为主】设置要启用自带的工具项 | Array | - | - |
 | shortcutMap |【与tools互斥，配置后以此为主】设置自带的工具项的快捷键 | Object | - | - |
 | system | 配置系统信息 | Object | - | - |
 | storage | 配置本地存储信息 | Object | - | - |
 | i18n | 配置多语言 | Object | - | - |
 
-#### [](#props.tools)tools
+#### tools
 全量配置工具项，覆写系统默认工具项信息，自定义程度高，<span style="color: red; font-weight: 800;">无非必要不建议配置此项</span>。
 
 ***tools数据结构***
@@ -121,7 +121,7 @@ shortcutMap: {
 }
 ```
     
-#### [](#props.enableTools)enableTools
+#### enableTools
 【与tools互斥，配置后以此为主】设置要启用的工具项。
 
 ```
@@ -183,7 +183,7 @@ xfc({
 })
 ```
 
-#### [](#props.shortcutMap)shortcutMap
+#### shortcutMap
 【与tools互斥，配置后以此为主】设置自带的工具项的快捷键
 
 ```
@@ -207,7 +207,7 @@ xfc({
 })
 ```
 
-#### [](#props.system)system
+#### system
 配置系统信息
 
 ```
@@ -230,7 +230,7 @@ xfc({
 })
 ```
 
-#### [](#props.storage)storage
+#### storage
 配置本地存储信息
 
 ```
@@ -245,7 +245,7 @@ xfc({
 })
 ```
 
-#### [](#props.i18n)i18n
+#### i18n
 配置多语言
 
 ```
@@ -266,7 +266,7 @@ xfc({
 
 ## API
 
-### [](#read)read (data, isActualSize)
+### read (data, isActualSize)
 接收数据，并进行渲染。
 
 **参数**
@@ -300,7 +300,7 @@ const data = {
 xfcEditor.read(data)
 ```
 
-### [](#save)save()
+### save()
 
 获取图数据。
 
@@ -325,7 +325,7 @@ xfcEditor.read(data)
 xfcEditor.save()
 ```
 
-### [](#getnodes)getNodes()
+### getNodes()
 
 获取图中所有节点的实例。
 
@@ -342,7 +342,7 @@ xfcEditor.save()
 const nodes = xfcEditor.getNodes()
 ```
 
-### [](#getedges)getEdges()
+### getEdges()
 
 获取图中所有边的实例。
 
@@ -359,7 +359,7 @@ const nodes = xfcEditor.getNodes()
 const edges = xfcEditor.getEdges()
 ```
 
-### [](#downloadImage)downloadImage (name, type, backgroundColor)
+### downloadImage (name, type, backgroundColor)
 将画布上的元素导出为图片。
 
 **参数**
@@ -376,7 +376,7 @@ const edges = xfcEditor.getEdges()
 xfcEditor.downloadImage()
 ```
 
-### [](#toDataURL)toDataURL (type, backgroundColor)
+### toDataURL (type, backgroundColor)
 将画布上元素生成为图片的 URL。
 
 **参数**
