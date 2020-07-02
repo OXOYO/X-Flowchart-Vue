@@ -24,6 +24,36 @@ export default function (options) {
   Vue.config.productionTip = isDev
   Vue.config.performance = isDev
 
+  if (props) {
+    // 合并配置
+    ['system', 'storage', 'infoPanel'].forEach(key => {
+      if (props.hasOwnProperty(key) && props[key] && props[key] instanceof Object) {
+        config[key] = {
+          ...config[key],
+          ...props[key]
+        }
+      }
+    })
+    // 处理tools
+    if (props.hasOwnProperty('tools') && props.tools && props.tools instanceof Object) {
+      config.tools = props.tools
+    } else {
+      const enableTools = Array.isArray(props.enableTools) ? props.enableTools : []
+      const shortcutMap = props.shortcutMap || {}
+      config.tools = config.tools(config.system, enableTools, shortcutMap)
+    }
+    // 处理materials
+    if (Array.isArray(props.materials)) {
+      config.materials = props.materials
+    } else {
+      const enableMaterials = props.enableMaterials || {}
+      config.materials = config.materials(enableMaterials)
+    }
+  } else {
+    config.tools = config.tools(config.system)
+    config.materials = config.materials()
+  }
+
   // 挂载 $X 命名空间
   Vue.prototype.$X = {
     isDev,

@@ -66,17 +66,6 @@
       History
     },
     props: {
-      // 全量工具数据
-      tools: Object,
-      // 全量物料数据
-      materials: Array,
-      // 系统配置
-      system: Object,
-      // 存储配置
-      storage: Object,
-      // 信息面板配置
-      infoPanel: Object,
-      // 操作日志最大存储条数，null 不限制
       maxLogSize: {
         type: Number,
         default: 20
@@ -118,34 +107,9 @@
     methods: {
       init () {
         const _t = this
-        // 更新系统配置
-        if (_t.system) {
-          _t.$X.config.system = {
-            ..._t.$X.config.system,
-            ..._t.system
-          }
-        }
-        // 更新存储配置
-        if (_t.storage) {
-          _t.$X.config.storage = {
-            ..._t.$X.config.storage,
-            ..._t.storage
-          }
-        }
-        // 更新信息面板
-        if (_t.storage) {
-          _t.$X.config.infoPanel = {
-            ..._t.$X.config.infoPanel,
-            ..._t.infoPanel
-          }
-        }
         // 初始化存储数据
-        const defTools = _t.$X.config.tools(_t.$X.config.system)
-        const { toolList, shortcutMap } = {
-          ...defTools,
-          ..._t.tools
-        }
-        const materials = _t.materials || _t.$X.config.materials
+        const { toolList, shortcutMap } = _t.$X.config.tools
+        const materials = _t.$X.config.materials
         _t.toolList = toolList
         _t.shortcutMap = shortcutMap
         _t.materialList = materials

@@ -4,9 +4,9 @@
  * 工具项配置
  */
 
-export default function (system) {
+export default function (system = {}, enableTools, shortcutMap = {}) {
   // 工具项快捷键列表
-  const shortcutMap = {
+  shortcutMap = {
     undo: { tool: 'undo', key: 'mod+z', label: 'Ctrl + Z', description: '' },
     clearLog: { tool: 'clearLog', key: 'mod+shift+l', label: 'Ctrl + Shift + L', description: '' },
     history: { tool: 'history', key: 'mod+shift+h', label: 'Ctrl + Shift + H', description: '' },
@@ -23,11 +23,12 @@ export default function (system) {
     up: { tool: 'up', key: 'up', label: 'up', description: '' },
     down: { tool: 'down', key: 'down', label: 'down', description: '' },
     left: { tool: 'left', key: 'left', label: 'left', description: '' },
-    right: { tool: 'right', key: 'right', label: 'right', description: '' }
+    right: { tool: 'right', key: 'right', label: 'right', description: '' },
+    ...shortcutMap
   }
 
   // 工具列表
-  const toolList = [
+  let toolList = [
     {
       // 工具项名称，保持唯一性，便于区分工具项
       name: 'logo',
@@ -2139,7 +2140,9 @@ export default function (system) {
       }
     }
   ]
-
+  if (Array.isArray(enableTools) && enableTools.length) {
+    toolList = toolList.filter(item => enableTools.includes(item.name))
+  }
   return {
     shortcutMap,
     toolList
