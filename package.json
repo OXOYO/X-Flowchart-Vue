@@ -7,9 +7,12 @@
     "serve": "vue-cli-service serve --mode development",
     "example": "npx --max_old_space_size=4096 vue-cli-service serve --mode development ./example/main.js",
     "build": "vue-cli-service build --mode production",
-    "build-lib": "vue-cli-service build --mode build-lib --target lib --name xfc ./src/xfc.js --dest ./dist --report",
+    "build-lib": "vue-cli-service build --mode build-lib --target lib --name xfc ./src/xfc.js --dest ./dist",
     "lint": "vue-cli-service lint"
   },
+  "files": [
+    "dist"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/OXOYO/X-Flowchart-Vue.git"
