@@ -950,7 +950,7 @@ export default function (enableMaterials) {
     }
   ]
   let materials = []
-  if (enableMaterials && enableMaterials instanceof Object) {
+  if (enableMaterials && enableMaterials instanceof Object && Object.keys(enableMaterials).length) {
     Object.entries(enableMaterials).forEach(item => {
       const [ name, types ] = item
       if (defMaterials.find(target => target.name === name)) {
