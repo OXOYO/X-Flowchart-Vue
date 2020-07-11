@@ -78,7 +78,8 @@ npm i @oxoyo/xfc --save
 
 ### 引用
 ```
-import xfc from '@OXOYO/xfc'
+import xfc from '@oxoyo/xfc'
+import '@oxoyo/xfc/dist/xfc.css'
 
 // 初始化
 const xfcEditor = xfc({
