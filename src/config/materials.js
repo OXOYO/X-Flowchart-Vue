@@ -105,7 +105,7 @@ export default function (enableMaterials) {
           type: 'textbox',
           label: 'Textbox',
           defaultLabel: '',
-          enable: true,
+          enable: false,
           width: 80,
           height: 80,
           minWidth: 20,
@@ -446,7 +446,7 @@ export default function (enableMaterials) {
       label: 'Miscellaneous',
       lang: 'L10302',
       icon: '',
-      enable: true,
+      enable: false,
       children: []
     },
     {
@@ -454,7 +454,7 @@ export default function (enableMaterials) {
       label: 'Advanced',
       lang: 'L10303',
       icon: '',
-      enable: true,
+      enable: false,
       children: []
     },
     {
@@ -462,7 +462,7 @@ export default function (enableMaterials) {
       label: 'Basic',
       lang: 'L10304',
       icon: '',
-      enable: true,
+      enable: false,
       children: []
     },
     {
@@ -921,7 +921,7 @@ export default function (enableMaterials) {
       label: 'UML',
       lang: 'L10306',
       icon: '',
-      enable: true,
+      enable: false,
       children: []
     },
     {
@@ -929,7 +929,7 @@ export default function (enableMaterials) {
       label: 'BPMN General',
       lang: 'L10307',
       icon: '',
-      enable: true,
+      enable: false,
       children: []
     },
     {
@@ -937,7 +937,7 @@ export default function (enableMaterials) {
       label: 'Flowchart',
       lang: 'L10308',
       icon: '',
-      enable: true,
+      enable: false,
       children: []
     },
     {
@@ -945,7 +945,7 @@ export default function (enableMaterials) {
       label: 'Clipart',
       lang: 'L10309',
       icon: '',
-      enable: true,
+      enable: false,
       children: []
     }
   ]
@@ -955,7 +955,7 @@ export default function (enableMaterials) {
       const [ name, types ] = item
       if (defMaterials.find(target => target.name === name)) {
         const materialItem = defMaterials[name]
-        materialItem.children = materialItem.children.filter(item => types.includes(item.name))
+        materialItem.children = materialItem.children.filter(child => types.includes(child.name))
         materials.push(materialItem)
       }
     })

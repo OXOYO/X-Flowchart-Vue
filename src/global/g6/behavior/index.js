@@ -15,7 +15,7 @@ const obj = {
 }
 
 export default function (G6) {
-  Object.values(obj).map(item => {
+  Object.values(obj).forEach(item => {
     G6.registerBehavior(item.name, item.options)
   })
 }

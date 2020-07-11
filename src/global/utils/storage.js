@@ -8,8 +8,8 @@ const getKey = function (key, prefix, separator = '-') {
   return [prefix, key].join(separator)
 }
 export default {
-  get (key, prefix, separator) {
-    if (!key) {
+  get (keys, prefix, separator) {
+    if (!keys) {
       return
     }
     const handler = function (key) {
@@ -33,16 +33,16 @@ export default {
       }
       return ret
     }
-    if (Array.isArray(key)) {
+    if (Array.isArray(keys)) {
       const ret = {}
-      key.forEach(key => {
+      keys.forEach(key => {
         key = getKey(key, prefix, separator)
         ret[key] = handler(key)
       })
       return ret
-    } else if (typeof key === 'object') {
+    } else if (typeof keys === 'object') {
       const ret = {}
-      Object.entries(key).forEach(item => {
+      Object.entries(keys).forEach(item => {
         let aliasKey = item[0]
         const key = item[1]
         aliasKey = getKey(aliasKey, prefix, separator)
@@ -50,8 +50,7 @@ export default {
       })
       return ret
     } else {
-      key = getKey(key, prefix, separator)
-      return handler(key)
+      return handler(getKey(keys, prefix, separator))
     }
   },
   set (key, data, prefix, separator) {

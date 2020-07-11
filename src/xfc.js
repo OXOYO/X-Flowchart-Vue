@@ -17,12 +17,6 @@ import vClickOutside from 'v-click-outside'
 
 export default function (options) {
   const { el, props } = options
-  // Vue 全局配置
-  const isDev = process && process.env.NODE_ENV !== 'production'
-  Vue.config.debug = isDev
-  Vue.config.devtools = isDev
-  Vue.config.productionTip = isDev
-  Vue.config.performance = isDev
 
   if (props) {
     // 合并配置
@@ -38,9 +32,10 @@ export default function (options) {
     if (props.hasOwnProperty('tools') && props.tools && props.tools instanceof Object) {
       config.tools = props.tools
     } else {
+      const disableTools = Array.isArray(props.disableTools) ? props.disableTools : []
       const enableTools = Array.isArray(props.enableTools) ? props.enableTools : []
       const shortcutMap = props.shortcutMap || {}
-      config.tools = config.tools(config.system, enableTools, shortcutMap)
+      config.tools = config.tools(config.system, disableTools, enableTools, shortcutMap)
     }
     // 处理materials
     if (Array.isArray(props.materials)) {
@@ -56,7 +51,6 @@ export default function (options) {
 
   // 挂载 $X 命名空间
   Vue.prototype.$X = {
-    isDev,
     utils,
     config
   }

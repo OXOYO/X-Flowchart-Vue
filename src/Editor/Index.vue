@@ -202,58 +202,6 @@
               'preview-canvas'
             ]
           },
-          /* defaultNode: {
-            type: 'circle',
-            style: {
-              fill: '#FFFF00',
-              fillOpacity: 1,
-              stroke: '#000000',
-              strokeOpacity: 1,
-              cursor: 'move'
-            }
-          },
-          defaultEdge: {
-            style: {
-              stroke: '#FF0000',
-              strokeOpacity: 1,
-              // 扩展响应范围
-              lineAppendWidth: 10,
-              cursor: 'pointer'
-            },
-            labelCfg: {
-              // 边上的标签文本根据边的方向旋转
-              autoRotate: true
-            }
-          }, */
-          /*
-          // 节点交互样式
-          nodeStateStyles: {
-            // 默认样式
-            // default: {
-            //   fill: '#FFFFFF',
-            //   fillOpacity: 1,
-            //   stroke: '#000000',
-            //   strokeOpacity: 1,
-            //   cursor: 'move'
-            // },
-            // active 状态下的样式
-            active: {},
-            // selected 状态下的样式
-            selected: {},
-            // hover 状态下的样式
-            hover: {}
-          },
-          // 边交互样式
-          edgeStateStyles: {
-            // default: {
-            //   stroke: '#000000',
-            //   strokeOpacity: 1,
-            //   // 扩展响应范围
-            //   lineAppendWidth: 10,
-            //   cursor: 'pointer'
-            // }
-          },
-          */
           // 分组样式
           groupType: 'rect',
           groupStyle: {
@@ -293,20 +241,15 @@
         // 绑定事件
         _t.editor.on('canvas:mousedown', _t._canvasMousedown)
         // 绑定事件
-        // _t.editor.on('canvas:mouseup', _t._canvasMouseup)
-        // _t.editor.on('click', _t._editorClick)
-        // _t.editor.on('node:click', _t._nodeClick)
         _t.editor.on('node:mousedown', _t._nodeMousedown)
         _t.editor.on('node:mouseover', _t._nodeHover)
         _t.editor.on('node:mouseout', _t._nodeOut)
-        // _t.editor.on('node:contextmenu', _t._nodeContextmenu)
         _t.editor.on('edge:mousedown', _t._edgeMousedown)
         _t.editor.on('editor:getItem', function (data) {
           _t.currentItem = data
         })
         _t.editor.on('editor:setItem', function (data) {
           data.forEach((item, index) => {
-            console.log('item', item)
             const model = item.model
             // if (item.type === 'edge') {
             //   TODO 处理箭头
@@ -328,7 +271,7 @@
           _t.$X.utils.bus.$emit('editor/contextmenu/open', data)
         })
         _t.editor.on('editor:record', function (from) {
-          console.log('editor:record from', from)
+          // console.log('editor:record from', from)
           // 更新操作日志
           _t.doUpdateLog({
             action: 'record',
@@ -349,19 +292,6 @@
         // 更新currentItem
         _t.currentItem = []
       },
-      _canvasMouseup () {
-        // let _t = this
-        console.log('_canvasMouseup')
-        // _t.editor.setMode('edit')
-      },
-      _editorClick (event) {
-        console.log('_editorClick', event)
-      },
-      _nodeClick (event) {
-        // let _t = this
-        console.log('_nodeClick', event)
-        // _t.editor.setItemState(event.item, 'active', true)
-      },
       _nodeMousedown (event) {
         const _t = this
         _t.doClearAllStates()
@@ -377,9 +307,6 @@
       _nodeOut (event) {
         const _t = this
         _t.editor.setItemState(event.item, 'hover', false)
-      },
-      _nodeContextmenu (event) {
-        console.log('_nodeContextmenu', event)
       },
       _edgeMousedown (event) {
         const _t = this
@@ -662,12 +589,12 @@
           }
           case 'lineColor': {
             _t.editor.$D.lineColor = info.data
-            console.log('lineColor', info.data)
+            // console.log('lineColor', info.data)
             _t.editor.getEdges().forEach(edge => {
               if (edge.hasState('active')) {
                 isRecord = true
                 const { style } = edge.getModel()
-                console.log('edge style', style)
+                // console.log('edge style', style)
                 _t.editor.updateItem(edge, {
                   style: {
                     ...style,
@@ -762,7 +689,7 @@
           }
           case 'startArrow':
           case 'endArrow': {
-            console.log('info', info)
+            // console.log('info', info)
             _t.editor.$D[info.name] = info.data
             const handleArrowStyle = function (data, lineColor) {
               if (!data) {
@@ -779,7 +706,7 @@
                 arrowStyle.fill = lineColor
                 arrowStyle.stroke = lineColor
               }
-              console.log('arrowStyle', arrowStyle, data, lineColor)
+              // console.log('arrowStyle', arrowStyle, data, lineColor)
               return arrowStyle
             }
             // 根据端点类型更新边
@@ -787,7 +714,7 @@
               if (edge.hasState('active')) {
                 isRecord = true
                 const { style } = edge.getModel()
-                console.log('style', style, info.name)
+                // console.log('style', style, info.name)
                 _t.editor.updateItem(edge, {
                   style: {
                     ...style,
@@ -1190,10 +1117,8 @@
             break
           // 清空
           case 'clearLog':
-            log.list = [
-              oldLog.list[oldLog.current]
-            ]
-            log.current = 0
+            log.list = []
+            log.current = null
             break
           case 'loadData':
             if (data.data) {

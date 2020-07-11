@@ -1203,7 +1203,7 @@ export default {
           horizontalLines.sort((a, b) => a.dis - b.dis)
           verticalLines.sort((a, b) => a.dis - b.dis)
           // 过滤掉距离为0的线条
-          horizontalLines = horizontalLines.filter(item => item.dis !== 0)
+          horizontalLines = horizontalLines.filter(lineItem => lineItem.dis !== 0)
           if (horizontalLines.length && horizontalLines[0].dis < _t.alignLine.maxDistance) {
             // 取前3个距离相等的线条
             for (let i = 0; i < 3; i++) {
@@ -1213,7 +1213,7 @@ export default {
             }
           }
           // 过滤掉距离为0的线条
-          verticalLines = verticalLines.filter(item => item.dis !== 0)
+          verticalLines = verticalLines.filter(lineItem => lineItem.dis !== 0)
           if (verticalLines.length && verticalLines[0].dis < _t.alignLine.maxDistance) {
             // 取前3个距离相等的线条
             for (let i = 0; i < 3; i++) {

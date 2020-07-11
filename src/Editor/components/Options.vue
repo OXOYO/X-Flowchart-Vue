@@ -466,13 +466,11 @@
       currentItem: {
         handler (val) {
           const _t = this
-          console.log('watch')
           // 取第一个节点
           _t.firstItem = val[0]
           if (_t.firstItem) {
             // 解构属性
             const model = JSON.parse(JSON.stringify(_t.firstItem.model))
-            console.log('model', model)
             const { labelCfg } = model
             const formData = {}
             if (_t.isNode) {
@@ -484,7 +482,6 @@
                 width,
                 height
               }
-              console.log('style', style)
               // 元素样式属性
               formData.style = {
                 fill: style.fill,
@@ -568,7 +565,7 @@
             if (/^l\(\d{1,3}\)/gi.test(formData.style.fill)) {
               const gradientDirection = formData.style.fill.match(/^l\((\d{1,3})\)/gi)[0].match(/\d{1,3}/gi)[0]
               const [fillColor, gradientColor] = formData.style.fill.match(/[0,1]{1}:#([\da-f]{3}){1,2}/gi)
-              console.log('fileColor', gradientDirection, typeof gradientDirection, fillColor, gradientColor)
+              // console.log('fileColor', gradientDirection, typeof gradientDirection, fillColor, gradientColor)
               _t.gradientDirection = gradientDirection ? parseInt(gradientDirection) : 0
               _t.fillColor = fillColor.replace('0:', '')
               _t.gradientColor = gradientColor.replace('1:', '')
@@ -584,7 +581,7 @@
     methods: {
       handleChange (val, from) {
         const _t = this
-        console.log('change', val, from)
+        // console.log('change', val, from)
         // 处理数据
         let model = {
           style: _t.formData.style,
@@ -612,7 +609,7 @@
         } else {
           model.style.fill = _t.fillColor
         }
-        console.log('model', JSON.stringify(model))
+        // console.log('model', JSON.stringify(model))
         // 当前节点数组
         const currentItemArr = _t.currentItem
         // 更新第一个节点

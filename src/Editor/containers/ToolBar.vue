@@ -296,7 +296,7 @@
       },
       handleDropdownClick (item, type, index, val) {
         const _t = this
-        console.log('handleDropdownClick', item.name)
+        // console.log('handleDropdownClick', item.name)
         if (item.disabled) {
           return
         }
@@ -313,7 +313,7 @@
       },
       handleToolClick (item, val) {
         const _t = this
-        console.log('handleToolClick', item.name, val)
+        // console.log('handleToolClick', item.name, val)
         if (item.disabled) {
           return
         }

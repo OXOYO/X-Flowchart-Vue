@@ -4,7 +4,7 @@
  * 工具项配置
  */
 
-export default function (system = {}, enableTools, shortcutMap = {}) {
+export default function (system = {}, disableTools = [], enableTools = [], shortcutMap = {}) {
   // 工具项快捷键列表
   shortcutMap = {
     undo: { tool: 'undo', key: 'mod+z', label: 'Ctrl + Z', description: '' },
@@ -110,7 +110,7 @@ export default function (system = {}, enableTools, shortcutMap = {}) {
       lang: 'L10032',
       type: 'normal',
       icon: 'clear-log',
-      enableTool: false,
+      enableTool: true,
       enable: true,
       enableMode: ['edit'],
       disabled: false,
@@ -2140,7 +2140,10 @@ export default function (system = {}, enableTools, shortcutMap = {}) {
       }
     }
   ]
-  if (Array.isArray(enableTools) && enableTools.length) {
+  // 处理禁用或启用
+  if (Array.isArray(disableTools) && disableTools.length) {
+    toolList = toolList.filter(item => !disableTools.includes(item.name))
+  } else if (Array.isArray(enableTools) && enableTools.length) {
     toolList = toolList.filter(item => enableTools.includes(item.name))
   }
   return {
