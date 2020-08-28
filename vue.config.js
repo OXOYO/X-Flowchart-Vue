@@ -5,6 +5,8 @@
  *
  * 文档：https://cli.vuejs.org/zh/config/
  */
+// 依赖分析
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 
 module.exports = {
   // 部署应用包时的基本URL，置空使用相对路径
@@ -22,5 +24,11 @@ module.exports = {
         javascriptEnabled: true
       }
     }
+  },
+  configureWebpack: {
+    plugins: [
+      // 依赖分析
+      new BundleAnalyzerPlugin()
+    ]
   }
 }
