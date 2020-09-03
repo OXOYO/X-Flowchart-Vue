@@ -43,8 +43,6 @@
   // 扩展了节点、边的G6
   import G6 from '@/global/g6/index'
   import * as G6Util from '@antv/util'
-  // 自定义栅格插件
-  // import XGrid from '@/global/g6/plugins/XGrid'
   // 背景图
   import XBackground from '@/global/g6/plugins/XBackground'
   // 全屏
@@ -146,9 +144,7 @@
           })
           plugins.push(minimap)
         }
-        const grid = new G6.Grid()
-        const background = new XBackground()
-        plugins.push(grid)
+        const background = new XBackground(_t.$X.config.background)
         plugins.push(background)
         // 生成编辑器实例
         _t.editor = new G6.Graph({
@@ -888,7 +884,7 @@
                     reader.onload = function (event) {
                       try {
                         const imgFile = reader.result
-                        _t.editor.emit('background:update', imgFile)
+                        _t.editor.emit('background:set', imgFile)
                       } catch (e) {
                         console.error('XFC EDITOR ERROR:: update background failed!', e)
                       }

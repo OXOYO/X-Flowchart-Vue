@@ -412,6 +412,20 @@ xfc({
 })
 ```
 
+#### background
+配置画布背景
+```
+xfc({
+  el: '#xfc',
+  props: {
+    background: {
+        grid: '',
+        background: 'https://www.w3school.com.cn/i/eg_chinarose.jpg'
+    }
+  }
+})
+```
+
 ## API
 
 ### read (data, isActualSize)
@@ -543,6 +557,29 @@ xfcEditor.downloadImage()
 ```
 const dataURL = xfcEditor.toDataURL()
 ```
+
+### setBackground (url)
+设置画布图片背景
+
+**参数**
+
+| 名称 | 类型 | 是否必选 | 描述 |
+| --- | --- | --- | --- |
+| url |     | true | 图片地址 |
+
+**用法**
+```
+xfcEditor.setBackground('https://www.w3school.com.cn/i/eg_chinarose.jpg')
+```
+
+### resetBackground ()
+重置画布背景
+
+**用法**
+```
+xfcEditor.resetBackground()
+```
+
 
 ## Reference
 [@antvis/g6](https://github.com/antvis/g6)

@@ -44,9 +44,14 @@ export default function (options) {
       const enableMaterials = props.enableMaterials || {}
       config.materials = config.materials(enableMaterials)
     }
+    // 处理画布背景
+    if (props.background) {
+      config.background = props.background
+    }
   } else {
     config.tools = config.tools(config.system)
     config.materials = config.materials()
+    config.background = {}
   }
 
   // 挂载 $X 命名空间
@@ -108,6 +113,14 @@ export default function (options) {
         // 将画布上元素生成为图片的 URL
         toDataURL (type, backgroundColor) {
           return this.editor.toDataURL(type, backgroundColor)
+        },
+        // 重置画布背景
+        resetBackground () {
+          this.editor.emit('background:reset')
+        },
+        // 设置画布背景
+        setBackground (url) {
+          this.editor.emit('background:set', url)
         }
       }
     })
