@@ -56,7 +56,7 @@
     <div class="preview" @click="togglePanel" v-if="preview">
       <slot name="preview">
         <div class="color-preview" :style="{ background: color }"></div>
-        <Icon class="color-icon" type="ios-arrow-down"></Icon>
+        <XIcon class="color-icon" iconfont="xfc-icon-arrow-down"></XIcon>
       </slot>
     </div>
     <div class="panel" v-show="!preview || (preview && showPanel)">

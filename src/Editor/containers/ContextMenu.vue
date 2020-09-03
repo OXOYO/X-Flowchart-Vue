@@ -109,7 +109,7 @@
             <span class="item-label">{{ $t(item.lang) }}</span>
             <span class="item-shortcut" v-if="item.shortcuts">{{ item.shortcuts.label }}</span>
             <div class="item-more">
-              <Icon type="ios-arrow-forward"></Icon>
+              <XIcon iconfont="xfc-icon-arrow-right"></XIcon>
             </div>
           </template>
           <template v-slot:content>
@@ -142,7 +142,7 @@
             <span class="item-label">{{ $t(item.lang) }}</span>
             <span class="item-shortcut" v-if="item.shortcuts">{{ item.shortcuts.label }}</span>
             <div class="item-more">
-              <Icon type="ios-arrow-forward"></Icon>
+              <XIcon iconfont="xfc-icon-arrow-right"></XIcon>
             </div>
           </template>
           <template v-slot:content>

@@ -56,8 +56,8 @@
     <div class="header" @click="handleToggle">
       <div :class="{ 'title': true, 'bold': bold }" v-if="title">{{ title }}</div>
       <div class="handler" v-if="enableFold">
-        <Icon type="ios-arrow-up" v-show="!isFolded"></Icon>
-        <Icon type="ios-arrow-down" v-show="isFolded"></Icon>
+        <XIcon iconfont="xfc-icon-arrow-up" v-show="!isFolded"></XIcon>
+        <XIcon iconfont="xfc-icon-arrow-down" v-show="isFolded"></XIcon>
       </div>
     </div>
     <div class="body" v-show="!isFolded">

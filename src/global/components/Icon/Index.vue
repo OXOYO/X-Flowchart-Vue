@@ -18,7 +18,7 @@
 
 <template>
   <div class="icon" :title="title">
-    <div v-if="iconfont" class="iconfont" :class="[iconfont ? 'xfv-icon-' + iconfont : '']"></div>
+    <div v-if="iconfont" class="iconfont" :class="[iconfont ? iconPrefix + iconfont : '']"></div>
     <img v-else-if="img" class="img" :src="img">
     <div v-else class="label">{{ label }}</div>
   </div>
@@ -28,6 +28,10 @@
   export default {
     name: 'Icon',
     props: {
+      iconPrefix: {
+        type: String,
+        default: 'xfc-icon-'
+      },
       iconfont: String,
       img: String,
       label: String,
