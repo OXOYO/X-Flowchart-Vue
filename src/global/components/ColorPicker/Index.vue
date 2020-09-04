@@ -9,10 +9,13 @@
     position: relative;
 
     .preview {
-      display: inline-block;
-      &:hover {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+      /*&:hover {
         color: #57a3f3;
-      }
+      }*/
       .color-preview {
         display: inline-block;
         vertical-align: middle;
@@ -56,7 +59,7 @@
     <div class="preview" @click="togglePanel" v-if="preview">
       <slot name="preview">
         <div class="color-preview" :style="{ background: color }"></div>
-        <XIcon class="color-icon" iconfont="xfc-icon-arrow-down"></XIcon>
+        <XIcon class="color-icon" iconfont="arrow-down"></XIcon>
       </slot>
     </div>
     <div class="panel" v-show="!preview || (preview && showPanel)">

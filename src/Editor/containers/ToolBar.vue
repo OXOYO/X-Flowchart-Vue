@@ -97,15 +97,14 @@
               <template v-if="item.disabled">
                 <div style="margin: 0 3px;">
                   <XIcon :iconfont="item.icon" :label="handleLabel(item)" style="vertical-align: middle;"></XIcon>
-                  <XIcon iconfont="xfc-icon-arrow-down"></XIcon>
+                  <XIcon iconfont="arrow-down"></XIcon>
                 </div>
               </template>
               <template v-else>
                 <XColorPicker v-model="formData[item.name]" @on-change="(val) => handleToolClick(item, val, null)">
-                  <div style="margin: 0 3px;" slot="preview">
+                  <template slot="preview" style="display: flex;">
                     <XIcon :iconfont="item.icon" :label="handleLabel(item)" style="vertical-align: middle;"></XIcon>
-                    <XIcon iconfont="xfc-icon-arrow-down"></XIcon>
-                  </div>
+                  </template>
                 </XColorPicker>
               </template>
             </template>
@@ -141,7 +140,7 @@
                     >
                     </XIcon>
                   </template>
-                  <XIcon iconfont="xfc-icon-arrow-down"></XIcon>
+                  <XIcon iconfont="arrow-down"></XIcon>
                 </div>
               </template>
               <template v-else>
@@ -168,7 +167,7 @@
                       >
                       </XIcon>
                     </template>
-                    <XIcon iconfont="xfc-icon-arrow-down"></XIcon>
+                    <XIcon iconfont="arrow-down"></XIcon>
                   </div>
                   <DropdownMenu slot="list">
                     <DropdownItem

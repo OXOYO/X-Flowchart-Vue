@@ -8,15 +8,18 @@
   .card-item {
     display: inline-block;
     width: 100%;
-    /*height: 200px;*/
     position: relative;
 
     .header {
-      display: inline-block;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
       width: 100%;
       padding: 5px 0;
       position: relative;
       border-bottom: 1px solid rgba(0, 0, 0, .1);
+      cursor: pointer;
 
       &:hover {
         background: rgba(0, 0, 0, .1);
@@ -35,12 +38,9 @@
       }
 
       .handler {
-        position: absolute;
-        right: 10px;
-        top: 50%;
-        margin-top: -9px;
-        z-index: 10;
-        cursor: pointer;
+        margin-right: 10px;
+        opacity: 0.3;
+        color: #000000;
       }
     }
     .body {
@@ -56,8 +56,7 @@
     <div class="header" @click="handleToggle">
       <div :class="{ 'title': true, 'bold': bold }" v-if="title">{{ title }}</div>
       <div class="handler" v-if="enableFold">
-        <XIcon iconfont="xfc-icon-arrow-up" v-show="!isFolded"></XIcon>
-        <XIcon iconfont="xfc-icon-arrow-down" v-show="isFolded"></XIcon>
+        <XIcon :iconfont="isFolded ? 'arrow-down' : 'arrow-up'"></XIcon>
       </div>
     </div>
     <div class="body" v-show="!isFolded">
