@@ -24,15 +24,14 @@
         line-height: 30px;
         vertical-align: middle;
         text-align: center;
-        opacity: .3;
         margin: 0 2px;
-        color: #000000;
+        color: #bbbbbb;
 
         &:hover {
-          opacity: 1;
+          color: #000000;
         }
         &.active {
-          opacity: 1;
+          color: #000000;
         }
         &.disabled {
           cursor: not-allowed;

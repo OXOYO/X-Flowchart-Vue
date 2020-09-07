@@ -22,9 +22,6 @@
 import { Sketch } from 'vue-color'
 
 import InputNumber from './InputNumber/Index'
-import Dropdown from './Dropdown/Index'
-import DropdownMenu from './DropdownMenu/Index'
-import DropdownItem from './DropdownItem/Index'
 import Message from './Message/Index'
 import Modal from './Modal/Index'
 import Input from './Input/Index'
@@ -33,6 +30,9 @@ import FormItem from './FormItem/Index'
 import Select from './Select/Index'
 import Option from './Option/Index'
 
+import XDropdown from './Dropdown/Index'
+import XDropdownMenu from './DropdownMenu/Index'
+import XDropdownItem from './DropdownItem/Index'
 import XButton from './Button/Index'
 import XIcon from './Icon/Index'
 import XTooltip from './Tooltip/Index'
@@ -43,9 +43,6 @@ import XNoData from './NoData/Index'
 const obj = {
   // ui组件
   InputNumber,
-  Dropdown,
-  DropdownMenu,
-  DropdownItem,
   Message,
   Modal,
   Input,
@@ -56,6 +53,9 @@ const obj = {
   // 颜色选择器
   SketchPicker: Sketch,
   // 自定义组件
+  XDropdown,
+  XDropdownMenu,
+  XDropdownItem,
   XButton,
   XIcon,
   XTooltip,

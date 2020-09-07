@@ -5,7 +5,7 @@
 */
 
 <style scoped lang="less" rel="stylesheet/less">
-  .icon {
+  .x-icon {
     display: inline-block;
     .iconfont {}
     .img {
@@ -17,10 +17,10 @@
 </style>
 
 <template>
-  <div class="icon" :title="title">
-    <div v-if="iconfont" class="iconfont" :class="[iconfont ? iconPrefix + iconfont : '']" :style="fontSize"></div>
+  <div class="x-icon" :title="title">
+    <div v-if="iconfont" class="iconfont" :class="[iconfont ? iconPrefix + iconfont : '']" :style="fontStyle"></div>
     <img v-else-if="img" class="img" :src="img" :style="imgStyle">
-    <div v-else class="label" :style="fontSize">{{ label }}</div>
+    <div v-else class="label" :style="fontStyle">{{ label }}</div>
   </div>
 </template>
 
@@ -36,7 +36,8 @@
       img: String,
       label: String,
       title: String,
-      size: String
+      size: [Number, String],
+      imgSize: [Number, String, Array]
     },
     computed: {
       sizeValue () {
@@ -56,16 +57,35 @@
         }
         return `${size}px`
       },
-      fontSize () {
+      imgSizeValue () {
+        let imgSizeValue
+        if (this.imgSize) {
+          if (Array.isArray(this.imgSize)) {
+            if (this.imgSize.length === 1) {
+              imgSizeValue = [this.imgSize[0], this.imgSize[0]]
+            } else if (this.imgSize.length >= 2) {
+              imgSizeValue = [this.imgSize[0], this.imgSize[1]]
+            }
+          } else if (!isNaN(parseInt(this.imgSize))) {
+            imgSizeValue = [parseInt(this.imgSize), parseInt(this.imgSize)]
+          }
+        }
+        return imgSizeValue
+      },
+      fontStyle () {
         return {
           'font-size': this.sizeValue
         }
       },
       imgStyle () {
-        return {
-          width: this.sizeValue,
-          height: this.sizeValue
+        if (this.imgSizeValue && Array.isArray(this.imgSizeValue)) {
+          const [ width, height ] = this.imgSizeValue
+          return {
+            width: `${width}px`,
+            height: `${height}px`
+          }
         }
+        return {}
       }
     }
   }

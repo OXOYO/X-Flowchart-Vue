@@ -5,15 +5,19 @@
  */
 
 <style scoped lang="less">
-
+  .x-dropdown-menu {
+    min-width: 100px;
+  }
 </style>
 
 <template>
-  <h1>TODO </h1>
+  <ul class="x-dropdown-menu">
+    <slot></slot>
+  </ul>
 </template>
 
 <script>
   export default {
-    name: ''
+    name: 'XDropdownMenu'
   }
 </script>

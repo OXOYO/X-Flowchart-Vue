@@ -62,9 +62,7 @@ export default function (system = {}, disableTools = [], enableTools = [], short
         // 位置
         position: 'left',
         // 样式
-        style: {
-          opacity: 1
-        },
+        style: {},
         // 分割线，是否在该工具项后显示分割线，ToolBar中为竖线，ContextMenu中为横线
         divider: false
       },

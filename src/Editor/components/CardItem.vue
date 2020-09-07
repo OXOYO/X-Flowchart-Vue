@@ -39,8 +39,7 @@
 
       .handler {
         margin-right: 10px;
-        opacity: 0.3;
-        color: #000000;
+        color: #bbbbbb;
       }
     }
     .body {
