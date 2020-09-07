@@ -48,8 +48,8 @@
       </template>
     </div>
     <div slot="footer">
-      <Button type="default" @click="doHide">{{ $t('L10203') }}</Button>
-      <Button type="primary" :loading="flagMap.loading" @click="doDownload">{{ $t('L10204') }}</Button>
+      <XButton type="default" @click="doHide">{{ $t('L10203') }}</XButton>
+      <XButton type="primary" :loading="flagMap.loading" @click="doDownload">{{ $t('L10204') }}</XButton>
     </div>
   </Modal>
 </template>

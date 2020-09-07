@@ -26,7 +26,7 @@
 
 <script>
   export default {
-    name: 'Icon',
+    name: 'XIcon',
     props: {
       iconPrefix: {
         type: String,

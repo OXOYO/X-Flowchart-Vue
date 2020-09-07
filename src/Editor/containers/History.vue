@@ -59,8 +59,8 @@
       <XNoData v-else></XNoData>
     </div>
     <div slot="footer">
-      <Button type="default" @click="doHide">{{ $t('L10203') }}</Button>
-      <Button type="primary" @click="doRevert">{{ $t('L10209') }}</Button>
+      <XButton type="default" @click="doHide">{{ $t('L10203') }}</XButton>
+      <XButton type="primary" @click="doRevert">{{ $t('L10209') }}</XButton>
     </div>
   </Modal>
 </template>

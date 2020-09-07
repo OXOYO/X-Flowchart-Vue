@@ -70,8 +70,8 @@
         @input="handleChange"
       ></SketchPicker>
       <div class="btn-block">
-        <Button class="btn" type="default" size="small" @click="doHide">{{ $t('L10203') }}</Button>
-        <Button class="btn" type="primary" size="small" @click="doConfirm">{{ $t('L10205') }}</Button>
+        <XButton class="btn" type="default" size="small" @click="doHide">{{ $t('L10203') }}</XButton>
+        <XButton class="btn" type="primary" size="small" @click="doConfirm">{{ $t('L10205') }}</XButton>
       </div>
     </div>
   </div>

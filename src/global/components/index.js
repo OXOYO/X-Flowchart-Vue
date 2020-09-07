@@ -32,8 +32,8 @@ import Form from './Form/Index'
 import FormItem from './FormItem/Index'
 import Select from './Select/Index'
 import Option from './Option/Index'
-import Button from './Button/Index'
 
+import XButton from './Button/Index'
 import XIcon from './Icon/Index'
 import XTooltip from './Tooltip/Index'
 import XDivider from './Divider/Index'
@@ -53,10 +53,10 @@ const obj = {
   FormItem,
   Select,
   Option,
-  Button,
   // 颜色选择器
   SketchPicker: Sketch,
   // 自定义组件
+  XButton,
   XIcon,
   XTooltip,
   XDivider,
