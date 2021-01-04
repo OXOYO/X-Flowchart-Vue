@@ -16,6 +16,7 @@
     white-space: nowrap;
     user-select: none;
     height: 32px;
+    line-height: 1.5;
     padding: 0 15px;
     font-size: 14px;
     transition: color .2s linear,background-color .2s linear,border .2s linear,box-shadow .2s linear;
@@ -27,38 +28,56 @@
       background-color: #fff;
       border-color: #57a3f3;
     }
-  }
-  .type-default {}
-  .type-primary {
-    color: #fff;
-    background-color: #2d8cf0;
-    border-color: #2d8cf0;
-    &:active,
-    &:hover {
-      color: #ffffff;
-      background-color: #57a3f3;
-      border-color: #57a3f3;
+
+    &+.x-btn {
+      margin-left: 10px;
     }
-  }
-  .type-dashed {
-    color: #515a6e;
-    background-color: #fff;
-    border-color: #dcdee2;
-    border-style: dashed;
-    &:hover {
-      color: #57a3f3;
-      background-color: #fff;
-      border-color: #57a3f3;
+    &-type-default {}
+    &-type-primary {
+      color: #fff;
+      background-color: #2d8cf0;
+      border-color: #2d8cf0;
+      &:active,
+      &:hover {
+        color: #ffffff;
+        background-color: #57a3f3;
+        border-color: #57a3f3;
+      }
     }
-  }
-  .type-text {
-    color: #515a6e;
-    background-color: transparent;
-    border-color: transparent;
-    &:hover {
-      color: #57a3f3;
+    &-type-dashed {
+      color: #515a6e;
       background-color: #fff;
+      border-color: #dcdee2;
+      border-style: dashed;
+      &:hover {
+        color: #57a3f3;
+        background-color: #fff;
+        border-color: #57a3f3;
+      }
+    }
+    &-type-text {
+      color: #515a6e;
+      background-color: transparent;
       border-color: transparent;
+      &:hover {
+        color: #57a3f3;
+        background-color: #fff;
+        border-color: transparent;
+      }
+    }
+    &-size-small {
+      height: 24px;
+      padding: 0 7px;
+      font-size: 14px;
+    }
+    &-size-large {
+      height: 40px;
+      padding: 0 15px;
+      font-size: 16px;
+      border-radius: 4px;
+    }
+    &-long {
+      width: 100%;
     }
   }
 </style>
@@ -90,8 +109,8 @@
     },
     computed: {
       classList () {
-        const type = `type-${this.type}`
-        const size = `size-${this.size}`
+        const type = `x-btn-type-${this.type}`
+        const size = `x-btn-size-${this.size}`
         return [ type, size ]
       }
     },

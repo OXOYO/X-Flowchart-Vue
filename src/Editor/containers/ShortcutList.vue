@@ -9,14 +9,15 @@
 </style>
 
 <template>
-  <Modal
-    class-name="shortcut-list-model"
-    v-model="isShow"
-    :title="$t('L10450')"
-    :footer-hide="true"
-  >
+  <XModal class-name="shortcut-list-model" :visible="isShow" :title="$t('L10450')" :footer="false">
+<!--  <Modal-->
+<!--    class-name="shortcut-list-model"-->
+<!--    v-model="isShow"-->
+<!--    :title="$t('L10450')"-->
+<!--    :footer-hide="true"-->
+<!--  >-->
     <Table :columns="tableColumns" :data="tableData"></Table>
-  </Modal>
+  </XModal>
 </template>
 
 <script>

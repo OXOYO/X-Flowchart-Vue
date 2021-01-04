@@ -40,7 +40,8 @@
 </style>
 
 <template>
-  <Modal class-name="history-model" v-model="isShow" width="660" @on-cancel="doHide">
+  <XModal class-name="history-model" :visible="isShow" width="660" @on-cancel="doHide">
+    <!--  <Modal class-name="history-model" v-model="isShow" width="660" @on-cancel="doHide">-->
     <div class="body">
       <template v-if="log && log.list.length">
         <div class="history-list">
@@ -62,7 +63,7 @@
       <XButton type="default" @click="doHide">{{ $t('L10203') }}</XButton>
       <XButton type="primary" @click="doRevert">{{ $t('L10209') }}</XButton>
     </div>
-  </Modal>
+  </XModal>
 </template>
 
 <script>

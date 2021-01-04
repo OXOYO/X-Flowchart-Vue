@@ -23,7 +23,7 @@ import { Sketch } from 'vue-color'
 
 import InputNumber from './InputNumber/Index'
 import Message from './Message/Index'
-import Modal from './Modal/Index'
+import XModal from './Modal/Index'
 import Input from './Input/Index'
 import Form from './Form/Index'
 import FormItem from './FormItem/Index'
@@ -44,7 +44,7 @@ const obj = {
   // ui组件
   InputNumber,
   Message,
-  Modal,
+  XModal,
   Input,
   Form,
   FormItem,

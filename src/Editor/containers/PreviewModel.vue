@@ -23,14 +23,15 @@
 </style>
 
 <template>
-  <Modal
-    class="preview-model"
-    v-model="isShow"
-    :title="$t('L10202')"
-    :width="960"
-    :closable="false"
-    :mask-closable="false"
-  >
+  <XModal class-name="preview-model" :visible="isShow" :title="$t('L10202')" width="960">
+<!--  <Modal-->
+<!--    class="preview-model"-->
+<!--    v-model="isShow"-->
+<!--    :title="$t('L10202')"-->
+<!--    :width="960"-->
+<!--    :closable="false"-->
+<!--    :mask-closable="false"-->
+<!--  >-->
     <div class="body">
       <template v-if="previewData">
         <img
@@ -51,7 +52,7 @@
       <XButton type="default" @click="doHide">{{ $t('L10203') }}</XButton>
       <XButton type="primary" :loading="flagMap.loading" @click="doDownload">{{ $t('L10204') }}</XButton>
     </div>
-  </Modal>
+  </XModal>
 </template>
 
 <script>

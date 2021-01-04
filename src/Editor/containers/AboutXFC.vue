@@ -7,10 +7,11 @@
 <style scoped lang="less">
   .about-model {
     .body {
+      line-height: 1;
       text-align: center;
       .title {
         display: inline-block;
-        margin: 60px 0 10px;
+        margin: 20px 0 10px;
         .img {
           width: 80px;
         }
@@ -49,7 +50,8 @@
 </style>
 
 <template>
-  <Modal class-name="about-model" v-model="isShow" :footer-hide="true">
+  <XModal class="about-model" :visible.sync="isShow">
+  <!--  <Modal class-name="about-model" v-model="isShow" :footer-hide="true">-->
     <div class="body">
       <a class="title" :href="$X.config.system.site" target="_blank">
         <img class="img" :src="$X.config.system.logo" alt="">
@@ -69,7 +71,7 @@
       </div>
       <div class="copyright">{{ $X.config.system.copyright }}</div>
     </div>
-  </Modal>
+  </XModal>
 </template>
 
 <script>
