@@ -575,3 +575,6 @@ Copyright (c) 2019-present, OXOYO
 ## Contact
 
 点击链接加入群【Web全栈QQ群 333765077】：https://jq.qq.com/?_wv=1027&k=53iWbrr
+
+## Star History
+[![Stargazers over time](https://starchart.cc/OXOYO/X-Flowchart-Vue.svg)](https://starchart.cc/OXOYO/X-Flowchart-Vue)
