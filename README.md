@@ -6,6 +6,13 @@
 [![License](https://img.shields.io/npm/l/@oxoyo/xfc.svg)](https://www.npmjs.com/package/@oxoyo/xfc)
 [![NPM downloads](http://img.shields.io/npm/dm/@oxoyo/xfc.svg)](https://npmjs.org/package/@oxoyo/xfc)
 [![Downloads](https://img.shields.io/npm/dt/@oxoyo/xfc.svg)](https://www.npmjs.com/package/@oxoyo/xfc)
+![GitHub issues](https://img.shields.io/github/issues/OXOYO/X-Flowchart-Vue)
+![GitHub closed issues](https://img.shields.io/github/issues-closed/OXOYO/X-Flowchart-Vue)
+![GitHub repo size](https://img.shields.io/github/repo-size/oxoyo/X-Flowchart-Vue)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/OXOYO/X-Flowchart-Vue)
+![Lines of code](https://img.shields.io/tokei/lines/github/OXOYO/X-Flowchart-Vue)
+![GitHub Sponsors](https://img.shields.io/github/sponsors/OXOYO)
+
 
 ## 预览
 
