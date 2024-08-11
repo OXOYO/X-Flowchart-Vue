@@ -209,7 +209,7 @@
           >
             <template v-slot:label>
               <a class="link" :href="item.link" target="_blank" style="color: #333333;">
-                <XIcon :iconfont="item.icon" :img="item.img" :label="handleLabel(item)"></XIcon>
+                <XIcon :iconfont="item.icon" :img="item.img" :label="handleLabel(item)" :style="item.toolbar.iconStyle"></XIcon>
               </a>
             </template>
           </ToolItem>

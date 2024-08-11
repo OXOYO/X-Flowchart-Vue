@@ -10,7 +10,7 @@ export default {
   author,
   description,
   title: 'XFC',
-  logo: require('@/assets/images/logo.png'),
+  logo: require('@/assets/images/logo_12.png'),
   github: 'https://github.com/OXOYO/X-Flowchart-Vue',
   site: 'http://oxoyo.co/X-Flowchart-Vue/',
   feedback: 'https://github.com/OXOYO/X-Flowchart-Vue/issues/new',

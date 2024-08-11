@@ -65,6 +65,9 @@ export default function (system = {}, disableTools = [], enableTools = [], short
         style: {
           opacity: 1
         },
+        iconStyle: {
+          width: '32px'
+        },
         // 分割线，是否在该工具项后显示分割线，ToolBar中为竖线，ContextMenu中为横线
         divider: false
       },
