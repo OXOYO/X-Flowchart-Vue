@@ -579,6 +579,8 @@ const dataURL = xfcEditor.toDataURL()
 
 Copyright (c) 2019-present, OXOYO
 
+<!-- GitAds-Verify: OEIY11GZW3RLMZW9GNKKXHFK5TBT2NN1 -->
+
 ## Contact
 
 <div align="left">
