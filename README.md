@@ -580,6 +580,8 @@ const dataURL = xfcEditor.toDataURL()
 Copyright (c) 2019-present, OXOYO
 
 <!-- GitAds-Verify: OEIY11GZW3RLMZW9GNKKXHFK5TBT2NN1 -->
+## GitAds Sponsored
+[![Sponsored by GitAds](https://gitads.dev/v1/ad-serve?source=oxoyo/x-flowchart-vue@github)](https://gitads.dev/v1/ad-track?source=oxoyo/x-flowchart-vue@github)
 
 ## Contact
 
