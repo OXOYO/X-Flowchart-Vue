@@ -12,6 +12,7 @@
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/OXOYO/X-Flowchart-Vue)
 ![Lines of code](https://img.shields.io/tokei/lines/github/OXOYO/X-Flowchart-Vue)
 ![GitHub Sponsors](https://img.shields.io/github/sponsors/OXOYO)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/OXOYO/X-Flowchart-Vue)
 
 
 ## 预览
